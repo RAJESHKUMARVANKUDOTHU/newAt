@@ -10,19 +10,17 @@ import { LoginAuthService } from '../../services/login-auth.service';
   styleUrls: ['./offline-device.component.css']
 })
 export class OfflineDeviceComponent implements OnInit {
-  @ViewChild(MatSort) sort1: MatSort;
-  @ViewChild(MatPaginator) paginator1: MatPaginator;
-  @ViewChild(MatSort) sort2: MatSort;
-  @ViewChild(MatPaginator) paginator2: MatPaginator;
-  @ViewChild(MatSort) sort3: MatSort;
-  @ViewChild(MatPaginator) paginator3: MatPaginator;
+  @ViewChild('sort1') sort1: MatSort;
+  @ViewChild('paginator1') paginator1: MatPaginator;
+  @ViewChild('sort2') sort2: MatSort;
+  @ViewChild('paginator2') paginator2: MatPaginator;
+  @ViewChild('sort3') sort3: MatSort;
+  @ViewChild('paginator3') paginator3: MatPaginator;
+  
   OfflineDeviceData:any=[]
   OfflineGatewayData:any=[]
   OfflineCoinData:any=[]
-  findLen:any=0
-  gatewayLen:any=0
-  coinLen:any=0
-  dataSource3: any = [];
+  dataSource0: any = [];
   dataSource1: any = [];
   dataSource2: any = [];
   displayedColumns1 = ['i','deviceId','deviceName','updatedOn'];
@@ -44,15 +42,12 @@ export class OfflineDeviceComponent implements OnInit {
       this.OfflineDeviceData=[]
       if(res.status){
         this.OfflineDeviceData=res.offlineDeviceList
-        this.findLen=res.offlineDeviceList.length
-        console.log("findlen==",this.findLen)
-        this.dataSource3 = new MatTableDataSource(this.OfflineDeviceData);
+        this.dataSource0 = new MatTableDataSource(this.OfflineDeviceData);
 
         setTimeout(() => {
-          this.dataSource3.sort1 = this.sort1;
-          this.dataSource3.paginator1=this.paginator1
-          this.dataSource3.length= this.findLen
-        })
+           this.dataSource0.paginator = this.paginator1
+          this.dataSource0.sort = this.sort1
+         })
       }
   
     }).catch((err:any)=>{
@@ -67,7 +62,6 @@ export class OfflineDeviceComponent implements OnInit {
     
       if(res.status){
         this.OfflineGatewayData=res.offlineGatewayList
-        this.gatewayLen=res.offlineGatewayList.length
         // for(let i=0;i<res.offlineGatewayList.length;i++){
         //   if(res.offlineGatewayList[i] != null){
         //     this.OfflineGatewayData.push(res.offlineGatewayList[i])
@@ -78,10 +72,9 @@ export class OfflineDeviceComponent implements OnInit {
         this.dataSource1 = new MatTableDataSource(this.OfflineGatewayData);
 
         setTimeout(() => {
-          this.dataSource1.sort2 = this.sort2;
-          this.dataSource1.paginator2=this.paginator2
-          this.dataSource1.length=this.gatewayLen
-        })
+          this.dataSource1.paginator = this.paginator2
+          this.dataSource1.sort = this.sort2
+         })
       }
   
     }).catch((err:any)=>{
@@ -96,7 +89,6 @@ export class OfflineDeviceComponent implements OnInit {
     
       if(res.status){
         this.OfflineCoinData=res.offlineCoinList
-        this.coinLen=res.offlineCoinList.length
         // for(let i=0;i<res.offlineCoinList.length;i++){
         //   if(res.offlineCoinList[i] != null){
         //     this.OfflineCoinData.push(res.offlineCoinList[i])
@@ -106,9 +98,8 @@ export class OfflineDeviceComponent implements OnInit {
         this.dataSource2 = new MatTableDataSource(this.OfflineCoinData);
 
         setTimeout(() => {
-          this.dataSource2.sort3 = this.sort3;
-          this.dataSource2.paginator3=this.paginator3
-          this.dataSource2.length=this.coinLen
+          this.dataSource2.paginator = this.paginator3
+          this.dataSource2.sort = this.sort3
         })
       }
   

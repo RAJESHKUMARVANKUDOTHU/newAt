@@ -8,7 +8,7 @@
         
         </mat-expansion-panel-header>
         <div  class="mat-elevation-z8">
-            <table  mat-table [dataSource]="dataSource1" matSort #sort1="matSort">
+            <table  mat-table [dataSource]="dataSource0" matSort #sort1="matSort">
                 <div>
                     <ng-container matColumnDef="i">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -30,7 +30,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns1;" ></tr>
             </table>
-            <mat-paginator [length]="findLen"  pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            <mat-paginator #paginator1  pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div>
     </mat-expansion-panel>
 
@@ -42,7 +42,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div  class="mat-elevation-z8">
-            <table  mat-table [dataSource]="dataSource2" matSort #sort2="matSort">
+            <table  mat-table [dataSource]="dataSource1" matSort #sort2="matSort">
                 <div>
                     <ng-container matColumnDef="i">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -64,7 +64,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns2;" ></tr>
             </table>
-            <mat-paginator [length]="gatewayLen"   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            <mat-paginator #paginator2   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div> 
     </mat-expansion-panel>
 
@@ -76,7 +76,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div  class="mat-elevation-z8">
-            <table  mat-table [dataSource]="dataSource3" matSort #sort3="matSort">
+            <table  mat-table [dataSource]="dataSource2" matSort #sort3="matSort">
                 <div>
                     <ng-container matColumnDef="i">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -103,7 +103,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns3;" ></tr>
             </table>
-            <mat-paginator [length]="coinLen"   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            <mat-paginator #paginator3   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div>
       </mat-expansion-panel>
 </mat-accordion>
