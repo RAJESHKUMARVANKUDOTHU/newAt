@@ -1,0 +1,56 @@
+button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    background-color:rgb(97, 163, 194);
+    border: none;
+    color: white;
+}
+mat-card.mat-card.mat-focus-indicator {
+    width: max-content;
+    margin: 2rem 1rem 0 1rem;
+    height: max-content;
+}
+
+    .mat-header-cell{
+      text-align: center;
+      background-color: orange;
+      font-size: 13px;
+      color: white;
+    }
+    .mat-cell{
+      text-align: center;
+    }
+    .mat-form-field {
+      width: 100%;
+    }
+    .mat-tab-group{
+      position: absolute;
+      margin-left: 26%;
+      width: 74%;
+      margin-top: -16.5%;
+    }
+    .mat-table{
+      width: 100%;
+    }
+@media (max-width: 575.98px) {
+    .mat-card{
+      width: 100% !important;
+    }
+    .mat-tab-group{
+      margin-left: 1%;
+      width: 100%;
+      margin-top: 1%;
+    
+    }
+    .mat-table{
+      width: 500px;
+    }
+    .rounded-circle{
+      margin-right: 20px;
+    }  
+}
+    

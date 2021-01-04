@@ -1,0 +1,40 @@
+<div class="flex"> 
+    <div>
+        <mat-accordion>
+            <!-- ----------------------------Devices----------------------------------- -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Add New Location
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form [formGroup]="createLocation" (ngSubmit)="submit(createLocation.value)">
+                    <mat-form-field>
+                        <input type="text" matInput formControlName="locationName" required>
+                    </mat-form-field> <br>
+                    <mat-form-field>
+                        <textarea  matInput formControlName="description" required></textarea>
+                    </mat-form-field> <br>
+                    <mat-form-field class="full-width-field">
+                        <mat-label>Select Gateway ID</mat-label>
+                        <mat-select  formControlName="gatewayId">
+                            <mat-option *ngFor="let b of gateway" [(value)]="b.gatewayId">
+                              {{b.gatewayId}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error></mat-error>
+                    </mat-form-field> <br>
+                    <div>
+                        <input type="file" >
+                    </div>
+                    <button mat-raised-button [disabled]="!createLocation.valid">Submit</button>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+<div><h1>Map Center</h1> <hr></div>
+<mat-form-field>
+    <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+</div> 

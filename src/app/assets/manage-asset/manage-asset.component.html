@@ -1,0 +1,156 @@
+
+<div class="container-fluid">
+  <div style="display: flex;">
+    <div style="height: 20%; width:25%">
+      Active
+      <canvas
+      baseChart
+      chartType="doughnut"
+      [data]="doughnutChartData"
+      [labels]="doughnutChartLabels"
+      [options]="chartOptions"
+      [colors]="colors"
+      [legend]="false"
+    >
+      </canvas>
+    </div>
+    <div style="height: 20%; width:25%">
+      Offline
+      <canvas
+      baseChart
+      chartType="doughnut"
+      [data]="doughnutChartData1"
+      [labels]="doughnutChartLabels"
+      [options]="chartOptions"
+      [colors]="colors"
+      [legend]="false"
+    >
+      </canvas>
+    </div>
+
+    <div style="height: 20%; width:25%">
+      Registered
+      <canvas
+      baseChart
+      chartType="doughnut"
+      [data]="doughnutChartData2"
+      [labels]="doughnutChartLabels"
+      [options]="chartOptions"
+      [colors]="colors"
+      [legend]="false"
+      >
+      </canvas>
+    </div>
+
+    <div class="assets">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon> Assign Asset</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="assetForm" (ngSubmit)="assign(assetForm.value)">
+            <mat-form-field>
+              <mat-label>Device Id</mat-label>
+              <input type="number" matInput formControlName="deviceId" required>
+              <mat-error>
+                Device ID is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Device Name</mat-label>
+              <input type="text" matInput formControlName="deviceName" required>
+              <!-- <mat-autocomplete #auto="matAutocomplete" [matAutocomplete]="auto">
+                <mat-option *ngFor="let device of deviceData" [value]="device.deviceId">
+                  {{device.deviceName}}
+                </mat-option>
+              </mat-autocomplete> -->
+              <mat-error>
+                Device name is required
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button [disabled]="!assetForm.valid">Submit</button>
+          </form>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon> Deassign Asset</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="assetForm" (ngSubmit)="deassign(assetForm.value)">
+            <mat-form-field>
+              <mat-label>Device Id</mat-label>
+              <input type="number" matInput formControlName="deviceId" required>
+              <mat-error>
+                Device ID is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Device Name</mat-label>
+              <input type="text" matInput formControlName="deviceName"  required>
+              <!-- <mat-autocomplete #auto="matAutocomplete" [matAutocomplete]="auto">
+                <mat-option *ngFor="let device of deviceData" [value]="device.deviceId">
+                  {{device.deviceName}}
+                </mat-option>
+              </mat-autocomplete> -->
+              <mat-error>
+                Device name is required
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button [disabled]="!assetForm.valid">Submit</button>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+  </div>
+</div>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon">verified_user</mat-icon>
+          <span>Manage Finds</span>
+      </ng-template>
+      <br>
+      <app-manage-device></app-manage-device>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <button mat-button>
+          <mat-icon  class="example-tab-icon">verified_user</mat-icon>
+          <span>Manage Gateways</span>
+        </button>
+      </ng-template>
+      <br>
+      <app-manage-gateway></app-manage-gateway>
+    </mat-tab>
+  
+    <mat-tab>
+      <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon">verified_user</mat-icon>
+          <span>Manage Coins</span>
+      </ng-template> <br>
+      <app-manage-coin></app-manage-coin>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon">power_settings_new</mat-icon>
+          <span>Active Devices</span>
+      </ng-template> <br>
+      <app-active-device></app-active-device>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon">power_settings_new</mat-icon>
+          <span>Offline Devices</span>
+      </ng-template> <br>
+      <app-offline-device></app-offline-device>
+    </mat-tab>
+    
+  </mat-tab-group>
+
+
+

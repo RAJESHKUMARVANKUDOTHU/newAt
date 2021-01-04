@@ -1,0 +1,34 @@
+<button mat-raised-button (click)="openDailog()"><mat-icon>add</mat-icon> Add Gateway </button>
+<div  class="mat-elevation-z8">
+    <table  mat-table [dataSource]="dataSource" matSort >
+        <div>
+            <ng-container matColumnDef="i">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+                <td mat-cell *matCellDef="let i=index" > {{i+1}} </td>
+            </ng-container> 
+            <ng-container matColumnDef="gatewayName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gateway Name </th>
+                <td mat-cell *matCellDef="let gateway" > {{gateway.gatewayName}} </td>
+            </ng-container>  
+            <ng-container matColumnDef="gatewayId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gateway Id </th>
+                <td mat-cell *matCellDef="let gateway" > {{gateway.gatewayId}} </td>
+            </ng-container> 
+            <ng-container matColumnDef="updatedOn">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+                <td mat-cell *matCellDef="let gateway" > {{gateway.updatedOn  | date : 'medium'}} </td>
+            </ng-container>   
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+                <td mat-cell *matCellDef="let gateway" (click)="edit(gateway)"> <mat-icon>{{gateway.edit}} </mat-icon></td>
+            </ng-container>  
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+                <td mat-cell *matCellDef="let gateway" (click)="delete(gateway)" > <mat-icon>{{gateway.delete}}</mat-icon> </td>
+            </ng-container>     
+        </div>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+    </table>
+    <mat-paginator   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>

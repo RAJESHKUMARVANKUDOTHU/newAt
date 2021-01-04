@@ -1,0 +1,10 @@
+ng-deep::mat-tab-labels {
+    display: flex;
+    justify-content: space-around;
+    background: #002060 !important;
+    color: white;
+  }
+  .assets {
+    margin: 1rem;
+    text-align: center;
+}

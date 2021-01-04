@@ -1,0 +1,9 @@
+.mat-header-cell{
+    text-align: center;
+    background-color: orange;
+    font-size: 13px;
+    color: white;
+  }
+  .mat-cell{
+    text-align: center;
+  }
