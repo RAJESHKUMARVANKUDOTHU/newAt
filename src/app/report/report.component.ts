@@ -10,7 +10,7 @@ import { LoginAuthService } from '../services/login-auth.service';
 export class ReportComponent implements OnInit {
   genericReport:FormGroup
   customReport:FormGroup
-  date = new Date();
+
   constructor(
     private fb: FormBuilder,
     private login:LoginAuthService,
@@ -37,9 +37,9 @@ export class ReportComponent implements OnInit {
 
   patchGenricDate(){
     this.genericReport.get('days').valueChanges.subscribe((value) => {
-     
-      this.date.setDate(this.date.getDate() - parseInt(value));
-      this.genericReport.controls['fromDate'].patchValue((this.date));
+      var date=new Date()
+      date.setDate(date.getDate() - parseInt(value));
+      this.genericReport.controls['fromDate'].patchValue((date));
     });
     this.genericReport.get('days').valueChanges.subscribe(() => {
       var date=new Date()
@@ -49,9 +49,11 @@ export class ReportComponent implements OnInit {
   }
 
   patchCustomDate(){
+    
     this.customReport.get('days').valueChanges.subscribe((value) => {
-      this.date.setDate(this.date.getDate() - parseInt(value));
-      this.customReport.controls['fromDate'].patchValue((this.date));
+      var date=new Date()
+      date.setDate(date.getDate() - parseInt(value));
+      this.customReport.controls['fromDate'].patchValue((date));
     });
     this.customReport.get('days').valueChanges.subscribe(() => {
       var date=new Date()

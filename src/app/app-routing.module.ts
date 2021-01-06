@@ -16,6 +16,7 @@ import { ManageCoinComponent } from './assets/manage-coin/manage-coin.component'
 import { ActiveDeviceComponent } from './assets/active-device/active-device.component';
 import { OfflineDeviceComponent } from './assets/offline-device/offline-device.component';
 import { SettingComponent } from './setting/setting.component';
+import { LiveDataComponent } from './live-data/live-data.component';
 
 const routes: Routes = [
   {path:'login' , component:LoginComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'manage-coin', component:ManageCoinComponent, canActivate: [AuthGuard], data:{role:['user']}},
   { path: 'active-device', component:ActiveDeviceComponent, canActivate: [AuthGuard], data:{role:['user']}},
   { path: 'offline-device', component:OfflineDeviceComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  { path: 'live-data', component:LiveDataComponent, canActivate: [AuthGuard], data:{role:['user']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},

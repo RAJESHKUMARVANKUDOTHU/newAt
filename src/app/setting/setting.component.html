@@ -50,8 +50,8 @@
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
                     <mat-select formControlName="deviceId" multi>
-                        <mat-option #allSelected (click)="toggleAllSelection(timeDelay,findData)" [value]="0">All</mat-option>
-                        <mat-option *ngFor="let find of findData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
+                        <mat-option #allSelected (click)="toggleAllSelection(timeDelay,deviceData)" [value]="0">All</mat-option>
+                        <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br> <br>
                 <mat-form-field>
@@ -82,7 +82,7 @@
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
                     <mat-select formControlName="deviceId" multi>
-                        <mat-option *ngFor="let find of findData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
+                        <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
                 <mat-form-field>
@@ -133,7 +133,7 @@
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
                     <mat-select formControlName="deviceId" multi>
-                        <mat-option *ngFor="let find of findData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
+                        <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
                 <mat-form-field>

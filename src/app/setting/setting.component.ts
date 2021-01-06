@@ -24,8 +24,8 @@ export class SettingComponent implements OnInit {
   maxFindForm:FormGroup
   feetValue:any=[10,20,30,40,50,60,70,80,90,100]
   coinData:any=[]
-  gatewayData:any=[]
-  findData:any=[]
+  
+  deviceData:any=[]
   allSelected:any
   constructor(
     private fb: FormBuilder,
@@ -38,7 +38,6 @@ export class SettingComponent implements OnInit {
   ngOnInit(): void {
     this.createForm()
     this.refreshDevice()
-    this.refreshGateway()
     this.refreshCoin()
   }
   createForm(){
@@ -114,12 +113,12 @@ export class SettingComponent implements OnInit {
  refreshDevice(){
 
   this.api.getDeviceData().then((res:any)=>{
-    this.findData=[]
+    this.deviceData=[]
     console.log("find submit====",res);
     if(res.status){
         for(let i=0;i<res.success.length;i++){
           if(res.success[i] != null){
-            this.findData.push(res.success[i])
+            this.deviceData.push(res.success[i])
           }
         }
     }
@@ -128,25 +127,6 @@ export class SettingComponent implements OnInit {
   })
 }
 
-  refreshGateway(){
-    this.api.getGatewayData().then((res:any)=>{
-      this.gatewayData=[]
-      console.log("gateway submit====",res);
-      if(res.status){
-        if(res.status){
-          this.gatewayData=res.success
-          for(let i=0;i<res.success.length;i++){
-            if(res.success[i] != null){
-              this.gatewayData.push(res.success[i])
-            }
-          }
-        }
-      }
-   
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
-  }
 
   onSubmitDateTime(data){
     console.log("data===",data)
