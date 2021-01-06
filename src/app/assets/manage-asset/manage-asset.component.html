@@ -47,7 +47,7 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon> Assign Asset</span>
+              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <form [formGroup]="assetForm" (ngSubmit)="assign(assetForm.value)">
@@ -76,7 +76,7 @@
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon> Deassign Asset</span>
+              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <form [formGroup]="assetForm" (ngSubmit)="deassign(assetForm.value)">
@@ -110,8 +110,10 @@
   <mat-tab-group>
     <mat-tab>
       <ng-template mat-tab-label>
-          <mat-icon  class="example-tab-icon">verified_user</mat-icon>
+        <button mat-button>
+          <mat-icon >verified_user</mat-icon> &nbsp;
           <span>Manage Finds</span>
+        </button>
       </ng-template>
       <br>
       <app-manage-device></app-manage-device>
@@ -120,7 +122,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <button mat-button>
-          <mat-icon  class="example-tab-icon">verified_user</mat-icon>
+          <mat-icon>verified_user</mat-icon> &nbsp;
           <span>Manage Gateways</span>
         </button>
       </ng-template>
@@ -130,22 +132,28 @@
   
     <mat-tab>
       <ng-template mat-tab-label>
-          <mat-icon  class="example-tab-icon">verified_user</mat-icon>
+        <button mat-button>
+          <mat-icon>verified_user</mat-icon> &nbsp;
           <span>Manage Coins</span>
+        </button>
       </ng-template> <br>
       <app-manage-coin></app-manage-coin>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-          <mat-icon  class="example-tab-icon">power_settings_new</mat-icon>
+        <button mat-button>
+          <mat-icon>verified_user</mat-icon> &nbsp;
           <span>Active Devices</span>
+        </button>
       </ng-template> <br>
       <app-active-device></app-active-device>
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-          <mat-icon  class="example-tab-icon">power_settings_new</mat-icon>
+        <button mat-button>
+          <mat-icon>verified_user</mat-icon> &nbsp;
           <span>Offline Devices</span>
+        </button>
       </ng-template> <br>
       <app-offline-device></app-offline-device>
     </mat-tab>

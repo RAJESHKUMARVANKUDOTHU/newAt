@@ -28,6 +28,11 @@ import { ChartsModule } from 'ng2-charts';
 import { AddAssetsComponent } from './assets/add-assets/add-assets.component';
 import { EditAssetsComponent } from './assets/edit-assets/edit-assets.component';
 import { SettingComponent } from './setting/setting.component';
+import { LiveDataComponent } from './live-data/live-data.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
+import { SettingInfoComponent } from './setting-info/setting-info.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +53,8 @@ import { SettingComponent } from './setting/setting.component';
     AddAssetsComponent,
     EditAssetsComponent,
     SettingComponent,
+    LiveDataComponent,
+    SettingInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,10 @@ import { SettingComponent } from './setting/setting.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ChartsModule
+    ChartsModule,
+    NgxIntlTelInputModule,
+    NgCircleProgressModule.forRoot({}),
+
   ],
   providers: [AuthGuard,BnNgIdleService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor,multi:true},],

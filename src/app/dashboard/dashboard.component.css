@@ -1,0 +1,14 @@
+.flex{
+    display: flex;
+    justify-content: space-around;
+}
+
+.head{
+    font-size: large;
+    text-align: center;
+}
+::ng-deep svg.circle {
+    height: 100px !important;
+    width: 100px !important;
+
+}

@@ -71,7 +71,7 @@ export class ManageAssetComponent implements OnInit {
 
   deviceCount(){
     this.api.deviceStatus().then((res:any)=>{
-      console.log("device count====",res); 
+      // console.log("device count====",res); 
         if(res.status){
           this.countActive.push(res.active)
           this.countOffline.push(res.offline)
@@ -84,7 +84,7 @@ export class ManageAssetComponent implements OnInit {
 
   gatewayCount(){
     this.api.gatewayStatus().then((res:any)=>{
-      console.log("gateway count====",res); 
+      // console.log("gateway count====",res); 
       if(res.status){
         this.countActive.push(res.active)
         this.countOffline.push(res.offline)
@@ -96,7 +96,7 @@ export class ManageAssetComponent implements OnInit {
 
   coinCount(){
     this.api.coinStatus().then((res:any)=>{
-      console.log("coin count====",res);
+      // console.log("coin count====",res);
       if(res.status){
           this.countActive.push(res.active)
           this.countOffline.push(res.offline)
@@ -114,7 +114,7 @@ export class ManageAssetComponent implements OnInit {
 
     if(this.assetForm.valid){
       this.api.assignAsset(data).then((res:any)=>{
-        console.log("coin count====",res);
+        // console.log("coin count====",res);
         if(res.status){
           this.general.openSnackBar('Asset assigned successfully','')
         } 

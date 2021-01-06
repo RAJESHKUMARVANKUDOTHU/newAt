@@ -34,7 +34,7 @@ export class ManageCoinComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'coin'
     }
@@ -48,7 +48,7 @@ export class ManageCoinComponent implements OnInit {
 
   refreshCoin(){
     this.api.getCoinData().then((res:any)=>{
-      console.log("coin submit====",res);
+      // console.log("coin submit====",res);
       this.coinData=[]
       if(res.status){
         // this.general.registeredCoinCount=res.success.length
@@ -85,7 +85,7 @@ export class ManageCoinComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'coin',
       data:data
@@ -102,7 +102,7 @@ export class ManageCoinComponent implements OnInit {
   delete(data){
     if(confirm('Are you sure you want to delete coin?')){
       this.api.deleteCoin(data).then((res:any)=>{
-        console.log("coin delete====",res);
+        // console.log("coin delete====",res);
        
         if(res.status){
           var msg = 'Coin deleted Successfully'

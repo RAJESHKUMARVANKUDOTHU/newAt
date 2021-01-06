@@ -10,11 +10,13 @@ button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled
     color: white;
 }
 mat-card.mat-card.mat-focus-indicator {
-    width: max-content;
+    width: 100%;
     margin: 2rem 1rem 0 1rem;
-    height: max-content;
+    height: 1005
 }
-
+.flex{
+  display: flex
+}
     .mat-header-cell{
       text-align: center;
       background-color: orange;
@@ -36,6 +38,14 @@ mat-card.mat-card.mat-focus-indicator {
     .mat-table{
       width: 100%;
     }
+    mat-card-title{
+      text-align: center;
+      font-size: large;
+      color: #002060;
+  }
+  hr{
+    width: 12rem;
+  }
 @media (max-width: 575.98px) {
     .mat-card{
       width: 100% !important;

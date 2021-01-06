@@ -18,3 +18,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 hr {
   border: 1px solid #009ad3;
 }
+
+.mat-tab-label-container, .mat-tab-header {
+  display: flex;
+  justify-content: space-around;
+  background: #002060 !important;
+  
+}
+.mat-tab-label .mat-tab-label-content{
+  background: transparent;
+  color: white;
+ 
+}
+
+
+.mat-tab-labels {
+  display: flex;
+  justify-content: space-around;
+  
+
+}

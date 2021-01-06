@@ -35,7 +35,7 @@ export class ManageGatewayComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '40vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'gateway'
     }
@@ -50,7 +50,7 @@ export class ManageGatewayComponent implements OnInit {
   refreshGateway(){
     this.api.getGatewayData().then((res:any)=>{
       this.gatewayData=[]
-      console.log("gateway submit====",res);
+      // console.log("gateway submit====",res);
       if(res.status){
         // this.general.registeredGatewayCount=res.success.length
         this.general.gatewayData=res.success
@@ -84,7 +84,7 @@ export class ManageGatewayComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'gateway',
       data:data
@@ -100,7 +100,7 @@ export class ManageGatewayComponent implements OnInit {
   delete(data){
     if(confirm('Are you sure you want to delete gateway?')){
       this.api.deleteGateway(data).then((res:any)=>{
-        console.log("coin delete====",res);
+        // console.log("coin delete====",res);
        
         if(res.status){
           var msg = 'Coin deleted Successfully'

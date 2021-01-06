@@ -1,9 +1,8 @@
-ng-deep::mat-tab-labels {
-    display: flex;
-    justify-content: space-around;
-    background: #002060 !important;
-    color: white;
-  }
+button.mat-focus-indicator.mat-button.mat-button-base{
+  color: #f8f9fa;
+   font-weight: 500;
+}
+
   .assets {
     margin: 1rem;
     text-align: center;

@@ -2,6 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import { LoginAuthService } from './services/login-auth.service';
 import { Router , ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
+import { ContactComponent } from './contact/contact.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,7 @@ export class AppComponent {
   showLabel:boolean
   sideNav:boolean=false
   loginDetails:any
-  logged:boolean
+  logged:boolean   
   menu:boolean
   log:boolean=true
   statusFreeze:boolean=false
@@ -23,6 +25,7 @@ export class AppComponent {
   constructor(
     private login:LoginAuthService,
     private router:Router,
+    public dialog: MatDialog,    
     private route:ActivatedRoute,  
     private deviceService: DeviceDetectorService){
       this.loginDetails=this.login.getLoginDetails()
@@ -49,6 +52,21 @@ export class AppComponent {
       
       console.log("route = ",window.location.pathname)
     }
+
+    openDailog(){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.height = '60vh';
+        dialogConfig.width = '30vw';
+
+        const dialogRef = this.dialog.open(ContactComponent, dialogConfig);
+      
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+    }
+
     logout(){
       localStorage.clear()
       this.login.loginCheckData.next(false)

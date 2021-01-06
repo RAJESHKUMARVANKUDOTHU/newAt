@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginAuthService } from '../services/login-auth.service';
 import { GeneralService } from '../services/general.service';
 import { ApiService } from '../services/api.service';
+import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
+import { SettingInfoComponent } from '../setting-info/setting-info.component';
+
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.component.html',
@@ -29,7 +32,7 @@ export class SettingComponent implements OnInit {
     private login:LoginAuthService,
     private api: ApiService,
     private general: GeneralService,
-
+    public dialog: MatDialog,    
   ) { }
 
   ngOnInit(): void {
@@ -207,5 +210,24 @@ export class SettingComponent implements OnInit {
   onSubmitGroupCoinForm(data){
 
   }
+  toggleAllSelection(data,value){
+    
+  }
 
+  openInfo(data){
+    console.log("data==",data)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '50vh';
+    dialogConfig.width = '30vw';
+    dialogConfig.data = {
+      type:data
+    }
+    const dialogRef = this.dialog.open(SettingInfoComponent, dialogConfig);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
+  }
 }

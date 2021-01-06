@@ -61,7 +61,7 @@
         <span *ngIf="isExpanded" mat-line> Report</span>
         <mat-icon mat-list-icon>rate_review</mat-icon>
       </mat-list-item>
-      <mat-list-item routerLink="/contact" >
+      <mat-list-item (click)="openDailog()">
         <mat-icon mat-list-icon>contact_phone</mat-icon>
         <span *ngIf="isExpanded"mat-line> Contact</span>
         
@@ -71,19 +71,19 @@
         <span *ngIf="isExpanded" mat-line> Settings</span>
   
       </mat-list-item>
-      <mat-list-item>
-        <mat-icon mat-list-icon (click)="logout()">exit_to_app</mat-icon>
+      <mat-list-item  (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
         <span mat-line *ngIf="isExpanded"> Logout</span>
       </mat-list-item>
 
   </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content >
     <mat-toolbar>
       <span style="flex: 1 1 auto;"></span>
       <span *ngIf="logged">{{loginDetails.success}} </span>
     </mat-toolbar>
-     <div  *ngIf="logged && loginDetails.role=='user'">
+     <div  *ngIf="logged && loginDetails.role=='user'" class="example-sidenav-content">
       <router-outlet></router-outlet>
      </div>
 

@@ -35,13 +35,12 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
   mat-icon  {
     vertical-align: sub;
   }
-  /* .example-sidenav-content {
+  .example-sidenav-content {
     height: auto;
-    margin-left: 35px;
+    margin: 10px 10px;
     align-items: center;
-    margin-top: 10px;
     justify-content: center;
-  } */
+  }
   .example-sidenav {
      user-select: none;
      border: none;
@@ -73,5 +72,7 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
     
   }
   mat-toolbar{
-    height: 11%;
+    height: 10.5%;
   }
+
+ 

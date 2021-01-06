@@ -7,3 +7,10 @@
   .mat-cell{
     text-align: center;
   }
+
+  .head{
+    text-align: center;
+  }
+hr{
+  width: 10rem;
+}

@@ -34,7 +34,7 @@ export class ManageDeviceComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'find',
       
@@ -51,7 +51,7 @@ export class ManageDeviceComponent implements OnInit {
 
     this.api.getDeviceData().then((res:any)=>{
       this.findData=[]
-      console.log("find submit====",res);
+      // console.log("find submit====",res);
       if(res.status){
         // this.general.registeredDeviceCount=res.success.length
         this.general.deviceData=res.success
@@ -88,7 +88,7 @@ export class ManageDeviceComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'find',
       data:data
