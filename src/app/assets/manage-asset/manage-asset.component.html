@@ -50,7 +50,7 @@
               <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <form [formGroup]="assetForm" (ngSubmit)="assign(assetForm.value)">
+          <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
             <mat-form-field>
               <mat-label>Device Id</mat-label>
               <input type="number" matInput formControlName="deviceId" required>
@@ -70,7 +70,7 @@
                 Device name is required
               </mat-error>
             </mat-form-field>
-            <button mat-raised-button [disabled]="!assetForm.valid">Submit</button>
+            <button mat-raised-button [disabled]="!assignAssetForm.valid">Submit</button>
           </form>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -79,27 +79,16 @@
               <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <form [formGroup]="assetForm" (ngSubmit)="deassign(assetForm.value)">
+          <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
             <mat-form-field>
               <mat-label>Device Id</mat-label>
               <input type="number" matInput formControlName="deviceId" required>
               <mat-error>
                 Device ID is required
               </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Device Name</mat-label>
-              <input type="text" matInput formControlName="deviceName"  required>
-              <!-- <mat-autocomplete #auto="matAutocomplete" [matAutocomplete]="auto">
-                <mat-option *ngFor="let device of deviceData" [value]="device.deviceId">
-                  {{device.deviceName}}
-                </mat-option>
-              </mat-autocomplete> -->
-              <mat-error>
-                Device name is required
-              </mat-error>
-            </mat-form-field>
-            <button mat-raised-button [disabled]="!assetForm.valid">Submit</button>
+            </mat-form-field> <br>
+
+            <button mat-raised-button [disabled]="!deassignAssetForm.valid">Submit</button>
           </form>
         </mat-expansion-panel>
       </mat-accordion>

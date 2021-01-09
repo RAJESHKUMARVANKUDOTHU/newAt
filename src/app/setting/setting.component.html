@@ -45,12 +45,12 @@
     <mat-card>
         <mat-card-title> Set Time Delay for assets</mat-card-title>
         <mat-card-content>
-            <form [formGroup]="timeDelay" (ngSubmit)="onSubmitTimeDelay(timeDelay.value)">
+            <form [formGroup]="timeDelay" id="time" (ngSubmit)="onSubmitTimeDelay(timeDelay.value)">
         
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
-                    <mat-select formControlName="deviceId" multi>
-                        <mat-option #allSelected (click)="toggleAllSelection(timeDelay,deviceData)" [value]="0">All</mat-option>
+                    <mat-select formControlName="deviceId" multiple >
+                        <mat-option #allSelected (click)="toggleAllSelectionDevice(timeDelay)" [value]="0">All</mat-option>
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br> <br>
@@ -81,7 +81,8 @@
                 </mat-radio-group>
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
-                    <mat-select formControlName="deviceId" multi>
+                    <mat-select formControlName="deviceId" multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionDevice(inactivityFind)" [value]="0">All</mat-option>
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
@@ -90,7 +91,7 @@
                     <input type="number" matInput formControlName="minutes" placeholder="in Minutes" required>
                 </mat-form-field> <br> <br> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!inactivityFind.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('find-inactive')" color="primary">Info</button>
                 </div>
             </form>
@@ -110,7 +111,8 @@
                 </mat-radio-group> 
                 <mat-form-field>
                     <mat-label>Select Coin</mat-label>
-                    <mat-select formControlName="coinId" multi>
+                    <mat-select formControlName="coinId" multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionCoin(inactivityCoin)" [value]="0">All</mat-option>
                         <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
@@ -119,7 +121,7 @@
                     <input type="number" matInput formControlName="minutes" placeholder="in Minutes" required>
                 </mat-form-field> <br> <br> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!inactivityCoin.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('coin')" color="primary">Info</button>
                 </div>
             </form>
@@ -132,7 +134,8 @@
             <form [formGroup]="maxFindForm" (ngSubmit)="onSubmitMaxFindForm(maxFindForm.value)">
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
-                    <mat-select formControlName="deviceId" multi>
+                    <mat-select formControlName="deviceId" multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionDevice(maxFindForm)" [value]="0">All</mat-option>
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">{{find.deviceName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
@@ -141,7 +144,7 @@
                     <input type="number" matInput formControlName="maxLimit" required>
                 </mat-form-field> <br> <br> <br> <br> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!maxFindForm.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('max-find')" color="primary">Info</button>
                 </div>            
             </form>
@@ -154,7 +157,8 @@
             <form [formGroup]="coinCategory" (ngSubmit)="onSumbitCoinCategory(coinCategory.value)">
                 <mat-form-field>
                     <mat-label>Select Coin</mat-label>
-                    <mat-select formControlName="coinId" multi>
+                    <mat-select formControlName="coinId" multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionCoin(coinCategory)" [value]="0">All</mat-option>
                         <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
@@ -179,7 +183,7 @@
                     <input type="number" matInput formControlName="minutes" placeholder="in Minutes" required>
                 </mat-form-field> <br> <br> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!coinCategory.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('coin-cat')" color="primary">Info</button>
                 </div>
 
@@ -214,7 +218,7 @@
                     <input type="number" matInput formControlName="minutes" placeholder="in Minutes" required>
                 </mat-form-field> <br><br> <br> <br> <br> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!zoneForm.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('zone')" color="primary">Info</button>
                 </div>
 
@@ -229,7 +233,8 @@
             <form [formGroup]="groupCoinForm" (ngSubmit)="onSubmitGroupCoinForm(groupCoinForm.value)">
                 <mat-form-field>
                     <mat-label>Select Coin</mat-label>
-                    <mat-select formControlName="coinId" multi>
+                    <mat-select formControlName="coinId" multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionCoin(groupCoinForm)" [value]="0">All</mat-option>
                         <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
@@ -238,7 +243,7 @@
                     <input type="text" matInput formControlName="group"  required>
                 </mat-form-field> <br><br> <br> <br> <br> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!groupCoinForm.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('coinGrp')" color="primary">Info</button>
                 </div>
 

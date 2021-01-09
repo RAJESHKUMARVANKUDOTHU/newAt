@@ -5,13 +5,16 @@ import { MultiDataSet, Label } from 'ng2-charts';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { ApiService } from '../../services/api.service';
 import { GeneralService } from '../../services/general.service';
+import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-manage-asset',
   templateUrl: './manage-asset.component.html',
   styleUrls: ['./manage-asset.component.css']
 })
 export class ManageAssetComponent implements OnInit {
-  assetForm:FormGroup
+  assignAssetForm:FormGroup
+  deassignAssetForm:FormGroup
   deviceData:any
 
   public doughnutChartLabels: string[] = ['Device','Gateways','Coin'];
@@ -44,7 +47,8 @@ export class ManageAssetComponent implements OnInit {
     private login:LoginAuthService,
     private api: ApiService,
     private general:GeneralService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    public dialog: MatDialog
   ) {
     this.doughnutChartData=this.countActive
     this.doughnutChartData1=this.countOffline
@@ -58,9 +62,13 @@ export class ManageAssetComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.assetForm=this.fb.group({
+    this.assignAssetForm=this.fb.group({
       deviceId:['',Validators.required],
-      deviceName:['',Validators.required]
+      deviceName:['']
+    })
+    this.deassignAssetForm=this.fb.group({
+      deviceId:['',Validators.required],
+     
     })
 
 
@@ -110,9 +118,9 @@ export class ManageAssetComponent implements OnInit {
     })
   }
 
-  assign(data){
+  assignAsset(data){
 
-    if(this.assetForm.valid){
+    if(this.assignAssetForm.valid){
       this.api.assignAsset(data).then((res:any)=>{
         // console.log("coin count====",res);
         if(res.status){
@@ -124,8 +132,8 @@ export class ManageAssetComponent implements OnInit {
       })
     }
   }
-  deassign(data){
-    if(this.assetForm.valid){
+  deassignAsset(data){
+    if(this.deassignAssetForm.valid){
       this.api.deassignAsset(data).then((res:any)=>{
         console.log("coin count====",res);
         if(res.status){

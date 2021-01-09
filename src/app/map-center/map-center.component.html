@@ -28,9 +28,10 @@
                                 </mat-select>
                                 <mat-error></mat-error>
                             </mat-form-field> <br>
-                            <div class="file">
-                                <input type="file" >
-                            </div>
+                            <mat-form-field>
+                                <input type="text" matInput style="display: none;">
+                                <div><input type="file" ></div>
+                            </mat-form-field> <br>
                             <button mat-raised-button [disabled]="!createLocation.valid">Submit</button>
                         </form>
                     </mat-card-content>

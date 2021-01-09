@@ -69,8 +69,10 @@ import { SettingInfoComponent } from './setting-info/setting-info.component';
     NgCircleProgressModule.forRoot({}),
 
   ],
-  providers: [AuthGuard,BnNgIdleService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor,multi:true},],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthGuard,BnNgIdleService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor,multi:true},
+  ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
