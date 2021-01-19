@@ -60,12 +60,8 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Device Name</mat-label>
-              <input type="text" matInput formControlName="deviceName" required>
-              <!-- <mat-autocomplete #auto="matAutocomplete" [matAutocomplete]="auto">
-                <mat-option *ngFor="let device of deviceData" [value]="device.deviceId">
-                  {{device.deviceName}}
-                </mat-option>
-              </mat-autocomplete> -->
+              <input type="text" matInput formControlName="deviceName" required >
+          
               <mat-error>
                 Device name is required
               </mat-error>

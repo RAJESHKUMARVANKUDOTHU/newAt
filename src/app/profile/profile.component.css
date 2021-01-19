@@ -46,21 +46,3 @@ mat-card.mat-card.mat-focus-indicator {
   hr{
     width: 12rem;
   }
-@media (max-width: 575.98px) {
-    .mat-card{
-      width: 100% !important;
-    }
-    .mat-tab-group{
-      margin-left: 1%;
-      width: 100%;
-      margin-top: 1%;
-    
-    }
-    .mat-table{
-      width: 500px;
-    }
-    .rounded-circle{
-      margin-right: 20px;
-    }  
-}
-    

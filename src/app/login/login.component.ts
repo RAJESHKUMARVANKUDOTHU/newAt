@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
         console.log("data===",data)
         this.api.login(data).then((res:any)=>{
           console.log("login res===",res)
-          res.role='user'
-          if(res.status && res.token){
+          
+          if( res.token){
             if(this.login.login(JSON.stringify(res))){
               // this.login.loginCheckData.next(true)
               console.log("i stepped")

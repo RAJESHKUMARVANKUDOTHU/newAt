@@ -6,7 +6,6 @@ import {MatSort} from '@angular/material/sort';
 import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { ApiService } from '../../services/api.service';
-import { SlicePipe } from '@angular/common';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -52,7 +51,7 @@ export class AdminDashboardComponent implements OnInit {
           this.api.createUsers(data).then((res:any)=>{
             console.log("created user res===",res)
             if(res.status){
-                   
+                 this.getUsers()  
             }
           })
           .catch((err)=>{
@@ -68,7 +67,7 @@ export class AdminDashboardComponent implements OnInit {
   getUsers(){
     this.getUserList=[]
     this.api.viewUsers().then((res:any)=>{
-      console.log("created user res===",res)
+      console.log("get user res===",res)
       if(res.status){
         this.getUserList=res.success
         this.dataSource = new MatTableDataSource(this.getUserList);

@@ -15,8 +15,9 @@ import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
 export class ManageAssetComponent implements OnInit {
   assignAssetForm:FormGroup
   deassignAssetForm:FormGroup
-  deviceData:any
-
+  findData:any
+  id:any
+  userId:any
   public doughnutChartLabels: string[] = ['Device','Gateways','Coin'];
   public doughnutChartData:any
   public doughnutChartData1:any
@@ -53,18 +54,14 @@ export class ManageAssetComponent implements OnInit {
     this.doughnutChartData=this.countActive
     this.doughnutChartData1=this.countOffline
     this.doughnutChartData2=[
-      // this.general.registeredDeviceCount,
-      // this.general.registeredGatewayCount,
-      // this.general.registeredCoinCount
+     
     ]
-    // console.log("this.doughnutChartData2========",this.doughnutChartData2)
-    this.deviceData=this.general.deviceData
    }
 
   ngOnInit(): void {
     this.assignAssetForm=this.fb.group({
       deviceId:['',Validators.required],
-      deviceName:['']
+      deviceName:['',Validators.required]
     })
     this.deassignAssetForm=this.fb.group({
       deviceId:['',Validators.required],
@@ -75,11 +72,12 @@ export class ManageAssetComponent implements OnInit {
     this.deviceCount()
     this.gatewayCount()
     this.coinCount()
+    this.refreshDevice()
   }
 
   deviceCount(){
-    this.api.deviceStatus().then((res:any)=>{
-      // console.log("device count====",res); 
+    this.api.allDeviceCount().then((res:any)=>{
+      console.log("device count====",res); 
         if(res.status){
           this.countActive.push(res.active)
           this.countOffline.push(res.offline)
@@ -91,40 +89,42 @@ export class ManageAssetComponent implements OnInit {
   }
 
   gatewayCount(){
-    this.api.gatewayStatus().then((res:any)=>{
-      // console.log("gateway count====",res); 
-      if(res.status){
-        this.countActive.push(res.active)
-        this.countOffline.push(res.offline)
-      } 
-      }).catch((err:any)=>{
-      console.log("error===",err)
-    })
+    // this.api.registeredGatewayCount().then((res:any)=>{
+    //   console.log("gateway count====",res); 
+    //   if(res.status){
+    //     this.countActive.push(res.active)
+    //     this.countOffline.push(res.offline)
+    //   } 
+    //   }).catch((err:any)=>{
+    //   console.log("error===",err)
+    // })
   }
 
   coinCount(){
-    this.api.coinStatus().then((res:any)=>{
-      // console.log("coin count====",res);
-      if(res.status){
-          this.countActive.push(res.active)
-          this.countOffline.push(res.offline)
-          console.log("this.countActive==",this.countActive,this.countOffline)
-          this.doughnutChartData=[this.countActive[0],this.countActive[1],this.countActive[2]]
-          this.doughnutChartData1=[this.countOffline[0],this.countOffline[1],this.countOffline[2]]
-        } 
+    // this.api.registeredCoinCount().then((res:any)=>{
+    //   console.log("coin count====",res);
+    //   if(res.status){
+    //       this.countActive.push(res.active)
+    //       this.countOffline.push(res.offline)
+    //       console.log("this.countActive==",this.countActive,this.countOffline)
+    //       this.doughnutChartData=[this.countActive[0],this.countActive[1],this.countActive[2]]
+    //       this.doughnutChartData1=[this.countOffline[0],this.countOffline[1],this.countOffline[2]]
+    //     } 
    
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
+    // }).catch((err:any)=>{
+    //   console.log("error===",err)
+    // })
   }
 
   assignAsset(data){
-
+    data._id=this.id
+    data.userId=this.userId
+    console.log("assign data==",data)
     if(this.assignAssetForm.valid){
       this.api.assignAsset(data).then((res:any)=>{
-        // console.log("coin count====",res);
-        if(res.status){
-          this.general.openSnackBar('Asset assigned successfully','')
+        console.log("assignAsset res====",res);
+        if(res.status || !res.status){
+          this.general.openSnackBar(res.success,'')
         } 
      
       }).catch((err:any)=>{
@@ -136,8 +136,8 @@ export class ManageAssetComponent implements OnInit {
     if(this.deassignAssetForm.valid){
       this.api.deassignAsset(data).then((res:any)=>{
         console.log("coin count====",res);
-        if(res.status){
-          this.general.openSnackBar('Asset deassigned successfully','')
+        if(res.status || !res.status){
+          this.general.openSnackBar(res.success,'')
         } 
      
       }).catch((err:any)=>{
@@ -146,4 +146,22 @@ export class ManageAssetComponent implements OnInit {
     }
   }
 
+  getId(a){
+    console.log("aa==",a)
+    this.id=a._id
+    this.userId=a.userId
+  }
+  refreshDevice(){
+
+    this.api.getDeviceData().then((res:any)=>{
+      this.findData=[]
+      console.log("find submit====",res);
+      if(res.status){
+  
+        this.findData=res.success
+      }
+    }).catch((err:any)=>{
+      console.log("error===",err)
+    })
+  }
 }

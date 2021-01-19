@@ -21,14 +21,14 @@ export class AppComponent {
   menu:boolean
   log:boolean=true
   statusFreeze:boolean=false
-  freezeMessage:String="Downloading"
+  freezeMessage:String="Loading"
   constructor(
     private login:LoginAuthService,
     private router:Router,
     public dialog: MatDialog,    
     private route:ActivatedRoute,  
     private deviceService: DeviceDetectorService){
-      this.loginDetails=this.login.getLoginDetails()
+      this.loginDetails=this.login.getLoginDetails().success
       this.logged=this.login.loginData()
       
       // this.menu=this.login.loginStatusMenu()
@@ -36,23 +36,25 @@ export class AppComponent {
       this.login.loginCheckData.subscribe((res)=>{
         console.log("res===",res)
         this.logged=res
-        this.loginDetails=this.login.getLoginDetails()
-        console.log("this.loginDetails inside====",this.loginDetails)
-        console.log("this.logged in======",this.logged)
+        this.loginDetails=this.login.getLoginDetails().success
+        // console.log("this.loginDetails inside====",this.loginDetails)
+        // console.log("this.logged in======",this.logged)
       });
       this.login.loginCred.subscribe(res=>{
         console.log("res1===",res)
 
         this.menu=res
-        this.loginDetails=this.login.getLoginDetails()
-        console.log("this.loginDetails inside====",this.loginDetails)
-        console.log("this.menu======",this.menu)
+        this.loginDetails=this.login.getLoginDetails().success
+        // console.log("this.loginDetails inside====",this.loginDetails)
+        // console.log("this.menu======",this.menu)
       
       })
       
       console.log("route = ",window.location.pathname)
     }
+    ngOnInit(): void {
 
+    }
     openDailog(){
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;

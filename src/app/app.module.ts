@@ -32,6 +32,8 @@ import { LiveDataComponent } from './live-data/live-data.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
 import { SettingInfoComponent } from './setting-info/setting-info.component';
+import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { SettingInfoComponent } from './setting-info/setting-info.component';
     SettingComponent,
     LiveDataComponent,
     SettingInfoComponent,
+    GeofenceDashboardComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

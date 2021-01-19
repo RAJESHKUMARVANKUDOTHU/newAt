@@ -51,17 +51,17 @@ export class AddAssetsComponent implements OnInit {
   findSubmit(data){
     try{
       if(this.addFind.valid){
-        data.userId=1
+     
         this.api.deviceRegistration(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status){
-            var msg = 'Device Registered Successfully'
+          if(res.status || !res.status){
+            var msg = res.success
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Name or Device Id Already exists, try different device'
-            this.general.openSnackBar(msg,'')
-          }
+          // else if((res.status || !res.status) && res.success.toLowerCase()!="device registered successfully"){
+          //   var msg = 'Device Name or Device Id Already exists, try different device'
+          //   this.general.openSnackBar(msg,'')
+          // }
         
         })
       }
@@ -74,17 +74,17 @@ export class AddAssetsComponent implements OnInit {
   gatewaySubmit(data){
     try{
       if(this.addGateway.valid){
-        data.userId=1
+        
         this.api.gatewayRegistration(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status){
-            var msg = 'Gateway Registered Successfully'
+          if(res.status || !res.status){
+            var msg = res.success
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Gateway Name Already exists, try different Name'
-            this.general.openSnackBar(msg,'')
-          }
+          // else if((res.status || !res.status) && res.success.toLowerCase()!="gateway registered successfully"){
+          //   var msg = 'Gateway Name Already exists, try different Name'
+          //   this.general.openSnackBar(msg,'')
+          // }
         
         })
       }
@@ -98,14 +98,14 @@ export class AddAssetsComponent implements OnInit {
       if(this.addCoin.valid){
         this.api.coinRegistration(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status){
-            var msg = 'Coin Registered Successfully'
+          if(res.status || !res.status ){
+            var msg = res.success
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Coin Name or Coin Id Already exists, try different coin'
-            this.general.openSnackBar(msg,'')
-          }
+          // else if((res.status || !res.status) && res.success.toLowerCase()!="coin registered successfully"){
+          //   var msg = 'Coin Name or Coin Id Already exists, try different coin'
+          //   this.general.openSnackBar(msg,'')
+          // }
         
         })
       }

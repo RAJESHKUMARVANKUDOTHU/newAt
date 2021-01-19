@@ -9,13 +9,14 @@ export class ApiService {
   host:string = environment.apiHost
   constructor(private http:HttpClient,) { }
   
+  
   // user login
   login(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    let url = this.host+'/login';
+    let url = this.host+'/loginUser';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
@@ -32,7 +33,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    let url = this.host+'/loginAdmin';
+    let url = this.host+'/loginSuperAdmin';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
@@ -48,7 +49,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    let url = this.host+'/registerUsers';
+    let url = this.host+'/registerAdmin';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
@@ -57,18 +58,32 @@ export class ApiService {
   }
 
   viewUsers(){
+    console.log("get")
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-   
-    let url = this.host+'/viewAddedUsers';
+  
+    let url = this.host+'/getAllUsers';
     return new Promise((resolve,reject)=>{
       this.http.get(url).subscribe(res=>{
+        console.log("res=", resolve(res),res)
         resolve(res);
       })
     })
   }
-
+  createSubUsers(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+   
+    let url = this.host+'/registerSubUsers';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        console.log("get",res)
+        resolve(res);
+      })
+    })
+  }
   deleteUser(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -110,6 +125,7 @@ export class ApiService {
       })
     })
   }
+  
   coinStatus(){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -176,21 +192,21 @@ export class ApiService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
   
-      let url = this.host+'/DeviceRegister';
+      let url = this.host+'/deviceRegister';
       return new Promise((resolve,reject)=>{
         this.http.post(url,data,httpOptions).subscribe(res=>{
           resolve(res);
         })
       })
     }
-    gatewayRegistration(gateway){
+    gatewayRegistration(data){
       const httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
   
       let url = this.host+'/gatewayRegister';
       return new Promise((resolve,reject)=>{
-        this.http.post(url,gateway,httpOptions).subscribe(res=>{
+        this.http.post(url,data,httpOptions).subscribe(res=>{
           resolve(res);
         })
       })
@@ -200,7 +216,7 @@ export class ApiService {
           headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
     
-        let url = this.host+'/coinRegister';
+        let url = this.host+'/coinRegistration';
         return new Promise((resolve,reject)=>{
           this.http.post(url,data,httpOptions).subscribe(res=>{
             resolve(res);
@@ -210,6 +226,22 @@ export class ApiService {
 
 
     // ----------------------------registration ends--------------------------------------------
+
+    // -----------------------registered device ,gateway,coin count----------------------------
+    allDeviceCount(){
+      const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      };
+  
+      let url = this.host+'/allDeviceCount';
+      return new Promise((resolve,reject)=>{
+        this.http.get(url).subscribe(res=>{
+          resolve(res);
+        })
+    })
+  }
+
+
 
     //---------------------get data list of device,gateway,coin-------------------------------
     getDeviceData(){

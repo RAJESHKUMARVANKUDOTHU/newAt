@@ -51,18 +51,17 @@ export class ManageDeviceComponent implements OnInit {
 
     this.api.getDeviceData().then((res:any)=>{
       this.findData=[]
-      // console.log("find submit====",res);
+      console.log("find submit====",res);
       if(res.status){
-        // this.general.registeredDeviceCount=res.success.length
-        this.general.deviceData=res.success
         for(let i=0;i<res.success.length;i++){
           if(res.success[i] != null){
             this.findData.push({
               i:i+1,
-              id:res.success[i].id,
+              id:res.success[i]._id,
+              userId:res.success[i].userId,
               deviceName:res.success[i].deviceName,
               deviceId:res.success[i].deviceId,
-              updatedOn:res.success[i].updatedOn,
+              updatedOn:res.success[i].updatedAt,
               edit:'edit',
               delete:'delete_forever'
             })
@@ -94,19 +93,22 @@ export class ManageDeviceComponent implements OnInit {
       data:data
     }
     
-    const dialogRef = this.dialog.open(AddAssetsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
   
     dialogRef.afterClosed().subscribe(result => {
       this.refreshDevice()
     });
   }
   delete(data){
+    console.log("data==",data)
+    data.deviceObjectId=data.id
     if(confirm('Are you sure you want to delete device?')){
       this.api.deleteDevice(data).then((res:any)=>{
         console.log("device delete====",res);
        
         if(res.status){
-          var msg = 'Device deleted Successfully'
+          this.refreshDevice()
+          var msg = res.success
           this.general.openSnackBar(msg,'')
         }
       }).catch((err:any)=>{

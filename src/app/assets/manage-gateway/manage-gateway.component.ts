@@ -50,18 +50,17 @@ export class ManageGatewayComponent implements OnInit {
   refreshGateway(){
     this.api.getGatewayData().then((res:any)=>{
       this.gatewayData=[]
-      // console.log("gateway submit====",res);
+      console.log("gateway submit====",res);
       if(res.status){
-        // this.general.registeredGatewayCount=res.success.length
-        this.general.gatewayData=res.success
         for(let i=0;i<res.success.length;i++){
           if(res.success[i] != null){
             this.gatewayData.push({
               i:i+1,
-              id:res.success[i].id,
+              id:res.success[i]._id,
+              userId:res.success[i].userId,
               gatewayName:res.success[i].gatewayName,
               gatewayId:res.success[i].gatewayId,
-              updatedOn:res.success[i].updatedOn,
+              updatedOn:res.success[i].updatedAt,
               edit:'edit',
               delete:'delete_forever'
             })
@@ -98,12 +97,14 @@ export class ManageGatewayComponent implements OnInit {
   }
 
   delete(data){
+    data._Id=data.id
     if(confirm('Are you sure you want to delete gateway?')){
       this.api.deleteGateway(data).then((res:any)=>{
         // console.log("coin delete====",res);
        
         if(res.status){
-          var msg = 'Coin deleted Successfully'
+          this.refreshGateway()
+          var msg = res.success
           this.general.openSnackBar(msg,'')
         }
       }).catch((err:any)=>{

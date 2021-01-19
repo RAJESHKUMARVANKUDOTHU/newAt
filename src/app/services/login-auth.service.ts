@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Subject, Observable } from 'rxjs'
 import { Router , ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginAuthService {
   public loginCred = new Subject<any>()
   public loginCheckData= new Subject<any>()
-  constructor(private location:Location) {
+  constructor(private location:Location,private router:Router) {
     this.popState()
    }
   ngOnInit(): void {
 
-    
   }
 
 
@@ -31,7 +31,7 @@ export class LoginAuthService {
 
   loginData(){
     var status=localStorage.getItem('sensegiz')
-    // console.log("login data===",status,window.location.pathname)
+    // console.log("login data===",status)
     if(status && status != 'undefined' || status != null){
       // console.log("true")
         this.loginCheckData.next(true)
@@ -70,6 +70,7 @@ popState(){
     var status=JSON.parse(localStorage.getItem('sensegiz'))
     // console.log("getLoginDetails===",status)
     if(status && status != 'undefined' || status != null){
+      // console.log("hmm")
       return status
     }
     else{
@@ -77,9 +78,18 @@ popState(){
     }
 
   }
+
+
+
   login(data){
-    // console.log("setting data")
+    // console.log("setting data",localStorage.setItem('sensegiz',data))
     localStorage.setItem('sensegiz',data)
     return true
+  }
+
+  logout(){
+    this.loginCheckData.next(false)
+    localStorage.clear()
+    this.router.navigate(['/login'])
   }
 }

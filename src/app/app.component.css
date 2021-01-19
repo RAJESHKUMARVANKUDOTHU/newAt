@@ -75,4 +75,7 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
     height: 10.5%;
   }
 
+  .list{
+    margin-left: 2rem;
+  }
  

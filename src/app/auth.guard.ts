@@ -15,16 +15,20 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       this.loginData = this.login.getLoginDetails()
     
-      console.log("auth ",this.loginData)
-      if( this.loginData && this.loginData.role == route.data.role){
-        if(route.data.role == 'admin'){
+      console.log("auth ",this.loginData,route.data.role[0])
+      if(this.loginData && this.loginData.token && this.loginData.success.role == route.data.role[0]){
+        // console.log("in",route.data.role[0].toString() == 'superAdminRole')
+        if(route.data.role[0] == "superAdminRole"){
+          // console.log("in")
            this.login.loginCred.next(false)
            this.login.loginCheckData.next(true )
         }
-        else if(route.data.role == 'user'){
+        else if(route.data.role[0] == "adminRole"){
+          // console.log("in")
            this.login.loginCred.next(true)
            this.login.loginCheckData.next(true)
         }
+
         return true; 
       }
    
