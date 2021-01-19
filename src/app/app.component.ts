@@ -37,7 +37,7 @@ export class AppComponent {
         console.log("res===",res)
         this.logged=res
         this.loginDetails=this.login.getLoginDetails().success
-        // console.log("this.loginDetails inside====",this.loginDetails)
+        console.log("this.loginDetails inside====",this.loginDetails)
         // console.log("this.logged in======",this.logged)
       });
       this.login.loginCred.subscribe(res=>{
