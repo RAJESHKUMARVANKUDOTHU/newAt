@@ -1,2 +1,0 @@
-# atAngularNew
-redesigned by namrata

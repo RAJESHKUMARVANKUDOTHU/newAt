@@ -1,0 +1,101 @@
+<div class="statusFreeze flexWrap" *ngIf = "statusFreeze">
+  <mat-spinner mode="indeterminate"></mat-spinner><span [innerHTML]="freezeMessage"></span>
+</div>
+<mat-toolbar *ngIf="logged && loginDetails.role=='admin'">
+  <span ><span style="flex: 1 1 auto;"></span>{{loginDetails.success}} </span>
+  <span  (click)="logout()"><mat-icon>exit_to_app</mat-icon></span>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container mat-typography" *ngIf="logged && menu && loginDetails.role=='user'"  autosize="true">
+  <mat-sidenav #sidenav mode="side"  opened class="example-sidenav" >
+    
+    <div class="flex" [ngStyle]="{'background-color': isExpanded? 'white':'#002060'}">
+      <button mat-mini-fab  color="primary" style="margin:12px 10px 10px 10px;">
+      <mat-icon aria-label="Menu" (click)="isExpanded=!isExpanded">menu</mat-icon>
+    </button>
+    <span  *ngIf="isExpanded" mat-line> <img src="../assets/logo.png" alt="" class="image"></span>
+  </div>
+
+
+    <!-- <mat-nav-list>
+      <mat-list>
+        <img src="../assets/images/s.png" alt="">
+      </mat-list>
+      <mat-list class="cursor">
+        <mat-list-item>
+          <mat-icon mat-list-icon>home</mat-icon>
+          <span mat-line *ngIf="isExpanded">Home</span>
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+          <span mat-line *ngIf="isExpanded" >Dashboard</span>
+        </mat-list-item>  
+
+        <mat-list-item>
+          <mat-icon mat-list-icon (click)="logout()">exit_to_app</mat-icon>
+          <span mat-line *ngIf="isExpanded"> Logout</span>
+        </mat-list-item>
+     </mat-nav-list> -->
+    <mat-nav-list>
+      <mat-list-item   routerLink="/dashboard">
+        <span  *ngIf="isExpanded || isShowing" mat-line> Home</span>
+        <mat-icon mat-list-icon>home</mat-icon>
+      </mat-list-item>
+
+      <mat-list-item   routerLink="/manage-asset" >
+        <span  *ngIf="isExpanded  || isShowing" mat-line> Manage Assets</span>
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+      </mat-list-item>
+  
+      <mat-list-item   routerLink="/geofence" >
+        <span *ngIf="isExpanded" mat-line> Geofence</span>
+        <mat-icon mat-list-icon>vpn_lock</mat-icon>
+      </mat-list-item>
+      <mat-list-item  routerLink="/map-center">
+        <span *ngIf="isExpanded" mat-line> Map Center</span>
+        <mat-icon mat-list-icon>map</mat-icon>
+  
+      </mat-list-item>
+      <mat-list-item   routerLink="/report" >
+        <span *ngIf="isExpanded" mat-line> Report</span>
+        <mat-icon mat-list-icon>rate_review</mat-icon>
+      </mat-list-item>
+      <mat-list-item routerLink="/contact" >
+        <mat-icon mat-list-icon>contact_phone</mat-icon>
+        <span *ngIf="isExpanded"mat-line> Contact</span>
+        
+      </mat-list-item>
+      <mat-list-item routerLink="/setting" >
+        <mat-icon mat-list-icon>settings</mat-icon>
+        <span *ngIf="isExpanded" mat-line> Settings</span>
+  
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon (click)="logout()">exit_to_app</mat-icon>
+        <span mat-line *ngIf="isExpanded"> Logout</span>
+      </mat-list-item>
+
+  </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <span style="flex: 1 1 auto;"></span>
+      <span *ngIf="logged">{{loginDetails.success}} </span>
+    </mat-toolbar>
+     <div  *ngIf="logged && loginDetails.role=='user'">
+      <router-outlet></router-outlet>
+     </div>
+
+  </mat-sidenav-content>
+ 
+</mat-sidenav-container>
+<!--  -->
+<div *ngIf="logged && loginDetails.role=='admin'">  
+  <router-outlet></router-outlet>
+
+</div>
+
+<div *ngIf="!logged">
+  <router-outlet></router-outlet>
+</div>

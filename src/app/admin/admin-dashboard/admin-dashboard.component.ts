@@ -1,0 +1,100 @@
+import { Component, OnInit,ViewChild } from '@angular/core';
+import {Router} from '@angular/router'
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
+import { LoginAuthService } from '../../services/login-auth.service';
+import { ApiService } from '../../services/api.service';
+import { SlicePipe } from '@angular/common';
+@Component({
+  selector: 'app-admin-dashboard',
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.css']
+})
+export class AdminDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  displayedColumns: string[] = ["i",'id', 'userName', 'updatedOn', 'isDeleted'];
+  dataSource:any=[]
+  addUserForm:FormGroup
+  loginData:any
+  getUserList:any=[]
+  passwordType: string = 'password';
+  passwordIcon: string = 'visibility_off';
+  constructor(
+    private login:LoginAuthService,
+    private router:Router,
+    private fb:FormBuilder,
+    private api: ApiService,) { }
+
+  ngOnInit(): void {
+    this.loginData=this.login.getLoginDetails()
+
+    this.addUserForm=this.fb.group({
+      userName:['',[Validators.email,Validators.required]],
+      password:['',Validators.required]
+    })
+    
+    this.getUsers()
+
+  }
+  hideShowPassword() {
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    this.passwordIcon = this.passwordIcon === 'visibility_off' ? 'visibility' : 'visibility_off';
+  }
+
+  addUser(data){
+    console.log("data===",data)
+
+       if(this.addUserForm.valid){
+      try{
+          this.api.createUsers(data).then((res:any)=>{
+            console.log("created user res===",res)
+            if(res.status){
+                   
+            }
+          })
+          .catch((err)=>{
+            console.log("err======",err)
+          })      
+      }
+      catch (err) {
+        console.log("err======",err)
+      }
+    }
+  }
+
+  getUsers(){
+    this.getUserList=[]
+    this.api.viewUsers().then((res:any)=>{
+      console.log("created user res===",res)
+      if(res.status){
+        this.getUserList=res.success
+        this.dataSource = new MatTableDataSource(this.getUserList);
+
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator=this.paginator
+        })
+      }
+    }).catch((err)=>{
+      console.log("err======",err)
+    })  
+  }
+
+  isDeleted(data){
+    if(data.isDeleted=='N'){
+      data.isDeleted=data.isDeleted=='Y'?'N':'Y'
+       this.api.deleteUser(data).then((res:any)=>{
+        console.log("deleted user res===",res)
+        if(res.status){
+          }
+      }).catch((err)=>{
+        console.log("err======",err)
+      }) 
+    }
+ 
+  }
+
+}

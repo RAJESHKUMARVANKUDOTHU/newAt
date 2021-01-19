@@ -1,0 +1,77 @@
+mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
+    width: 40px; margin: 16px 0 0px 0;
+  }
+  mat-sidenav:not(.mat-drawer-opened) .navTitle,
+  mat-sidenav:not(.mat-drawer-opened) .profileTitle {
+    display: none;
+  }
+  mat-sidenav:not(.mat-drawer-opened) {
+    transform: translate3d(0, 0, 0) !important;
+    visibility: visible !important;
+    width: 60px !important;
+    overflow: hidden;
+  }
+  .example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+  }
+.image{
+    width: 150px;
+    margin-top: 3px;
+  }
+  mat-sidenav.mat-drawer.mat-sidenav.ng-trigger.ng-trigger-transform.mat-drawer-side.mat-drawer-opened.ng-star-inserted,.mat-drawer-inner-container {
+      /* background: black !important; */
+     
+      /* opacity: 0.7;
+      background-size: cover; */
+      overflow: hidden !important;
+      /* width: 12rem; */
+  }
+
+  mat-icon  {
+    vertical-align: sub;
+  }
+  /* .example-sidenav-content {
+    height: auto;
+    margin-left: 35px;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: center;
+  } */
+  .example-sidenav {
+     user-select: none;
+     border: none;
+     background-color: #002060;
+     display: block;
+     color: white;
+  }
+  .full-width {
+    width: 100%;
+    /* color: white; */
+  
+  }
+  .flex{
+    display: flex;
+  }
+ 
+  .mat-list-item{
+  font-size: 18px;
+  margin-top: 10px;
+  }
+  mat-list-item,.mat-list-item-content{
+    color: white !important;
+    
+  }
+  mat-list-item:hover{
+    color: whitesmoke !important;
+    background-color:gray;
+    /* rgb(117 116 116) */
+    
+  }
+  mat-toolbar{
+    height: 11%;
+  }
