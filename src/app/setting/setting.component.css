@@ -1,0 +1,30 @@
+.report {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
+mat-card.mat-card.mat-focus-indicator {
+   text-align: center;
+    width: 30%;
+    margin: 1rem;
+}
+mat-radio-group.mat-radio-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+mat-card-title{
+    font-size: large;
+    color: #002060;
+}
+
+button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled.btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 8rem;
+}
+.btn-set {
+    display: flex;
+    justify-content: space-evenly;
+}

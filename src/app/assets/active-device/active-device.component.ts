@@ -40,7 +40,7 @@ export class ActiveDeviceComponent implements OnInit {
   }
   refreshActiveDeviceList(){
     this.api.getActiveDeviceList().then((res:any)=>{
-      console.log("coin submit====",res);
+      // console.log("coin submit====",res);
       this.activeDeviceData=[]
       if(res.status){
     
@@ -65,7 +65,7 @@ export class ActiveDeviceComponent implements OnInit {
 
   refreshActiveGatewayList(){
     this.api.getActiveGatewayList().then((res:any)=>{
-      console.log("gateway submit====",res);
+      // console.log("gateway submit====",res);
       this.activeGatewayData=[]
       if(res.status){
         this.activeGatewayData=res.activeGatewayList
@@ -84,7 +84,7 @@ export class ActiveDeviceComponent implements OnInit {
 
   refreshActiveCoinList(){
     this.api.getActiveCoinList().then((res:any)=>{
-      console.log("coin submit====",res);
+      // console.log("coin submit====",res);
       this.activeCoinData=[]
       if(res.status){
         for(let i=0;i<res.activeCoinList.length;i++){

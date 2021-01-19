@@ -1,4 +1,4 @@
-button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled{
+button.mat-focus-indicator.mat-raised-button.mat-button-base{
     width: 100%;
     text-align: center;
     height: 50px;
@@ -10,11 +10,13 @@ button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled
     color: white;
 }
 mat-card.mat-card.mat-focus-indicator {
-    width: max-content;
+    width: 100%;
     margin: 2rem 1rem 0 1rem;
-    height: max-content;
+    height: 1005
 }
-
+.flex{
+  display: flex
+}
     .mat-header-cell{
       text-align: center;
       background-color: orange;
@@ -27,15 +29,23 @@ mat-card.mat-card.mat-focus-indicator {
     .mat-form-field {
       width: 100%;
     }
-    .mat-tab-group{
+    /* .mat-tab-group{
       position: absolute;
       margin-left: 26%;
       width: 74%;
       margin-top: -16.5%;
-    }
+    } */
     .mat-table{
       width: 100%;
     }
+    mat-card-title{
+      text-align: center;
+      font-size: large;
+      color: #002060;
+  }
+  hr{
+    width: 12rem;
+  }
 @media (max-width: 575.98px) {
     .mat-card{
       width: 100% !important;

@@ -35,15 +35,15 @@ export class EditAssetsComponent implements OnInit {
   ngOnInit(): void {
     this.editFind=this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: [{value: '', disabled: true}, Validators.required],
+      deviceId: [{value: '', disabled: true}],
     })
     this.editGateway=this.fb.group({
       gatewayName: ['', Validators.required],
-      gatewayId: [{value: '', disabled: true}, Validators.required],
+      gatewayId: [{value: '', disabled: true}],
     })
     this.editCoin=this.fb.group({
       coinName: ['', Validators.required],
-      coinId: [{value: '', disabled: true}, Validators.required],
+      coinId: [{value: '', disabled: true}],
       gatewayId:['', Validators.required]
     })
 
@@ -77,19 +77,21 @@ export class EditAssetsComponent implements OnInit {
   }
 
   updateFind(data){
+    data.deviceObjectId=this.patchData.id
+    console.log("edit device==",data)
     try{
       if(this.editFind.valid){
-        data.userId=1
+       
         this.api.editDevice(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status){
-            var msg = 'Device Updated Successfully'
+          if(res.status || !res.status ){
+            var msg = res.success
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Name Already exists, try different Name'
-            this.general.openSnackBar(msg,'')
-          }
+          // else if((res.status  || !res.status) && res.success.toLowerCase() != "device edited successfully"){
+          //   var msg = 'Device Name Already exists, try different Name'
+          //   this.general.openSnackBar(msg,'')
+          // }
         
         })
       }
@@ -100,19 +102,22 @@ export class EditAssetsComponent implements OnInit {
   }
 
   updateGateway(data){
+    data.gatewayObjectId =this.patchData.id
+    data.userId =this.patchData.userId
+    console.log("gateway ==",data)
     try{
       if(this.editGateway.valid){
         data.userId=1
         this.api.editGateway(data).then((res:any)=>{
           console.log("gateway submit====",res);
-          if(res.status){
-            var msg = 'Gateway Updated Successfully'
+          if(res.status || !res.status){
+            var msg = res.success
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Gateway Name Already exists, try different Name'
-            this.general.openSnackBar(msg,'')
-          }
+          // else if((res.status  || !res.status) && res.success.toLowerCase() != "gateway edited successfully"){
+          //   var msg = 'Gateway Name Already exists, try different Name'
+          //   this.general.openSnackBar(msg,'')
+          // }
         
         })
       }
@@ -123,19 +128,21 @@ export class EditAssetsComponent implements OnInit {
   }
 
   updateCoin(data){
+    data.coinObjectId=this.patchData.id
+    data.userId =this.patchData.userId
     try{
       if(this.editCoin.valid){
         data.userId=1
         this.api.editCoin(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status){
-            var msg = 'Coin Updated Successfully'
+          if(res.status || !res.status){
+            var msg = res.success
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Coin Name Already exists, try different Name'
-            this.general.openSnackBar(msg,'')
-          }
+          // else if((res.status  || !res.status) && res.success.toLowerCase() != "coin edited successfully"){
+          //   var msg = 'Coin Name Already exists, try different Name'
+          //   this.general.openSnackBar(msg,'')
+          // }
         
         })
       }
@@ -148,7 +155,7 @@ export class EditAssetsComponent implements OnInit {
     this.api.getGatewayData().then((res:any)=>{
       console.log("coin submit====",res);
       this.gateway=[]
-      if(res.status){
+      if(res.status ){
         this.gateway=res.success
       }
 

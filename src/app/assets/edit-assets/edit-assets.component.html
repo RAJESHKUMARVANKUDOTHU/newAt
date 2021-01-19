@@ -13,7 +13,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label> Device Id</mat-label>
-                    <input type="number" matInput min="1" formControlName="deviceId" disabled required>
+                    <input type="number" matInput min="1" formControlName="deviceId" disabled >
                     <mat-error></mat-error>
                 </mat-form-field> <br>  
                 <button mat-raised-button [disabled]="!editFind.valid">Submit</button>
@@ -35,7 +35,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label> Gateway Id</mat-label>
-                    <input type="text" matInput formControlName="gatewayId" disabled required>
+                    <input type="text" matInput formControlName="gatewayId" disabled >
                     <mat-error></mat-error>
                 </mat-form-field> <br>
                 <button mat-raised-button [disabled]="!editGateway.valid">Submit</button>
@@ -57,7 +57,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label>Coin Id</mat-label>
-                    <input type="number" matInput formControlName="coinId" required>
+                    <input type="number" matInput formControlName="coinId" disabled >
                     <mat-error></mat-error>
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">

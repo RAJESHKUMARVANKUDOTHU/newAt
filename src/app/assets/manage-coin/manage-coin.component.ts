@@ -34,7 +34,7 @@ export class ManageCoinComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'coin'
     }
@@ -51,17 +51,16 @@ export class ManageCoinComponent implements OnInit {
       console.log("coin submit====",res);
       this.coinData=[]
       if(res.status){
-        // this.general.registeredCoinCount=res.success.length
-        this.general.coinData=res.success
         for(let i=0;i<res.success.length;i++){
           if(res.success[i] != null){
             this.coinData.push({
               i:i+1,
-              id:res.success[i].id,
+              id:res.success[i]._id,
+              userId:res.success[i].userId,
               coinId:res.success[i].coinId,
               coinName:res.success[i].coinName,
               gatewayId:res.success[i].gatewayId,
-              updatedOn:res.success[i].updatedOn,
+              updatedOn:res.success[i].updatedAt,
               edit:'edit',
               delete:'delete_forever'
             })
@@ -85,7 +84,7 @@ export class ManageCoinComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '30vw';
     dialogConfig.data={
       type:'coin',
       data:data
@@ -100,12 +99,15 @@ export class ManageCoinComponent implements OnInit {
  
 
   delete(data){
+    data.coinObjectId=data.id
+
     if(confirm('Are you sure you want to delete coin?')){
       this.api.deleteCoin(data).then((res:any)=>{
-        console.log("coin delete====",res);
+        // console.log("coin delete====",res);
        
         if(res.status){
-          var msg = 'Coin deleted Successfully'
+          this.refreshCoin()
+          var msg = res.success
           this.general.openSnackBar(msg,'')
         }
       }).catch((err:any)=>{

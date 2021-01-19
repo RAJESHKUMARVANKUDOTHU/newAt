@@ -1,12 +1,13 @@
 <div class="statusFreeze flexWrap" *ngIf = "statusFreeze">
   <mat-spinner mode="indeterminate"></mat-spinner><span [innerHTML]="freezeMessage"></span>
 </div>
-<mat-toolbar *ngIf="logged && loginDetails.role=='admin'">
-  <span ><span style="flex: 1 1 auto;"></span>{{loginDetails.success}} </span>
-  <span  (click)="logout()"><mat-icon>exit_to_app</mat-icon></span>
+<mat-toolbar *ngIf="logged && loginDetails.role=='superAdminRole'">
+  <span style="flex: 1 1 auto;"></span>
+  <span >{{loginDetails.userName}} </span> &nbsp;
+  <span  (click)="logout()" class="cursor"><mat-icon>exit_to_app</mat-icon></span>
 </mat-toolbar>
 
-<mat-sidenav-container class="example-container mat-typography" *ngIf="logged && menu && loginDetails.role=='user'"  autosize="true">
+<mat-sidenav-container class="example-container mat-typography" *ngIf="logged && menu && loginDetails.role=='adminRole'"  autosize="true">
   <mat-sidenav #sidenav mode="side"  opened class="example-sidenav" >
     
     <div class="flex" [ngStyle]="{'background-color': isExpanded? 'white':'#002060'}">
@@ -37,7 +38,7 @@
           <span mat-line *ngIf="isExpanded"> Logout</span>
         </mat-list-item>
      </mat-nav-list> -->
-    <mat-nav-list>
+    <mat-list>
       <mat-list-item   routerLink="/dashboard">
         <span  *ngIf="isExpanded || isShowing" mat-line> Home</span>
         <mat-icon mat-list-icon>home</mat-icon>
@@ -48,20 +49,45 @@
         <mat-icon mat-list-icon>dashboard</mat-icon>
       </mat-list-item>
   
-      <mat-list-item   routerLink="/geofence" >
-        <span *ngIf="isExpanded" mat-line> Geofence</span>
-        <mat-icon mat-list-icon>vpn_lock</mat-icon>
+      <!-- <mat-list>
+        <mat-list-item   (click)="showLabel = !showLabel">
+          <mat-icon mat-list-icon >vpn_lock</mat-icon>
+          <span mat-line *ngIf="isExpanded">  Geofence  </span><mat-icon >keyboard_arrow_down</mat-icon>
+        </mat-list-item >
+      
+        <div class="list">
+          <mat-list-item *ngIf="showLabel"  routerLink="/geofence" >
+            <span *ngIf="isExpanded" mat-line> Geofence Settings</span>
+            <mat-icon mat-list-icon>settings</mat-icon>
+          </mat-list-item>
+    
+          <mat-list-item *ngIf="showLabel"  routerLink="/geofence-dashboard" >
+            <span *ngIf="isExpanded" mat-line> Geofence Dashboard</span>
+            <mat-icon mat-list-icon>dashboard</mat-icon>
+          </mat-list-item>
+        </div>
+      
+      </mat-list> -->
+    
+      <mat-list-item routerLink="/geofence" >
+        <span *ngIf="isExpanded" mat-line> Geofence Settings</span>
+        <mat-icon mat-list-icon>settings</mat-icon>
       </mat-list-item>
-      <mat-list-item  routerLink="/map-center">
+
+      <mat-list-item routerLink="/geofence-dashboard" >
+        <span *ngIf="isExpanded" mat-line> Geofence Dashboard</span>
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+      </mat-list-item>
+      <mat-list-item routerLink="/map-center">
         <span *ngIf="isExpanded" mat-line> Map Center</span>
         <mat-icon mat-list-icon>map</mat-icon>
   
       </mat-list-item>
-      <mat-list-item   routerLink="/report" >
+      <mat-list-item routerLink="/report" >
         <span *ngIf="isExpanded" mat-line> Report</span>
         <mat-icon mat-list-icon>rate_review</mat-icon>
       </mat-list-item>
-      <mat-list-item routerLink="/contact" >
+      <mat-list-item (click)="openDailog()">
         <mat-icon mat-list-icon>contact_phone</mat-icon>
         <span *ngIf="isExpanded"mat-line> Contact</span>
         
@@ -69,21 +95,19 @@
       <mat-list-item routerLink="/setting" >
         <mat-icon mat-list-icon>settings</mat-icon>
         <span *ngIf="isExpanded" mat-line> Settings</span>
-  
       </mat-list-item>
-      <mat-list-item>
-        <mat-icon mat-list-icon (click)="logout()">exit_to_app</mat-icon>
+      <mat-list-item  (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
         <span mat-line *ngIf="isExpanded"> Logout</span>
       </mat-list-item>
-
-  </mat-nav-list>
+    </mat-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content >
     <mat-toolbar>
       <span style="flex: 1 1 auto;"></span>
       <span *ngIf="logged">{{loginDetails.success}} </span>
     </mat-toolbar>
-     <div  *ngIf="logged && loginDetails.role=='user'">
+     <div  *ngIf="logged && loginDetails.role=='adminRole'" class="example-sidenav-content">
       <router-outlet></router-outlet>
      </div>
 
@@ -91,7 +115,7 @@
  
 </mat-sidenav-container>
 <!--  -->
-<div *ngIf="logged && loginDetails.role=='admin'">  
+<div *ngIf="logged && loginDetails.role=='superAdminRole'">  
   <router-outlet></router-outlet>
 
 </div>

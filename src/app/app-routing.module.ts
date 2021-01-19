@@ -16,25 +16,31 @@ import { ManageCoinComponent } from './assets/manage-coin/manage-coin.component'
 import { ActiveDeviceComponent } from './assets/active-device/active-device.component';
 import { OfflineDeviceComponent } from './assets/offline-device/offline-device.component';
 import { SettingComponent } from './setting/setting.component';
+import { LiveDataComponent } from './live-data/live-data.component';
+import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path:'login' , component:LoginComponent},
-  { path: '', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'dashboard', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'manage-asset', component:ManageAssetComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'map-center', component:MapCenterComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'geofence', component:GeofenceComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  { path: '', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'dashboard', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'manage-asset', component:ManageAssetComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'map-center', component:MapCenterComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'geofence', component:GeofenceComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
   { path: 'contact', component:ContactComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'report', component:ReportComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'setting', component:SettingComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'manage-device', component:ManageDeviceComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'manage-gateway', component:ManageGatewayComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'manage-coin', component:ManageCoinComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'active-device', component:ActiveDeviceComponent, canActivate: [AuthGuard], data:{role:['user']}},
-  { path: 'offline-device', component:OfflineDeviceComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  { path: 'report', component:ReportComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'setting', component:SettingComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'manage-device', component:ManageDeviceComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'manage-gateway', component:ManageGatewayComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'manage-coin', component:ManageCoinComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'active-device', component:ActiveDeviceComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'offline-device', component:OfflineDeviceComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'live-data', component:LiveDataComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'geofence-dashboard', component:GeofenceDashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'profile', component:ProfileComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
-  {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},
+  {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['superAdminRole']}},
 ];
 
 @NgModule({

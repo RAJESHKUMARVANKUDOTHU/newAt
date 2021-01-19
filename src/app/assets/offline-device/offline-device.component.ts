@@ -38,7 +38,7 @@ export class OfflineDeviceComponent implements OnInit {
   }
   refreshOfflineDeviceList(){
     this.api.getActiveDeviceList().then((res:any)=>{
-      console.log("device submit====",res);
+      // console.log("device submit====",res);
       this.OfflineDeviceData=[]
       if(res.status){
         this.OfflineDeviceData=res.offlineDeviceList
@@ -57,7 +57,7 @@ export class OfflineDeviceComponent implements OnInit {
 
   refreshOfflineGatewayList(){
     this.api.getActiveGatewayList().then((res:any)=>{
-      console.log("gateway submit====",res);
+      // console.log("gateway submit====",res);
       this.OfflineGatewayData=[]
     
       if(res.status){
@@ -84,7 +84,7 @@ export class OfflineDeviceComponent implements OnInit {
 
   refreshOfflineCoinList(){
     this.api.getActiveCoinList().then((res:any)=>{
-      console.log("coin submit====",res);
+      // console.log("coin submit====",res);
       this.OfflineCoinData=[]
     
       if(res.status){
