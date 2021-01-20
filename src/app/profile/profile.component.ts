@@ -17,9 +17,9 @@ export class ProfileComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   addSubUserForm:FormGroup
-  displayedColumns: string[] = ["i",'id', 'userName', 'updatedOn', 'isDeleted'];
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt', 'isDeleted'];
   dataSource:any=[]
-  getSubUserList:any=[]
+  getUserList:any=[]
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
   constructor(
@@ -40,6 +40,8 @@ export class ProfileComponent implements OnInit {
     {
       validators: this.formValidator(),
     });
+
+    this.getUsers()
   }
 
   formValidator(){
@@ -80,6 +82,7 @@ export class ProfileComponent implements OnInit {
           this.api.createSubUsers(data).then((res:any)=>{
             console.log("created sub user res===",res)
             if(res.status){
+              this.getUsers()
               this.general.openSnackBar(res.success,'')
             }
           })
@@ -91,5 +94,23 @@ export class ProfileComponent implements OnInit {
         console.log("err======",err)
       }
     }
+  }
+
+  getUsers(){
+    this.getUserList=[]
+    this.api.viewUsers().then((res:any)=>{
+      console.log("get user res===",res)
+      if(res.status){
+        this.getUserList=res.success
+        this.dataSource = new MatTableDataSource(this.getUserList);
+
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator=this.paginator
+        })
+      }
+    }).catch((err)=>{
+      console.log("err======",err)
+    })  
   }
 }

@@ -14,7 +14,7 @@ import { ApiService } from '../../services/api.service';
 export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ["i",'id', 'userName', 'updatedOn', 'isDeleted'];
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt', 'isDeleted'];
   dataSource:any=[]
   addUserForm:FormGroup
   loginData:any
