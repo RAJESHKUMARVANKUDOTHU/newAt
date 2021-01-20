@@ -18,7 +18,7 @@ export class ManageDeviceComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   findData:any=[]
   dataSource: any = [];
-  displayedColumns = ['i','deviceId','deviceName','infected','updatedOn','edit','delete']; //,'batteryStatus'
+  displayedColumns = ['i','deviceId','deviceName','on-off','updatedOn','edit','delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,    
     private login:LoginAuthService,

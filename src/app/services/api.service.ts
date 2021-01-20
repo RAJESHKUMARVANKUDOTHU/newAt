@@ -400,19 +400,19 @@ export class ApiService {
 
   // -------------------------------Settings page api-------------------------------
 
-  dateTimeFormat(data){
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
+  // dateTimeFormat(data){
+  //     const httpOptions = {
+  //       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //     };
 
-      let url = this.host+'/dateTimeFormatUpdate';
-      return new Promise((resolve,reject)=>{
-        this.http.post(url,data,httpOptions).subscribe(res=>{
-          resolve(res);
-        })
-      }) 
+  //     let url = this.host+'/dateTimeFormatUpdate';
+  //     return new Promise((resolve,reject)=>{
+  //       this.http.post(url,data,httpOptions).subscribe(res=>{
+  //         resolve(res);
+  //       })
+  //     }) 
     
-  }
+  // }
 
 
   /* -------------Range Setting ----------------------- */

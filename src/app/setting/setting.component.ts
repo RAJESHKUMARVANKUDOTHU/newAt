@@ -42,9 +42,9 @@ export class SettingComponent implements OnInit {
     this.refreshCoin()
   }
   createForm(){
-    this.dateTimeForm=this.fb.group({
-      dateTimeFormat:['',Validators.required]
-    })
+    // this.dateTimeForm=this.fb.group({
+    //   dateTimeFormat:['',Validators.required]
+    // })
 
     this.distanceForm=this.fb.group({
       rangeInFeet:['',Validators.required]
@@ -120,26 +120,26 @@ export class SettingComponent implements OnInit {
 }
 
 
-  onSubmitDateTime(data){
-    console.log("data===",data)
-    try{
-      if(this.dateTimeForm.valid){
-        this.api.dateTimeFormat(data).then((res:any)=>{
-          console.log("dateTimeFormat res===",res)
-          if(res.status){
-            this.general.openSnackBar('Date Time Format updated Successfully','')
-            this.dateTimeForm.reset()
-          }
-        }).catch((err)=>{
-          console.log("err=",err)
-        })
-      }
+  // onSubmitDateTime(data){
+  //   console.log("data===",data)
+  //   try{
+  //     if(this.dateTimeForm.valid){
+  //       this.api.dateTimeFormat(data).then((res:any)=>{
+  //         console.log("dateTimeFormat res===",res)
+  //         if(res.status){
+  //           this.general.openSnackBar('Date Time Format updated Successfully','')
+  //           this.dateTimeForm.reset()
+  //         }
+  //       }).catch((err)=>{
+  //         console.log("err=",err)
+  //       })
+  //     }
 
-    }
-    catch(error){
-      console.log("error==",error)
-    }
-  }
+  //   }
+  //   catch(error){
+  //     console.log("error==",error)
+  //   }
+  // }
 
   onSubmitDistanceForm(data){
     console.log("data===",data)

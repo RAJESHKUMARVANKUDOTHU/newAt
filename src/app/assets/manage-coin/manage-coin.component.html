@@ -25,11 +25,11 @@
             </ng-container>   
             <ng-container matColumnDef="edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
-                <td mat-cell *matCellDef="let coin" (click)="edit(coin)"> <mat-icon>{{coin.edit}} </mat-icon></td>
+                <td mat-cell *matCellDef="let coin" (click)="edit(coin)" class="cursor"> <mat-icon>{{coin.edit}} </mat-icon></td>
             </ng-container>  
             <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-                <td mat-cell *matCellDef="let coin" (click)="delete(coin)"><mat-icon> {{coin.delete}}</mat-icon> </td>
+                <td mat-cell *matCellDef="let coin" (click)="delete(coin)" class="cursor"><mat-icon> {{coin.delete}}</mat-icon> </td>
             </ng-container>     
         </div>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
