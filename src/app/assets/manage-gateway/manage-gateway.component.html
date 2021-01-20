@@ -20,11 +20,11 @@
             </ng-container>   
             <ng-container matColumnDef="edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
-                <td mat-cell *matCellDef="let gateway" (click)="edit(gateway)"> <mat-icon>{{gateway.edit}} </mat-icon></td>
+                <td mat-cell *matCellDef="let gateway" (click)="edit(gateway)" class="cursor"> <mat-icon>{{gateway.edit}} </mat-icon></td>
             </ng-container>  
             <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-                <td mat-cell *matCellDef="let gateway" (click)="delete(gateway)" > <mat-icon>{{gateway.delete}}</mat-icon> </td>
+                <td mat-cell *matCellDef="let gateway" (click)="delete(gateway)" class="cursor" > <mat-icon>{{gateway.delete}}</mat-icon> </td>
             </ng-container>     
         </div>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

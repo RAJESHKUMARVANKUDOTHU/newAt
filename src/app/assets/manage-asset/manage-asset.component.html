@@ -44,49 +44,49 @@
 
     <div class="assets">
       <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
-            <mat-form-field>
-              <mat-label>Device Id</mat-label>
-              <input type="number" matInput formControlName="deviceId" required>
-              <mat-error>
-                Device ID is required
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Device Name</mat-label>
-              <input type="text" matInput formControlName="deviceName" required >
-          
-              <mat-error>
-                Device name is required
-              </mat-error>
-            </mat-form-field>
-            <button mat-raised-button [disabled]="!assignAssetForm.valid">Submit</button>
-          </form>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
-            <mat-form-field>
-              <mat-label>Device Id</mat-label>
-              <input type="number" matInput formControlName="deviceId" required>
-              <mat-error>
-                Device ID is required
-              </mat-error>
-            </mat-form-field> <br>
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset</span>
+                  </mat-panel-title>
+              </mat-expansion-panel-header>
+              <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
+                  <mat-form-field>
+                    <mat-label>Device Id</mat-label>
+                    <input type="number" matInput formControlName="deviceId" required>
+                    <mat-error>
+                      Device ID is required
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Device Name</mat-label>
+                    <input type="text" matInput formControlName="deviceName" required >
+                
+                    <mat-error>
+                      Device name is required
+                    </mat-error>
+                  </mat-form-field>
+                  <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary">Submit</button>
+              </form>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset</span>
+                  </mat-panel-title>
+              </mat-expansion-panel-header>
+              <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
+                  <mat-form-field>
+                    <mat-label>Device Id</mat-label>
+                    <input type="number" matInput formControlName="deviceId" required>
+                    <mat-error>
+                      Device ID is required
+                    </mat-error>
+                  </mat-form-field> <br>
 
-            <button mat-raised-button [disabled]="!deassignAssetForm.valid">Submit</button>
-          </form>
-        </mat-expansion-panel>
+                  <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary">Submit</button>
+              </form>
+          </mat-expansion-panel>
       </mat-accordion>
 
     </div>
