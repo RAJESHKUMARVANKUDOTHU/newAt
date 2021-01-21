@@ -14,7 +14,7 @@ import { ApiService } from '../../services/api.service';
 export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ["i",'id', 'userName', 'updatedOn', 'isDeleted'];
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt', 'isDeleted'];
   dataSource:any=[]
   addUserForm:FormGroup
   loginData:any
@@ -35,7 +35,7 @@ export class AdminDashboardComponent implements OnInit {
       password:['',Validators.required]
     })
     
-    this.getUsers()
+    this.getAdmins()
 
   }
   hideShowPassword() {
@@ -51,7 +51,7 @@ export class AdminDashboardComponent implements OnInit {
           this.api.createUsers(data).then((res:any)=>{
             console.log("created user res===",res)
             if(res.status){
-                 this.getUsers()  
+                 this.getAdmins()  
             }
           })
           .catch((err)=>{
@@ -64,9 +64,9 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  getUsers(){
+  getAdmins(){
     this.getUserList=[]
-    this.api.viewUsers().then((res:any)=>{
+    this.api.viewAdmins().then((res:any)=>{
       console.log("get user res===",res)
       if(res.status){
         this.getUserList=res.success

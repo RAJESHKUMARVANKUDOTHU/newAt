@@ -15,6 +15,11 @@ import { MatOption } from '@angular/material/core';
 })
 export class SettingComponent implements OnInit {
   @ViewChild('allSelected') private allSelected:MatOption
+  @ViewChild('allSelected1') private allSelected1:MatOption
+  @ViewChild('allSelected2') private allSelected2:MatOption
+  @ViewChild('allSelected3') private allSelected3:MatOption
+  @ViewChild('allSelected4') private allSelected4:MatOption
+  @ViewChild('allSelected5') private allSelected5:MatOption
   dateTimeForm:FormGroup
   distanceForm:FormGroup
   timeDelay:FormGroup
@@ -164,27 +169,32 @@ export class SettingComponent implements OnInit {
 
   }
   onSubmitTimeDelay(data){
+    data.deviceId=this.filterArray(data.deviceId)
     console.log("onSubmitTimeDelay data==",data)
     this.timeDelay.reset()
 
   }
   onSubmitInactivityFind(data){
+    data.deviceId=this.filterArray(data.deviceId)
     console.log("onSubmitInactivityFind data==",data)
     this.inactivityFind.reset()
 
 
   }
   onSubmitInactivityCoin(data){
+    data.coinId=this.filterArray(data.coinId)
     console.log("onSubmitInactivityCoin data==",data)
     this.inactivityCoin.reset()
 
 
   }
   onSubmitMaxFindForm(data){
+    data.deviceId=this.filterArray(data.deviceId)
     console.log("onSubmitMaxFindForm data==",data)
     this.maxFindForm.reset()
   }
   onSumbitCoinCategory(data){
+    data.coinId=this.filterArray(data.coinId)
     console.log("onSumbitCoinCategory data==",data)
     this.coinCategory.reset()
 
@@ -197,27 +207,73 @@ export class SettingComponent implements OnInit {
 
   }
   onSubmitGroupCoinForm(data){
+    data.coinId=this.filterArray(data.coinId)
     console.log("onSubmitGroupCoinForm data==",data)
     this.groupCoinForm.reset()
 
-
   }
+
   toggleAllSelectionDevice(formData){
+    console.log("allselected",this.allSelected)
     if(this.allSelected.selected){
+      formData.controls.deviceId.patchValue([...this.deviceData.map(obj=>obj.deviceId),0])  
+    }
+    else{
+       formData.controls.deviceId.patchValue([])
+    }
+  }
+  toggleAllSelectionDevice1(formData){
+    if(this.allSelected1.selected){
       formData.controls.deviceId.patchValue([...this.deviceData.map(obj=>obj.deviceId),0])
     }
     else{
       formData.controls.deviceId.patchValue([])
     }
   }
+  toggleAllSelectionDevice2(formData){
+    
+    if(this.allSelected2.selected){
+      formData.controls.deviceId.patchValue([...this.deviceData.map(obj=>obj.deviceId),0])
+    }
+    else{
+      formData.controls.deviceId.patchValue([])
+    }
+  }
+  
 
   toggleAllSelectionCoin(formData){
-    if(this.allSelected.selected){
+
+    if(this.allSelected3.selected){
       formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])
     }
     else{
       formData.controls.coinId.patchValue([])
     }
+  }
+  toggleAllSelectionCoin1(formData){
+   
+    if(this.allSelected4.selected){
+      formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])
+    }
+    else{
+      formData.controls.coinId.patchValue([])
+    }
+  } 
+  
+  toggleAllSelectionCoin2(formData){
+    if(this.allSelected5.selected){
+      formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])
+    }
+    else{
+      formData.controls.coinId.patchValue([])
+    }
+  }
+
+  filterArray(array){
+    array=array.filter((obj)=>{
+       return obj!=0
+    })
+    return array
   }
 
   openInfo(data){

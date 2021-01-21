@@ -22,7 +22,7 @@ mat-card-title{
 button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled.btn {
     position: absolute;
     bottom: 1rem;
-    right: 8rem;
+    right: 7rem;
 }
 .btn-set {
     display: flex;

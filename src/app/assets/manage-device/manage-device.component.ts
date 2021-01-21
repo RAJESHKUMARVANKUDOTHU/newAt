@@ -116,5 +116,24 @@ export class ManageDeviceComponent implements OnInit {
       })
     }
   }
+
+  toggle(a){
+    var data={
+      
+    }
+    if(confirm('Are you sure you want to delete device?')){
+      this.api.deviceOnOff(data).then((res:any)=>{
+        console.log("device delete====",res);
+       
+        if(res.status){
+          this.refreshDevice()
+          var msg = res.success
+          this.general.openSnackBar(msg,'')
+        }
+      }).catch((err:any)=>{
+        console.log("error===",err)
+      })
+    }
+  }
 }
 

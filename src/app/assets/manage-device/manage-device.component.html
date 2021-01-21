@@ -18,7 +18,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> On/Off </th>
                 <td mat-cell *matCellDef="let live" >
                 <span >
-                  <mat-slide-toggle color="primary" [checked]="false"  ></mat-slide-toggle>
+                  <mat-slide-toggle color="primary" [checked]="false" (change)="toggle(live)" ></mat-slide-toggle>
                 </span>
     
               </td>
