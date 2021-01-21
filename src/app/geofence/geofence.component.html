@@ -30,7 +30,7 @@
                                 <mat-form-field>
                                     <mat-label>Select Geofence</mat-label>
                                     <mat-select formControlName="coinId" multiple>
-                                        <mat-option #allSelected (click)="toggleAllSelectionCoin(geofenceForm)" [value]="0">All</mat-option>
+                                        <mat-option #allSelected1 (click)="toggleAllSelectionCoin(geofenceForm)" [value]="0">All</mat-option>
                                         <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
                                     </mat-select>
                                 </mat-form-field> <br>

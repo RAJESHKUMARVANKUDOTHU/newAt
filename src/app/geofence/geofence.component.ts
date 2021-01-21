@@ -14,6 +14,7 @@ import { MatOption } from '@angular/material/core';
 })
 export class GeofenceComponent implements OnInit {
   @ViewChild('allSelected') private allSelected:MatOption
+  @ViewChild('allSelected1') private allSelected1:MatOption
   geofenceForm:FormGroup
   coinData:any
   deviceData:any
@@ -69,7 +70,7 @@ export class GeofenceComponent implements OnInit {
   }
 
   toggleAllSelectionCoin(formData){
-    if(this.allSelected.selected){
+    if(this.allSelected1.selected){
       formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])
     }
     else{

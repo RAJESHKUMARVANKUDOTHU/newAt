@@ -119,6 +119,30 @@
                     ></circle-progress>
       
                 </div>
+
+                <div >
+                  <!-- Active<br> -->
+                  <circle-progress
+                    class="circle"
+                    [percent]="100"
+                    [maxPercent]="1000"
+                    [showUnits]="false"
+                    [showBackground] = "true"
+                    [backgroundColor]= "'#002060'"
+                    [outerStrokeColor] = "'#ffffff'"
+                    [outerStrokeWidth] = 6
+                    [showInnerStroke] = false
+                    [radius] = 60
+                    [titleColor] = "'#ffffff'"
+                    [showSubtitle] = false
+                    [backgroundPadding] = 5
+                    [animation]="true"
+                    [animationDuration]="500"
+                    [startFromZero]="true"
+                    [responsive]="false"
+                  ></circle-progress>
+    
+              </div>
             </mat-card>
         </div>
     
@@ -156,6 +180,7 @@
           </mat-card>
       </div>
   </div>
+
 </div>
 
 

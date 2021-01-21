@@ -119,7 +119,12 @@ export class ManageDeviceComponent implements OnInit {
 
   toggle(a){
     var data={
-      
+      _id:a.id,
+      userId:a.userId,
+      deviceName:a.deviceName,
+      deviceId:a.deviceId,
+      deviceToggleStatus:true
+
     }
     if(confirm('Are you sure you want to delete device?')){
       this.api.deviceOnOff(data).then((res:any)=>{

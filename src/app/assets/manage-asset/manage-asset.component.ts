@@ -20,11 +20,12 @@ export class ManageAssetComponent implements OnInit {
   userId:any
   id:any
   public doughnutChartLabels: string[] = ['Device','Gateways','Coin'];
-  public doughnutChartData:any
-  public doughnutChartData1:any
-  public doughnutChartData2:any
+  public doughnutChartData:any=[0,0,0]
+  public doughnutChartData1:any=[0,0,0]
+  public doughnutChartData2:any=[0,0,0]
   countActive:any=[]
   countOffline:any =[]  
+  countReg:any=[]
   chartOptions = {
     responsive: true,
   };
@@ -52,11 +53,9 @@ export class ManageAssetComponent implements OnInit {
     private fb:FormBuilder,
     public dialog: MatDialog
   ) {
-    this.doughnutChartData=this.countActive
-    this.doughnutChartData1=this.countOffline
-    this.doughnutChartData2=[
+    // this.doughnutChartData=this.countActive
+    // this.doughnutChartData1=this.countOffline
      
-    ]
    }
 
   ngOnInit(): void {
@@ -68,20 +67,25 @@ export class ManageAssetComponent implements OnInit {
       deviceId:['',Validators.required],
      
     })
-
+    // this.doughnutChartData2=this.countReg
 
     this.deviceCount()
     this.gatewayCount()
     this.coinCount()
     this.refreshDevice()
+    this.getAssignAssetList()
+    this.getDeAssignAssetList()
   }
 
   deviceCount(){
     this.api.allDeviceCount().then((res:any)=>{
       console.log("device count====",res); 
-        if(res.status){
-          this.countActive.push(res.active)
-          this.countOffline.push(res.offline)
+        if(res.success){
+
+          this.countReg=res.count
+         
+          this.doughnutChartData2=[this.countReg.deviceCount,this.countReg.gatewayCount,this.countReg.coinCount]
+          console.log("this.doughnutChartData2",this.doughnutChartData2)
         } 
     
     }).catch((err:any)=>{
@@ -90,37 +94,37 @@ export class ManageAssetComponent implements OnInit {
   }
 
   gatewayCount(){
-    // this.api.registeredGatewayCount().then((res:any)=>{
-    //   console.log("gateway count====",res); 
-    //   if(res.status){
-    //     this.countActive.push(res.active)
-    //     this.countOffline.push(res.offline)
-    //   } 
-    //   }).catch((err:any)=>{
-    //   console.log("error===",err)
-    // })
+    this.api.gatewayCount().then((res:any)=>{
+      console.log("gateway count====",res); 
+      if(res.status){
+        this.countActive.push(res.active)
+        this.countOffline.push(res.offline)
+      } 
+      }).catch((err:any)=>{
+      console.log("error===",err)
+    })
   }
 
   coinCount(){
-    // this.api.registeredCoinCount().then((res:any)=>{
-    //   console.log("coin count====",res);
-    //   if(res.status){
-    //       this.countActive.push(res.active)
-    //       this.countOffline.push(res.offline)
-    //       console.log("this.countActive==",this.countActive,this.countOffline)
-    //       this.doughnutChartData=[this.countActive[0],this.countActive[1],this.countActive[2]]
-    //       this.doughnutChartData1=[this.countOffline[0],this.countOffline[1],this.countOffline[2]]
-    //     } 
+    this.api.coinCount().then((res:any)=>{
+      console.log("coin count====",res);
+      if(res.status){
+          // this.countActive.push(res.active)
+          // this.countOffline.push(res.offline)
+          // console.log("this.countActive==",this.countActive,this.countOffline)
+          // this.doughnutChartData=[this.countActive[0],this.countActive[1],this.countActive[2]]
+          // this.doughnutChartData1=[this.countOffline[0],this.countOffline[1],this.countOffline[2]]
+        } 
    
-    // }).catch((err:any)=>{
-    //   console.log("error===",err)
-    // })
+    }).catch((err:any)=>{
+      console.log("error===",err)
+    })
   }
   getAssetInfo(a){
     this.id=a._id
     this.userId=a.userId
   }
-  getAssingAssetList(){
+  getAssignAssetList(){
     this.api.assignAssetList().then((res:any)=>{
       console.log("assignAsset list res====",res);
       if(res.status){
@@ -132,7 +136,7 @@ export class ManageAssetComponent implements OnInit {
     })
   }
 
-  getDeAssingAssetList(){
+  getDeAssignAssetList(){
     this.api.deassignAssetList().then((res:any)=>{
       console.log("deassignAsset list res====",res);
       if(res.status ){
