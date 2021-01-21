@@ -19,6 +19,7 @@ import { SettingComponent } from './setting/setting.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
   {path:'login' , component:LoginComponent},
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'live-data', component:LiveDataComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
   { path: 'geofence-dashboard', component:GeofenceDashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
   { path: 'profile', component:ProfileComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
+  { path: 'map', component:MapComponent, canActivate: [AuthGuard], data:{role:['adminRole']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['superAdminRole']}},
