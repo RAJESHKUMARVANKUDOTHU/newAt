@@ -27,6 +27,7 @@
     "chart.js": "^2.9.4",
     "google-libphonenumber": "^3.2.15",
     "intl-tel-input": "^17.0.8",
+    "leaflet": "^1.7.1",
     "ng-circle-progress": "^1.6.0",
     "ng2-charts": "^2.4.2",
     "ngx-bootstrap": "^6.2.0",
