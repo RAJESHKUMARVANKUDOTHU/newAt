@@ -16,8 +16,9 @@ export class ManageAssetComponent implements OnInit {
   assignAssetForm:FormGroup
   deassignAssetForm:FormGroup
   findData:any
-  id:any
+  getAssetList:any
   userId:any
+  id:any
   public doughnutChartLabels: string[] = ['Device','Gateways','Coin'];
   public doughnutChartData:any
   public doughnutChartData1:any
@@ -115,9 +116,36 @@ export class ManageAssetComponent implements OnInit {
     //   console.log("error===",err)
     // })
   }
+  getAssetInfo(a){
+    this.id=a._id
+    this.userId=a.userId
+  }
+  getAssingAssetList(){
+    this.api.assignAssetList().then((res:any)=>{
+      console.log("assignAsset list res====",res);
+      if(res.status){
+        this.getAssetList=res.success
+      } 
+   
+    }).catch((err:any)=>{
+      console.log("error===",err)
+    })
+  }
+
+  getDeAssingAssetList(){
+    this.api.deassignAssetList().then((res:any)=>{
+      console.log("deassignAsset list res====",res);
+      if(res.status ){
+        this.getAssetList=res.success
+      } 
+   
+    }).catch((err:any)=>{
+      console.log("error===",err)
+    })
+  }
 
   assignAsset(data){
-    data._id=this.id
+    data._Id=this.id
     data.userId=this.userId
     console.log("assign data==",data)
     if(this.assignAssetForm.valid){
@@ -133,6 +161,8 @@ export class ManageAssetComponent implements OnInit {
     }
   }
   deassignAsset(data){
+    data._Id=this.id
+    data.userId=this.userId
     if(this.deassignAssetForm.valid){
       this.api.deassignAsset(data).then((res:any)=>{
         console.log("coin count====",res);
@@ -146,11 +176,7 @@ export class ManageAssetComponent implements OnInit {
     }
   }
 
-  getId(a){
-    console.log("aa==",a)
-    this.id=a._id
-    this.userId=a.userId
-  }
+
   refreshDevice(){
 
     this.api.getDeviceData().then((res:any)=>{
