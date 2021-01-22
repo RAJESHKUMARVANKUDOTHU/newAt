@@ -90,7 +90,7 @@ export class MapActionsComponent implements OnInit {
     console.log("gatewaySelect==",data);
     this.coinList = data.coins;
   }
-
+ 
 
   coinSelect(data){
     console.log("coinSelect==",data);
