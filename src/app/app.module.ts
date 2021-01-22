@@ -35,6 +35,7 @@ import { SettingInfoComponent } from './setting-info/setting-info.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MapComponent } from './map/map.component';
+import { MapActionsComponent } from './map-actions/map-actions.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MapComponent } from './map/map.component';
     GeofenceDashboardComponent,
     ProfileComponent,
     MapComponent,
+    MapActionsComponent,
   ],
   imports: [
     BrowserModule,
