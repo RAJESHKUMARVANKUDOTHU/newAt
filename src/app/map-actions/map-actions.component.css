@@ -1,0 +1,6 @@
+mat-card-title.mat-card-title {
+    font-size: 1.3rem;
+}
+mat-card.mat-card.mat-focus-indicator.border-card {
+    border: 1px solid grey;
+}

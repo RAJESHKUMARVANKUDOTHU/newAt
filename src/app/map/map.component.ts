@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,OnDestroy } from '@angular/core';
 import * as L from 'leaflet';
 @Component({
   selector: 'app-map',
@@ -13,13 +13,18 @@ export class MapComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.map = L.map('map', {
-      center: [39.8282, -98.5795],
-      zoom: 3,
+      center: [0, 0],
+      zoom: 0,
     });
     var bounds = this.map.getBounds();
 
     L.imageOverlay('../../assets/office-layout.png', bounds).addTo(this.map);
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
+  }
+
+  ngOnDestroy(){
+    // this.map.off();
+    this.map.remove();
   }
 }
