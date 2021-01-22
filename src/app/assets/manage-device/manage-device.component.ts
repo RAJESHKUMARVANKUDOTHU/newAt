@@ -126,9 +126,9 @@ export class ManageDeviceComponent implements OnInit {
       deviceToggleStatus:true
 
     }
-    if(confirm('Are you sure you want to delete device?')){
+    if(confirm('Are you sure you want to perform this operation?')){
       this.api.deviceOnOff(data).then((res:any)=>{
-        console.log("device delete====",res);
+        console.log("toggle====",res);
        
         if(res.status){
           this.refreshDevice()

@@ -17,7 +17,8 @@ export class ManageAssetComponent implements OnInit {
   deassignAssetForm:FormGroup
   findData:any
   getAssetList:any
-  userId:any
+  getDeAssetList:any
+
   id:any
   public doughnutChartLabels: string[] = ['Device','Gateways','Coin'];
   public doughnutChartData:any=[0,0,0]
@@ -122,7 +123,7 @@ export class ManageAssetComponent implements OnInit {
   }
   getAssetInfo(a){
     this.id=a._id
-    this.userId=a.userId
+    // this.userId=a.userId
   }
   getAssignAssetList(){
     this.api.assignAssetList().then((res:any)=>{
@@ -140,7 +141,7 @@ export class ManageAssetComponent implements OnInit {
     this.api.deassignAssetList().then((res:any)=>{
       console.log("deassignAsset list res====",res);
       if(res.status ){
-        this.getAssetList=res.success
+        this.getDeAssetList=res.success
       } 
    
     }).catch((err:any)=>{
@@ -150,13 +151,14 @@ export class ManageAssetComponent implements OnInit {
 
   assignAsset(data){
     data._Id=this.id
-    data.userId=this.userId
+    // data.userId=this.userId
     console.log("assign data==",data)
     if(this.assignAssetForm.valid){
       this.api.assignAsset(data).then((res:any)=>{
         console.log("assignAsset res====",res);
         if(res.status || !res.status){
-          this.general.openSnackBar(res.success,'')
+          this.refreshDevice()
+          this.general.openSnackBar(res.message,'')
         } 
      
       }).catch((err:any)=>{
@@ -166,12 +168,13 @@ export class ManageAssetComponent implements OnInit {
   }
   deassignAsset(data){
     data._Id=this.id
-    data.userId=this.userId
+    // data.userId=this.userId
     if(this.deassignAssetForm.valid){
       this.api.deassignAsset(data).then((res:any)=>{
-        console.log("coin count====",res);
+        console.log("De assignAsset res====",res);
         if(res.status || !res.status){
-          this.general.openSnackBar(res.success,'')
+          this.refreshDevice()
+          this.general.openSnackBar(res.message,'')
         } 
      
       }).catch((err:any)=>{
