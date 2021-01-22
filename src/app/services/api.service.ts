@@ -503,6 +503,37 @@ export class ApiService {
     
   // }
 
+  // --------------geofence setting--------------------
+  geofenceSetting(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/geoFenceSetting';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    }) 
+
+}
+
+getGeofenceSetting(){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/getGeoFenceSetting';
+  return new Promise((resolve,reject)=>{
+    this.http.get(url).subscribe(res=>{
+      resolve(res);
+    })
+  }) 
+
+}
+
+  // ---------------end----------------------------
+
 
   /* -------------Range Setting ----------------------- */
   setRange(data){

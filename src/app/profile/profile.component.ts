@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
       const dept = formGroup.get('department');
-      console.log("formGroup==",formGroup)
+    
       if(type.value=="subAdmin"){
         if(dept.value!=''){
           dept.setErrors(null)

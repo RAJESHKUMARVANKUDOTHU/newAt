@@ -102,6 +102,8 @@ export class MapActionsComponent implements OnInit {
     
   }
 
-
+  editLocation(){
+    
+  }
 
 }

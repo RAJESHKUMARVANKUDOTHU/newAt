@@ -6,6 +6,7 @@ import { ApiService } from '../services/api.service';
 import { LoginAuthService } from '../services/login-auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
+import { GeneralService } from '../services/general.service';
 
 @Component({
   selector: 'app-geofence',
@@ -13,14 +14,20 @@ import { MatOption } from '@angular/material/core';
   styleUrls: ['./geofence.component.css']
 })
 export class GeofenceComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('allSelected') private allSelected:MatOption
   @ViewChild('allSelected1') private allSelected1:MatOption
   geofenceForm:FormGroup
+  geoFenceData:any=[]
   coinData:any
   deviceData:any
+  dataSource:any=[]
+  displayedColumns=['i','deviceId','deviceName']
   constructor(
     private login:LoginAuthService,
     private api: ApiService,
+    private general:GeneralService,
     private fb:FormBuilder
   ) { }
 
@@ -79,7 +86,31 @@ export class GeofenceComponent implements OnInit {
   }
 
   submit(data){
+    console.log("geofence Data==",data)
+    data.deviceId=this.general.filterArray(data.deviceId)
+    data.coinId=this.general.filterArray(data.deviceId)
+    this.api.geofenceSetting(data).then((res:any)=>{
+      if(res.status){
+        console.log("geofence setting res==",res)
+      }
+    })
+
+  }
+  getGeofence(){
+    this.api.getGeofenceSetting().then((res:any)=>{
+      this.geoFenceData=[]
+      if(res.status){
+        console.log("geofence setting res==",res)
+        this.geoFenceData=res.success
+      }
     
+    this.dataSource = new MatTableDataSource(this.geoFenceData);
+
+      setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator=this.paginator
+        })
+    })
   }
 
   search(a){
