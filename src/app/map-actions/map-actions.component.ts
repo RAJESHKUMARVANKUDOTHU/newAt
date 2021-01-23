@@ -157,7 +157,10 @@ export class MapActionsComponent implements OnInit {
   layoutSelect(data) {
     this.selectedLayoutCoin.layout = data.layout;
     console.log('data selectedLayoutCoin =', this.selectedLayoutCoin);
-
+  }
+  
+  editLocation(){
+    
   }
 
   createLocation(data) {

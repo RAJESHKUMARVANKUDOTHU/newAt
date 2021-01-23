@@ -298,13 +298,50 @@ export class ApiService {
           })
       })
     }
+    deviceCount(){
+      const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      };
+
+      let url = this.host+'/getDevicesCount';
+      return new Promise((resolve,reject)=>{
+        this.http.get(url).subscribe(res=>{
+          resolve(res);
+        })
+      })
+    }
+
+    gatewayCount(){
+      const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      };
+
+      let url = this.host+'/getGatewayCount';
+      return new Promise((resolve,reject)=>{
+        this.http.get(url).subscribe(res=>{
+          resolve(res);
+        })
+      })
+    }
+    coinCount(){
+      const httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      };
+
+      let url = this.host+'/getCoinCount';
+      return new Promise((resolve,reject)=>{
+        this.http.get(url).subscribe(res=>{
+          resolve(res);
+        })
+      })
+    }
 
     deviceOnOff(data){
       const httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
 
-      let url = this.host+'/deviceOnOff';
+      let url = this.host+'/deviceToggleStatus';
       return new Promise((resolve,reject)=>{
         this.http.post(url,data,httpOptions).subscribe(res=>{
           resolve(res);
@@ -344,7 +381,7 @@ export class ApiService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
 
-      let url = this.host+'/assignAssetList';
+      let url = this.host+'/getAssignAsset';
       return new Promise((resolve,reject)=>{
         this.http.get(url).subscribe(res=>{
           resolve(res);
@@ -356,7 +393,7 @@ export class ApiService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
 
-      let url = this.host+'/deAssignAssetList';
+      let url = this.host+'/getDeAssignAsset';
       return new Promise((resolve,reject)=>{
         this.http.get(url).subscribe(res=>{
           resolve(res);
@@ -465,6 +502,37 @@ export class ApiService {
   //     }) 
     
   // }
+
+  // --------------geofence setting--------------------
+  geofenceSetting(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/geoFenceSetting';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    }) 
+
+}
+
+getGeofenceSetting(){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/getGeoFenceSetting';
+  return new Promise((resolve,reject)=>{
+    this.http.get(url).subscribe(res=>{
+      resolve(res);
+    })
+  }) 
+
+}
+
+  // ---------------end----------------------------
 
 
   /* -------------Range Setting ----------------------- */

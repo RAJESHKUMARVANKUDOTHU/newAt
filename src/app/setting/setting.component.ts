@@ -169,32 +169,32 @@ export class SettingComponent implements OnInit {
 
   }
   onSubmitTimeDelay(data){
-    data.deviceId=this.filterArray(data.deviceId)
+    data.deviceId=this.general.filterArray(data.deviceId)
     console.log("onSubmitTimeDelay data==",data)
     this.timeDelay.reset()
 
   }
   onSubmitInactivityFind(data){
-    data.deviceId=this.filterArray(data.deviceId)
+    data.deviceId=this.general.filterArray(data.deviceId)
     console.log("onSubmitInactivityFind data==",data)
     this.inactivityFind.reset()
 
 
   }
   onSubmitInactivityCoin(data){
-    data.coinId=this.filterArray(data.coinId)
+    data.coinId=this.general.filterArray(data.coinId)
     console.log("onSubmitInactivityCoin data==",data)
     this.inactivityCoin.reset()
 
 
   }
   onSubmitMaxFindForm(data){
-    data.deviceId=this.filterArray(data.deviceId)
+    data.deviceId=this.general.filterArray(data.deviceId)
     console.log("onSubmitMaxFindForm data==",data)
     this.maxFindForm.reset()
   }
   onSumbitCoinCategory(data){
-    data.coinId=this.filterArray(data.coinId)
+    data.coinId=this.general.filterArray(data.coinId)
     console.log("onSumbitCoinCategory data==",data)
     this.coinCategory.reset()
 
@@ -207,7 +207,7 @@ export class SettingComponent implements OnInit {
 
   }
   onSubmitGroupCoinForm(data){
-    data.coinId=this.filterArray(data.coinId)
+    data.coinId=this.general.filterArray(data.coinId)
     console.log("onSubmitGroupCoinForm data==",data)
     this.groupCoinForm.reset()
 
@@ -269,12 +269,7 @@ export class SettingComponent implements OnInit {
     }
   }
 
-  filterArray(array){
-    array=array.filter((obj)=>{
-       return obj!=0
-    })
-    return array
-  }
+ 
 
   openInfo(data){
     console.log("data==",data)

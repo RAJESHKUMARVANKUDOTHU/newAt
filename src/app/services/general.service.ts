@@ -18,4 +18,11 @@ export class GeneralService {
       duration: 5000,
     });
   }
+
+  filterArray(array){
+    array=array.filter((obj)=>{
+       return obj!=0
+    })
+    return array
+  }
 }

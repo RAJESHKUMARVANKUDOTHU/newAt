@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div style="display: flex;">
     <div style="height: 20%; width:25%">
-      Active
+      <p class="status">Active</p>
       <canvas
       baseChart
       chartType="doughnut"
@@ -14,7 +14,7 @@
       </canvas>
     </div>
     <div style="height: 20%; width:25%">
-      Offline
+      <p class="status">Offline</p>
       <canvas
       baseChart
       chartType="doughnut"
@@ -28,7 +28,7 @@
     </div>
 
     <div style="height: 20%; width:25%">
-      Registered
+      <p class="status">Registered</p>
       <canvas
       baseChart
       chartType="doughnut"
@@ -53,7 +53,7 @@
                   <mat-form-field>
                     <mat-label>Device Id</mat-label>
                     <mat-select formControlName="deviceId">
-                      <mat-option *ngFor="list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">{{list.deviceId}}</mat-option>
+                      <mat-option *ngFor="let list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">{{list.deviceId}}</mat-option>
                     </mat-select>
                     <mat-error>
                       Device ID is required
@@ -79,9 +79,9 @@
               <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
                   <mat-form-field>
                     <mat-label>Device Id</mat-label>
-                    <mat-label>Device Id</mat-label>
+                    
                     <mat-select formControlName="deviceId">
-                      <mat-option *ngFor="list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">{{list.deviceId}}</mat-option>
+                      <mat-option *ngFor=" let list of getDeAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">{{list.deviceId}}</mat-option>
                     </mat-select>
                     <mat-error>
                       Device ID is required
