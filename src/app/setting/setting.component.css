@@ -19,7 +19,7 @@ mat-card-title{
     color: #002060;
 }
 
-button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-button-disabled.btn {
+button.mat-focus-indicator.mat-raised-button.mat-button-base.btn {
     position: absolute;
     bottom: 1rem;
     right: 7rem;

@@ -30,7 +30,7 @@
             <form [formGroup]="distanceForm" (ngSubmit)="onSubmitDistanceForm(distanceForm.value)">
                 <mat-form-field>
                     <mat-label>In feet</mat-label>
-                    <mat-select formControlName="rangeInFeet">
+                    <mat-select formControlName="range">
                         <mat-option *ngFor="let feet of feetValue" [value]="feet">{{feet}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br> 

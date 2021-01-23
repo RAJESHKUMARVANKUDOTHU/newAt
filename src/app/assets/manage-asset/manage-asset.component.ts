@@ -18,7 +18,6 @@ export class ManageAssetComponent implements OnInit {
   findData:any
   getAssetList:any
   getDeAssetList:any
-
   id:any
   public doughnutChartLabels: string[] = ['Device','Gateways','Coin'];
   public doughnutChartData:any=[0,0,0]
@@ -70,9 +69,9 @@ export class ManageAssetComponent implements OnInit {
     })
     // this.doughnutChartData2=this.countReg
 
-    // this.deviceCount()
-    // this.gatewayCount()
-    // this.coinCount()
+    this.registeredCount()
+    // this.onlineCount()
+    // this.offlineCount()
     this.refreshDevice()
     this.getAssignAssetList()
     this.getDeAssignAssetList()
@@ -80,7 +79,7 @@ export class ManageAssetComponent implements OnInit {
 
   registeredCount(){
     this.api.allDeviceCount().then((res:any)=>{
-      console.log("device count====",res); 
+      console.log("allDeviceCount count====",res); 
         if(res.success){
 
           this.countReg=res.count
@@ -94,33 +93,6 @@ export class ManageAssetComponent implements OnInit {
     })
   }
 
-  onlineCount(){
-    this.api.gatewayCount().then((res:any)=>{
-      console.log("gateway count====",res); 
-      if(res.status){
-        this.countActive.push(res.active)
-        this.countOffline.push(res.offline)
-      } 
-      }).catch((err:any)=>{
-      console.log("error===",err)
-    })
-  }
-
-  offlineCount(){
-    this.api.coinCount().then((res:any)=>{
-      console.log("coin count====",res);
-      if(res.status){
-          // this.countActive.push(res.active)
-          // this.countOffline.push(res.offline)
-          // console.log("this.countActive==",this.countActive,this.countOffline)
-          // this.doughnutChartData=[this.countActive[0],this.countActive[1],this.countActive[2]]
-          // this.doughnutChartData1=[this.countOffline[0],this.countOffline[1],this.countOffline[2]]
-        } 
-   
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
-  }
   getAssetInfo(a){
     this.id=a._id
     // this.userId=a.userId
