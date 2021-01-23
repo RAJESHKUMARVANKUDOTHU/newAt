@@ -1,6 +1,19 @@
 <div class="container-fluid">
   <div style="display: flex;">
     <div style="height: 20%; width:25%">
+      <p class="status">Registered</p>
+      <canvas
+      baseChart
+      chartType="doughnut"
+      [data]="doughnutChartData2"
+      [labels]="doughnutChartLabels"
+      [options]="chartOptions"
+      [colors]="colors"
+      [legend]="false"
+      >
+      </canvas>
+    </div>
+    <div style="height: 20%; width:25%">
       <p class="status">Active</p>
       <canvas
       baseChart
@@ -24,20 +37,6 @@
       [colors]="colors"
       [legend]="false"
     >
-      </canvas>
-    </div>
-
-    <div style="height: 20%; width:25%">
-      <p class="status">Registered</p>
-      <canvas
-      baseChart
-      chartType="doughnut"
-      [data]="doughnutChartData2"
-      [labels]="doughnutChartLabels"
-      [options]="chartOptions"
-      [colors]="colors"
-      [legend]="false"
-      >
       </canvas>
     </div>
 
