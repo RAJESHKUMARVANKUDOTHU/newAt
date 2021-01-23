@@ -1,17 +1,28 @@
-import { Component, OnInit, AfterViewInit,OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  Input,
+} from '@angular/core';
 import * as L from 'leaflet';
+import { MapService } from '../services/map-services/map.service';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
+  @Input() type: string;
   map;
-  constructor() {}
+  constructor(private mapService: MapService) {
+    console.log('mapService===', this.mapService);
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('type==', this.type);
 
-  ngAfterViewInit(): void {
     this.map = L.map('map', {
       center: [0, 0],
       zoom: 0,
@@ -21,10 +32,13 @@ export class MapComponent implements OnInit {
     L.imageOverlay('../../assets/office-layout.png', bounds).addTo(this.map);
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
+    
+    this.map.on('click', (data) => {
+      if (this.type == 'edit') {
+        this.mapService.mapEdit.next({ data: data });
+      } else {
+      }
+    });
   }
 
-  ngOnDestroy(){
-    // this.map.off();
-    this.map.remove();
-  }
 }

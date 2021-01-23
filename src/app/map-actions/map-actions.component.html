@@ -1,5 +1,26 @@
+<div class="row container-fluid">
+  <div class="col-md-4">
+    <form [formGroup]="selectLayoutForm">
+      <mat-form-field>
+        <mat-label>Layout</mat-label>
+        <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
+          <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layout}}</mat-option>
+        </mat-select>
+        <mat-error>
+          Select the layout
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
+    sdsd
+  </div>
+</div>
+
 <div>
-  <app-map></app-map>
+  <app-map type='edit'></app-map>
 </div>
 
 <br>
@@ -15,7 +36,9 @@
           <mat-form-field>
             <mat-label>Gateway list</mat-label>
             <mat-select formControlName="gatewayId">
-              <mat-option *ngFor="let list of gatewayList" [value]="list.gatewayId">{{list.name}}</mat-option>
+              <ng-container *ngFor="let list of gatewayList">
+                <mat-option *ngIf="list.layout == selectedLayoutCoin.layout" [value]="list.gatewayId">{{list.name}}</mat-option>
+              </ng-container>
             </mat-select>
             <mat-error>
               Select the gateway
@@ -52,7 +75,7 @@
         Add/Delete Coin
       </mat-card-title>
       <mat-card-content>
-        <form [formGroup]="editLocationForm" (ngSubmit)="editLocation(editLocationForm.value)">
+        <form [formGroup]="editLocationForm">
           <mat-form-field>
             <mat-label>Gateway list</mat-label>
             <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
