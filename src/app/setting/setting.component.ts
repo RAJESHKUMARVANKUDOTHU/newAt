@@ -57,7 +57,7 @@ export class SettingComponent implements OnInit {
 
     this.timeDelay=this.fb.group({
       deviceId:['',Validators.required],
-      delay:['',Validators.required],
+      timedelay:['',Validators.required],
     
     })
 
