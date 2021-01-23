@@ -70,8 +70,6 @@ export class ManageAssetComponent implements OnInit {
     // this.doughnutChartData2=this.countReg
 
     this.registeredCount()
-    // this.onlineCount()
-    // this.offlineCount()
     this.refreshDevice()
     this.getAssignAssetList()
     this.getDeAssignAssetList()
