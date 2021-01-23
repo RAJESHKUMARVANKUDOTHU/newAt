@@ -70,15 +70,15 @@ export class ManageAssetComponent implements OnInit {
     })
     // this.doughnutChartData2=this.countReg
 
-    this.deviceCount()
-    this.gatewayCount()
-    this.coinCount()
+    // this.deviceCount()
+    // this.gatewayCount()
+    // this.coinCount()
     this.refreshDevice()
     this.getAssignAssetList()
     this.getDeAssignAssetList()
   }
 
-  deviceCount(){
+  registeredCount(){
     this.api.allDeviceCount().then((res:any)=>{
       console.log("device count====",res); 
         if(res.success){
@@ -94,7 +94,7 @@ export class ManageAssetComponent implements OnInit {
     })
   }
 
-  gatewayCount(){
+  onlineCount(){
     this.api.gatewayCount().then((res:any)=>{
       console.log("gateway count====",res); 
       if(res.status){
@@ -106,7 +106,7 @@ export class ManageAssetComponent implements OnInit {
     })
   }
 
-  coinCount(){
+  offlineCount(){
     this.api.coinCount().then((res:any)=>{
       console.log("coin count====",res);
       if(res.status){
