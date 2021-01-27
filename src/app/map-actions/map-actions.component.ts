@@ -11,6 +11,7 @@ export class MapActionsComponent implements OnInit {
   newLocationForm: FormGroup;
   editLocationForm: FormGroup;
   selectLayoutForm: FormGroup;
+  configCoinForm:FormGroup;
   selectedLayoutCoin: any = {
     layout: '',
     coin: [],
@@ -102,20 +103,8 @@ export class MapActionsComponent implements OnInit {
   constructor(private fb: FormBuilder, private mapService: MapService) {}
 
   ngOnInit(): void {
-    this.newLocationForm = this.fb.group({
-      gatewayId: ['', Validators.required],
-      locationName: ['', Validators.required],
-      description: ['', Validators.required],
-      map: ['', Validators.required],
-    });
-    this.editLocationForm = this.fb.group({
-      gatewayId: ['', Validators.required],
-      coinId: ['', Validators.required],
-    });
-    this.selectLayoutForm = this.fb.group({
-      layout: ['', Validators.required],
-    });
 
+    this.createForm()
     this.mapService.mapEdit.subscribe((data: any) => {
       console.log('data subscribe==', data);
       if (
@@ -142,6 +131,25 @@ export class MapActionsComponent implements OnInit {
     });
   }
 
+  createForm(){
+    this.newLocationForm = this.fb.group({
+      gatewayId: ['', Validators.required],
+      locationName: ['', Validators.required],
+      // description: ['', Validators.required],
+      map: ['', Validators.required],
+    });
+    this.editLocationForm = this.fb.group({
+      gatewayId: ['', Validators.required],
+      coinId: ['', Validators.required],
+    });
+    this.selectLayoutForm = this.fb.group({
+      layout: ['', Validators.required],
+    });
+    this.configCoinForm=this.fb.group({
+      gatewayName:['',Validators.required],
+      coinName:['',Validators.required]
+    })
+  }
   gatewaySelect(data) {
     console.log('gatewaySelect==', data);
     this.coinList = data.coins;
@@ -165,5 +173,8 @@ export class MapActionsComponent implements OnInit {
 
   createLocation(data) {
     console.log('data submit=', data);
+  }
+  configCoin(data,type){
+    console.log("confiurartion coin data",data,type)
   }
 }

@@ -30,7 +30,7 @@
             <form [formGroup]="distanceForm" (ngSubmit)="onSubmitDistanceForm(distanceForm.value)">
                 <mat-form-field>
                     <mat-label>In feet</mat-label>
-                    <mat-select formControlName="rangeInFeet">
+                    <mat-select formControlName="range">
                         <mat-option *ngFor="let feet of feetValue" [value]="feet">{{feet}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br> 
@@ -56,7 +56,7 @@
                 </mat-form-field> <br> 
                 <mat-form-field>
                     <mat-label>Enter time delay</mat-label>
-                    <input type="time" matInput formControlName="delay" required>
+                    <input type="time" matInput formControlName="timedelay" required>
                 </mat-form-field> <br>  
                 <div class="btn-set ">
                     <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>

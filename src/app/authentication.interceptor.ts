@@ -24,21 +24,17 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     this.status = this.login.getLoginDetails();
     // console.log("this.status",this.status)
     // var route = window.location.pathname
-    if (!request.headers.has('Content-Type')) {
-      request = request.clone({
-        headers: request.headers.set('Content-Type', 'application/json')
-      });
-    }
+    // if (!request.headers.has('Content-Type')) {
+    //   request = request.clone({
+    //     headers: request.headers.set('Content-Type', 'application/json')
+    //   });
+    // }
 
     request = this.addAuthenticationToken(request);
-
-      // console.log("this.addAuthenticationToken(request)",request)
-
-
         return next.handle(request).pipe(
           catchError((error: HttpErrorResponse) => {
             // console.log("erooorr=",error)
-            if (error.status === 403) {
+            if (error.status === 403 || error.status === 401) {
             //   console.log("handling")
                   this.login.logout()
             //   // 401 errors are most likely going to be because we have an expired token that we need to refresh.
@@ -66,9 +62,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             //     );
             //   }   
           }
-          else if( error.status === 401){
-            return EMPTY
-          }
+       
           else{
             return throwError(error);
           }
@@ -85,17 +79,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     // If we do not have a token yet then we should not set the header.
     // Here we could first retrieve the token from where we store it.
     this.status = this.login.getLoginDetails();
-    if (!this.status.token) {
-      // console.log("this.status",this.status.token)
-
+    if (this.status.token && this.status.token !=null) {
+      request= request.clone({
+        setHeaders: { Authorization: `Bearer ${this.status.token}`}
+      })
+      
+    }
+    else{
       return request;
     }
-    // console.log("this.status.token",this.status.token)
 
-    request= request.clone({
-      setHeaders: { Authorization: `Bearer ${this.status.token}`}
-    })
-    // console.log("request",request)
     return request
   }
 }

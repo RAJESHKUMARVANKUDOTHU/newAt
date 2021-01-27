@@ -17,9 +17,9 @@ export class OfflineDeviceComponent implements OnInit {
   @ViewChild('sort3') sort3: MatSort;
   @ViewChild('paginator3') paginator3: MatPaginator;
   
-  OfflineDeviceData:any=[]
-  OfflineGatewayData:any=[]
-  OfflineCoinData:any=[]
+  offlineDeviceData:any=[]
+  offlineGatewayData:any=[]
+  offlineCoinData:any=[]
   dataSource0: any = [];
   dataSource1: any = [];
   dataSource2: any = [];
@@ -33,71 +33,33 @@ export class OfflineDeviceComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshOfflineDeviceList()
-    this.refreshOfflineGatewayList()
-    this.refreshOfflineCoinList()
   }
+
+
   refreshOfflineDeviceList(){
-    this.api.getActiveDeviceList().then((res:any)=>{
-      // console.log("device submit====",res);
-      this.OfflineDeviceData=[]
+    this.api.getOfflineDevice().then((res:any)=>{
+      console.log("getOfflineDevice res====",res);
+      this.offlineDeviceData=[]
+      this.offlineGatewayData=[]
+      this.offlineCoinData=[]
       if(res.status){
-        this.OfflineDeviceData=res.offlineDeviceList
-        this.dataSource0 = new MatTableDataSource(this.OfflineDeviceData);
-
-        setTimeout(() => {
-           this.dataSource0.paginator = this.paginator1
-          this.dataSource0.sort = this.sort1
-         })
-      }
-  
-    }).catch((err:any)=>{
-      console.log("error===",err) 
-    })
-  }
-
-  refreshOfflineGatewayList(){
-    this.api.getActiveGatewayList().then((res:any)=>{
-      // console.log("gateway submit====",res);
-      this.OfflineGatewayData=[]
-    
-      if(res.status){
-        this.OfflineGatewayData=res.offlineGatewayList
-        // for(let i=0;i<res.offlineGatewayList.length;i++){
-        //   if(res.offlineGatewayList[i] != null){
-        //     this.OfflineGatewayData.push(res.offlineGatewayList[i])
+        this.offlineDeviceData=res.success.device.offlineDevice
+        this.offlineGatewayData=res.success.gateway.offlineGateway
+        this.offlineCoinData=res.success.coin.offlineCoin
+        // for(let i=0;i<res.success.onlineDevice.length;i++){
+        //   if(res.activeDeviceList[i] != null){
+        //     this.activeDeviceData.push(res.success.onlineDevice[i])
         //   }
         // }
-      
-        console.log("this.OfflineGatewayData=========",this.OfflineGatewayData)
-        this.dataSource1 = new MatTableDataSource(this.OfflineGatewayData);
+        this.dataSource0 = new MatTableDataSource(this.offlineDeviceData);
+        this.dataSource1 = new MatTableDataSource(this.offlineGatewayData);
+        this.dataSource2 = new MatTableDataSource(this.offlineCoinData);
 
         setTimeout(() => {
+          this.dataSource0.paginator = this.paginator1
+          this.dataSource0.sort = this.sort1
           this.dataSource1.paginator = this.paginator2
           this.dataSource1.sort = this.sort2
-         })
-      }
-  
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
-  }
-
-  refreshOfflineCoinList(){
-    this.api.getActiveCoinList().then((res:any)=>{
-      // console.log("coin submit====",res);
-      this.OfflineCoinData=[]
-    
-      if(res.status){
-        this.OfflineCoinData=res.offlineCoinList
-        // for(let i=0;i<res.offlineCoinList.length;i++){
-        //   if(res.offlineCoinList[i] != null){
-        //     this.OfflineCoinData.push(res.offlineCoinList[i])
-        //   }
-         
-        // }
-        this.dataSource2 = new MatTableDataSource(this.OfflineCoinData);
-
-        setTimeout(() => {
           this.dataSource2.paginator = this.paginator3
           this.dataSource2.sort = this.sort3
         })
@@ -107,4 +69,6 @@ export class OfflineDeviceComponent implements OnInit {
       console.log("error===",err)
     })
   }
+
+
 }

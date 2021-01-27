@@ -86,9 +86,10 @@ export class GeofenceComponent implements OnInit {
   }
 
   submit(data){
+ 
+    data.deviceObject=this.general.filterArray(data.deviceId)
+    data.geoFenceSetting=this.general.filterArray(data.deviceId)
     console.log("geofence Data==",data)
-    data.deviceId=this.general.filterArray(data.deviceId)
-    data.coinId=this.general.filterArray(data.deviceId)
     this.api.geofenceSetting(data).then((res:any)=>{
       if(res.status){
         console.log("geofence setting res==",res)

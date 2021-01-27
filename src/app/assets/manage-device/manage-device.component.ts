@@ -62,6 +62,7 @@ export class ManageDeviceComponent implements OnInit {
               deviceName:res.success[i].deviceName,
               deviceId:res.success[i].deviceId,
               updatedOn:res.success[i].updatedAt,
+              deviceToggleStatus:res.success[i].deviceToggleStatus,
               edit:'edit',
               delete:'delete_forever'
             })
@@ -123,7 +124,7 @@ export class ManageDeviceComponent implements OnInit {
       userId:a.userId,
       deviceName:a.deviceName,
       deviceId:a.deviceId,
-      deviceToggleStatus:true
+      deviceToggleStatus:a.deviceToggleStatus==true?false:true
 
     }
     if(confirm('Are you sure you want to perform this operation?')){

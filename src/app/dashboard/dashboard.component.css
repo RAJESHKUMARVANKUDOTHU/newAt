@@ -12,7 +12,22 @@
     width: 100px !important;
 
 }
+th{
+    text-align: center;
+    padding-left: 1rem;
+    font-weight: 500;
+}
+td{
+    text-align: center;
+}
 
-/* table{
-    border: 1px solid darkgray;
-} */
+table{
+   max-width: 100%;
+   margin: 0%;
+}
+
+.chart{
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+}

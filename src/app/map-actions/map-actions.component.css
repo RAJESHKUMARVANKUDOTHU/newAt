@@ -1,6 +1,21 @@
 mat-card-title.mat-card-title {
     font-size: 1.3rem;
 }
-mat-card.mat-card.mat-focus-indicator.border-card {
+/* mat-card.mat-card.mat-focus-indicator.border-card {
     border: 1px solid grey;
+    
+} */
+
+.example-form{
+    padding-left: 3rem;
+    width: 30%;
+
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
+table{
+   border: 1px solid beige; 
 }

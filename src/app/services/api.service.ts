@@ -291,50 +291,14 @@ export class ApiService {
           headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
 
-        let url = this.host+'/allDeviceCount';
+        let url = this.host+'/getDevicesCount';
         return new Promise((resolve,reject)=>{
           this.http.get(url).subscribe(res=>{
             resolve(res);
           })
       })
     }
-    deviceCount(){
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
-
-      let url = this.host+'/getDevicesCount';
-      return new Promise((resolve,reject)=>{
-        this.http.get(url).subscribe(res=>{
-          resolve(res);
-        })
-      })
-    }
-
-    gatewayCount(){
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
-
-      let url = this.host+'/getGatewayCount';
-      return new Promise((resolve,reject)=>{
-        this.http.get(url).subscribe(res=>{
-          resolve(res);
-        })
-      })
-    }
-    coinCount(){
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
-
-      let url = this.host+'/getCoinCount';
-      return new Promise((resolve,reject)=>{
-        this.http.get(url).subscribe(res=>{
-          resolve(res);
-        })
-      })
-    }
+  
 
     deviceOnOff(data){
       const httpOptions = {
@@ -401,86 +365,36 @@ export class ApiService {
       }) 
     }
   // ------------------------------------end------------------------------------
-    
 
-  deviceStatus(){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-   
-    let url = this.host+'/activeDevice';
-    return new Promise((resolve,reject)=>{
-      this.http.get(url).subscribe(res=>{
-        resolve(res);
-      })
-    })
-  }
-  gatewayStatus(){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-   
-    let url = this.host+'/activeGateways';
-    return new Promise((resolve,reject)=>{
-      this.http.get(url).subscribe(res=>{
-        resolve(res);
-      })
-    })
-  }
-  
-  coinStatus(){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-   
-    let url = this.host+'/activeCoin';
-    return new Promise((resolve,reject)=>{
-      this.http.get(url).subscribe(res=>{
-        resolve(res);
-      })
-    })
-  }
 
-  // ------------------------------- end-------------------------------------------------------------
 
   // -----------------------------------------------------------------------------------------
   // get Active data of device gateway and coin respectively
-    getActiveDeviceList(){
+  getOnlineDevice(){
       const httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
     
-      let url = this.host+'/activeDeviceList';
+      let url = this.host+'/getOnlineDevice';
       return new Promise((resolve,reject)=>{
         this.http.get(url).subscribe(res=>{
           resolve(res);
         })
       })
     }
-    getActiveGatewayList(){
+    getOfflineDevice(){
       const httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
     
-      let url = this.host+'/activeGatewayList';
+      let url = this.host+'/getOfflineDevice';
       return new Promise((resolve,reject)=>{
         this.http.get(url).subscribe(res=>{
           resolve(res);
         })
       })
     }
-    getActiveCoinList(){
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
-    
-      let url = this.host+'/activeCoinList';
-      return new Promise((resolve,reject)=>{
-        this.http.get(url).subscribe(res=>{
-          resolve(res);
-        })
-      })
-    }
+ 
 
 
 
@@ -541,13 +455,26 @@ getGeofenceSetting(){
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
 
-      let url = this.host+'/range';
+      let url = this.host+'/rangeSetting';
       return new Promise((resolve,reject)=>{
         this.http.post(url,data,httpOptions).subscribe(res=>{
           resolve(res);
         })
       }) 
 
+  }
+
+  timeDelay(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/timeDelay';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    }) 
   }
 
 }

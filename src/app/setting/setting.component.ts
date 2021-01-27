@@ -52,12 +52,12 @@ export class SettingComponent implements OnInit {
     // })
 
     this.distanceForm=this.fb.group({
-      rangeInFeet:['',Validators.required]
+      range:['',Validators.required]
     })
 
     this.timeDelay=this.fb.group({
       deviceId:['',Validators.required],
-      delay:['',Validators.required],
+      timedelay:['',Validators.required],
     
     })
 
@@ -171,7 +171,26 @@ export class SettingComponent implements OnInit {
   onSubmitTimeDelay(data){
     data.deviceId=this.general.filterArray(data.deviceId)
     console.log("onSubmitTimeDelay data==",data)
-    this.timeDelay.reset()
+   
+
+    try{
+      if(this.timeDelay.valid){
+        this.api.timeDelay(data).then((res:any)=>{
+          console.log("timeDelay res===",res)
+
+          if(res.status){
+            this.timeDelay.reset()
+            this.general.openSnackBar('Time updated Successfully','')
+          }
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+
+    }
+    catch(error){
+      console.log("error==",error)
+    }
 
   }
   onSubmitInactivityFind(data){

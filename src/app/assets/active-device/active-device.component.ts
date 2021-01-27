@@ -25,9 +25,9 @@ export class ActiveDeviceComponent implements OnInit {
   dataSource1: any = [];
   dataSource2: any = [];
  
-  displayedColumns1 = ['i','deviceId','deviceName','updatedOn'];
-  displayedColumns2 = ['i','gatewayId','gatewayName','updatedOn'];
-  displayedColumns3 = ['i','coinId','coinName','gatewayId','updatedOn'];
+  displayedColumns1 = ['i','deviceId','deviceName','updatedAt'];
+  displayedColumns2 = ['i','gatewayId','gatewayName','updatedAt'];
+  displayedColumns3 = ['i','coinId','coinName','gatewayId','updatedAt'];
   constructor(
     private login:LoginAuthService,
     private api: ApiService,
@@ -35,66 +35,32 @@ export class ActiveDeviceComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshActiveDeviceList()
-    this.refreshActiveGatewayList()
-    this.refreshActiveCoinList()
+    
   }
   refreshActiveDeviceList(){
-    this.api.getActiveDeviceList().then((res:any)=>{
-      // console.log("coin submit====",res);
+    this.api.getOnlineDevice().then((res:any)=>{
+      console.log("getOnlineDevice res====",res);
       this.activeDeviceData=[]
+      this.activeGatewayData=[]
+      this.activeCoinData=[]
       if(res.status){
-    
-        for(let i=0;i<res.activeDeviceList.length;i++){
-          if(res.activeDeviceList[i] != null){
-            this.activeDeviceData.push(res.activeDeviceList[i])
-          }
-        }
-        this.dataSource1 = new MatTableDataSource(this.activeDeviceData);
+        this.activeDeviceData=res.success.device.onlineDevice
+        this.activeGatewayData=res.success.gateway.onlineGateway
+        this.activeCoinData=res.success.coin.onlineCoin
+        // for(let i=0;i<res.success.onlineDevice.length;i++){
+        //   if(res.activeDeviceList[i] != null){
+        //     this.activeDeviceData.push(res.success.onlineDevice[i])
+        //   }
+        // }
+        this.dataSource0 = new MatTableDataSource(this.activeDeviceData);
+        this.dataSource1 = new MatTableDataSource(this.activeGatewayData);
+        this.dataSource2 = new MatTableDataSource(this.activeCoinData);
 
         setTimeout(() => {
           this.dataSource0.paginator = this.paginator1
           this.dataSource0.sort = this.sort1
-
-        })
-      }
-  
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
-  }
-
-  refreshActiveGatewayList(){
-    this.api.getActiveGatewayList().then((res:any)=>{
-      // console.log("gateway submit====",res);
-      this.activeGatewayData=[]
-      if(res.status){
-        this.activeGatewayData=res.activeGatewayList
-        this.dataSource1 = new MatTableDataSource(this.activeCoinData);
-
-        setTimeout(() => {
           this.dataSource1.paginator = this.paginator2
           this.dataSource1.sort = this.sort2
-        })
-      }
-  
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
-  }
-
-  refreshActiveCoinList(){
-    this.api.getActiveCoinList().then((res:any)=>{
-      // console.log("coin submit====",res);
-      this.activeCoinData=[]
-      if(res.status){
-        for(let i=0;i<res.activeCoinList.length;i++){
-          if(res.activeCoinList[i] != null){
-            this.activeCoinData.push(res.activeCoinList[i])
-          }
-        }
-        this.dataSource2 = new MatTableDataSource(this.activeCoinData);
-
-        setTimeout(() => {
           this.dataSource2.paginator = this.paginator3
           this.dataSource2.sort = this.sort3
         })
@@ -104,5 +70,6 @@ export class ActiveDeviceComponent implements OnInit {
       console.log("error===",err)
     })
   }
+
 }
 
