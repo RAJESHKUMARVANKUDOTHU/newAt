@@ -1,0 +1,6 @@
+.hide{
+    pointer-events: none;
+}
+.visible{
+    pointer-events: all;
+}
