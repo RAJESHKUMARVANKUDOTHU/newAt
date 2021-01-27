@@ -77,6 +77,7 @@ export class EditAssetsComponent implements OnInit {
   }
 
   updateFind(data){
+    data.deviceId=this.patchData.deviceId
     data.deviceObjectId=this.patchData.id
     console.log("edit device==",data)
     try{

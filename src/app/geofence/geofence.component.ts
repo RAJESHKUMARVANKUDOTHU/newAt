@@ -35,7 +35,7 @@ export class GeofenceComponent implements OnInit {
     this.geofenceForm=this.fb.group({
       alert:['',Validators.required],
       deviceId:['',Validators.required],
-      coinId:['',Validators.required]
+      coin:['',Validators.required]
     })
 
     this.refreshDevice()
@@ -44,10 +44,11 @@ export class GeofenceComponent implements OnInit {
 
   refreshCoin(){
     this.api.getCoinData().then((res:any)=>{
-      console.log("coin submit====",res);
       this.coinData=[]
       if(res.status){
         this.coinData=res.success
+        console.log("this.coinData====",this.coinData);
+
       }
    
     }).catch((err:any)=>{
@@ -78,22 +79,25 @@ export class GeofenceComponent implements OnInit {
 
   toggleAllSelectionCoin(formData){
     if(this.allSelected1.selected){
-      formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])
+      formData.controls.coin.patchValue([...this.coinData.map(obj=>obj._id),0])
     }
     else{
-      formData.controls.coinId.patchValue([])
+      formData.controls.coin.patchValue([])
     }
   }
 
   submit(data){
- 
-    data.deviceObject=this.general.filterArray(data.deviceId)
-    data.geoFenceSetting=this.general.filterArray(data.deviceId)
+    data.sms=data.alert=='sms'?'Y':'N'
+    data.email=data.alert=='email'?'Y':'N'
+    data.deviceId=this.general.filterArray(data.deviceId)
+    data.coin=this.general.filterArray(data.coin)
     console.log("geofence Data==",data)
     this.api.geofenceSetting(data).then((res:any)=>{
       if(res.status){
         console.log("geofence setting res==",res)
       }
+    }).catch((err:any)=>{
+      console.log("err",err)
     })
 
   }

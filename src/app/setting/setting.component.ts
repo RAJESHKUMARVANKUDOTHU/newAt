@@ -57,7 +57,7 @@ export class SettingComponent implements OnInit {
 
     this.timeDelay=this.fb.group({
       deviceId:['',Validators.required],
-      timedelay:['',Validators.required],
+      standardtime:['',Validators.required],
     
     })
 
@@ -89,7 +89,7 @@ export class SettingComponent implements OnInit {
     })
 
     this.zoneForm=this.fb.group({
-      category:['',Validators.required],
+      zoneName:['',Validators.required],
       minutes:['',Validators.required]
     })
 
@@ -221,7 +221,24 @@ export class SettingComponent implements OnInit {
   }
   onSubmitZoneForm(data){
     console.log("onSubmitZoneForm data==",data)
-    this.zoneForm.reset()
+    try{
+      if(this.timeDelay.valid){
+        this.api.zoneSetting(data).then((res:any)=>{
+          console.log("zone setting res===",res)
+
+          if(res.status){
+            this.zoneForm.reset()
+            this.general.openSnackBar(res.success,'')
+          }
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+
+    }
+    catch(error){
+      console.log("error==",error)
+    }
 
 
   }

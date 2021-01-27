@@ -477,4 +477,30 @@ getGeofenceSetting(){
     }) 
   }
 
+  zoneSetting(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/zoneRegister';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  getZonea(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/zoneRegister';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
 }
