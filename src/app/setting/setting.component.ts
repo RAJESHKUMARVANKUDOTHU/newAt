@@ -57,7 +57,7 @@ export class SettingComponent implements OnInit {
 
     this.timeDelay=this.fb.group({
       deviceId:['',Validators.required],
-      standardtime:['',Validators.required],
+      timedelay:['',Validators.required],
     
     })
 
@@ -90,7 +90,7 @@ export class SettingComponent implements OnInit {
 
     this.zoneForm=this.fb.group({
       zoneName:['',Validators.required],
-      minutes:['',Validators.required]
+      standardtime:['',Validators.required]
     })
 
     this.maxFindForm=this.fb.group({
@@ -222,7 +222,7 @@ export class SettingComponent implements OnInit {
   onSubmitZoneForm(data){
     console.log("onSubmitZoneForm data==",data)
     try{
-      if(this.timeDelay.valid){
+      if(this.zoneForm.valid){
         this.api.zoneSetting(data).then((res:any)=>{
           console.log("zone setting res===",res)
 
