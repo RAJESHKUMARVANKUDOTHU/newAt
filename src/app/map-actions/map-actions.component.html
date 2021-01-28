@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label>Layout</mat-label>
         <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-          <mat-option *ngFor="let list of gatewayData" [value]="list">{{list.gatewayName}}</mat-option>
+          <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layout}}</mat-option>
         </mat-select>
         <mat-error>
           Select the layout
@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div>
+<div [ngClass]="getValidation()">
   <app-map type='edit'></app-map>
 </div>
 
@@ -36,14 +36,14 @@
                             <form [formGroup]="configCoinForm">
                               <mat-form-field>
                                 <mat-label> Select Gateway </mat-label>
-                                  <mat-select  fromControlName="gatewayName">
-                                      <mat-option *ngFor="" [value]=""></mat-option>
+                                  <mat-select  fromControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
+                                      <mat-option *ngFor="let list of gatewayData" [value]="list">{{list.gatewayId}}</mat-option>
                                   </mat-select>
                               </mat-form-field> <br>
                               <mat-form-field>
                                 <mat-label>Select Coin</mat-label>
-                                <mat-select  fromControlName="coinName">
-                                    <mat-option *ngFor="" [value]=""></mat-option>
+                                <mat-select  fromControlName="coinName" (selectionChange)="coinSelect($event.value)">
+                                    <mat-option  *ngFor="let list of coinData" [value]="list">{{list.coinId}}</mat-option>
                                 </mat-select>
                             </mat-form-field> <br>
                             <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="configCoin(configCoinForm.value, 'add')">Add</button>
@@ -62,10 +62,10 @@
                           <th>Zone Name</th>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>coin</td>
-                            <td>Washing</td>
+                          <tr *ngFor = "let a of coinData;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{a.coinId}}</td>
+                            <td>{{a.coinName}}</td>
                           </tr>
                         </tbody>
                       </table>

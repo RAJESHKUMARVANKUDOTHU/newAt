@@ -9,16 +9,28 @@ export class MapService {
   public mapZone = new Subject<any>();
   public mapError = new Subject<any>();
   public mapDetectChanges = new Subject<any>();
-  selectedLayoutZone: any = {
+  public GatewayCoinBound : any = [];
+  public selectedLayoutZone: any = {
     layout: '',
     zone: '',
+    bounds: [],
+  };
+  public selectedCoinBound: any = {
+    layout: '',
+    gatewayId: '',
+    coinId: 0,
     bounds: [],
   };
   constructor() {}
 
   clear() {
-    this.selectedLayoutZone.layout = '';
+    // this.selectedLayoutZone.layout = '';
     this.selectedLayoutZone.zone = '';
     this.selectedLayoutZone.bounds = [];
+
+    // this.selectedCoinBound.layout = '';
+    this.selectedCoinBound.gatewayId = '';
+    this.selectedCoinBound.coinId = 0;
+    this.selectedCoinBound.bounds = [];
   }
 }

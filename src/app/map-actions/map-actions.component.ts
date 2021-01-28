@@ -27,87 +27,119 @@ export class MapActionsComponent implements OnInit {
     coin: [],
   };
   gatewayData: any = [];
+  coinData: any = [];
   gatewayList: any = [
     {
       layout: 'layout.jpg',
-      gatewayId: '123456789878',
-      name: 'gateway1',
-      coins: [
+      gateway: [
         {
-          id: 1,
-          coinId: 1,
-          coinName: 'a',
-          bound: [],
+          gatewayId : '123456789878',
+          name: 'gateway1',
+          coins: [
+            {
+              id: 1,
+              coinId: 1,
+              coinName: 'a',
+              bound: [79.48061790228995, -189.84375]
+            },
+            {
+              id: 2,
+              coinId: 2,
+              coinName: 'b',
+              bound: [-52.32191088594772, 253.12500000000003],
+            },
+            {
+              id: 3,
+              coinId: 3,
+              coinName: 'c',
+              bound: [],
+            },
+          ],
         },
         {
-          id: 2,
-          coinId: 2,
-          coinName: 'b',
-          bound: [],
-        },
-        {
-          id: 3,
-          coinId: 3,
-          coinName: 'c',
-          bound: [],
+          gatewayId : 'AB3456789878',
+          name: 'gateway2',
+          coins: [
+            {
+              id: 4,
+              coinId: 4,
+              coinName: 'aa',
+              bound: [-69.56522590149099, -354.37500000000006],
+            },
+            {
+              id: 5,
+              coinId: 5,
+              coinName: 'bb',
+              bound: [],
+            },
+            {
+              id: 6,
+              coinId: 6,
+              coinName: 'cc',
+              bound: [],
+            },
+          ],
         },
       ],
+      
     },
     {
       layout: 'layout.jpg',
-      gatewayId: 'AB3456789878',
-      name: 'gateway2',
-      coins: [
+      gateway: [
         {
-          id: 4,
-          coinId: 4,
-          coinName: 'aa',
-          bound: [],
+          gatewayId : '123456789878',
+          name: 'gateway1',
+          coins: [
+            {
+              id: 1,
+              coinId: 1,
+              coinName: 'a',
+              bound: [],
+            },
+            {
+              id: 2,
+              coinId: 2,
+              coinName: 'b',
+              bound: [24.766784522874453, -514.6875000000001],
+            },
+            {
+              id: 3,
+              coinId: 3,
+              coinName: 'c',
+              bound: [],
+            },
+          ],
         },
         {
-          id: 5,
-          coinId: 5,
-          coinName: 'bb',
-          bound: [],
-        },
-        {
-          id: 6,
-          coinId: 6,
-          coinName: 'cc',
-          bound: [],
+          gatewayId : 'CD3456789878',
+          name: 'gateway3',
+          coins: [
+            {
+              id: 7,
+              coinId: 7,
+              coinName: 'aaa',
+              bound: [],
+            },
+            {
+              id: 8,
+              coinId: 8,
+              coinName: 'bbb',
+              bound: [],
+            },
+            {
+              id: 9,
+              coinId: 9,
+              coinName: 'ccc',
+              bound: [],
+            },
+          ],
         },
       ],
     },
+    
     {
       layout: 'office-layout.png',
-      gatewayId: 'CD3456789878',
-      name: 'gateway3',
-      coins: [
-        {
-          id: 7,
-          coinId: 7,
-          coinName: 'aaa',
-          bound: [],
-        },
-        {
-          id: 8,
-          coinId: 8,
-          coinName: 'bbb',
-          bound: [],
-        },
-        {
-          id: 9,
-          coinId: 9,
-          coinName: 'ccc',
-          bound: [],
-        },
-      ],
-    },
-    {
-      layout: 'office-layout.png',
-      gatewayId: 'EF3456789878',
-      name: 'gateway4',
-      coins: [],
+      gateway: [],
     },
   ];
   coinList: any = [];
@@ -124,30 +156,11 @@ export class MapActionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.refreshGateway();
+    // this.refreshGateway();
     this.mapService.mapEdit.subscribe((data: any) => {
       console.log('data subscribe==', data);
-      if (
-        this.selectedLayoutCoin.layout != '' &&
-        this.selectedLayoutCoin.coin.length
-      ) {
-        this.selectedLayoutCoin.coin[0].bound = data.data.latlng;
-        console.log('this.selectedCoinEdit===', this.selectedLayoutCoin);
-        const editCoinList = this.gatewayList.filter((obj, index) => {
-          if (obj.hasOwnProperty('coins') && obj.coins.length) {
-            obj.coins.filter((coin, indexCoin) => {
-              if (coin.id == this.selectedLayoutCoin.coin[0].coinId.id) {
-                this.gatewayList[index].coins[
-                  indexCoin
-                ].bound = this.selectedLayoutCoin.coin[0].bound;
-              }
-            });
-          }
-        });
-        console.log('this.gatewayList==', this.gatewayList);
-      } else {
-        this.mapService.mapError.next({ coinSelectEdit: false });
-      }
+      this.mapService.selectedCoinBound.bounds = data.data.latlng;
+      console.log("this.mapService.selectedCoinBound====",this.mapService.selectedCoinBound);
     });
   }
 
@@ -187,23 +200,42 @@ export class MapActionsComponent implements OnInit {
     });
   }
 
-  gatewaySelect(data) {
-    console.log('gatewaySelect==', data);
-    this.coinList = data.coins;
-  }
-
-  coinSelect(data) {
-    console.log('coinSelect==', data);
-    this.selectedLayoutCoin.coin.push({
-      coinId: data,
-    });
-  }
-
   layoutSelect(data) {
-    this.selectedLayoutCoin.layout = data.layout;
+    console.log("data layout===",data);
+    
+    // this.selectedLayoutCoin.layout = data.layout;
+    this.mapService.selectedCoinBound.layout = data.layout;
+    this.gatewayData = data.gateway
     console.log('data selectedLayoutCoin =', this.selectedLayoutCoin);
   }
+
+  gatewaySelect(data){
+    console.log("data==",data);
+    this.mapService.clear();
+    this.mapService.selectedCoinBound.gatewayId = data.gatewayId;
+    this.mapService.GatewayCoinBound = data.coins;
+    this.mapService.mapDetectChanges.next({type:'edit'});
+    this.coinData = data.coins;
+  }
+
+  coinSelect(data){
+    console.log("data==",data);
+    this.mapService.selectedCoinBound.coinId = data.coinId;
+    this.mapService.selectedCoinBound.bounds = data.bound;
+    this.mapService.mapDetectChanges.next({type:'edit'});
+    console.log("this.mapService.selectedCoinBound====",this.mapService.selectedCoinBound);
+    
+  }
   
+
+  getValidation(){
+    if(this.mapService.selectedCoinBound.layout != '' && this.mapService.selectedCoinBound.gatewayId != '' && this.mapService.selectedCoinBound.coinId !=0){
+      return "visible"
+    }
+    else{
+      return "hide"
+    }
+  }
   editLocation(){
     
   }
