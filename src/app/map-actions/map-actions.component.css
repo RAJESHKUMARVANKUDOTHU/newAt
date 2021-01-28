@@ -19,3 +19,9 @@ mat-card-title.mat-card-title {
 table{
    border: 1px solid beige; 
 }
+.hide{
+    pointer-events: none;
+}
+.visible{
+    pointer-events: all;
+}

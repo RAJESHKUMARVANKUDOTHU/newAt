@@ -17,6 +17,7 @@ import { MapService } from '../services/map-services/map.service';
 export class MapComponent implements OnInit {
   @Input() type: string;
   map;
+  marker : any = [];
   constructor(private mapService: MapService,
     private cd: ChangeDetectorRef
     ) {
@@ -46,24 +47,62 @@ export class MapComponent implements OnInit {
       console.log("data click == ",data);
       if (this.type == 'edit') {
         this.mapService.mapEdit.next({ data: data });
+        let latlng = [data.latlng.lat,data.latlng.lng];
+        this.mapService.selectedCoinBound.bounds = latlng;
+        this.mapService.mapDetectChanges.next({type:this.type});
       } else if(this.type == 'zone'){
         this.mapService.mapZone.next({data:data});
         let latlng = [data.latlng.lat,data.latlng.lng]
         this.mapService.selectedLayoutZone.bounds.push(latlng);
-        this.mapService.mapDetectChanges.next();
+        this.mapService.mapDetectChanges.next({type:this.type});
       }
     });
 
-    this.mapService.mapDetectChanges.subscribe(()=>{
+    this.mapService.mapDetectChanges.subscribe((data)=>{
       this.clearMap();
-      L.polygon(this.mapService.selectedLayoutZone.bounds).addTo(this.map);
+      console.log("this.map ====",this.map);
+      
+      if(data.type == 'edit'){
+        if(this.mapService.selectedCoinBound.bounds.length){
+          
+          let icon = L.icon({
+            iconUrl: '../../assets/download.jpg',
+            iconSize: [20, 20]
+          });
+          let marker = L.marker(this.mapService.selectedCoinBound.bounds,{icon:icon}).addTo(this.map);
+          this.marker.push(marker);
+        }
+        else if(this.mapService.selectedCoinBound.coinId!= 0){
+          console.log("else if");
+          
+        }
+        else{
+          for(let i = 0 ;i < this.mapService.GatewayCoinBound.length ; i++){
+            if(this.mapService.GatewayCoinBound[i].bound.length){
+              let icon = L.icon({
+                iconUrl: '../../assets/download.jpg',
+                iconSize: [20, 20]
+              });
+              let marker = L.marker(this.mapService.GatewayCoinBound[i].bound,{icon:icon}).addTo(this.map);
+              this.marker.push(marker);
+            }
+          }
+        }
+      }
+      else if(data.type == 'zone'){
+        L.polygon(this.mapService.selectedLayoutZone.bounds).addTo(this.map);
+      }
       this.cd.detectChanges();
     })
   }
 
   clearMap() {
+    // this.map._panes.markerPane.remove();
+    for(let i in this.marker.length){
+      this.map.removeLayer(this.marker[i]);
+    }
     for(let i in this.map._layers) {
-        if(this.map._layers[i]._path != undefined) {
+        if(!this.map._layers[i].hasOwnProperty('_url')) {
             try {
               this.map.removeLayer(this.map._layers[i]);
             }
@@ -72,6 +111,6 @@ export class MapComponent implements OnInit {
             }
         }
     }
-}
+  }
 
 }

@@ -133,7 +133,7 @@ export class ZoneConfigurationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private mapService: MapService,
+    public mapService: MapService,
     private api: ApiService,
     private general: GeneralService
   ) {}
@@ -172,7 +172,7 @@ export class ZoneConfigurationComponent implements OnInit {
     else{
       this.mapService.selectedLayoutZone.bounds = [];
     }
-    this.mapService.mapDetectChanges.next()
+    this.mapService.mapDetectChanges.next({type:'zone'})
     console.log('data selectedLayoutCoin zone =', this.mapService.selectedLayoutZone);
   }
 
