@@ -544,4 +544,47 @@ getGeofenceSetting(){
     })
   }
 
+
+
+  // ----------------------map center API's----------------------------------
+
+  createLayout(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/createLayout';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  getLayouts(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/getLayouts';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+  updateLatLng(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateLatLng';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+
 }
