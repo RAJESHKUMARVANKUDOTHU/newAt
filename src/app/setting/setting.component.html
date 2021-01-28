@@ -167,24 +167,10 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Select category</mat-label>
-                    <mat-select formControlName="category">
-                      <mat-option value="Asset Name wise report">Asset Name wise report </mat-option>
-                      <mat-option value="Asset ID wise report ">Asset ID wise report </mat-option>
-                      <mat-option value="Location wise report">Location wise report</mat-option>
-                      <mat-option value="Zone wise report">Zone wise report</mat-option>
-                      <mat-option value="Average Zone wise performance"> Average Zone wise performance </mat-option>
-                      <mat-option value="Average Zone wise performance per day">Average Zone wise performance per day</mat-option>
-                      <mat-option value="Average Zone wise Efficiency">Average Zone wise Efficiency </mat-option>
-                      <mat-option value="Average Zone wise Efficiency per day">Average Zone wise Efficiency per day </mat-option>
-                      <mat-option value="Number of vehicles serviced">Number of vehicles serviced </mat-option>
-                      <mat-option value="Avg. Time taken by Bays">Avg. Time taken by Bays - can be renamed as Average Bay Performance</mat-option>
-                      <mat-option value="Vehicle and JC wise report">Vehicle and JC wise report</mat-option>
+                    <mat-select formControlName="zoneId">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}</mat-option>
                     </mat-select>
-                </mat-form-field> <br>
-                <mat-form-field>
-                    <mat-label>Enter Standard time for the zone</mat-label>
-                    <input type="number" matInput formControlName="minutes" placeholder="in Minutes" required>
-                </mat-form-field> <br> <br>
+                </mat-form-field> <br><br>
                 <div class="btn-set">
                     <button mat-raised-button [disabled]="!coinCategory.valid" color="primary">submit</button>
                     <button mat-raised-button (click)="openInfo('coin-cat')" color="primary">Info</button>
@@ -195,7 +181,7 @@
     </mat-card>
 
     <mat-card>
-        <mat-card-title>Select zone category</mat-card-title>
+        <mat-card-title>Create zone category</mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
 
         <mat-card-content>

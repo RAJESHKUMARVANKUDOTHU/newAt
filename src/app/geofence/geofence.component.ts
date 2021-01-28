@@ -87,11 +87,14 @@ export class GeofenceComponent implements OnInit {
     }
   }
 
-  submit(data){
-    data.sms=data.alert=='sms'?'Y':'N'
-    data.email=data.alert=='email'?'Y':'N'
-    data.deviceId=this.general.filterArray(data.deviceId)
-    data.coin=this.general.filterArray(data.coin)
+  submit(value){
+    var data={
+      sms:value.alert=='sms'?'Y':'N',
+      email:value.alert=='email'?'Y':'N',
+      deviceId:this.general.filterArray(value.deviceId),
+      coin:this.general.filterArray(value.coin)
+    }
+ 
     console.log("geofence Data==",data)
     this.api.geofenceSetting(data).then((res:any)=>{
       if(res.status){

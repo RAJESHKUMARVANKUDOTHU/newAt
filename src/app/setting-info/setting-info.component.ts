@@ -15,7 +15,7 @@ export class SettingInfoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   type:any
-  zoneData:any
+  
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -27,18 +27,10 @@ export class SettingInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.getZoneDetails()
+      
   }
 
-  getZoneDetails(){
-    this.api.getZone().then((res:any)=>{
-      console.log("zone details response==",res)
-      this.zoneData=[]
-      if(res.status){
-        this.zoneData=res.success
-      }
-
-    })
-  }
+ 
+  
 
 }

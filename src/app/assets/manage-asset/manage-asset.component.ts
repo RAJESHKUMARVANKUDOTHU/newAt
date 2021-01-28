@@ -123,15 +123,19 @@ export class ManageAssetComponent implements OnInit {
   }
 
   assignAsset(data){
-    data._Id=this.id
+    data._id=this.id
     // data.userId=this.userId
     console.log("assign data==",data)
     if(this.assignAssetForm.valid){
       this.api.assignAsset(data).then((res:any)=>{
         console.log("assignAsset res====",res);
-        if(res.status || !res.status){
-          this.refreshDevice()
+        if(res.status){
+          this.getAssignAssetList()
+          this.getDeAssignAssetList()
           this.general.openSnackBar(res.message,'')
+          setTimeout(()=>{
+              location.reload()
+          },1000)
         } 
      
       }).catch((err:any)=>{
@@ -140,14 +144,16 @@ export class ManageAssetComponent implements OnInit {
     }
   }
   deassignAsset(data){
-    data._Id=this.id
+    data._id=this.id
     // data.userId=this.userId
     if(this.deassignAssetForm.valid){
       this.api.deassignAsset(data).then((res:any)=>{
         console.log("De assignAsset res====",res);
-        if(res.status || !res.status){
-          this.refreshDevice()
+        if(res.status){
+          this.getAssignAssetList()
+          this.getDeAssignAssetList()
           this.general.openSnackBar(res.message,'')
+
         } 
      
       }).catch((err:any)=>{

@@ -419,6 +419,7 @@ export class ApiService {
 
   // --------------geofence setting--------------------
   geofenceSetting(data){
+    console.log("geo")
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -426,6 +427,7 @@ export class ApiService {
     let url = this.host+'/geoFenceSetting';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
+        console.log("geo",res)
         resolve(res);
       })
     }) 
@@ -522,6 +524,19 @@ getGeofenceSetting(){
     };
 
     let url = this.host+'/updateCoinInActivityTime';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  zoneConfiguration(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateMultipleCoinId';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);

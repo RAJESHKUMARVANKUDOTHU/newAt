@@ -2,6 +2,7 @@
 
 <div *ngIf="type=='find'">
     <mat-card>
+        <mat-card-title>Edit Find</mat-card-title>
         <mat-card-content>
             <form [formGroup]="editFind" (ngSubmit)="updateFind(editFind.value)">
                 <mat-form-field class="full-width-field" appearance="fill">
@@ -24,6 +25,7 @@
 
 <div *ngIf="type=='gateway'">
     <mat-card>
+        <mat-card-title>Add Gateway</mat-card-title>
         <mat-card-content>
             <form [formGroup]="editGateway" (ngSubmit)="updateGateway(editGateway.value)">
                 <mat-form-field class="full-width-field" appearance="fill">
@@ -46,6 +48,7 @@
 
 <div *ngIf="type=='coin'">
     <mat-card>
+        <mat-card-title>Add Coin</mat-card-title>
         <mat-card-content>
             <form [formGroup]="editCoin" (ngSubmit)="updateCoin(editCoin.value)">
                 <mat-form-field class="full-width-field" appearance="fill">

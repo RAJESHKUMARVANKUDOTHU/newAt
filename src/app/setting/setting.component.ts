@@ -33,6 +33,7 @@ export class SettingComponent implements OnInit {
   coinData:any=[]
   deviceData:any=[]
   name:any
+  zoneData:any
   constructor(
     private fb: FormBuilder,
     private login:LoginAuthService,
@@ -45,6 +46,7 @@ export class SettingComponent implements OnInit {
     this.createForm()
     this.refreshDevice()
     this.refreshCoin()
+    this.getZoneDetails()
   }
   createForm(){
     // this.dateTimeForm=this.fb.group({
@@ -84,8 +86,8 @@ export class SettingComponent implements OnInit {
 
     this.coinCategory=this.fb.group({
       coinId:['',Validators.required],
-      category:['',Validators.required],
-      minutes:['',Validators.required]
+      zoneId:['',Validators.required],
+    
     })
 
     this.zoneForm=this.fb.group({
@@ -155,7 +157,7 @@ export class SettingComponent implements OnInit {
 
           if(res.status){
             this.distanceForm.reset()
-            this.general.openSnackBar('Range updated Successfully','')
+            this.general.openSnackBar(res.success,'')
           }
         }).catch((err)=>{
           console.log("err=",err)
@@ -180,7 +182,7 @@ export class SettingComponent implements OnInit {
 
           if(res.status){
             this.timeDelay.reset()
-            this.general.openSnackBar('Time updated Successfully','')
+            this.general.openSnackBar(res.success,'')
           }
         }).catch((err)=>{
           console.log("err=",err)
@@ -208,7 +210,7 @@ export class SettingComponent implements OnInit {
  
           if(res.status){
             this.inactivityFind.reset()
-            this.general.openSnackBar('Time updated Successfully','')
+            this.general.openSnackBar(res.success,'')
           }
         }).catch((err)=>{
           console.log("err=",err)
@@ -231,7 +233,7 @@ export class SettingComponent implements OnInit {
 
           if(res.status){
             this.inactivityCoin.reset()
-            this.general.openSnackBar('Time updated Successfully','')
+            this.general.openSnackBar(res.success,'')
           }
         }).catch((err)=>{
           console.log("err=",err)
@@ -359,5 +361,16 @@ export class SettingComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       
     });
+  }
+
+  getZoneDetails(){
+    this.api.getZone().then((res:any)=>{
+      console.log("zone details response==",res)
+      this.zoneData=[]
+      if(res.status){
+        this.zoneData=res.success
+      }
+
+    })
   }
 }

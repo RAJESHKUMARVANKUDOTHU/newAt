@@ -3,10 +3,15 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-            Devices
+                <span> Devices</span>
+                
+               
             </mat-panel-title>
         
         </mat-expansion-panel-header>
+        <span style="float: right;">
+            <button mat-flat-button color="primary">Download <mat-icon>download</mat-icon></button>
+         </span> <br> <br>
         <div  class="mat-elevation-z8">
             <table  mat-table [dataSource]="dataSource0" matSort #sort1="matSort">
                 <div>
@@ -40,7 +45,11 @@
             <mat-panel-title>
             Gateways
             </mat-panel-title>
+      
         </mat-expansion-panel-header>
+        <span style="float: right;">
+            <button mat-flat-button color="primary">Download <mat-icon>download</mat-icon></button>
+         </span> <br> <br>
         <div  class="mat-elevation-z8">
             <table  mat-table [dataSource]="dataSource1" matSort #sort2="matSort">
                 <div>
@@ -75,6 +84,9 @@
            Coins
           </mat-panel-title>
         </mat-expansion-panel-header>
+        <span style="float: right;">
+            <button mat-flat-button color="primary">Download <mat-icon>download</mat-icon></button>
+         </span> <br> <br>
         <div  class="mat-elevation-z8">
             <table  mat-table [dataSource]="dataSource2" matSort #sort3="matSort">
                 <div>
