@@ -184,7 +184,7 @@ export class MapActionsComponent implements OnInit {
   createForm() {
     this.newLayoutForm = this.fb.group({
       gatewayId: ['', Validators.required],
-      locationName: ['', Validators.required],
+      layoutName: ['', Validators.required],
       // description: ['', Validators.required],
       fileData: [''],
     });
@@ -287,18 +287,28 @@ export class MapActionsComponent implements OnInit {
   }
 
   createNewLayout(data) {
-    data.gatewayId=this.general.filterArray(data.gatewayId);
+    data.gatewayObjectId=this.general.filterArray(data.gatewayId);
     data.fileData.filename =
       data.gatewayId[0] +
       parseInt(this.randomNumber().toString()) +
       data.fileData.filename;
-      
-    console.log('file===', data);
+      data.file=data.fileData.filename
+      console.log('file===', data);
     if (
       data.fileData.filetype == 'image/jpg' ||
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
+
+      this.api.createLayout(data).then((res:any)=>{
+          console.log("create layout res===",res);
+          if(res.status){
+            this.general.openSnackBar(res.success,'')
+          }
+          
+      }).catch((err:any)=>{
+        console.log("error==",err)
+      })
       
     } else {
     }

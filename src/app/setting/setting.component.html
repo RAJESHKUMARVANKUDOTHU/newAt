@@ -27,7 +27,7 @@
         <mat-card-subtitle></mat-card-subtitle>
         
         <mat-card-content>
-            <form [formGroup]="distanceForm" (ngSubmit)="onSubmitDistanceForm(distanceForm.value)">
+            <form [formGroup]="distanceForm">
                 <mat-form-field>
                     <mat-label>In feet</mat-label>
                     <mat-select formControlName="range">
@@ -35,7 +35,7 @@
                     </mat-select>
                 </mat-form-field> <br> 
           
-                <button class="btn" mat-raised-button [disabled]="!distanceForm.valid" color="primary">submit</button>
+                <button class="btn" mat-raised-button [disabled]="!distanceForm.valid" color="primary" (click)="onSubmitDistanceForm(distanceForm.value)" >submit</button>
             </form>
         </mat-card-content>
 
@@ -45,7 +45,7 @@
     <mat-card>
         <mat-card-title> Set Time Delay for assets</mat-card-title> <br>
         <mat-card-content>
-            <form [formGroup]="timeDelay" id="time" (ngSubmit)="onSubmitTimeDelay(timeDelay.value)">
+            <form [formGroup]="timeDelay" id="time">
         
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
@@ -59,8 +59,8 @@
                     <input type="time" matInput formControlName="timedelay" required>
                 </mat-form-field> <br>  
                 <div class="btn-set ">
-                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary">submit</button>
-                    <button mat-raised-button (click)="openInfo('find')" color="primary">Info</button>
+                    <button mat-raised-button [disabled]="!timeDelay.valid" color="primary" (click)="onSubmitTimeDelay(timeDelay.value)" >submit</button>
+                    <button mat-raised-button (click)="openInfo('timeDelay')" color="primary">Info</button>
                 </div>
 
             </form>
@@ -70,7 +70,7 @@
     <mat-card>
         <mat-card-title>Select Maximum finds to be assigned</mat-card-title>
         <mat-card-content>
-            <form [formGroup]="maxFindForm" (ngSubmit)="onSubmitMaxFindForm(maxFindForm.value)">
+            <form [formGroup]="maxFindForm" >
                 <mat-form-field>
                     <mat-label>Select Asset</mat-label>
                     <mat-select formControlName="deviceId" multiple>
@@ -83,9 +83,84 @@
                     <input type="number" matInput formControlName="maxLimit" required>
                 </mat-form-field> <br>
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!maxFindForm.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!maxFindForm.valid" color="primary" (click)="onSubmitMaxFindForm(maxFindForm.value)">submit</button>
                     <button mat-raised-button (click)="openInfo('max-find')" color="primary">Info</button>
                 </div>            
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+
+    <mat-card>
+        <mat-card-title> Select Category for Coins</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="coinCategory">
+                <mat-form-field>
+                    <mat-label>Select Coin</mat-label>
+                    <mat-select formControlName="coinId" multiple>
+                        <mat-option #allSelected4 (click)="toggleAllSelectionCoin1(coinCategory)" [value]="0">All</mat-option>
+                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+                    </mat-select>
+                </mat-form-field> <br>
+                <mat-form-field>
+                    <mat-label>Select category</mat-label>
+                    <mat-select formControlName="zoneId">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}</mat-option>
+                    </mat-select>
+                </mat-form-field> <br><br>
+                <div class="btn-set">
+                    <button mat-raised-button [disabled]="!coinCategory.valid" color="primary"  (click)="onSumbitCoinCategory(coinCategory.value)">submit</button>
+                    <button mat-raised-button (click)="openInfo('coin-cat')" color="primary">Info</button>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title>Create zone category</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+
+        <mat-card-content>
+            <form [formGroup]="zoneForm" >
+                <mat-form-field>
+                    <mat-label>Enter name for Zone</mat-label>
+                    <input matInput type="text" formControlName="zoneName" required>         
+                </mat-form-field> <br>
+                <mat-form-field>
+                    <mat-label>Enter Standard time for the zone</mat-label>
+                    <input type="number" matInput formControlName="standardtime" placeholder="in Minutes" required>
+                </mat-form-field> <br>
+                <div class="btn-set">
+                    <button mat-raised-button [disabled]="!zoneForm.valid" color="primary" (click)="onSubmitZoneForm(zoneForm.value)">submit</button>
+                    <button mat-raised-button (click)="openInfo('zone')" color="primary">Info</button>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title>Select Group for Coins</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="groupCoinForm">
+                <mat-form-field>
+                    <mat-label>Select Coin</mat-label>
+                    <mat-select formControlName="coinId" multiple>
+                        <mat-option #allSelected5 (click)="toggleAllSelectionCoin2(groupCoinForm)" [value]="0">All</mat-option>
+                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+                    </mat-select>
+                </mat-form-field> <br>
+                <mat-form-field>
+                    <mat-label>Enter group name</mat-label>
+                    <input type="text" matInput formControlName="group"  required>
+                </mat-form-field> <br>
+                <div class="btn-set">
+                    <button mat-raised-button [disabled]="!groupCoinForm.valid" color="primary" (click)="onSubmitGroupCoinForm(groupCoinForm.value)">submit</button>
+                    <button mat-raised-button (click)="openInfo('coinGrp')" color="primary">Info</button>
+                </div>
+
             </form>
         </mat-card-content>
     </mat-card>
@@ -94,7 +169,7 @@
         <mat-card-title> Select Inactivity Time for Finds</mat-card-title>  <br>
 
         <mat-card-content>
-            <form [formGroup]="inactivityFind" (ngSubmit)="onSubmitInactivityFind(inactivityFind.value)">
+            <form [formGroup]="inactivityFind" >
           
                 <mat-radio-group  color="primary" formControlName="alert" >
                     <mat-label>Alert through :</mat-label>
@@ -113,7 +188,7 @@
                     <input type="number" matInput formControlName="inactivitytime" placeholder="in Minutes" required>
                 </mat-form-field> <br> 
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!inactivityFind.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!inactivityFind.valid" color="primary" (click)="onSubmitInactivityFind(inactivityFind.value)">submit</button>
                     <button mat-raised-button (click)="openInfo('find-inactive')" color="primary">Info</button>
                 </div>
             </form>
@@ -126,7 +201,7 @@
         <mat-card-title> Select Inactivity Time For Coins</mat-card-title> <br>
 
         <mat-card-content>
-            <form [formGroup]="inactivityCoin" (ngSubmit)="onSubmitInactivityCoin(inactivityCoin.value)">
+            <form [formGroup]="inactivityCoin" >
          
                 <mat-radio-group  color="primary" formControlName="alert" >
                     <mat-label>Alert through :</mat-label> 
@@ -145,85 +220,9 @@
                     <input type="number" matInput formControlName="inactivitytime" placeholder="in Minutes" required>
                 </mat-form-field> <br> 
                 <div class="btn-set">
-                    <button mat-raised-button [disabled]="!inactivityCoin.valid" color="primary">submit</button>
+                    <button mat-raised-button [disabled]="!inactivityCoin.valid" color="primary" (click)="onSubmitInactivityCoin(inactivityCoin.value)">submit</button>
                     <button mat-raised-button (click)="openInfo('coin')" color="primary">Info</button>
                 </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
-
-
-
-    <mat-card>
-        <mat-card-title> Select Category for Coins</mat-card-title>
-        <mat-card-content>
-            <form [formGroup]="coinCategory" (ngSubmit)="onSumbitCoinCategory(coinCategory.value)">
-                <mat-form-field>
-                    <mat-label>Select Coin</mat-label>
-                    <mat-select formControlName="coinId" multiple>
-                        <mat-option #allSelected4 (click)="toggleAllSelectionCoin1(coinCategory)" [value]="0">All</mat-option>
-                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
-                    </mat-select>
-                </mat-form-field> <br>
-                <mat-form-field>
-                    <mat-label>Select category</mat-label>
-                    <mat-select formControlName="zoneId">
-                        <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}</mat-option>
-                    </mat-select>
-                </mat-form-field> <br><br>
-                <div class="btn-set">
-                    <button mat-raised-button [disabled]="!coinCategory.valid" color="primary">submit</button>
-                    <button mat-raised-button (click)="openInfo('coin-cat')" color="primary">Info</button>
-                </div>
-
-            </form>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-title>Create zone category</mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-
-        <mat-card-content>
-            <form [formGroup]="zoneForm" (ngSubmit)="onSubmitZoneForm(zoneForm.value)">
-                <mat-form-field>
-                    <mat-label>Enter name for Zone</mat-label>
-                    <input matInput type="text" formControlName="zoneName" required>         
-                </mat-form-field> <br>
-                <mat-form-field>
-                    <mat-label>Enter Standard time for the zone</mat-label>
-                    <input type="number" matInput formControlName="standardtime" placeholder="in Minutes" required>
-                </mat-form-field> <br>
-                <div class="btn-set">
-                    <button mat-raised-button [disabled]="!zoneForm.valid" color="primary">submit</button>
-                    <button mat-raised-button (click)="openInfo('zone')" color="primary">Info</button>
-                </div>
-
-            </form>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-title>Select Group for Coins</mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-        <mat-card-content>
-            <form [formGroup]="groupCoinForm" (ngSubmit)="onSubmitGroupCoinForm(groupCoinForm.value)">
-                <mat-form-field>
-                    <mat-label>Select Coin</mat-label>
-                    <mat-select formControlName="coinId" multiple>
-                        <mat-option #allSelected5 (click)="toggleAllSelectionCoin2(groupCoinForm)" [value]="0">All</mat-option>
-                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
-                    </mat-select>
-                </mat-form-field> <br>
-                <mat-form-field>
-                    <mat-label>Enter group name</mat-label>
-                    <input type="text" matInput formControlName="group"  required>
-                </mat-form-field> <br>
-                <div class="btn-set">
-                    <button mat-raised-button [disabled]="!groupCoinForm.valid" color="primary">submit</button>
-                    <button mat-raised-button (click)="openInfo('coinGrp')" color="primary">Info</button>
-                </div>
-
             </form>
         </mat-card-content>
     </mat-card>

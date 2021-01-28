@@ -158,6 +158,18 @@ export class ZoneConfigurationComponent implements OnInit {
     this.mapService.clear();
   }
 
+
+  getLayoutData(){
+      this.api.getLayouts().then((res:any)=>{
+          console.log("Get layout res ===",res)
+          this.gatewayList=[]
+          if(res.status){
+              this.gatewayList=res.success
+          }
+      }).catch((err:any)=>{
+          console.log("error==",err)
+      })
+  }
   layoutSelect(data) {
     this.mapService.selectedLayoutZone.layout = data.layout;
     console.log('data selectedLayoutCoin zone =', this.mapService.selectedLayoutZone);

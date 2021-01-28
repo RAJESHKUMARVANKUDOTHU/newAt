@@ -352,7 +352,7 @@ export class SettingComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '30vw';
+    dialogConfig.width = '50vw';
     dialogConfig.data = {
       type:data
     }
@@ -365,12 +365,11 @@ export class SettingComponent implements OnInit {
 
   getZoneDetails(){
     this.api.getZone().then((res:any)=>{
-      console.log("zone details response==",res)
-      this.zoneData=[]
-      if(res.status){
-        this.zoneData=res.success
-      }
-
+        console.log("zone details response==",res)
+        this.zoneData=[]
+        if(res.status){
+          this.zoneData=res.success
+        }
     })
   }
 }
