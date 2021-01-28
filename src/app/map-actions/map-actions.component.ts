@@ -26,6 +26,7 @@ export class MapActionsComponent implements OnInit {
     layout: '',
     coin: [],
   };
+  newGatewayLayout = [];
   gatewayData: any = [];
   coinData: any = [];
   gatewayList: any = [
@@ -156,7 +157,7 @@ export class MapActionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    // this.refreshGateway();
+    this.refreshGateway();
     this.mapService.mapEdit.subscribe((data: any) => {
       console.log('data subscribe==', data);
       this.mapService.selectedCoinBound.bounds = data.data.latlng;
@@ -168,11 +169,11 @@ export class MapActionsComponent implements OnInit {
     this.api
       .getGatewayData()
       .then((res: any) => {
-        this.gatewayData = [];
+        this.newGatewayLayout = [];
         console.log('gateway submit====', res);
         if (res.status) {
-          this.gatewayData = res.success;
-          console.log('gateway list====', this.gatewayData);
+          this.newGatewayLayout = res.success;
+          console.log('gateway list====', this.newGatewayLayout);
         }
       })
       .catch((err: any) => {
@@ -249,7 +250,7 @@ export class MapActionsComponent implements OnInit {
 
   toggleAllSelectionGateway(formData){
     if(this.allSelected.selected){
-      formData.controls.gatewayId.patchValue([...this.gatewayData.map(obj=>obj.gatewayId),0])
+      formData.controls.gatewayId.patchValue([...this.newGatewayLayout.map(obj=>obj.gatewayId),0])
     }
     else{
       formData.controls.gatewayId.patchValue([])

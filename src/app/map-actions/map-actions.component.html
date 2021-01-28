@@ -86,7 +86,7 @@
                 <mat-label>Gateway list</mat-label>
                 <mat-select formControlName="gatewayId" multiple> 
                   <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All</mat-option>
-                  <ng-container *ngFor="let list of gatewayData">
+                  <ng-container *ngFor="let list of newGatewayLayout">
                     <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
                   </ng-container>
                 </mat-select>
@@ -102,15 +102,7 @@
                   Location name is required
                 </mat-error>
               </mat-form-field>
-             
-              <!-- <mat-form-field>
-                <mat-label>Description</mat-label>
-                <input type="text" matInput formControlName="description" required>
-                <mat-error>
-                  Description is required
-                </mat-error>
-              </mat-form-field> -->
-             
+            
               <input type="file" #fileInput (change)="fileChange($event.target.files)" required class="example-form">
               <br><br>
               <div class="btn">
