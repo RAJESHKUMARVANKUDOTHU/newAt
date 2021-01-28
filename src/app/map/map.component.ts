@@ -36,9 +36,10 @@ export class MapComponent implements OnInit {
     this.map = L.map('map', {
       center: [0, 0],
       zoom: 0,
+      attributionControl: false
     });
     var bounds = this.map.getBounds();
-
+    // this.map.attributionControl.setPrefix('SenseGiz')
     L.imageOverlay('../../assets/office-layout.png', bounds).addTo(this.map);
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();

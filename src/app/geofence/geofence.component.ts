@@ -23,7 +23,7 @@ export class GeofenceComponent implements OnInit {
   coinData:any
   deviceData:any
   dataSource:any=[]
-  displayedColumns=['i','deviceId','deviceName']
+  displayedColumns=['i','deviceId','deviceName','location','sms','email']
   constructor(
     private login:LoginAuthService,
     private api: ApiService,
@@ -98,7 +98,12 @@ export class GeofenceComponent implements OnInit {
     console.log("geofence Data==",data)
     this.api.geofenceSetting(data).then((res:any)=>{
       if(res.status){
-        console.log("geofence setting res==",res)
+        console.log("geofence setting res==",res);
+        this.general.openSnackBar(res.message,'')
+        this.getGeofence();
+      }
+      else{
+        this.general.openSnackBar(res.message,'')
       }
     }).catch((err:any)=>{
       console.log("err",err)
