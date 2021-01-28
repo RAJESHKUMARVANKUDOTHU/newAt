@@ -1,6 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapService } from '../services/map-services/map.service';
+import { ApiService } from '../services/api.service';
+import { GeneralService } from '../services/general.service';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-map-actions',
@@ -8,14 +17,16 @@ import { MapService } from '../services/map-services/map.service';
   styleUrls: ['./map-actions.component.css'],
 })
 export class MapActionsComponent implements OnInit {
-  newLocationForm: FormGroup;
+  newLayoutForm: FormGroup;
+  tempImagePath: any = [];
   editLocationForm: FormGroup;
   selectLayoutForm: FormGroup;
-  configCoinForm:FormGroup;
+  configCoinForm: FormGroup;
   selectedLayoutCoin: any = {
     layout: '',
     coin: [],
   };
+  gatewayData: any = [];
   gatewayList: any = [
     {
       layout: 'layout.jpg',
@@ -100,11 +111,20 @@ export class MapActionsComponent implements OnInit {
     },
   ];
   coinList: any = [];
-  constructor(private fb: FormBuilder, private mapService: MapService) {}
+
+  @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('allSelected') private allSelected:MatOption
+
+  constructor(
+    private fb: FormBuilder,
+    private mapService: MapService,
+    private api: ApiService,
+    private general: GeneralService
+  ) {}
 
   ngOnInit(): void {
-
-    this.createForm()
+    this.createForm();
+    this.refreshGateway();
     this.mapService.mapEdit.subscribe((data: any) => {
       console.log('data subscribe==', data);
       if (
@@ -131,12 +151,28 @@ export class MapActionsComponent implements OnInit {
     });
   }
 
-  createForm(){
-    this.newLocationForm = this.fb.group({
+  refreshGateway() {
+    this.api
+      .getGatewayData()
+      .then((res: any) => {
+        this.gatewayData = [];
+        console.log('gateway submit====', res);
+        if (res.status) {
+          this.gatewayData = res.success;
+          console.log('gateway list====', this.gatewayData);
+        }
+      })
+      .catch((err: any) => {
+        console.log('error===', err);
+      });
+  }
+
+  createForm() {
+    this.newLayoutForm = this.fb.group({
       gatewayId: ['', Validators.required],
       locationName: ['', Validators.required],
       // description: ['', Validators.required],
-      map: ['', Validators.required],
+      fileData: [''],
     });
     this.editLocationForm = this.fb.group({
       gatewayId: ['', Validators.required],
@@ -145,11 +181,12 @@ export class MapActionsComponent implements OnInit {
     this.selectLayoutForm = this.fb.group({
       layout: ['', Validators.required],
     });
-    this.configCoinForm=this.fb.group({
-      gatewayName:['',Validators.required],
-      coinName:['',Validators.required]
-    })
+    this.configCoinForm = this.fb.group({
+      gatewayName: ['', Validators.required],
+      coinName: ['', Validators.required],
+    });
   }
+
   gatewaySelect(data) {
     console.log('gatewaySelect==', data);
     this.coinList = data.coins;
@@ -174,7 +211,63 @@ export class MapActionsComponent implements OnInit {
   createLocation(data) {
     console.log('data submit=', data);
   }
-  configCoin(data,type){
-    console.log("confiurartion coin data",data,type)
+  configCoin(data, type) {
+    console.log('confiurartion coin data', data, type);
+  }
+
+  toggleAllSelectionGateway(formData){
+    if(this.allSelected.selected){
+      formData.controls.gatewayId.patchValue([...this.gatewayData.map(obj=>obj.gatewayId),0])
+    }
+    else{
+      formData.controls.gatewayId.patchValue([])
+    }
+  }
+
+  fileChange(files) {
+    let reader = new FileReader();
+    if (files && files.length > 0) {
+      let file = files[0];
+      reader.readAsDataURL(file);
+      console.log('file===', file);
+      reader.onload = () => {
+        this.tempImagePath = reader.result;
+        console.log('\nReader result', reader.result);
+
+        this.newLayoutForm.get('fileData').setValue({
+          filename: file.name,
+          filetype: file.type,
+          value: this.tempImagePath.split(',')[1],
+        });
+      };
+    }
+  }
+
+  clearFile() {
+    this.newLayoutForm.get('fileData').setValue(null);
+    this.tempImagePath = '';
+    this.fileInput.nativeElement.value = '';
+  }
+
+  randomNumber(min = 1, max = 20) {
+    return Math.random() * (max - min) + min;
+  }
+
+  createNewLayout(data) {
+    data.gatewayId=this.general.filterArray(data.gatewayId);
+    data.fileData.filename =
+      data.gatewayId[0] +
+      parseInt(this.randomNumber().toString()) +
+      data.fileData.filename;
+      
+    console.log('file===', data);
+    if (
+      data.fileData.filetype == 'image/jpg' ||
+      data.fileData.filetype == 'image/jpeg' ||
+      data.fileData.filetype == 'image/png'
+    ) {
+      
+    } else {
+    }
   }
 }

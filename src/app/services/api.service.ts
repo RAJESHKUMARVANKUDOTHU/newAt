@@ -490,14 +490,40 @@ getGeofenceSetting(){
     })
   }
 
-  getZonea(){
+  getZone(){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    let url = this.host+'/zoneRegister';
+    let url = this.host+'/getZonesDetails';
     return new Promise((resolve,reject)=>{
       this.http.get(url).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  deviceInactivity(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateDeviceInactivityTime';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  coinInactivity(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateCoinInActivityTime';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
       })
     })

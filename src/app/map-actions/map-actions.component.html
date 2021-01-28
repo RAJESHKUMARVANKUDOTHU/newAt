@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label>Layout</mat-label>
         <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-          <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layout}}</mat-option>
+          <mat-option *ngFor="let list of gatewayData" [value]="list">{{list.gatewayName}}</mat-option>
         </mat-select>
         <mat-error>
           Select the layout
@@ -15,7 +15,7 @@
   <div class="col-md-4">
   </div>
   <div class="col-md-4">
-    sdsd
+    <button mat-flat-button color="primary" routerLink="/zone-configuration">Zone Configuration</button>
   </div>
 </div>
 
@@ -81,12 +81,13 @@
       </mat-card-title> <br>
       <mat-card-content>
           <mat-card>
-            <form [formGroup]="newLocationForm" (ngSubmit)="createLocation(newLocationForm.value)">
+            <form [formGroup]="newLayoutForm" (ngSubmit)="createNewLayout(newLayoutForm.value)">
               <mat-form-field appearance="outline" class="example-form">
                 <mat-label>Gateway list</mat-label>
-                <mat-select formControlName="gatewayId" > 
-                  <ng-container *ngFor="let list of gatewayList">
-                    <mat-option *ngIf="list.layout == selectedLayoutCoin.layout" [value]="list.gatewayId">{{list.name}}</mat-option>
+                <mat-select formControlName="gatewayId" multiple> 
+                  <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All</mat-option>
+                  <ng-container *ngFor="let list of gatewayData">
+                    <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
                   </ng-container>
                 </mat-select>
                 <mat-error>
@@ -110,41 +111,14 @@
                 </mat-error>
               </mat-form-field> -->
              
-              <input type="file" formControlName="map" required class="example-form">
+              <input type="file" #fileInput (change)="fileChange($event.target.files)" required class="example-form">
               <br><br>
               <div class="btn">
-                <button mat-raised-button [disabled]="!newLocationForm.valid" color="primary">Create Layout</button>
+                <button mat-raised-button [disabled]="!newLayoutForm.valid" color="primary">Create Layout</button>
               </div>
                
           </form>
           </mat-card>
       </mat-card-content>
     </mat-card> <br>
-    <mat-card>
-      <mat-card-title>
-        Add/Delete Coin
-      </mat-card-title>
-      <mat-card-content>
-        <form [formGroup]="editLocationForm">
-          <mat-form-field>
-            <mat-label>Gateway list</mat-label>
-            <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
-              <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.name}}</mat-option>
-            </mat-select>
-            <mat-error>
-              Select the gateway
-            </mat-error>
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <mat-label>Coin list</mat-label>
-            <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-              <mat-option *ngFor="let list of coinList" [value]="list">{{list.coinName}}</mat-option>
-            </mat-select>
-            <mat-error>
-              Select the gateway
-            </mat-error>
-          </mat-form-field>
-        </form>
-      </mat-card-content>
-    </mat-card>
+

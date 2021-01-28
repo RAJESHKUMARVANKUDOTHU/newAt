@@ -40,6 +40,7 @@ export class GeofenceComponent implements OnInit {
 
     this.refreshDevice()
     this.refreshCoin()
+    this.getGeofence()
   }
 
   refreshCoin(){

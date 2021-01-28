@@ -63,14 +63,14 @@ export class SettingComponent implements OnInit {
 
     this.inactivityFind=this.fb.group({
       deviceId:['',Validators.required],
-      minutes:['',Validators.required],
+      inactivitytime:['',Validators.required],
       alert:['',Validators.required]
     })
 
 
     this.inactivityCoin=this.fb.group({
       coinId:['',Validators.required],
-      minutes:['',Validators.required],
+      inactivitytime:['',Validators.required],
       alert:['',Validators.required]
     })
 
@@ -195,16 +195,53 @@ export class SettingComponent implements OnInit {
   }
   onSubmitInactivityFind(data){
     data.deviceId=this.general.filterArray(data.deviceId)
-    console.log("onSubmitInactivityFind data==",data)
-    this.inactivityFind.reset()
 
+  
+    
+    try{
+      if(this.inactivityFind.valid){
+        data.sms=data.alert=='sms'?'yes':'no'
+        data.email=data.alert=='email'?'yes':'no'
+        console.log("onSubmitInactivityFind data==",data)
+        this.api.deviceInactivity(data).then((res:any)=>{
+          console.log("inactivity find res===",res)
+ 
+          if(res.status){
+            this.inactivityFind.reset()
+            this.general.openSnackBar('Time updated Successfully','')
+          }
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+
+    }
+    catch(error){
+      console.log("error==",error)
+    }
 
   }
   onSubmitInactivityCoin(data){
     data.coinId=this.general.filterArray(data.coinId)
     console.log("onSubmitInactivityCoin data==",data)
-    this.inactivityCoin.reset()
+    try{
+      if(this.inactivityCoin.valid){
+        this.api.coinInactivity(data).then((res:any)=>{
+          console.log("inactivity coin res===",res)
 
+          if(res.status){
+            this.inactivityCoin.reset()
+            this.general.openSnackBar('Time updated Successfully','')
+          }
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+
+    }
+    catch(error){
+      console.log("error==",error)
+    }
 
   }
   onSubmitMaxFindForm(data){
