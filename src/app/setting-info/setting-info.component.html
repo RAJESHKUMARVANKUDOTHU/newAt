@@ -40,20 +40,16 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Inactivity Time </th>
                             <td mat-cell *matCellDef="let find" > {{find.inActivityTime}} </td>
                         </ng-container>  
+
                         <ng-container matColumnDef="sms">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                            <td mat-cell *matCellDef="let find" > 
-                                <span *ngIf = "find.sms == 'true'">Yes</span> 
-                                <span *ngIf = "find.sms == 'false'">No</span> 
-                            </td>
-                        </ng-container> 
+                            <td mat-cell *matCellDef="let find" > {{find.sms == "false" ? 'N' : 'Y'}} </td>
+                        </ng-container>
+    
                         <ng-container matColumnDef="email">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                            <td mat-cell *matCellDef="let find" >
-                                <span *ngIf = "find.email == 'true'">Yes</span> 
-                                <span *ngIf = "find.email == 'false'">No</span> 
-                            </td>
-                        </ng-container> 
+                            <td mat-cell *matCellDef="let find" > {{find.email == "false" ? 'N' : 'Y'}} </td>
+                        </ng-container>
                  
                 
                     </div>
@@ -77,20 +73,16 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Inactivity Time </th>
                             <td mat-cell *matCellDef="let coin" > {{coin.inActivityTime}} </td>
                         </ng-container>  
+ 
                         <ng-container matColumnDef="sms">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                            <td mat-cell *matCellDef="let coin" > 
-                                <span *ngIf = "coin.sms == 'true'">Yes</span> 
-                                <span *ngIf = "coin.sms == 'false'">No</span> 
-                            </td>
-                        </ng-container> 
+                            <td mat-cell *matCellDef="let coin" > {{coin.sms == "false" ? 'N' : 'Y'}} </td>
+                        </ng-container>
+    
                         <ng-container matColumnDef="email">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                            <td mat-cell *matCellDef="let coin" > 
-                                <span *ngIf = "coin.email == 'true'">Yes</span> 
-                                <span *ngIf = "coin.email == 'false'">No</span> 
-                            </td>
-                        </ng-container> 
+                            <td mat-cell *matCellDef="let coin" > {{coin.email == "false" ? 'N' : 'Y'}} </td>
+                        </ng-container>
                 
                     </div>
                     <tr mat-header-row *matHeaderRowDef="coinInactivityTime"></tr>

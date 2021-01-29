@@ -33,10 +33,11 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
 import { SettingInfoComponent } from './setting-info/setting-info.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './createProfile/profile/profile.component';
 import { MapComponent } from './map/map.component';
 import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
+import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ZoneConfigurationComponent } from './zone-configuration/zone-configurat
     MapComponent,
     MapActionsComponent,
     ZoneConfigurationComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

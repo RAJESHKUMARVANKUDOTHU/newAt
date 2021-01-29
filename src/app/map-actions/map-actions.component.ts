@@ -313,4 +313,16 @@ export class MapActionsComponent implements OnInit {
     } else {
     }
   }
+
+  updateBound(){
+    var data={
+      
+    }
+    this.api.updateLatLng(data).then((res:any)=>{
+      console.log("update bounds res==",res);
+      if(res.status){
+        this.general.openSnackBar(res.success,'')
+      }
+    })
+  }
 }

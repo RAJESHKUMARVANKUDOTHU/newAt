@@ -1,12 +1,14 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import {Router} from '@angular/router'
+import {Router} from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
-import { LoginAuthService } from '../services/login-auth.service';
-import { ApiService } from '../services/api.service';
-import { GeneralService } from '../services/general.service';
+import { LoginAuthService } from '../../services/login-auth.service';
+import { ApiService } from '../../services/api.service';
+import { GeneralService } from '../../services/general.service';
+import { EditProfileComponent } from '../../createProfile/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +19,13 @@ export class ProfileComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   addSubUserForm:FormGroup
-  displayedColumns: string[] = ["i", 'userName', 'updatedAt', 'isDeleted'];
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt','edit', 'isDeleted'];
   dataSource:any=[]
   getUserList:any=[]
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
   constructor(
+    public dialog: MatDialog,  
     private login:LoginAuthService,
     private router:Router,
     private fb:FormBuilder,
@@ -112,5 +115,21 @@ export class ProfileComponent implements OnInit {
     }).catch((err)=>{
       console.log("err======",err)
     })  
+  }
+  openDailog(data){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '50vh';
+    dialogConfig.width = '30vw';
+    dialogConfig.data={
+      data:data
+    }
+    
+    const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
+  
+    dialogRef.afterClosed().subscribe(result => {
+        this.getUsers()
+    });
   }
 }

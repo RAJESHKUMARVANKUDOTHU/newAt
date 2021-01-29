@@ -18,7 +18,7 @@ import { OfflineDeviceComponent } from './assets/offline-device/offline-device.c
 import { SettingComponent } from './setting/setting.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './createProfile/profile/profile.component';
 import { MapComponent } from './map/map.component';
 import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';

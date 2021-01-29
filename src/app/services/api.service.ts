@@ -587,5 +587,31 @@ getGeofenceSetting(){
     })
   }
 
+  updateZoneBound(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateZoneBounds';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  deleteZoneBound(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/deleteZoneBounds';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
 
 }
