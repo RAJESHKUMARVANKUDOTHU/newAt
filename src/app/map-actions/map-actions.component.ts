@@ -292,7 +292,7 @@ export class MapActionsComponent implements OnInit {
       data.gatewayId[0] +
       parseInt(this.randomNumber().toString()) +
       data.fileData.filename;
-      data.file=data.fileData.filename
+      
       console.log('file===', data);
     if (
       data.fileData.filetype == 'image/jpg' ||
