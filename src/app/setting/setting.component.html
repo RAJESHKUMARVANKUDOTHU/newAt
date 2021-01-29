@@ -56,7 +56,7 @@
                 </mat-form-field> <br> 
                 <mat-form-field>
                     <mat-label>Enter time delay</mat-label>
-                    <input type="time" matInput formControlName="timedelay" required>
+                    <input type="time" matInput formControlName="timeDelay" required>
                 </mat-form-field> <br>  
                 <div class="btn-set ">
                     <button mat-raised-button [disabled]="!timeDelay.valid" color="primary" (click)="onSubmitTimeDelay(timeDelay.value)" >submit</button>
@@ -129,7 +129,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter Standard time for the zone</mat-label>
-                    <input type="number" matInput formControlName="standardtime" placeholder="in Minutes" required>
+                    <input type="number" matInput formControlName="standardTime" placeholder="in Minutes" required>
                 </mat-form-field> <br>
                 <div class="btn-set">
                     <button mat-raised-button [disabled]="!zoneForm.valid" color="primary" (click)="onSubmitZoneForm(zoneForm.value)">submit</button>
@@ -185,7 +185,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter inactivity Time</mat-label>
-                    <input type="number" matInput formControlName="inactivitytime" placeholder="in Minutes" required>
+                    <input type="number" matInput formControlName="inactivityTime" placeholder="in Minutes" required>
                 </mat-form-field> <br> 
                 <div class="btn-set">
                     <button mat-raised-button [disabled]="!inactivityFind.valid" color="primary" (click)="onSubmitInactivityFind(inactivityFind.value)">submit</button>
@@ -217,7 +217,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter inactivity Time</mat-label>
-                    <input type="number" matInput formControlName="inactivitytime" placeholder="in Minutes" required>
+                    <input type="number" matInput formControlName="inactivityTime" placeholder="in Minutes" required>
                 </mat-form-field> <br> 
                 <div class="btn-set">
                     <button mat-raised-button [disabled]="!inactivityCoin.valid" color="primary" (click)="onSubmitInactivityCoin(inactivityCoin.value)">submit</button>

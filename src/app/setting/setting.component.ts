@@ -59,20 +59,20 @@ export class SettingComponent implements OnInit {
 
     this.timeDelay=this.fb.group({
       deviceId:['',Validators.required],
-      timedelay:['',Validators.required],
+      timeDelay:['',Validators.required],
     
     })
 
     this.inactivityFind=this.fb.group({
       deviceId:['',Validators.required],
-      inactivitytime:['',Validators.required],
+      inactivityTime:['',Validators.required],
       alert:['',Validators.required]
     })
 
 
     this.inactivityCoin=this.fb.group({
       coinId:['',Validators.required],
-      inactivitytime:['',Validators.required],
+      inactivityTime:['',Validators.required],
       alert:['',Validators.required]
     })
 
@@ -92,7 +92,7 @@ export class SettingComponent implements OnInit {
 
     this.zoneForm=this.fb.group({
       zoneName:['',Validators.required],
-      standardtime:['',Validators.required]
+      standardTime:['',Validators.required]
     })
 
     this.maxFindForm=this.fb.group({
