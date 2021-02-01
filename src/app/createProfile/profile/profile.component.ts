@@ -116,6 +116,17 @@ export class ProfileComponent implements OnInit {
       console.log("err======",err)
     })  
   }
+  isDeleted(data){
+    data.isDeleted=data.isDeleted== 'y'?'n':'y'
+    this.api.deleteSubuser(data).then((res:any)=>{
+      console.log("delete sub user res===",res)
+      if(res.status){
+  
+      }
+    }).catch((err)=>{
+      console.log("err======",err)
+    }) 
+  }
   openDailog(data){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -132,4 +143,6 @@ export class ProfileComponent implements OnInit {
         this.getUsers()
     });
   }
+
+
 }

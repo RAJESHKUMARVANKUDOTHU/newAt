@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ApiService } from '../../services/api.service';
+import { GeneralService } from '../../services/general.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -14,6 +15,8 @@ export class EditProfileComponent implements OnInit {
     public dialogRef: MatDialogRef<EditProfileComponent>,
     @Inject(MAT_DIALOG_DATA)  data,
     private fb: FormBuilder,
+    private general:GeneralService,
+    private api: ApiService
   ) {
     this.profileData=data.data
    }
@@ -25,11 +28,15 @@ export class EditProfileComponent implements OnInit {
   }
 
   submit(data){
+    data.id=this.profileData._id
     console.log("edit profile data==",data)
-    // this.api.name.then((res:any)=>{
-
-    // }).catch((err:any)=>{
-    //   console.log("error===",err)
-    // })
+    this.api.updateSubUser(data).then((res:any)=>{
+        console.log("update sub user res===",res)
+        if(res.status){
+          this.general.openSnackBar(res.success,'')
+        }
+    }).catch((err:any)=>{
+      console.log("error===",err)
+    })
   }
 }

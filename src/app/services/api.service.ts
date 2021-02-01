@@ -55,6 +55,33 @@ export class ApiService {
     })
   }
 
+  deleteSubuser(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+   
+    let url = this.host+'/updateSubuserStatus';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        console.log("get",res)
+        resolve(res);
+      })
+    })
+  }
+
+  updateSubUser(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+   
+    let url = this.host+'/updateSubuserEmailid';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        console.log("get",res)
+        resolve(res);
+      })
+    })
+  }
 // superadminlogin
   adminLogin(data){
     const httpOptions = {
@@ -172,6 +199,8 @@ export class ApiService {
   
       }
       getGatewayData(){
+        console.log("gateway res check")
+
         const httpOptions = {
           headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
@@ -179,6 +208,7 @@ export class ApiService {
         let url = this.host+'/viewGateway';
         return new Promise((resolve,reject)=>{
           this.http.get(url).subscribe(res=>{
+            console.log("gateway res==",res)
             resolve(res);
           })
         })
@@ -544,6 +574,45 @@ getGeofenceSetting(){
     })
   }
 
+  groupRegister(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/groupRegister';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+
+  getGroup(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/getAllGroupDetails';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+
+  updateGroup(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateGroupDetails';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
 
 
   // ----------------------map center API's----------------------------------
@@ -613,5 +682,16 @@ getGeofenceSetting(){
     })
   }
 
+  getLayoutImage(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
+    let url = this.host+'/getLayoutImage';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
 }

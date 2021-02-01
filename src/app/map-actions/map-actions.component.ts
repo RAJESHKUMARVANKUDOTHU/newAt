@@ -299,8 +299,15 @@ export class MapActionsComponent implements OnInit {
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
-
-      this.api.createLayout(data).then((res:any)=>{
+      var value={
+        gatewayObjectId:this.general.filterArray(data.gatewayId),
+        file: data.gatewayId[0] +
+              parseInt(this.randomNumber().toString()) +
+              data.fileData.filename,
+        layoutName:data.layoutName
+      }
+      console.log("file==",value)
+      this.api.createLayout(value).then((res:any)=>{
           console.log("create layout res===",res);
           if(res.status){
             this.general.openSnackBar(res.success,'')
@@ -310,7 +317,8 @@ export class MapActionsComponent implements OnInit {
         console.log("error==",err)
       })
       
-    } else {
+    } 
+    else {
     }
   }
 
