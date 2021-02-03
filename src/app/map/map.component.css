@@ -20,3 +20,13 @@
   .leaflet-control-container {
     display: none;
 }
+.map-alternative {
+ 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #c32828;
+  font-weight: 500;
+}

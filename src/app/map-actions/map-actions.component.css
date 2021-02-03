@@ -25,3 +25,11 @@ table{
 .visible{
     pointer-events: all;
 }
+/* .selectCoinFalse{
+    color: white;
+    background-color: #002060;
+} */
+.selectCoinTrue{
+    color: white;
+    background-color: #002060;
+}
