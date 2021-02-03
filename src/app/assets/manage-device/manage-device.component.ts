@@ -18,6 +18,7 @@ export class ManageDeviceComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   findData:any=[]
   dataSource: any = [];
+  fileName : String =''
   displayedColumns = ['i','deviceId','deviceName','on-off','updatedOn','edit','delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,    
@@ -168,6 +169,14 @@ export class ManageDeviceComponent implements OnInit {
       })
     }
     else{}
+  }
+  download(){
+    this.fileName = "Registered coins"
+    this.api.downloadRegisteredCoins(this.fileName).then((res:any)=>{
+        console.log("Registerd coins download==",res)
+    }).catch((err:any)=>{
+      console.log("error==",err)
+    })
   }
 }
 

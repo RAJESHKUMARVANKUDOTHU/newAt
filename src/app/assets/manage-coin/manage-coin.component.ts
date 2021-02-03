@@ -18,6 +18,7 @@ export class ManageCoinComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   dataSource: any = [];
   coinData:any=[]
+  fileName : String =''
   displayedColumns = ['i','coinId','coinName','gatewayId','coinBattery','updatedOn','edit','delete'];
   constructor(
     public dialog: MatDialog,    
@@ -147,5 +148,14 @@ export class ManageCoinComponent implements OnInit {
       })
     }
     else{}
+  }
+
+  download(){
+    this.fileName = "Registered coins"
+    this.api.downloadRegisteredCoins(this.fileName).then((res:any)=>{
+        console.log("Registerd coins download==",res)
+    }).catch((err:any)=>{
+      console.log("error==",err)
+    })
   }
 }

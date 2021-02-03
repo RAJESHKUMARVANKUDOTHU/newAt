@@ -694,4 +694,131 @@ getGeofenceSetting(){
       })
     })
   }
+
+
+
+  //---------------------manage asset download -------------------------------
+  downloadFile(response,fileName){
+    let body = response.body
+    let dataType = body.type;
+    let binaryData = [];
+    binaryData.push(body);
+    // this.general.loadingFreez.next({status:false})
+    let downloadLink = document.createElement('a');
+    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+    downloadLink.setAttribute('download', fileName);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
+
+
+  downloadRegisteredCoins(fileName){
+    // this.general.loadingFreez.next({status:true})
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    let url = this.host+'/downloadRegisteredCoins';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url).subscribe(res=>{
+        // if(res.status==200)
+        // this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+  downloadRegisteredGateways(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+  
+    let url = this.host+'/downloadRegisteredGateways';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+  downloadOnlineCoin(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+  
+    let url = this.host+'/downloadOnlineCoin';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+  downloadOfflineCoin(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+  
+    let url = this.host+'/downloadOfflineCoin';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+  downloadOnlineGateways(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+  
+    let url = this.host+'/downloadOnlineGateways';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+  downloadOfflineGateways(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+  
+    let url = this.host+'/downloadOfflineGateways';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
 }

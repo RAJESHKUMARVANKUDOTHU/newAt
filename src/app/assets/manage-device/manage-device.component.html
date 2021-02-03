@@ -1,7 +1,7 @@
 <button mat-raised-button (click)="openDailog()"><mat-icon>add</mat-icon> Add Device </button>
 <span style="flex: 1 1 auto;"></span>
 <span style="float: right;">
-    <button mat-flat-button color="primary">Download <mat-icon>download</mat-icon></button><br>
+    <button mat-flat-button color="primary" (click)="download()">Download <mat-icon>download</mat-icon></button><br>
  </span> 
 <div  class="mat-elevation-z8">
     <table  mat-table [dataSource]="dataSource" matSort >

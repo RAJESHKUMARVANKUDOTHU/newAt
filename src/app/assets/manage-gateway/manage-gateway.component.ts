@@ -18,6 +18,7 @@ export class ManageGatewayComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   gatewayData:any=[]
   dataSource: any = [];
+  fileName : String =''
   displayedColumns = ['i','gatewayId','gatewayName','updatedOn','edit','delete'];
   constructor(
     public dialog: MatDialog,    
@@ -115,6 +116,14 @@ export class ManageGatewayComponent implements OnInit {
       })
     }
     else{}
+  }
+  download(){
+    this.fileName = "Registered coins"
+    this.api.downloadRegisteredCoins(this.fileName).then((res:any)=>{
+        console.log("Registerd coins download==",res)
+    }).catch((err:any)=>{
+      console.log("error==",err)
+    })
   }
 
 }
