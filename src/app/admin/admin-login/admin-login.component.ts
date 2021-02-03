@@ -46,16 +46,16 @@ export class AdminLoginComponent implements OnInit {
           if(res.token){
            	
             if(this.login.login(JSON.stringify(res))){
-            //  this.login.loginCheckData.next(true)
-            console.log("hurray!!")
-              this.router.navigate(['/admin-dashboard'])
+                this.router.navigate(['/admin-dashboard'])
             }
+            else{}
           }
         })
       } catch (err) {
         this.loginInvalid = true;
       }
     }
+    else{}
   }
 
   hideShowPassword() {

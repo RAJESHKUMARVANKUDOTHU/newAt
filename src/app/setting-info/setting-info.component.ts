@@ -18,14 +18,18 @@ export class SettingInfoComponent implements OnInit {
   coinData : any = []
   deviceData : any = []
   zoneData : any = []
+  groupData :any = []
   dataSource : any = []
   dataSource1 : any = []
   dataSource2 : any = []
+  dataSource3 : any = []
   timeDelay = ['deviceId','timeDelay']
   findInactivityTime = ['deviceId','inActivityTime','sms','email']
   coinInactivityTime = ['coinId','inActivityTime','sms','email']
   coinConfig = ['coinId','zoneName']
   zoneCategory = ['zoneName', 'standardTime']
+  groupInfo = ['i','groupName']
+  coinGroup = ['coinId','coinName','groupName']
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -47,6 +51,9 @@ export class SettingInfoComponent implements OnInit {
     else if(this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp'){
       this.refreshCoin()
     }
+    else if(this.type == 'groupName'){
+      this.getGroups()
+    }
     else{
       this.getZoneDetails()
     }
@@ -66,6 +73,7 @@ export class SettingInfoComponent implements OnInit {
           this.dataSource.paginator=this.paginator
         })
       }
+      else{}
    
     }).catch((err:any)=>{
       console.log("error===",err)
@@ -87,6 +95,7 @@ export class SettingInfoComponent implements OnInit {
           })
 
       }
+      else{}
     }).catch((err:any)=>{
       console.log("error===",err)
     })
@@ -105,8 +114,24 @@ export class SettingInfoComponent implements OnInit {
           this.dataSource2.paginator=this.paginator
         })
       }
+      else{}
 
     })
   }
-
+  
+  getGroups(){
+    this.api.getGroup().then((res:any)=>{
+      console.log("group details response==",res)
+      this.groupData=[]
+      if(res.status){
+        this.groupData=res.success
+        this.dataSource3 = new MatTableDataSource(this.groupData);
+        setTimeout(() => {
+          this.dataSource3.sort = this.sort;
+          this.dataSource3.paginator=this.paginator
+        })
+      }
+      else{}
+    })
+  }
 }

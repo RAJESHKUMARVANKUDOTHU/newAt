@@ -35,6 +35,7 @@ export class EditProfileComponent implements OnInit {
         if(res.status){
           this.general.openSnackBar(res.success,'')
         }
+        else{}
     }).catch((err:any)=>{
       console.log("error===",err)
     })

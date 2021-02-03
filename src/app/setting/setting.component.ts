@@ -29,9 +29,11 @@ export class SettingComponent implements OnInit {
   coinCategory:FormGroup
   zoneForm:FormGroup
   maxFindForm:FormGroup
+  groupRegister:FormGroup
   feetValue:any=[10,20,30,40,50,60,70,80,90,100]
   coinData:any=[]
   deviceData:any=[]
+  groupData:any=[]
   name:any
   zoneData:any
   constructor(
@@ -47,6 +49,7 @@ export class SettingComponent implements OnInit {
     this.refreshDevice()
     this.refreshCoin()
     this.getZoneDetails()
+    this.getGroups()
   }
   createForm(){
     // this.dateTimeForm=this.fb.group({
@@ -76,13 +79,16 @@ export class SettingComponent implements OnInit {
       alert:['',Validators.required]
     })
 
-
-    this.groupCoinForm=this.fb.group({
-      coinId:['',Validators.required],
-      group:['',Validators.required],
-      
+    this.groupRegister=this.fb.group({
+      groupName:['',Validators.required]
     })
 
+    
+    this.groupCoinForm=this.fb.group({
+      coinId:['',Validators.required],
+      groupId:['',Validators.required],
+      
+    })
 
     this.coinCategory=this.fb.group({
       coinId:['',Validators.required],
@@ -96,7 +102,7 @@ export class SettingComponent implements OnInit {
     })
 
     this.maxFindForm=this.fb.group({
-      deviceId:['',Validators.required],
+      coinId:['',Validators.required],
       maxLimit:['',Validators.required],
     })
   }
@@ -106,6 +112,9 @@ export class SettingComponent implements OnInit {
       this.coinData=[]
       if(res.status){
         this.coinData=res.success
+      }
+      else{
+        this.coinData=[]
       }
    
     }).catch((err:any)=>{
@@ -121,6 +130,10 @@ export class SettingComponent implements OnInit {
     if(res.status){
         this.deviceData=res.success
     }
+    else{
+      this.deviceData=[]
+    }
+
   }).catch((err:any)=>{
     console.log("error===",err)
   })
@@ -159,11 +172,12 @@ export class SettingComponent implements OnInit {
             this.distanceForm.reset()
             this.general.openSnackBar(res.success,'')
           }
+          else{}
         }).catch((err)=>{
           console.log("err=",err)
         })
       }
-
+      else{}
     }
     catch(error){
       console.log("error==",error)
@@ -184,11 +198,12 @@ export class SettingComponent implements OnInit {
             this.timeDelay.reset()
             this.general.openSnackBar(res.success,'')
           }
+          else{}
         }).catch((err)=>{
           console.log("err=",err)
         })
       }
-
+      else{}
     }
     catch(error){
       console.log("error==",error)
@@ -212,10 +227,14 @@ export class SettingComponent implements OnInit {
             this.inactivityFind.reset()
             this.general.openSnackBar(res.success,'')
           }
+          else{}
+
         }).catch((err)=>{
           console.log("err=",err)
         })
       }
+      else{}
+
 
     }
     catch(error){
@@ -235,11 +254,12 @@ export class SettingComponent implements OnInit {
             this.inactivityCoin.reset()
             this.general.openSnackBar(res.success,'')
           }
+          else{}
         }).catch((err)=>{
           console.log("err=",err)
         })
       }
-
+      else{}
     }
     catch(error){
       console.log("error==",error)
@@ -269,11 +289,12 @@ export class SettingComponent implements OnInit {
             this.zoneForm.reset()
             this.general.openSnackBar(res.success,'')
           }
+          else{}
         }).catch((err)=>{
           console.log("err=",err)
         })
       }
-
+      else{}
     }
     catch(error){
       console.log("error==",error)
@@ -281,28 +302,72 @@ export class SettingComponent implements OnInit {
 
 
   }
+
+  onSubmitGroup(data){
+    console.log("onSubmitZoneForm data==",data)
+    try{
+      if(this.groupRegister.valid){
+        this.api.groupRegister(data).then((res:any)=>{
+          console.log("Group register res===",res)
+
+          if(res.status){
+            this.groupRegister.reset()
+            this.general.openSnackBar(res.success,'')
+          }
+          else{}
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+      else{}
+    }
+    catch(error){
+      console.log("error==",error)
+    }
+  }
   onSubmitGroupCoinForm(data){
     data.coinId=this.general.filterArray(data.coinId)
+    
     console.log("onSubmitGroupCoinForm data==",data)
-    this.groupCoinForm.reset()
+
+    try{
+      if(this.groupCoinForm.valid){
+        this.api.updateGroup(data).then((res:any)=>{
+          console.log("Group coin res===",res)
+
+          if(res.status){
+            this.groupCoinForm.reset()
+            this.general.openSnackBar(res.success,'')
+          }
+          else{}
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+      else{}
+    }
+    catch(error){
+      console.log("error==",error)
+    }
 
   }
 
   toggleAllSelectionDevice(formData){
     console.log("allselected",this.allSelected)
     if(this.allSelected.selected){
-      formData.controls.deviceId.patchValue([...this.deviceData.map(obj=>obj.deviceId),0])  
-    }
-    else{
-       formData.controls.deviceId.patchValue([])
-    }
-  }
-  toggleAllSelectionDevice1(formData){
-    if(this.allSelected1.selected){
       formData.controls.deviceId.patchValue([...this.deviceData.map(obj=>obj.deviceId),0])
     }
     else{
       formData.controls.deviceId.patchValue([])
+    }
+
+  }
+  toggleAllSelectionCoins(formData){
+    if(this.allSelected1.selected){
+      formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])  
+    }
+    else{
+       formData.controls.coinId.patchValue([])
     }
   }
   toggleAllSelectionDevice2(formData){
@@ -370,6 +435,22 @@ export class SettingComponent implements OnInit {
         if(res.status){
           this.zoneData=res.success
         }
+        else{
+          this.zoneData=[]
+        }
+    })
+  }
+
+  getGroups(){
+    this.api.getGroup().then((res:any)=>{
+      console.log("group details response==",res)
+      this.groupData=[]
+      if(res.status){
+        this.groupData=res.success
+      }
+      else{
+        this.groupData=[]
+      }
     })
   }
 }

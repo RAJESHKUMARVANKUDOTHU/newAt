@@ -54,15 +54,14 @@ export class AddAssetsComponent implements OnInit {
      
         this.api.deviceRegistration(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status || !res.status){
-            var msg = res.success
-            this.general.openSnackBar(msg,'')
+          if(res.status){
+              this.general.openSnackBar(res.success,'')
           }
-          // else if((res.status || !res.status) && res.success.toLowerCase()!="device registered successfully"){
-          //   var msg = 'Device Name or Device Id Already exists, try different device'
-          //   this.general.openSnackBar(msg,'')
-          // }
-        
+          else{
+              this.general.openSnackBar(res.success,'')
+          }       
+        }).catch((err:any)=>{
+          console.log("error===",err)
         })
       }
     }
@@ -77,20 +76,24 @@ export class AddAssetsComponent implements OnInit {
         
         this.api.gatewayRegistration(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status || !res.status){
-            var msg = res.success
-            this.general.openSnackBar(msg,'')
+          if(res.status){
+            this.general.openSnackBar(res.success,'')
+          }
+          else{
+              this.general.openSnackBar(res.success,'')
           }
           // else if((res.status || !res.status) && res.success.toLowerCase()!="gateway registered successfully"){
           //   var msg = 'Gateway Name Already exists, try different Name'
           //   this.general.openSnackBar(msg,'')
           // }
         
+        }).catch((err:any)=>{
+          console.log("error===",err)
         })
       }
     }
     catch(err){
-
+      console.log("error==",err)
     }
   }
   coinSubmit(data){
@@ -98,19 +101,20 @@ export class AddAssetsComponent implements OnInit {
       if(this.addCoin.valid){
         this.api.coinRegistration(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status || !res.status ){
-            var msg = res.success
-            this.general.openSnackBar(msg,'')
+          if(res.status){
+            this.general.openSnackBar(res.success,'')
           }
-          // else if((res.status || !res.status) && res.success.toLowerCase()!="coin registered successfully"){
-          //   var msg = 'Coin Name or Coin Id Already exists, try different coin'
-          //   this.general.openSnackBar(msg,'')
-          // }
+          else{
+              this.general.openSnackBar(res.success,'')
+          }
         
+        }).catch((err:any)=>{
+          console.log("error===",err)
         })
       }
     }
     catch(err){
+      console.log("error==",err)
 
     }
   }

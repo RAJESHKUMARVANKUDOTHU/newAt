@@ -54,6 +54,7 @@ export class ManageGatewayComponent implements OnInit {
       if(res.status){
         for(let i=0;i<res.success.length;i++){
           if(res.success[i] != null){
+            
             this.gatewayData.push({
               i:i+1,
               id:res.success[i]._id,
@@ -65,6 +66,7 @@ export class ManageGatewayComponent implements OnInit {
               delete:'delete_forever'
             })
           }
+  
         }
         this.dataSource = new MatTableDataSource(this.gatewayData);
 
@@ -73,7 +75,7 @@ export class ManageGatewayComponent implements OnInit {
           this.dataSource.paginator=this.paginator
         })
       }
-   
+      else{}
     }).catch((err:any)=>{
       console.log("error===",err)
     })
@@ -107,10 +109,12 @@ export class ManageGatewayComponent implements OnInit {
           var msg = res.success
           this.general.openSnackBar(msg,'')
         }
+        else{}
       }).catch((err:any)=>{
         console.log("error===",err)
       })
     }
+    else{}
   }
 
 }

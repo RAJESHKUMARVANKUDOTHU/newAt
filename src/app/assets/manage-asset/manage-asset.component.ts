@@ -98,6 +98,9 @@ export class ManageAssetComponent implements OnInit {
           ];
           console.log('this.doughnutChartData2', this.doughnutChartData2);
         }
+        else{
+
+        }
       })
       .catch((err: any) => {
         console.log('error===', err);
@@ -116,6 +119,9 @@ export class ManageAssetComponent implements OnInit {
         if (res.status) {
           this.getAssetList = res.success;
         }
+        else{
+          this.getAssetList=[]
+        }
       })
       .catch((err: any) => {
         console.log('error===', err);
@@ -129,6 +135,10 @@ export class ManageAssetComponent implements OnInit {
         console.log('deassignAsset list res====', res);
         if (res.status) {
           this.getDeAssetList = res.success;
+        }
+        else{
+          this.getDeAssetList = [];
+
         }
       })
       .catch((err: any) => {
@@ -153,6 +163,9 @@ export class ManageAssetComponent implements OnInit {
               location.reload();
             }, 1000);
           }
+          else{
+
+          }
         })
         .catch((err: any) => {
           console.log('error===', err);
@@ -175,6 +188,7 @@ export class ManageAssetComponent implements OnInit {
             }, 1000);
             this.general.openSnackBar(res.message, '');
           }
+          else{}
         })
         .catch((err: any) => {
           console.log('error===', err);
@@ -191,6 +205,10 @@ export class ManageAssetComponent implements OnInit {
         if (res.status) {
           this.findData = res.success;
         }
+        else{
+          this.findData=[]
+        }
+
       })
       .catch((err: any) => {
         console.log('error===', err);

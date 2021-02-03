@@ -292,25 +292,18 @@ export class MapActionsComponent implements OnInit {
       data.gatewayId[0] +
       parseInt(this.randomNumber().toString()) +
       data.fileData.filename;
-      data.file=data.fileData.filename
+      // data.file=data.fileData.filename
       console.log('file===', data);
     if (
       data.fileData.filetype == 'image/jpg' ||
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
-      var value={
-        gatewayObjectId:this.general.filterArray(data.gatewayId),
-        file: data.gatewayId[0] +
-              parseInt(this.randomNumber().toString()) +
-              data.fileData.filename,
-        layoutName:data.layoutName
-      }
-      console.log("file==",value)
-      this.api.createLayout(value).then((res:any)=>{
+    
+      this.api.createLayout(data).then((res:any)=>{
           console.log("create layout res===",res);
           if(res.status){
-            this.general.openSnackBar(res.success,'')
+            this.general.openSnackBar(res.message,'')
           }
           
       }).catch((err:any)=>{

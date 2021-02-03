@@ -85,20 +85,20 @@ export class EditAssetsComponent implements OnInit {
        
         this.api.editDevice(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status || !res.status ){
-            var msg = res.success
-            this.general.openSnackBar(msg,'')
+          if(res.status){
+            this.general.openSnackBar(res.success,'')
           }
-          // else if((res.status  || !res.status) && res.success.toLowerCase() != "device edited successfully"){
-          //   var msg = 'Device Name Already exists, try different Name'
-          //   this.general.openSnackBar(msg,'')
-          // }
+          else{
+              this.general.openSnackBar(res.success,'')
+          } 
         
+        }).catch((err:any)=>{
+          console.log("error===",err)
         })
       }
     }
     catch(err){
-
+      console.log("error===",err)
     }
   }
 
@@ -111,20 +111,20 @@ export class EditAssetsComponent implements OnInit {
         data.userId=1
         this.api.editGateway(data).then((res:any)=>{
           console.log("gateway submit====",res);
-          if(res.status || !res.status){
-            var msg = res.success
-            this.general.openSnackBar(msg,'')
+          if(res.status){
+            this.general.openSnackBar(res.success,'')
           }
-          // else if((res.status  || !res.status) && res.success.toLowerCase() != "gateway edited successfully"){
-          //   var msg = 'Gateway Name Already exists, try different Name'
-          //   this.general.openSnackBar(msg,'')
-          // }
+          else{
+              this.general.openSnackBar(res.success,'')
+          } 
         
+        }).catch((err:any)=>{
+          console.log("error===",err)
         })
       }
     }
     catch(err){
-
+      console.log("error===",err)
     }
   }
 
@@ -136,20 +136,20 @@ export class EditAssetsComponent implements OnInit {
         data.userId=1
         this.api.editCoin(data).then((res:any)=>{
           console.log("find submit====",res);
-          if(res.status || !res.status){
-            var msg = res.success
-            this.general.openSnackBar(msg,'')
+          if(res.status){
+            this.general.openSnackBar(res.success,'')
           }
-          // else if((res.status  || !res.status) && res.success.toLowerCase() != "coin edited successfully"){
-          //   var msg = 'Coin Name Already exists, try different Name'
-          //   this.general.openSnackBar(msg,'')
-          // }
+          else{
+              this.general.openSnackBar(res.success,'')
+          }   
         
+        }).catch((err:any)=>{
+          console.log("error===",err)
         })
       }
     }
     catch(err){
-
+      console.log("error===",err)
     }
   }
   refreshGateway(){

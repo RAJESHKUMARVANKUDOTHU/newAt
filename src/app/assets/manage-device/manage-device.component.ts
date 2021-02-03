@@ -75,12 +75,36 @@ export class ManageDeviceComponent implements OnInit {
           this.dataSource.paginator=this.paginator
         })
       }
+      else{}
     }).catch((err:any)=>{
       console.log("error===",err)
     })
   }
   getBatteryStatus(data){
-
+    if(data == "H"){
+      var a = {
+        'background-color':'green',
+        'width':'31px'
+      }
+      return a
+    }
+    // else if(value == 2){
+    //   var a = {
+    //     'background-color':'#ffc107',
+    //     'width':'18px'
+    //   }
+    //   return a
+    // }
+    else if(data == "L"){
+      var a = {
+        'background-color':'red',
+        'width':'10px'
+      }
+      return a
+    }
+    else{
+      return {}
+    }
   }
 
   edit(data){
@@ -112,10 +136,12 @@ export class ManageDeviceComponent implements OnInit {
           var msg = res.success
           this.general.openSnackBar(msg,'')
         }
+        else{}
       }).catch((err:any)=>{
         console.log("error===",err)
       })
     }
+    else{}
   }
 
   toggle(a){
@@ -136,10 +162,12 @@ export class ManageDeviceComponent implements OnInit {
           var msg = res.success
           this.general.openSnackBar(msg,'')
         }
+        else{}
       }).catch((err:any)=>{
         console.log("error===",err)
       })
     }
+    else{}
   }
 }
 

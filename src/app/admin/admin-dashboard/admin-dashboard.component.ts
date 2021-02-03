@@ -14,7 +14,7 @@ import { ApiService } from '../../services/api.service';
 export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ["i", 'userName', 'updatedAt', 'isDeleted'];
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt'];
   dataSource:any=[]
   addUserForm:FormGroup
   loginData:any
@@ -53,6 +53,7 @@ export class AdminDashboardComponent implements OnInit {
             if(res.status){
                  this.getAdmins()  
             }
+            else{}
           })
           .catch((err)=>{
             console.log("err======",err)
@@ -77,23 +78,24 @@ export class AdminDashboardComponent implements OnInit {
           this.dataSource.paginator=this.paginator
         })
       }
+      else{}
     }).catch((err)=>{
       console.log("err======",err)
     })  
   }
 
-  isDeleted(data){
-    if(data.isDeleted=='N'){
-      data.isDeleted=data.isDeleted=='Y'?'N':'Y'
-       this.api.deleteUser(data).then((res:any)=>{
-        console.log("deleted user res===",res)
-        if(res.status){
-          }
-      }).catch((err)=>{
-        console.log("err======",err)
-      }) 
-    }
+  // isDeleted(data){
+  //   if(data.isDeleted=='N'){
+  //     data.isDeleted=data.isDeleted=='Y'?'N':'Y'
+  //      this.api.deleteUser(data).then((res:any)=>{
+  //       console.log("deleted user res===",res)
+  //       if(res.status){
+  //         }
+  //     }).catch((err)=>{
+  //       console.log("err======",err)
+  //     }) 
+  //   }
  
-  }
+  // }
 
 }

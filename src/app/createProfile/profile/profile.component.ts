@@ -112,6 +112,7 @@ export class ProfileComponent implements OnInit {
           this.dataSource.paginator=this.paginator
         })
       }
+      else{}
     }).catch((err)=>{
       console.log("err======",err)
     })  
@@ -123,6 +124,7 @@ export class ProfileComponent implements OnInit {
       if(res.status){
   
       }
+      else{}
     }).catch((err)=>{
       console.log("err======",err)
     }) 

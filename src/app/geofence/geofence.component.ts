@@ -51,7 +51,7 @@ export class GeofenceComponent implements OnInit {
         console.log("this.coinData====",this.coinData);
 
       }
-   
+      else{}
     }).catch((err:any)=>{
       console.log("error===",err)
     })
@@ -65,6 +65,7 @@ export class GeofenceComponent implements OnInit {
     if(res.status){
         this.deviceData=res.success
     }
+    else{}
   }).catch((err:any)=>{
     console.log("error===",err)
   })
@@ -116,14 +117,16 @@ export class GeofenceComponent implements OnInit {
       if(res.status){
         console.log("geofence setting res==",res)
         this.geoFenceData=res.success
-      }
-    
-    this.dataSource = new MatTableDataSource(this.geoFenceData);
+        this.dataSource = new MatTableDataSource(this.geoFenceData);
 
-      setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator=this.paginator
-        })
+        setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator=this.paginator
+          })
+      }
+      else{}
+    
+
     })
   }
 

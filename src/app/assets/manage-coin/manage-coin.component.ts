@@ -18,7 +18,7 @@ export class ManageCoinComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   dataSource: any = [];
   coinData:any=[]
-  displayedColumns = ['i','coinId','coinName','gatewayId','updatedOn','edit','delete'];
+  displayedColumns = ['i','coinId','coinName','gatewayId','coinBattery','updatedOn','edit','delete'];
   constructor(
     public dialog: MatDialog,    
     private login:LoginAuthService,
@@ -59,6 +59,7 @@ export class ManageCoinComponent implements OnInit {
               userId:res.success[i].userId,
               coinId:res.success[i].coinId,
               coinName:res.success[i].coinName,
+              coinBattery:res.success[i].coinBattery,
               gatewayId:res.success[i].gatewayId,
               updatedOn:res.success[i].updatedAt,
               edit:'edit',
@@ -73,12 +74,42 @@ export class ManageCoinComponent implements OnInit {
           this.dataSource.paginator=this.paginator
         })
       }
+      else{}
    
     }).catch((err:any)=>{
       console.log("error===",err)
     })
   }
 
+  
+  getBatteryStatus(data){
+    
+    if(data.coinBattery == "H"){
+    
+      var a = {
+        'background-color':'green',
+        'width':'31px'
+      }
+      return a
+    }
+    // else if(value == 2){
+    //   var a = {
+    //     'background-color':'#ffc107',
+    //     'width':'18px'
+    //   }
+    //   return a
+    // }
+    else if(data.coinBattery == "L"){
+      var a = {
+        'background-color':'red',
+        'width':'10px'
+      }
+      return a
+    }
+    else{
+      return {}
+    }
+  }
   edit(data){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -110,9 +141,11 @@ export class ManageCoinComponent implements OnInit {
           var msg = res.success
           this.general.openSnackBar(msg,'')
         }
+        else{}
       }).catch((err:any)=>{
         console.log("error===",err)
       })
     }
+    else{}
   }
 }
