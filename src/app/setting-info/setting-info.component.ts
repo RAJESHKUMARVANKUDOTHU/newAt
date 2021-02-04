@@ -1,15 +1,19 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { LoginAuthService } from '../services/login-auth.service';
 import { GeneralService } from '../services/general.service';
 import { ApiService } from '../services/api.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-setting-info',
   templateUrl: './setting-info.component.html',
-  styleUrls: ['./setting-info.component.css']
+  styleUrls: ['./setting-info.component.css'],
 })
 export class SettingInfoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
@@ -29,19 +33,20 @@ export class SettingInfoComponent implements OnInit {
   coinConfig = ['coinId','zoneName']
   zoneCategory = ['zoneName', 'standardTime']
   groupInfo = ['i','groupName']
-  coinGroup = ['coinId','coinName','groupName']
+  coinGroup = ['coinId','coinName','groupId']
+
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,
-    private login:LoginAuthService,
+    private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService,
-  ) { 
-    this.type=data.type
+    private general: GeneralService
+  ) {
+    this.type = data.type;
   }
 
   ngOnInit(): void {
-    this.loadData()
+    this.loadData();
   }
   loadData(){
     if(this.type == 'timeDelay' || this.type == 'find-inactive' || this.type == 'max-find')
@@ -78,16 +83,17 @@ export class SettingInfoComponent implements OnInit {
     }).catch((err:any)=>{
       console.log("error===",err)
     })
-  }
- 
-  refreshDevice(){
 
-    this.api.getDeviceData().then((res:any)=>{
-      this.deviceData=[]
-      this.dataSource1=[]
-      console.log("find submit====",res);
-      if(res.status){
-          this.deviceData=res.success
+  }
+  refreshDevice() {
+    this.api
+      .getDeviceData()
+      .then((res: any) => {
+        this.deviceData = [];
+        this.dataSource1 = [];
+        console.log('find submit====', res);
+        if (res.status) {
+          this.deviceData = res.success;
           this.dataSource1 = new MatTableDataSource(this.deviceData);
           setTimeout(() => {
             this.dataSource1.sort = this.sort;
@@ -101,18 +107,18 @@ export class SettingInfoComponent implements OnInit {
     })
   }
 
-  getZoneDetails(){
-    this.api.getZone().then((res:any)=>{
-      console.log("zone details response==",res)
-      this.zoneData=[]
-      this.dataSource2=[]
-      if(res.status){
-        this.zoneData=res.success
+  getZoneDetails() {
+    this.api.getZone().then((res: any) => {
+      console.log('zone details response==', res);
+      this.zoneData = [];
+      this.dataSource2 = [];
+      if (res.status) {
+        this.zoneData = res.success;
         this.dataSource2 = new MatTableDataSource(this.zoneData);
         setTimeout(() => {
           this.dataSource2.sort = this.sort;
-          this.dataSource2.paginator=this.paginator
-        })
+          this.dataSource2.paginator = this.paginator;
+        });
       }
       else{}
 

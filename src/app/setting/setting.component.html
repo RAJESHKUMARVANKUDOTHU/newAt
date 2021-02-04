@@ -92,7 +92,7 @@
 
 
     <mat-card>
-        <mat-card-title> Set Zone Category for Coins</mat-card-title>
+        <mat-card-title> Set Zone  for Coins</mat-card-title>
         <mat-card-content>
             <form [formGroup]="coinCategory">
                 <mat-form-field>
@@ -118,7 +118,7 @@
     </mat-card>
 
     <mat-card>
-        <mat-card-title>Create zone category</mat-card-title>
+        <mat-card-title>Create zone </mat-card-title>
         <mat-card-subtitle></mat-card-subtitle>
 
         <mat-card-content>
@@ -178,11 +178,12 @@
                 <mat-form-field>
                     <mat-label>Enter group name</mat-label>
                     <input type="text" matInput formControlName="groupName"  required>
-                </mat-form-field> <br>
+                </mat-form-field> <br> <br><br><br><br><br> <br>
                 <div class="btn-set">
                     <button mat-raised-button [disabled]="!groupRegister.valid" color="primary" (click)="onSubmitGroup(groupRegister.value)">submit</button>
                     <button mat-raised-button (click)="openInfo('groupName')" color="primary">Info</button>
-                </div>            </form>
+                </div>            
+            </form>
         </mat-card-content>
     </mat-card>
 

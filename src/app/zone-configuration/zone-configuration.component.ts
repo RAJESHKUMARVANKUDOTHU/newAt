@@ -15,121 +15,38 @@ import { MatOption } from '@angular/material/core';
 @Component({
   selector: 'app-zone-configuration',
   templateUrl: './zone-configuration.component.html',
-  styleUrls: ['./zone-configuration.component.css']
+  styleUrls: ['./zone-configuration.component.css'],
 })
 export class ZoneConfigurationComponent implements OnInit {
   selectLayoutForm: FormGroup;
   selectZoneForm: FormGroup;
-  gatewayList: any = [
+  gatewayList: any = [];
+  zoneList: any = [
     {
-      layout: 'layout.jpg',
-      gatewayId: '123456789878',
-      name: 'gateway1',
-      coins: [
-        {
-          id: 1,
-          coinId: 1,
-          coinName: 'a',
-          bound: [],
-        },
-        {
-          id: 2,
-          coinId: 2,
-          coinName: 'b',
-          bound: [],
-        },
-        {
-          id: 3,
-          coinId: 3,
-          coinName: 'c',
-          bound: [],
-        },
-      ],
-    },
-    {
-      layout: 'layout.jpg',
-      gatewayId: 'AB3456789878',
-      name: 'gateway2',
-      coins: [
-        {
-          id: 4,
-          coinId: 4,
-          coinName: 'aa',
-          bound: [],
-        },
-        {
-          id: 5,
-          coinId: 5,
-          coinName: 'bb',
-          bound: [],
-        },
-        {
-          id: 6,
-          coinId: 6,
-          coinName: 'cc',
-          bound: [],
-        },
-      ],
-    },
-    {
-      layout: 'office-layout.png',
-      gatewayId: 'CD3456789878',
-      name: 'gateway3',
-      coins: [
-        {
-          id: 7,
-          coinId: 7,
-          coinName: 'aaa',
-          bound: [],
-        },
-        {
-          id: 8,
-          coinId: 8,
-          coinName: 'bbb',
-          bound: [],
-        },
-        {
-          id: 9,
-          coinId: 9,
-          coinName: 'ccc',
-          bound: [],
-        },
-      ],
-    },
-    {
-      layout: 'office-layout.png',
-      gatewayId: 'EF3456789878',
-      name: 'gateway4',
-      coins: [],
-    },
-  ];
-  zoneList : any = [
-    {
-      id:1,
-      name : 'Job card',
-      bounds : [
+      id: 1,
+      name: 'Job card',
+      bounds: [
         [8.667918002363134, -229.21875000000003],
         [18.22935133838668, 275.62500000000006],
         [-68.56038368664157, 215.15625000000003],
-      ]
+      ],
     },
     {
-      id:2,
-      name : 'Washing',
-      bounds : [
+      id: 2,
+      name: 'Washing',
+      bounds: [
         [-61.48075950007598, -600.4687500000001],
         [7.27529233637217, -503.43750000000006],
         [-67.50856836293859, -452.81250000000006],
         [-79.63987399850707, -530.1562500000001],
-      ]
+      ],
     },
     {
-      id:3,
-      name : 'Shopfloor',
-      bounds : []
+      id: 3,
+      name: 'Shopfloor',
+      bounds: [],
     },
-  ]
-  
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -140,7 +57,8 @@ export class ZoneConfigurationComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapService.clear();
-
+    this.getZoneDetails();
+    this.mapService.getLayout();
     this.selectLayoutForm = this.fb.group({
       layout: ['', Validators.required],
     });
@@ -148,53 +66,108 @@ export class ZoneConfigurationComponent implements OnInit {
       zone: ['', Validators.required],
     });
 
-    this.mapService.mapZone.subscribe((data:any)=>{
-      console.log("this.selectedLayoutZone==",this.mapService.selectedLayoutZone);
-      
-    })
+    this.mapService.mapZone.subscribe((data: any) => {
+      console.log(
+        'this.selectedLayoutZone==',
+        this.mapService.selectedLayoutZone
+      );
+    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mapService.clear();
   }
 
+  // getLayout() {
+  //   this.api
+  //     .getLayouts()
+  //     .then((res: any) => {
+  //       console.log('get layout res===', res);
+  //       if (res.status) {
+  //         this.gatewayList = res.success;
+  //       }
+  //       else{
+  //         this.gatewayList = [];
+  //       }
+  //     })
+  //     .catch((err: any) => {
+  //       console.log('error==', err);
+  //     });
+  // }
 
-  getLayoutData(){
-      this.api.getLayouts().then((res:any)=>{
-          console.log("Get layout res ===",res)
-          this.gatewayList=[]
-          if(res.status){
-              this.gatewayList=res.success
-          }
-      }).catch((err:any)=>{
-          console.log("error==",err)
-      })
+  getZoneDetails() {
+    this.api.getZone().then((res: any) => {
+      console.log('zone details response==', res);
+      this.zoneList = [];
+      if (res.status) {
+        this.zoneList = res.success;
+        this.mapService.clear();
+        this.mapService.mapDetectChanges.next({ type: 'zone' });
+      }
+      else{
+        this.zoneList = [];
+      }
+    });
   }
+
+
   layoutSelect(data) {
-    this.mapService.selectedLayoutZone.layout = data.layout;
-    console.log('data selectedLayoutCoin zone =', this.mapService.selectedLayoutZone);
+    this.mapService.selectedLayout.next(data._id);
+    this.mapService.selectedLayoutZone.layoutName = data.layoutName;
+    console.log(
+      'data selectedLayoutCoin zone =',
+      this.mapService.selectedLayoutZone
+    );
   }
-
 
   zoneSelect(data) {
-    this.mapService.selectedLayoutZone.zone = data.id;
-    if(data.bounds.length){
+    this.mapService.selectedLayoutZone.id = data._id;
+    if (data.bounds.length) {
       this.mapService.selectedLayoutZone.bounds = data.bounds;
-    }
-    else{
+    } else {
       this.mapService.selectedLayoutZone.bounds = [];
     }
-    this.mapService.mapDetectChanges.next({type:'zone'})
-    console.log('data selectedLayoutCoin zone =', this.mapService.selectedLayoutZone);
+    this.mapService.mapDetectChanges.next({ type: 'zone' });
+    console.log(
+      'data selectedLayoutCoin zone =',
+      this.mapService.selectedLayoutZone
+    );
   }
 
-  submitZone(data){
-    console.log("zone submit===",data);
+  submitZone(data) {
+    console.log('zone submit===', data);
+    console.log("this.mapService.selectedLayoutZone==============",this.mapService.selectedLayoutZone);
+    
+    this.api.updateZoneBound(data).then((res: any) => {
+      console.log('update zone bounds res==', res);
+      if (res.status) {
+        this.general.openSnackBar(res.message, '');
+        this.getZoneDetails();
+      }
+      else{
+        this.general.openSnackBar(res.message, '');
+      }
+    }).catch(err=>{
+      console.log("err==",err);
+    });
   }
 
-
-  removeZone(data){
-    console.log("zone remove===",data);
+  removeZone(data) {
+    console.log('zone remove===', data);
+    let sendData = {
+      id : data.id
+    }
+    this.api.deleteZoneBound(sendData).then((res: any) => {
+      console.log('delete zone bounds res==', res);
+      if (res.status) {
+        this.general.openSnackBar(res.message, '');
+        this.getZoneDetails();
+      }
+      else{
+        this.general.openSnackBar(res.message, '');
+      }
+    }).catch(err=>{
+      console.log("err==",err);
+    });
   }
-
 }

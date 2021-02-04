@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label>Layout</mat-label>
         <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-          <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layout}}</mat-option>
+          <mat-option *ngFor="let list of mapService.gatewayList" [value]="list">{{list.layoutName}}</mat-option>
         </mat-select>
         <mat-error>
           Select the layout
@@ -36,19 +36,22 @@
                             <form [formGroup]="configCoinForm">
                               <mat-form-field>
                                 <mat-label> Select Gateway </mat-label>
-                                  <mat-select  fromControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
-                                      <mat-option *ngFor="let list of gatewayData" [value]="list">{{list.gatewayId}}</mat-option>
+                                  <mat-select  formControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
+                                      <mat-option *ngFor="let list of mapService.gatewayData" [value]="list.gatewayId">{{list.gatewayId}}
+                                        
+                                      </mat-option>
                                   </mat-select>
                               </mat-form-field> <br>
                               <mat-form-field>
                                 <mat-label>Select Coin</mat-label>
-                                <mat-select  fromControlName="coinName" (selectionChange)="coinSelect($event.value)">
-                                    <mat-option  *ngFor="let list of coinData" [value]="list">{{list.coinId}}</mat-option>
+                                <mat-select  formControlName="coinId" (selectionChange)="coinSelect($event.value)">
+                                    <mat-option  *ngFor="let a of mapService.coinData" [value]="a.coinId">{{a.coinName}}-{{a.coinId}}</mat-option>
                                 </mat-select>
                             </mat-form-field> <br>
-                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="configCoin(configCoinForm.value, 'add')">Add</button>
-                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="configCoin(configCoinForm.value, 'update')">Reallocate</button>
-                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="configCoin(configCoinForm.value, 'delete')">Delete</button>
+
+                            <button mat-raised-button color="primary" [disabled]="mapService.selectedCoinBound.coinId == 0" (click)="updateCoinBound()">Add</button>
+                            <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
+                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
                           </form>
                           </mat-card-content>
                       </mat-card>
@@ -62,7 +65,7 @@
                           <th>Zone Name</th>
                         </thead>
                         <tbody>
-                          <tr *ngFor = "let a of coinData;let i=index">
+                          <tr *ngFor = "let a of mapService.coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
                             <td>{{i+1}}</td>
                             <td>{{a.coinId}}</td>
                             <td>{{a.coinName}}</td>
@@ -114,3 +117,30 @@
       </mat-card-content>
     </mat-card> <br>
 
+
+    <!-- <form [formGroup]="configCoinForm1" (ngSubmit)="addCoin1(configCoinForm1.value)">
+      <mat-form-field>
+        <mat-label> Select Gateway </mat-label>
+        <input type="text" matInput name="" id="" formControlName="name">
+      </mat-form-field> <br>
+      <mat-form-field>
+        <mat-label> Select Gateway </mat-label>
+          <mat-select  fromControlName="gname" required>
+            <span *ngFor="let a of gatewayName">
+              <mat-option  [value]="a.gatewayId">{{a.gatewayId}}
+                
+              </mat-option>
+            </span>
+              
+          </mat-select>
+      </mat-form-field> <br> 
+      <mat-form-field  >
+
+        <mat-label>Minutes</mat-label>
+        <mat-select  formControlName="gname">
+          <mat-option *ngFor="let a of gatewayName"  [value]="a">{{a.gatewayId}}</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+    <button>submit</button>
+  </form> -->

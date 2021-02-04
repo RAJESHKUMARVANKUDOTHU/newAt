@@ -3,6 +3,7 @@
 <mat-card>
     <!-- <mat-card-content> -->
         <div *ngIf="type=='timeDelay'">
+            <h1>Time Delay setting</h1>
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource1" matSort >
                     <div>
@@ -29,6 +30,7 @@
         </div>
         
         <div *ngIf="type=='find-inactive'">
+            <h1>Find Inactivity time setting</h1>
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource1" matSort >
                     <div>
@@ -62,6 +64,8 @@
         </div>
         
         <div *ngIf="type=='coin'">  
+            <h1>Coin Inactivity time setting</h1>
+
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource" matSort >
                     <div>
@@ -94,6 +98,8 @@
         </div>
         
         <div *ngIf="type=='coin-cat'">
+            <h1>Zone configuration for coin</h1>
+
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource" matSort >
                     <div>
@@ -116,6 +122,8 @@
         </div>
         
         <div *ngIf="type=='zone'">
+            <h1>Available Zones and its standard time</h1>
+
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource2" matSort >
                     <div>
@@ -139,6 +147,7 @@
         </div>
 
         <div *ngIf="type=='groupName'">
+            <h1>Available Group Names</h1>
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource3" matSort >
                     <div>
@@ -162,6 +171,7 @@
         </div>
         
         <div *ngIf="type=='coinGrp'">
+            <h1>Coin Group</h1>
             <div  class="mat-elevation-z8">
                 <table  mat-table [dataSource]="dataSource" matSort >
                     <div>
@@ -173,9 +183,9 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
                             <td mat-cell *matCellDef="let coin" > {{coin.coinName}} </td>
                         </ng-container> 
-                        <ng-container matColumnDef="groupName">
+                        <ng-container matColumnDef="groupId">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Group Name </th>
-                            <td mat-cell *matCellDef="let coin" > {{coin.groupName}} </td>
+                            <td mat-cell *matCellDef="let coin" > {{coin.groupId.groupName}} </td>
                         </ng-container>  
                 
                     </div>

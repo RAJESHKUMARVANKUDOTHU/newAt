@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment'
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -642,6 +643,28 @@ getGeofenceSetting(){
       })
     })
   }
+
+
+  getLayoutImage(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host + '/getLayoutImage/' + data;
+    return new Observable((observer)=>{
+      this.http.get(url, {responseType: "blob"}).subscribe(res=>{
+        // observer.next(res);
+        const reader = new FileReader();
+        reader.readAsDataURL(res);
+        reader.onloadend = function() {
+          observer.next(reader.result);
+        };
+      },(err)=>{
+        console.log(err);
+        
+      })
+    })
+  }
   
   updateLatLng(data){
     const httpOptions = {
@@ -681,20 +704,6 @@ getGeofenceSetting(){
       })
     })
   }
-
-  getLayoutImage(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-
-    let url = this.host+'/getLayoutImage';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    })
-  }
-
 
 
   //---------------------manage asset download -------------------------------
