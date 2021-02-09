@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginAuthService } from '../services/login-auth.service';
+import { GeneralService } from '../services/general.service'
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private login:LoginAuthService,
+    private general : GeneralService,
     private api: ApiService,
   ) { }
 
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       try{
         console.log("data===",data)
+      
         this.api.login(data).then((res:any)=>{
           console.log("login res===",res)
           

@@ -6,6 +6,8 @@ import {MatSort} from '@angular/material/sort';
 import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { ApiService } from '../../services/api.service';
+import { GeneralService } from '../../services/general.service';
+
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -25,7 +27,8 @@ export class AdminDashboardComponent implements OnInit {
     private login:LoginAuthService,
     private router:Router,
     private fb:FormBuilder,
-    private api: ApiService,) { }
+    private api: ApiService,
+    private general: GeneralService) { }
 
   ngOnInit(): void {
     this.loginData=this.login.getLoginDetails()
@@ -46,28 +49,31 @@ export class AdminDashboardComponent implements OnInit {
   addUser(data){
     console.log("data===",data)
 
-       if(this.addUserForm.valid){
-      try{
-          this.api.createUsers(data).then((res:any)=>{
-            console.log("created user res===",res)
-            if(res.status){
-                 this.getAdmins()  
-            }
-            else{}
-          })
-          .catch((err)=>{
-            console.log("err======",err)
-          })      
-      }
-      catch (err) {
-        console.log("err======",err)
-      }
+      if(this.addUserForm.valid){
+        
+        try{
+            this.api.createUsers(data).then((res:any)=>{
+              
+              console.log("created user res===",res)
+              if(res.status){
+                  this.getAdmins()  
+              }
+              else{}
+            })
+            .catch((err)=>{
+              console.log("err======",err)
+            })      
+        }
+        catch (err) {
+          console.log("err======",err)
+        }
     }
   }
 
   getAdmins(){
     this.getUserList=[]
     this.api.viewAdmins().then((res:any)=>{
+      
       console.log("get user res===",res)
       if(res.status){
         this.getUserList=res.success

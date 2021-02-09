@@ -76,6 +76,7 @@ export class ManageAssetComponent implements OnInit {
     this.api
       .allDeviceCount()
       .then((res: any) => {
+        
         console.log('allDeviceCount count====', res);
         if (res.success) {
           this.countActive = res.success.online;
@@ -115,6 +116,7 @@ export class ManageAssetComponent implements OnInit {
     this.api
       .assignAssetList()
       .then((res: any) => {
+        
         console.log('assignAsset list res====', res);
         if (res.status) {
           this.getAssetList = res.success;
@@ -132,6 +134,7 @@ export class ManageAssetComponent implements OnInit {
     this.api
       .deassignAssetList()
       .then((res: any) => {
+        
         console.log('deassignAsset list res====', res);
         if (res.status) {
           this.getDeAssetList = res.success;
@@ -151,9 +154,11 @@ export class ManageAssetComponent implements OnInit {
     // data.userId=this.userId
     console.log('assign data==', data);
     if (this.assignAssetForm.valid) {
+      
       this.api
         .assignAsset(data)
         .then((res: any) => {
+          
           console.log('assignAsset res====', res);
           if (res.status) {
             this.getAssignAssetList();
@@ -172,13 +177,16 @@ export class ManageAssetComponent implements OnInit {
         });
     }
   }
+
   deassignAsset(data) {
     data._id = this.id;
     // data.userId=this.userId
     if (this.deassignAssetForm.valid) {
+      
       this.api
         .deassignAsset(data)
         .then((res: any) => {
+          
           console.log('De assignAsset res====', res);
           if (res.status) {
             this.getAssignAssetList();
@@ -201,6 +209,7 @@ export class ManageAssetComponent implements OnInit {
       .getDeviceData()
       .then((res: any) => {
         this.findData = [];
+        
         console.log('find data refresh====', res);
         if (res.status) {
           this.findData = res.success;

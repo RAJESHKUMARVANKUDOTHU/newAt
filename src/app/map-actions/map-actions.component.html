@@ -45,7 +45,7 @@
                               <mat-form-field>
                                 <mat-label>Select Coin</mat-label>
                                 <mat-select  formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-                                    <mat-option  *ngFor="let a of mapService.coinData" [value]="a.coinId">{{a.coinName}}-{{a.coinId}}</mat-option>
+                                    <mat-option  *ngFor="let a of mapService.coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
                                 </mat-select>
                             </mat-form-field> <br>
 

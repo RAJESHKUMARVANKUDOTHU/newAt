@@ -10,12 +10,9 @@
 <mat-sidenav-container class="example-container mat-typography" *ngIf="logged && menu && loginDetails.role=='adminRole'"  autosize="true">
   <mat-sidenav #sidenav mode="side"  opened class="example-sidenav" >
     
-    <div class="flex" [ngStyle]="{'background-color': isExpanded? 'white':'#002060'}">
-      <button mat-mini-fab  color="primary" style="margin:12px 10px 10px 10px;">
-      <mat-icon aria-label="Menu" (click)="isExpanded=!isExpanded">menu</mat-icon>
-    </button>
-    <span  *ngIf="isExpanded" mat-line> <img src="../assets/logo.png" alt="" class="image"></span>
-  </div>
+    <div style="background-color:'white'">
+        <img src="../assets/logo.png" alt="" class="image">
+    </div>
 
 
     <!-- <mat-nav-list>
@@ -40,36 +37,36 @@
      </mat-nav-list> -->
     <mat-list>
       <mat-list-item   routerLink="/dashboard">
-        <span  *ngIf="isExpanded || isShowing" mat-line> Home</span>
+        <span   mat-line> Home</span>
         <mat-icon mat-list-icon>home</mat-icon>
       </mat-list-item>
 
       <mat-list-item   routerLink="/manage-asset" >
-        <span  *ngIf="isExpanded  || isShowing" mat-line> Manage Assets</span>
+        <span  mat-line> Manage Assets</span>
         <mat-icon mat-list-icon>dashboard</mat-icon>
       </mat-list-item>
   
-      <!-- <mat-list>
+      <!-- <mat-list> -->
         <mat-list-item   (click)="showLabel = !showLabel">
           <mat-icon mat-list-icon >vpn_lock</mat-icon>
-          <span mat-line *ngIf="isExpanded">  Geofence  </span><mat-icon >keyboard_arrow_down</mat-icon>
+          <span mat-line >  Geofence  </span><mat-icon >keyboard_arrow_down</mat-icon>
         </mat-list-item >
       
         <div class="list">
           <mat-list-item *ngIf="showLabel"  routerLink="/geofence" >
-            <span *ngIf="isExpanded" mat-line> Geofence Settings</span>
-            <mat-icon mat-list-icon>settings</mat-icon>
+            <span> Geofence Settings</span>
+            <mat-icon mat-list-icon>settings</mat-icon> 
           </mat-list-item>
     
           <mat-list-item *ngIf="showLabel"  routerLink="/geofence-dashboard" >
-            <span *ngIf="isExpanded" mat-line> Geofence Dashboard</span>
+            <span > Geofence Dashboard</span>
             <mat-icon mat-list-icon>dashboard</mat-icon>
           </mat-list-item>
         </div>
       
-      </mat-list> -->
+      <!-- </mat-list> -->
     
-      <mat-list-item routerLink="/geofence" >
+      <!-- <mat-list-item routerLink="/geofence" >
         <span *ngIf="isExpanded" mat-line> Geofence Settings</span>
         <mat-icon mat-list-icon>settings</mat-icon>
       </mat-list-item>
@@ -77,14 +74,14 @@
       <mat-list-item routerLink="/geofence-dashboard" >
         <span *ngIf="isExpanded" mat-line> Geofence Dashboard</span>
         <mat-icon mat-list-icon>dashboard</mat-icon>
-      </mat-list-item>
+      </mat-list-item> -->
       <mat-list-item routerLink="/map-actions">
-        <span *ngIf="isExpanded" mat-line> Map Center</span>
+        <span mat-line> Map Center</span>
         <mat-icon mat-list-icon>map</mat-icon>
   
       </mat-list-item>
       <mat-list-item routerLink="/report" >
-        <span *ngIf="isExpanded" mat-line> Report</span>
+        <span  mat-line> Report</span>
         <mat-icon mat-list-icon>rate_review</mat-icon>
       </mat-list-item>
 
@@ -95,17 +92,17 @@
 
       <mat-list-item routerLink="/profile" >
         <mat-icon mat-list-icon>perm_identity</mat-icon>
-        <span *ngIf="isExpanded" mat-line>Create Profile</span>
+        <span mat-line>Create Profile</span>
       </mat-list-item>
 
       <mat-list-item routerLink="/setting" >
         <mat-icon mat-list-icon>settings</mat-icon>
-        <span *ngIf="isExpanded" mat-line> Settings</span>
+        <span mat-line> Settings</span>
       </mat-list-item>
 
       <mat-list-item  (click)="logout()">
         <mat-icon mat-list-icon>exit_to_app</mat-icon>
-        <span mat-line *ngIf="isExpanded"> Logout</span>
+        <span mat-line > Logout</span>
       </mat-list-item>
     </mat-list>
   </mat-sidenav>

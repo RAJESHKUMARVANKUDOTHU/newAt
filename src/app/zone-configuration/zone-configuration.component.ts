@@ -97,6 +97,7 @@ export class ZoneConfigurationComponent implements OnInit {
 
   getZoneDetails() {
     this.api.getZone().then((res: any) => {
+      
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
@@ -137,7 +138,6 @@ export class ZoneConfigurationComponent implements OnInit {
   submitZone(data) {
     console.log('zone submit===', data);
     console.log("this.mapService.selectedLayoutZone==============",this.mapService.selectedLayoutZone);
-    
     this.api.updateZoneBound(data).then((res: any) => {
       console.log('update zone bounds res==', res);
       if (res.status) {

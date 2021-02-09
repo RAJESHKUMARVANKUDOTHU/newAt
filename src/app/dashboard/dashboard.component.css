@@ -8,17 +8,18 @@
     text-align: center;
 }
 ::ng-deep svg.circle {
-    height: 100px !important;
-    width: 100px !important;
+    height: 120px !important;
+    width: 120px !important;
 
 }
-th{
+th, td{
     text-align: center;
     padding-left: 1rem;
     font-weight: 500;
 }
-td{
+.circle-disp{
     text-align: center;
+    padding: 0 2rem 0 2rem;
 }
 
 table{

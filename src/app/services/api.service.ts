@@ -332,16 +332,16 @@ export class ApiService {
   
 
     deviceOnOff(data){
-      const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
+        const httpOptions = {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
 
-      let url = this.host+'/deviceToggleStatus';
-      return new Promise((resolve,reject)=>{
-        this.http.post(url,data,httpOptions).subscribe(res=>{
-          resolve(res);
-        })
-    })
+        let url = this.host+'/deviceToggleStatus';
+        return new Promise((resolve,reject)=>{
+          this.http.post(url,data,httpOptions).subscribe(res=>{
+            resolve(res);
+          })
+      })
     }
 
   
@@ -614,7 +614,31 @@ getGeofenceSetting(){
       })
     })
   }
+  
+  updateMaxFind(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
+    let url = this.host+'/updateMaxFindAsset';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
+  refreshSettings(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/getSettings';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url).subscribe(res=>{
+        resolve(res);
+      })
+    })
+  }
 
   // ----------------------map center API's----------------------------------
 
@@ -709,7 +733,7 @@ getGeofenceSetting(){
   //---------------------manage asset download -------------------------------
   downloadFile(response,fileName){
     let body = response.body
-    let dataType = body.type;
+    let dataType = "application/ms-excel";
     let binaryData = [];
     binaryData.push(body);
     // this.general.loadingFreez.next({status:false})
@@ -723,14 +747,13 @@ getGeofenceSetting(){
 
   downloadRegisteredCoins(fileName){
     // this.general.loadingFreez.next({status:true})
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+   
     let url = this.host+'/downloadRegisteredCoins';
     return new Promise((resolve,reject)=>{
-      this.http.get(url).subscribe(res=>{
-        // if(res.status==200)
-        // this.downloadFile(res,fileName)
+      this.http.get(url,{ observe: 'response', responseType: 'arraybuffer'  }).subscribe(res=>{
+        console.log("res==",res)
+        if(res.status==200)
+        this.downloadFile(res,fileName)
   
         resolve(true);
       },
@@ -741,13 +764,35 @@ getGeofenceSetting(){
   
   }
 
-  downloadRegisteredGateways(data,fileName){
+  downloadRegisteredGateways(fileName){
     // this.general.loadingFreez.next({status:true})
   
     let url = this.host+'/downloadRegisteredGateways';
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob'  }).subscribe(res=>{
+        console.log("res==",res)
         if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  }
+
+  downloadRegisteredDevice(fileName){
+    // this.general.loadingFreez.next({status:true})
+    const httpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json'  })
+    };
+    
+    let url = this.host+'/downloadRegisterdDevice';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url,httpOptions).subscribe(res=>{
+        
+        // if(res.status==200)
         this.downloadFile(res,fileName)
   
         resolve(true);
@@ -759,12 +804,13 @@ getGeofenceSetting(){
   
   }
 
-  downloadOnlineCoin(data,fileName){
+  downloadOnlineCoin(fileName){
     // this.general.loadingFreez.next({status:true})
-  
+
     let url = this.host+'/downloadOnlineCoin';
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json'  }).subscribe(res=>{
+        
         if(res.status==200)
         this.downloadFile(res,fileName)
   
@@ -777,12 +823,13 @@ getGeofenceSetting(){
   
   }
 
-  downloadOfflineCoin(data,fileName){
+  downloadOfflineCoin(fileName){
     // this.general.loadingFreez.next({status:true})
   
     let url = this.host+'/downloadOfflineCoin';
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json'   }).subscribe(res=>{
+        
         if(res.status==200)
         this.downloadFile(res,fileName)
   
@@ -795,12 +842,13 @@ getGeofenceSetting(){
   
   }
 
-  downloadOnlineGateways(data,fileName){
+  downloadOnlineGateways(fileName){
     // this.general.loadingFreez.next({status:true})
-  
+ 
     let url = this.host+'/downloadOnlineGateways';
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json'  }).subscribe(res=>{
+        
         if(res.status==200)
         this.downloadFile(res,fileName)
   
@@ -813,12 +861,54 @@ getGeofenceSetting(){
   
   }
 
-  downloadOfflineGateways(data,fileName){
+  downloadOfflineGateways(fileName){
     // this.general.loadingFreez.next({status:true})
-  
+   
     let url = this.host+'/downloadOfflineGateways';
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json'  }).subscribe(res=>{
+        
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+ 
+
+  downloadOnlineDevice(fileName){
+    // this.general.loadingFreez.next({status:true})
+    
+  
+    let url = this.host+'/downloadOnlineDevice';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json'   }).subscribe(res=>{
+        
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+  
+        resolve(true);
+      },
+      err=>{
+        console.log("err==",err)
+      })
+    });
+  
+  }
+
+  downloadOfflineDevice(fileName){
+    // this.general.loadingFreez.next({status:true})
+  
+    let url = this.host+'/downloadOfflineDevice';
+    return new Promise((resolve,reject)=>{
+      this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+        
         if(res.status==200)
         this.downloadFile(res,fileName)
   

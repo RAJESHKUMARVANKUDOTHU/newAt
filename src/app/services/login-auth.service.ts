@@ -80,7 +80,6 @@ popState(){
   }
 
 
-
   login(data){
     // console.log("setting data",localStorage.setItem('sensegiz',data))
     localStorage.setItem('sensegiz',data)

@@ -43,14 +43,14 @@
                             <td mat-cell *matCellDef="let find" > {{find.inActivityTime}} </td>
                         </ng-container>  
 
-                        <ng-container matColumnDef="sms">
+                        <ng-container matColumnDef="inactivitySMS">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                            <td mat-cell *matCellDef="let find" > {{find.sms == "false" ? 'N' : 'Y'}} </td>
+                            <td mat-cell *matCellDef="let find" > {{find.inactivitySMS}} </td>
                         </ng-container>
     
-                        <ng-container matColumnDef="email">
+                        <ng-container matColumnDef="inactivityEmail">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                            <td mat-cell *matCellDef="let find" > {{find.email == "false" ? 'N' : 'Y'}} </td>
+                            <td mat-cell *matCellDef="let find" > {{find.inactivityEmail}} </td>
                         </ng-container>
                  
                 
@@ -80,12 +80,12 @@
  
                         <ng-container matColumnDef="sms">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                            <td mat-cell *matCellDef="let coin" > {{coin.sms == "false" ? 'N' : 'Y'}} </td>
+                            <td mat-cell *matCellDef="let coin" > {{coin.sms}} </td>
                         </ng-container>
     
                         <ng-container matColumnDef="email">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                            <td mat-cell *matCellDef="let coin" > {{coin.email == "false" ? 'N' : 'Y'}} </td>
+                            <td mat-cell *matCellDef="let coin" > {{coin.email}} </td>
                         </ng-container>
                 
                     </div>
@@ -109,7 +109,7 @@
                         </ng-container>  
                         <ng-container matColumnDef="zoneName">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
-                            <td mat-cell *matCellDef="let coin" > {{coin.zoneName}} </td>
+                            <td mat-cell *matCellDef="let coin" > {{coin.zoneId == null ? '-' : coin.zoneName}} </td>
                         </ng-container>  
                 
                     </div>
@@ -185,14 +185,14 @@
                         </ng-container> 
                         <ng-container matColumnDef="groupId">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Group Name </th>
-                            <td mat-cell *matCellDef="let coin" > {{coin.groupId.groupName}} </td>
+                            <td mat-cell *matCellDef="let coin" > {{coin.groupId == null? '-' :coin.groupId.groupName}} </td>
                         </ng-container>  
                 
                     </div>
                     <tr mat-header-row *matHeaderRowDef="coinGroup"></tr>
                     <tr mat-row *matRowDef="let row; columns: coinGroup;" ></tr>
                 </table>
-                <mat-paginator   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                <mat-paginator   pageSize= "10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
             </div>
         
         </div>

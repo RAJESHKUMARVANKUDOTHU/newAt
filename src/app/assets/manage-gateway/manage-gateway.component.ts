@@ -52,6 +52,8 @@ export class ManageGatewayComponent implements OnInit {
     this.api.getGatewayData().then((res:any)=>{
       this.gatewayData=[]
       console.log("gateway submit====",res);
+      
+      console.log("gateway submit====",res);
       if(res.status){
         for(let i=0;i<res.success.length;i++){
           if(res.success[i] != null){
@@ -82,6 +84,7 @@ export class ManageGatewayComponent implements OnInit {
       console.log("error===",err)
     })
   }
+  
   edit(data){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -103,8 +106,11 @@ export class ManageGatewayComponent implements OnInit {
   delete(data){
     data._Id=data.id
     if(confirm('Are you sure you want to delete gateway?')){
+      
+
       this.api.deleteGateway(data).then((res:any)=>{
-        // console.log("coin delete====",res);
+        
+        console.log("gateway delete====",res);
        
         if(res.status){
           this.refreshGateway()
@@ -118,10 +124,11 @@ export class ManageGatewayComponent implements OnInit {
     }
     else{}
   }
+
   download(){
-    this.fileName = "Registered coins"
-    this.api.downloadRegisteredCoins(this.fileName).then((res:any)=>{
-        console.log("Registerd coins download==",res)
+    this.fileName = "Registered gateways"
+    this.api.downloadRegisteredGateways(this.fileName).then((res:any)=>{
+        console.log("Registerd gateway download==",res)
     }).catch((err:any)=>{
       console.log("error==",err)
     })
