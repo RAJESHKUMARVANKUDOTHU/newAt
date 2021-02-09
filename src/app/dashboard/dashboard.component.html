@@ -75,26 +75,26 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <mat-card>
-        <mat-card-content>
-          <table class="table bordered table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th>Zone</th>
-                <th>No. of Vehicles</th>
-                <th>Avg. Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)">
-                <td>{{a.zoneName}}</td>
-                <td>3</td>
-                <td>{{a.updatedAt | date:'medium'}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </mat-card-content>
-      </mat-card>
+        <mat-card>
+          <mat-card-content>
+              <table class="table bordered table-striped">
+                  <thead class="thead-dark">
+                      <tr>
+                        <th>Zone</th>
+                        <th>No. of Vehicles</th>
+                        <th>Avg. Time</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor = "let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                      <td>{{a.zoneName}}</td>
+                      <td>3</td>
+                      <td>{{a.updatedAt | date:'medium'}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </mat-card-content>
+        </mat-card>
     </div>
     <div class="col-md-6">
       <mat-card class="chart">

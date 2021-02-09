@@ -27,10 +27,15 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     request = this.addAuthenticationToken(request)
     return next.handle(request).pipe(
       catchError((error: any) => {
-        console.log("erooorr=", error)
+        // console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
-          window.location.href = "/login"
+          localStorage.clear()
+          
           return EMPTY
+        }
+        else if (error.status === 200) {
+          // console.log("error 200===", error);
+
         }
         else {
           return throwError(error);
@@ -38,9 +43,9 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
       }), tap((res: any) => {
         if (res instanceof HttpResponse) {
-          console.log("tap res==", res)
+          // console.log("tap res==", res)
           if (res.body.hasOwnProperty('data')) {
-            res.body = this.general.decrypt(res.body.data)
+            res.body.data = this.general.decrypt(res.body.data)
             return res
           }
           else {
@@ -62,17 +67,14 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${this.status.token}` }
       })
-      if (request instanceof HttpRequest) {
-        console.log("http request==", request);
+      if ( request instanceof HttpRequest){
+        // console.log("http request==", request);
         let authHeaders = request.headers.get('authorization');
         if (authHeaders) {
           let body = request.body
-          if (body) {
+          if(body){
             request.body = {}
             request.body.data = this.general.encrypt(body)
-          }
-          else {
-            request.body = request.body;
           }
         }
         else {

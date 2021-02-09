@@ -100,7 +100,6 @@ export class DashboardComponent implements OnInit {
     this.congestionGraph();
   }
 
-
   ngOnDestroy() {
     this.map.remove();
   }
@@ -123,10 +122,9 @@ export class DashboardComponent implements OnInit {
     var bounds = this.map.getBounds();
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
-    this.map.on('click', (event) => {
-      console.log("event click===", event);
-
-    })
+    // this.map.on('click',(event)=>{
+    //   console.log("event click===",event);
+    // })
     let data = {
       _id: "600693933a4d5fc813ff5041"
     }
@@ -139,17 +137,15 @@ export class DashboardComponent implements OnInit {
   // , {color: "white", weight: 1}
   getZones() {
     console.log("here zones");
-
     this.api.getZone().then((res: any) => {
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
         this.zoneList = res.success.map((obj) => {
           obj.highlight = false;
-          obj.selected = false;
+          obj.selected = true;
           return obj;
         })
-        console.log('zone details after==', this.zoneList);
         this.createDevice();
       }
       else {
@@ -168,53 +164,41 @@ export class DashboardComponent implements OnInit {
         obj.selected = true;
         obj.highlight = true;
       }
+      else{
+        obj.selected = false;
+        obj.highlight = false;
+      }
+      return obj;
     })
-    console.log("this.zoneList===", this.zoneList);
-
-    // this.zoneList.push(data);
+    console.log("this.zoneList===",this.zoneList);
     this.createDevice();
   }
 
-
-  createZone() {
-    this.clearMap();
-    for (let i = 0; i < this.zoneList.length; i++) {
-      new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click', () => {
-        this.zoneClick(this.zoneList[i]);
-      });
-    }
-  }
-
-  createDevice() {
+  createDevice(){
     this.clearMap();
     let icon = L.icon({
       iconUrl: '../../assets/marker.png',
       iconSize: [25, 25],
     });
-    for (let i = 0; i < this.zoneList.length; i++) {
-      new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click', () => {
-        this.zoneClick(this.zoneList[i]);
-      });
-      for (let j = 0; j < this.deviceList.length; j++) {
-        // console.log("this.deviceList[i].zoneId===",this.deviceList[j].zoneId,"\tthis.zoneList[i]._id===",this.zoneList[i]._id);
-        if (this.deviceList[j].zoneId == this.zoneList[i]._id) {
-          let latlng = [this.deviceList[j].latlng.lat, this.deviceList[j].latlng.lng]
-          console.log("latlng==", latlng);
-
-          this.marker.push(new L.marker(
-            latlng,
-            { icon: icon }
-          ).addTo(this.map));
+    for(let i = 0 ; i < this.zoneList.length ; i++){
+      if(this.zoneList[i].selected){
+        new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click',()=>{
+          this.zoneClick(this.zoneList[i]);
+        });
+        for(let j = 0 ; j < this.deviceList.length ; j++){
+          if(this.deviceList[j].zoneId == this.zoneList[i]._id){
+            let latlng = [this.deviceList[j].latlng.lat , this.deviceList[j].latlng.lng]
+            this.marker.push(new L.marker(
+              latlng,
+              { icon: icon }
+            ).addTo(this.map));
+          }
         }
       }
-      // this.deviceList = this.deviceList.filter(obj=>{
-      //   return obj.zoneId = this.zoneList[i]._id
-      // })
     }
   }
 
   clearMap() {
-    // this.map._panes.markerPane.remove();
     for (let i in this.marker.length) {
       this.map.removeLayer(this.marker[i]);
     }

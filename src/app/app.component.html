@@ -17,49 +17,67 @@
       <img src="../assets/logo.png" alt="" class="image">
     </div>
 
-    <mat-list-item (click)="showLabel = !showLabel">
-      <mat-icon mat-list-icon>vpn_lock</mat-icon>
-      <span mat-line> Geofence </span>
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </mat-list-item>
 
-    <div class="list">
-      <mat-list-item *ngIf="showLabel" routerLink="/geofence">
-        <span> Geofence Settings</span>
-        <mat-icon mat-list-icon>settings</mat-icon>
+    <mat-list>
+      <mat-list-item routerLink="/dashboard">
+        <span mat-line> Home</span>
+        <mat-icon mat-list-icon>home</mat-icon>
       </mat-list-item>
 
-      <mat-list-item *ngIf="showLabel" routerLink="/geofence-dashboard">
-        <span> Geofence Dashboard</span>
+      <mat-list-item routerLink="/manage-asset">
+        <span mat-line> Manage Assets</span>
         <mat-icon mat-list-icon>dashboard</mat-icon>
       </mat-list-item>
-    </div>
-
-    <mat-list-item routerLink="/map-actions">
-      <span mat-line> Map Center</span>
-      <mat-icon mat-list-icon>map</mat-icon>
-
-    </mat-list-item>
-    <mat-list-item routerLink="/report">
-      <span mat-line> Report</span>
-      <mat-icon mat-list-icon>rate_review</mat-icon>
-    </mat-list-item>
 
 
-    <mat-list-item routerLink="/profile">
-      <mat-icon mat-list-icon>perm_identity</mat-icon>
-      <span mat-line>Create Profile</span>
-    </mat-list-item>
+      <mat-list-item (click)="showLabel = !showLabel">
+        <mat-icon mat-list-icon>vpn_lock</mat-icon>
+        <span mat-line> Geofence </span>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </mat-list-item>
 
-    <mat-list-item routerLink="/setting">
-      <mat-icon mat-list-icon>settings</mat-icon>
-      <span mat-line> Settings</span>
-    </mat-list-item>
+      <div class="list">
+        <mat-list-item *ngIf="showLabel" routerLink="/geofence">
+          <span> Geofence Settings</span>
+          <mat-icon mat-list-icon>settings</mat-icon>
+        </mat-list-item>
 
-    <mat-list-item (click)="logout()">
-      <mat-icon mat-list-icon>exit_to_app</mat-icon>
-      <span mat-line> Logout</span>
-    </mat-list-item>
+        <mat-list-item *ngIf="showLabel" routerLink="/geofence-dashboard">
+          <span> Geofence Dashboard</span>
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+        </mat-list-item>
+      </div>
+
+
+      <mat-list-item routerLink="/map-actions">
+        <span mat-line> Map Center</span>
+        <mat-icon mat-list-icon>map</mat-icon>
+
+      </mat-list-item>
+      <mat-list-item routerLink="/report">
+        <span mat-line> Report</span>
+        <mat-icon mat-list-icon>rate_review</mat-icon>
+      </mat-list-item>
+
+      <!-- <mat-list-item (click)="openDailog()">
+      <mat-icon mat-list-icon>contact_phone</mat-icon>
+      <span *ngIf="isExpanded"mat-line> Contact</span>     
+    </mat-list-item> -->
+
+      <mat-list-item routerLink="/profile">
+        <mat-icon mat-list-icon>perm_identity</mat-icon>
+        <span mat-line>Create Profile</span>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/setting">
+        <mat-icon mat-list-icon>settings</mat-icon>
+        <span mat-line> Settings</span>
+      </mat-list-item>
+
+      <mat-list-item (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <span mat-line> Logout</span>
+      </mat-list-item>
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -74,7 +92,7 @@
   </mat-sidenav-content>
 
 </mat-sidenav-container>
-<!--  -->
+
 <div *ngIf="logged && loginDetails.role=='superAdminRole'">
   <router-outlet></router-outlet>
 

@@ -32,11 +32,14 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-
-    let url = this.host + '/registerSubUsers';
-    return new Promise((resolve, reject) => {
-      this.http.post(url, data, httpOptions).subscribe(res => {
-        console.log("get", res)
+   
+    let url = this.host+'/registerSubUsers';
+    let body = {
+      data : data
+    }
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,body,httpOptions).subscribe(res=>{
+        console.log("get",res)
         resolve(res);
       })
     })
@@ -750,7 +753,7 @@ export class ApiService {
 
     let url = this.host + '/downloadRegisteredCoins';
     return new Promise((resolve, reject) => {
-      this.http.get(url, { observe: 'response', responseType: 'blob' }).subscribe(res => {
+      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
