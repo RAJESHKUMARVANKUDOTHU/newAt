@@ -31,12 +31,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       catchError((error: any) => {
         console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
-          localStorage.clear()
+          window.location.href = "/login"
           return EMPTY
-        }
-        else if (error.status === 200) {
-          console.log("error 200===", error);
-
         }
         else {
           return throwError(error);
@@ -85,7 +81,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         else{
           return request
         }
-      }
+      }bn 
       return request
     }
     else{

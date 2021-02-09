@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable , EMPTY} from 'rxjs'
 import { Router , ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -47,8 +47,7 @@ export class LoginAuthService {
 popState(){
   this.location.subscribe(
     ( (value:PopStateEvent) => {
-      // console.log("locaton OnNext")
-      // console.log(value,this.location.path);
+
       if(window.location.pathname=='/login' || window.location.pathname=='/admin-login'){
         this.loginCheckData.next(false)
         this.loginCred.next(false)
@@ -67,15 +66,15 @@ popState(){
   )
 }
   getLoginDetails(){
-    var status=JSON.parse(localStorage.getItem('sensegiz'))
-    // console.log("getLoginDetails===",status)
-    if(status && status != 'undefined' || status != null){
-      // console.log("hmm")
-      return status
-    }
-    else{
-      return false
-    }
+      var status=JSON.parse(localStorage.getItem('sensegiz'))
+      // console.log("getLoginDetails===",status)
+      if(status && status != 'undefined' || status != null){
+        // console.log("hmm")
+        return status
+      }
+      else{
+        return false
+      }
 
   }
 
@@ -90,5 +89,6 @@ popState(){
     this.loginCheckData.next(false)
     localStorage.clear()
     this.router.navigate(['/login'])
+    
   }
 }
