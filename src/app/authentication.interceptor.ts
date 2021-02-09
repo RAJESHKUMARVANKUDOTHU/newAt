@@ -72,7 +72,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if(authHeaders){
           let body = request.body
           if(body){
-            request.body = this.general.encrypt(body)
+            request.body = {}
+            request.body.data = this.general.encrypt(body)
           }
           else{
             request.body = request.body;
