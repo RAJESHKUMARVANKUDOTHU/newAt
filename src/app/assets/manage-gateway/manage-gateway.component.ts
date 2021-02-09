@@ -19,7 +19,7 @@ export class ManageGatewayComponent implements OnInit {
   gatewayData:any=[]
   dataSource: any = [];
   fileName : String =''
-  displayedColumns = ['i','gatewayId','gatewayName','updatedOn','edit','delete'];
+  displayedColumns = ['i','gatewayId','gatewayName','macId','updatedOn','edit','delete'];
   constructor(
     public dialog: MatDialog,    
     private login:LoginAuthService,
@@ -62,6 +62,7 @@ export class ManageGatewayComponent implements OnInit {
               userId:res.success[i].userId,
               gatewayName:res.success[i].gatewayName,
               gatewayId:res.success[i].gatewayId,
+              macId: '',
               updatedOn:res.success[i].updatedAt,
               edit:'edit',
               delete:'delete_forever'

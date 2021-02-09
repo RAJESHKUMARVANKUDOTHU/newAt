@@ -123,7 +123,11 @@
   </div>
   <br>  
   <div class="row">
-    <app-map type='live'></app-map>
+    <div class="map-container" >
+      <div class="map-frame">
+        <div id="map" #mapId></div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-6">
@@ -138,10 +142,10 @@
                       </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Job card</td>
-                      <td>10</td>
-                      <td>{{date | date:'medium'}}</td>
+                    <tr *ngFor = "let a of zoneList; let i = index" (click)="zoneClick(a)">
+                      <td>{{a.zoneName}}</td>
+                      <td>3</td>
+                      <td>{{a.updatedAt | date:'medium'}}</td>
                     </tr>
                   </tbody>
               </table>
