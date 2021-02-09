@@ -1,10 +1,10 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import {Router} from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
-import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { ApiService } from '../../services/api.service';
 import { GeneralService } from '../../services/general.service';
@@ -17,56 +17,56 @@ import { EditProfileComponent } from '../../createProfile/edit-profile/edit-prof
 })
 export class ProfileComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  addSubUserForm:FormGroup
-  displayedColumns: string[] = ["i", 'userName', 'updatedAt','edit', 'isDeleted'];
-  dataSource:any=[]
-  getUserList:any=[]
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  addSubUserForm: FormGroup
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt', 'edit', 'isDeleted'];
+  dataSource: any = []
+  getUserList: any = []
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
   constructor(
-    public dialog: MatDialog,  
-    private login:LoginAuthService,
-    private router:Router,
-    private fb:FormBuilder,
-    private general:GeneralService,
+    public dialog: MatDialog,
+    private login: LoginAuthService,
+    private router: Router,
+    private fb: FormBuilder,
+    private general: GeneralService,
     private api: ApiService
   ) { }
 
   ngOnInit(): void {
-    this.addSubUserForm=this.fb.group({
-      userName:['',[Validators.email,Validators.required]],
-      password:['',Validators.required],
-      type:['',Validators.required],
-      department:['']
+    this.addSubUserForm = this.fb.group({
+      userName: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required],
+      type: ['', Validators.required],
+      department: ['']
     },
-    {
-      validators: this.formValidator(),
-    });
+      {
+        validators: this.formValidator(),
+      });
 
     this.getUsers()
   }
 
-  formValidator(){
+  formValidator() {
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
       const dept = formGroup.get('department');
-    
-      if(type.value=="subAdmin"){
-        if(dept.value!=''){
+
+      if (type.value == "subAdmin") {
+        if (dept.value != '') {
           dept.setErrors(null)
           return
         }
-        else{
+        else {
           dept.setErrors(
-            
+
             {
-            required:true
-          })
+              required: true
+            })
           return
         }
       }
-      else{
+      else {
         dept.setErrors(null)
         return null
       }
@@ -77,78 +77,78 @@ export class ProfileComponent implements OnInit {
     this.passwordIcon = this.passwordIcon === 'visibility_off' ? 'visibility' : 'visibility_off';
   }
 
-  addSubUser(data){
-    console.log("data===",data)
-    
-      if(this.addSubUserForm.valid){
-        try{
-            this.api.createSubUsers(data).then((res:any)=>{
-              res.success = this.general.decrypt(res.success)
-              console.log("created sub user res===",res)
-              if(res.status){
-                this.getUsers()
-                this.general.openSnackBar(res.success,'')
-              }
-            })
-            .catch((err)=>{
-              console.log("err======",err)
-            })      
-        }
-        catch (err) {
-          console.log("err======",err)
-        }
+  addSubUser(data) {
+    console.log("data===", data)
+
+    if (this.addSubUserForm.valid) {
+      try {
+        this.api.createSubUsers(data).then((res: any) => {
+          res.success = this.general.decrypt(res.success)
+          console.log("created sub user res===", res)
+          if (res.status) {
+            this.getUsers()
+            this.general.openSnackBar(res.success, '')
+          }
+        })
+          .catch((err) => {
+            console.log("err======", err)
+          })
+      }
+      catch (err) {
+        console.log("err======", err)
+      }
     }
   }
 
-  getUsers(){
-    this.getUserList=[]
-    this.api.viewUsers().then((res:any)=>{
+  getUsers() {
+    this.getUserList = []
+    this.api.viewUsers().then((res: any) => {
       res.success = this.general.decrypt(res.success)
-      console.log("get user res===",res)
-      if(res.status){
-        this.getUserList=res.success
+      console.log("get user res===", res)
+      if (res.status) {
+        this.getUserList = res.success
         this.dataSource = new MatTableDataSource(this.getUserList);
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator=this.paginator
+          this.dataSource.paginator = this.paginator
         })
       }
-      else{}
-    }).catch((err)=>{
-      console.log("err======",err)
-    })  
+      else { }
+    }).catch((err) => {
+      console.log("err======", err)
+    })
   }
 
-  isDeleted(data){
-    data.isDeleted=data.isDeleted== 'y'?'n':'y'
- 
-    this.api.deleteSubuser(data).then((res:any)=>{
+  isDeleted(data) {
+    data.isDeleted = data.isDeleted == 'y' ? 'n' : 'y'
+
+    this.api.deleteSubuser(data).then((res: any) => {
       res.success = this.general.decrypt(res.success)
-      console.log("delete sub user res===",res)
-      if(res.status){
-          this.general.openSnackBar(res.success, '')
+      console.log("delete sub user res===", res)
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
       }
-      else{}
-    }).catch((err)=>{
-      console.log("err======",err)
-    }) 
+      else { }
+    }).catch((err) => {
+      console.log("err======", err)
+    })
   }
 
-  openDailog(data){
+  openDailog(data) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
     dialogConfig.width = '30vw';
-    dialogConfig.data={
-      data:data
+    dialogConfig.data = {
+      data: data
     }
-    
+
     const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
-  
+
     dialogRef.afterClosed().subscribe(result => {
-        this.getUsers()
+      this.getUsers()
     });
   }
 

@@ -1,18 +1,19 @@
 <div class="report">
     <mat-card>
-            <mat-card-title color="primary">
-               Generic Report 
-            </mat-card-title> <br>
-            <mat-card-subtitle>
-              Enter date range and Select Report type
-            </mat-card-subtitle> <hr> <br>
+        <mat-card-title color="primary">
+            Generic Report
+        </mat-card-title> <br>
+        <mat-card-subtitle>
+            Enter date range and Select Report type
+        </mat-card-subtitle>
+        <hr> <br>
         <mat-card-content>
 
             <form [formGroup]="genericReport" (ngSubmit)="onsubmitGenericReport(genericReport.value)">
                 <div class="radio">
-                    <mat-radio-group  color="primary" formControlName="days"  >
-                        <mat-radio-button class="example-radio-button"  [value]="7">Last week </mat-radio-button> 
-                        <mat-radio-button class="example-radio-button"  [value]="14">Last two weeks</mat-radio-button>
+                    <mat-radio-group color="primary" formControlName="days">
+                        <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="14">Last two weeks</mat-radio-button>
                     </mat-radio-group>
                 </div> <br>
                 <mat-form-field>
@@ -27,27 +28,28 @@
                         <mat-option value="7">Average Zone wise Efficiency </mat-option>
                         <mat-option value="8">Average Zone wise Efficiency per day </mat-option>
                     </mat-select>
-                  </mat-form-field> <br>
-                  <mat-form-field>
+                </mat-form-field> <br>
+                <mat-form-field>
                     <mat-label>From date</mat-label>
                     <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker1></mat-datepicker>
                     <mat-error>
-                      Please provide a valid from date
+                        Please provide a valid from date
                     </mat-error>
                 </mat-form-field><br>
-          
+
                 <mat-form-field>
                     <mat-label>To date</mat-label>
                     <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker2></mat-datepicker>
                     <mat-error>
-                      Please provide a valid to date
+                        Please provide a valid to date
                     </mat-error>
                 </mat-form-field> <br>
-                <button class="btn-set" mat-raised-button [disabled]="!genericReport.valid" color="primary" >Submit</button>
+                <button class="btn-set" mat-raised-button [disabled]="!genericReport.valid"
+                    color="primary">Submit</button>
 
             </form>
         </mat-card-content>
@@ -55,49 +57,51 @@
 
 
     <mat-card>
-            <mat-card-title color="primary">
-               Custom Report 
-            </mat-card-title> <br>
-            <mat-card-subtitle>
-              Enter date range and Select Report type
-            </mat-card-subtitle> <hr> <br>
+        <mat-card-title color="primary">
+            Custom Report
+        </mat-card-title> <br>
+        <mat-card-subtitle>
+            Enter date range and Select Report type
+        </mat-card-subtitle>
+        <hr> <br>
         <mat-card-content>
-       
+
             <form [formGroup]="customReport" (ngSubmit)="onsubmitCustomReport(customReport.value)">
                 <div class="radio">
-                    <mat-radio-group  color="primary" formControlName="days" >
-                        <mat-radio-button class="example-radio-button"  [value]="7">Last week </mat-radio-button>
-                        <mat-radio-button class="example-radio-button"  [value]="14">Last two weeks</mat-radio-button>
+                    <mat-radio-group color="primary" formControlName="days">
+                        <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" [value]="14">Last two weeks</mat-radio-button>
                     </mat-radio-group>
                 </div> <br>
                 <mat-form-field>
                     <mat-label>Custom Report</mat-label>
-                    <mat-select disableRipple formControlName="type" >
+                    <mat-select disableRipple formControlName="type">
                         <mat-option value="1">Number of vehicles serviced </mat-option>
                         <mat-option value="2">Avg. Time taken by Bays </mat-option>
                         <mat-option value="3">Vehicle and JC wise report</mat-option>
-                      </mat-select>
-                  </mat-form-field> <br>
-                  <mat-form-field>
+                    </mat-select>
+                </mat-form-field> <br>
+                <mat-form-field>
                     <mat-label>From date</mat-label>
                     <input matInput [matDatepicker]="myDatepicker3" formControlName="fromDate" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker3></mat-datepicker>
                     <mat-error>
-                      Please provide a valid from date
+                        Please provide a valid from date
                     </mat-error>
                 </mat-form-field> <br>
-          
+
                 <mat-form-field>
                     <mat-label>To date</mat-label>
                     <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker4></mat-datepicker>
                     <mat-error>
-                      Please provide a valid to date
+                        Please provide a valid to date
                     </mat-error>
                 </mat-form-field> <br>
-                <button class="btn-set" mat-raised-button [disabled]="!customReport.valid" color="primary" >Submit</button>
+                <button class="btn-set" mat-raised-button [disabled]="!customReport.valid"
+                    color="primary">Submit</button>
 
             </form>
         </mat-card-content>

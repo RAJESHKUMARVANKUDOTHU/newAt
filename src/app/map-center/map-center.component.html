@@ -1,4 +1,4 @@
-<div class="flex"> 
+<div class="flex">
     <div>
         <mat-accordion>
             <!-- ----------------------------Devices----------------------------------- -->
@@ -17,20 +17,20 @@
                             </mat-form-field> <br>
                             <mat-form-field>
                                 <mat-label>Description</mat-label>
-                                <textarea  matInput formControlName="description" required></textarea>
+                                <textarea matInput formControlName="description" required></textarea>
                             </mat-form-field> <br>
                             <mat-form-field class="full-width-field">
                                 <mat-label>Select Gateway ID</mat-label>
-                                <mat-select  formControlName="gatewayId">
+                                <mat-select formControlName="gatewayId">
                                     <mat-option *ngFor="let b of gateway" [(value)]="b.gatewayId">
-                                      {{b.gatewayId}}
+                                        {{b.gatewayId}}
                                     </mat-option>
                                 </mat-select>
                                 <mat-error></mat-error>
                             </mat-form-field> <br>
                             <mat-form-field>
                                 <input type="text" matInput style="display: none;">
-                                <div><input type="file" ></div>
+                                <div><input type="file"></div>
                             </mat-form-field> <br>
                             <button mat-raised-button [disabled]="!createLocation.valid">Submit</button>
                         </form>
@@ -39,9 +39,12 @@
             </mat-expansion-panel>
         </mat-accordion>
     </div>
-<div class="map"><h1>Map Center</h1> <hr></div>
-<mat-form-field>
-    <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
-    <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
-</div> 
+    <div class="map">
+        <h1>Map Center</h1>
+        <hr>
+    </div>
+    <mat-form-field>
+        <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</div>

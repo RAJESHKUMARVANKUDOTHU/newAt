@@ -17,8 +17,6 @@ import {
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
   status: any
-  private refreshTokenInProgress = false;
-  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
     private login: LoginAuthService,
     private general: GeneralService
@@ -26,7 +24,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // console.log("tok==",this.login.getLoginDetails())
-    request= this.addAuthenticationToken(request)
+    request = this.addAuthenticationToken(request)
     return next.handle(request).pipe(
       catchError((error: any) => {
         console.log("erooorr=", error)
@@ -49,43 +47,41 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             return res
           }
         }
-        else{}
-        
-    })
+        else { }
+
+      })
 
     ) as any
 
   }
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
-    // If we do not have a token yet then we should not set the header.
-    // Here we could first retrieve the token from where we store it.
     this.status = this.login.getLoginDetails();
-   
-    if (this.status.token && this.status.token !=null) {
-      request= request.clone({
-        setHeaders: { Authorization: `Bearer ${this.status.token}`}
+
+    if (this.status.token && this.status.token != null) {
+      request = request.clone({
+        setHeaders: { Authorization: `Bearer ${this.status.token}` }
       })
-      if ( request instanceof HttpRequest){
+      if (request instanceof HttpRequest) {
         console.log("http request==", request);
         let authHeaders = request.headers.get('authorization');
-        if(authHeaders){
+        if (authHeaders) {
           let body = request.body
-          if(body){
+          if (body) {
             request.body = {}
             request.body.data = this.general.encrypt(body)
           }
-          else{
+          else {
             request.body = request.body;
           }
         }
-        else{
+        else {
           return request
         }
-      }bn 
+      }
       return request
     }
-    else{
+    else {
       return request;
     }
   }

@@ -2,151 +2,133 @@
   <div style="display: flex;">
     <div style="height: 20%; width:25%">
       <p class="status">Registered</p>
-      <canvas
-      baseChart
-      chartType="doughnut"
-      [data]="doughnutChartData2"
-      [labels]="doughnutChartLabels"
-      [options]="chartOptions"
-      [colors]="colors"
-      [legend]="false"
-      >
+      <canvas baseChart chartType="doughnut" [data]="doughnutChartData2" [labels]="doughnutChartLabels"
+        [options]="chartOptions" [colors]="colors" [legend]="false">
       </canvas>
     </div>
     <div style="height: 20%; width:25%">
       <p class="status">Active</p>
-      <canvas
-      baseChart
-      chartType="doughnut"
-      [data]="doughnutChartData"
-      [labels]="doughnutChartLabels"
-      [options]="chartOptions"
-      [colors]="colors"
-      [legend]="false"
-    >
+      <canvas baseChart chartType="doughnut" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+        [options]="chartOptions" [colors]="colors" [legend]="false">
       </canvas>
     </div>
     <div style="height: 20%; width:25%">
       <p class="status">Offline</p>
-      <canvas
-      baseChart
-      chartType="doughnut"
-      [data]="doughnutChartData1"
-      [labels]="doughnutChartLabels"
-      [options]="chartOptions"
-      [colors]="colors"
-      [legend]="false"
-    >
+      <canvas baseChart chartType="doughnut" [data]="doughnutChartData1" [labels]="doughnutChartLabels"
+        [options]="chartOptions" [colors]="colors" [legend]="false">
       </canvas>
     </div>
 
     <div class="assets">
       <mat-accordion>
-          <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset</span>
-                  </mat-panel-title>
-              </mat-expansion-panel-header>
-              <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
-                  <mat-form-field>
-                    <mat-label>Device Id</mat-label>
-                    <mat-select formControlName="deviceId">
-                      <mat-option *ngFor="let list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">{{list.deviceId}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                      Device ID is required
-                    </mat-error>
-                  </mat-form-field>
-                  <mat-form-field>
-                    <mat-label>Device Name</mat-label>
-                    <input type="text" matInput formControlName="deviceName" required >
-                
-                    <mat-error>
-                      Device name is required
-                    </mat-error>
-                  </mat-form-field>
-                  <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary">Submit</button>
-              </form>
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <span><mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset</span>
-                  </mat-panel-title>
-              </mat-expansion-panel-header>
-              <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
-                  <mat-form-field>
-                    <mat-label>Device Id</mat-label>
-                    
-                    <mat-select formControlName="deviceId">
-                      <mat-option *ngFor=" let list of getDeAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">{{list.deviceId}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                      Device ID is required
-                    </mat-error>
-                  </mat-form-field> <br>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span>
+                <mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
+            <mat-form-field>
+              <mat-label>Device Id</mat-label>
+              <mat-select formControlName="deviceId">
+                <mat-option *ngFor="let list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
+                  {{list.deviceId}}</mat-option>
+              </mat-select>
+              <mat-error>
+                Device ID is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Device Name</mat-label>
+              <input type="text" matInput formControlName="deviceName" required>
 
-                  <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary">Submit</button>
-              </form>
-          </mat-expansion-panel>
+              <mat-error>
+                Device name is required
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary">Submit</button>
+          </form>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span>
+                <mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
+            <mat-form-field>
+              <mat-label>Device Id</mat-label>
+
+              <mat-select formControlName="deviceId">
+                <mat-option *ngFor=" let list of getDeAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
+                  {{list.deviceId}}</mat-option>
+              </mat-select>
+              <mat-error>
+                Device ID is required
+              </mat-error>
+            </mat-form-field> <br>
+
+            <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary">Submit</button>
+          </form>
+        </mat-expansion-panel>
       </mat-accordion>
 
     </div>
   </div>
 </div>
-  <mat-tab-group>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <button mat-button>
-          <mat-icon>verified_user</mat-icon> &nbsp;
-          <span>Manage Finds</span>
-        </button>
-      </ng-template>
-      <br>
-      <app-manage-device></app-manage-device>
-    </mat-tab>
-  
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <button mat-button>
-          <mat-icon>verified_user</mat-icon> &nbsp;
-          <span>Manage Gateways</span>
-        </button>
-      </ng-template>
-      <br>
-      <app-manage-gateway></app-manage-gateway>
-    </mat-tab>
-  
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <button mat-button>
-          <mat-icon>verified_user</mat-icon> &nbsp;
-          <span>Manage Coins</span>
-        </button>
-      </ng-template> <br>
-      <app-manage-coin></app-manage-coin>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <button mat-button>
-          <mat-icon>verified_user</mat-icon> &nbsp;
-          <span>Active Devices</span>
-        </button>
-      </ng-template> <br>
-      <app-active-device></app-active-device>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <button mat-button>
-          <mat-icon>verified_user</mat-icon> &nbsp;
-          <span>Offline Devices</span>
-        </button>
-      </ng-template> <br>
-      <app-offline-device></app-offline-device>
-    </mat-tab>
-    
-  </mat-tab-group>
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <button mat-button>
+        <mat-icon>verified_user</mat-icon> &nbsp;
+        <span>Manage Finds</span>
+      </button>
+    </ng-template>
+    <br>
+    <app-manage-device></app-manage-device>
+  </mat-tab>
 
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <button mat-button>
+        <mat-icon>verified_user</mat-icon> &nbsp;
+        <span>Manage Gateways</span>
+      </button>
+    </ng-template>
+    <br>
+    <app-manage-gateway></app-manage-gateway>
+  </mat-tab>
 
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <button mat-button>
+        <mat-icon>verified_user</mat-icon> &nbsp;
+        <span>Manage Coins</span>
+      </button>
+    </ng-template> <br>
+    <app-manage-coin></app-manage-coin>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <button mat-button>
+        <mat-icon>verified_user</mat-icon> &nbsp;
+        <span>Active Devices</span>
+      </button>
+    </ng-template> <br>
+    <app-active-device></app-active-device>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <button mat-button>
+        <mat-icon>verified_user</mat-icon> &nbsp;
+        <span>Offline Devices</span>
+      </button>
+    </ng-template> <br>
+    <app-offline-device></app-offline-device>
+  </mat-tab>
 
+</mat-tab-group>

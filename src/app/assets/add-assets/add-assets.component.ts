@@ -1,5 +1,5 @@
-import { Component, OnInit ,Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginAuthService } from '../../services/login-auth.service';
@@ -12,133 +12,133 @@ import { GeneralService } from '../../services/general.service';
   styleUrls: ['./add-assets.component.css']
 })
 export class AddAssetsComponent implements OnInit {
-  addFind:FormGroup
-  addGateway:FormGroup
-  addCoin:FormGroup
-  assignAsset:FormGroup
-  deassignAsset:FormGroup
-  gateway:any
-  type:any
+  addFind: FormGroup
+  addGateway: FormGroup
+  addCoin: FormGroup
+  assignAsset: FormGroup
+  deassignAsset: FormGroup
+  gateway: any
+  type: any
   constructor(
     public dialogRef: MatDialogRef<AddAssetsComponent>,
-    @Inject(MAT_DIALOG_DATA)  data,
+    @Inject(MAT_DIALOG_DATA) data,
     private fb: FormBuilder,
-    private general:GeneralService,
-    private login:LoginAuthService,
+    private general: GeneralService,
+    private login: LoginAuthService,
     private api: ApiService,
   ) {
-    this.type=data.type
+    this.type = data.type
   }
 
   ngOnInit(): void {
-    this.addFind=this.fb.group({
+    this.addFind = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', [Validators.required,Validators.min(1)]],
+      deviceId: ['', [Validators.required, Validators.min(1)]],
     })
-    this.addGateway=this.fb.group({
+    this.addGateway = this.fb.group({
       gatewayName: ['', Validators.required],
-      gatewayId: ['', [Validators.required,Validators.minLength(12), Validators.maxLength(12)]],
+      gatewayId: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]],
     })
-    this.addCoin=this.fb.group({
+    this.addCoin = this.fb.group({
       coinName: ['', Validators.required],
-      coinId: ['', [Validators.required,Validators.min(1)]],
-      gatewayId:['', Validators.required]
+      coinId: ['', [Validators.required, Validators.min(1)]],
+      gatewayId: ['', Validators.required]
     })
 
     this.refreshGateway()
   }
 
-  findSubmit(data){
-    try{
-      if(this.addFind.valid){
-        
-        console.log("data====",data);
+  findSubmit(data) {
+    try {
+      if (this.addFind.valid) {
 
-        this.api.deviceRegistration(data).then((res:any)=>{
-          
-          console.log("find submit====",res);
-          if(res.status){
-              
-              this.general.openSnackBar(res.success,'')
+        console.log("data====", data);
+
+        this.api.deviceRegistration(data).then((res: any) => {
+
+          console.log("find submit====", res);
+          if (res.status) {
+
+            this.general.openSnackBar(res.success, '')
           }
-          else{
-              this.general.openSnackBar(res.success,'')
-          }       
-        }).catch((err:any)=>{
-          console.log("error===",err)
+          else {
+            this.general.openSnackBar(res.success, '')
+          }
+        }).catch((err: any) => {
+          console.log("error===", err)
         })
       }
     }
-    catch(err){
-      console.log('error==',err)
+    catch (err) {
+      console.log('error==', err)
     }
   }
 
-  gatewaySubmit(data){
-    try{
-      if(this.addGateway.valid){
-        
+  gatewaySubmit(data) {
+    try {
+      if (this.addGateway.valid) {
 
-        this.api.gatewayRegistration(data).then((res:any)=>{
-          
-          console.log("find submit====",res);
-          if(res.status){
-            this.general.openSnackBar(res.success,'')
+
+        this.api.gatewayRegistration(data).then((res: any) => {
+
+          console.log("find submit====", res);
+          if (res.status) {
+            this.general.openSnackBar(res.success, '')
           }
-          else{
-              this.general.openSnackBar(res.success,'')
+          else {
+            this.general.openSnackBar(res.success, '')
           }
           // else if((res.status || !res.status) && res.success.toLowerCase()!="gateway registered successfully"){
           //   var msg = 'Gateway Name Already exists, try different Name'
           //   this.general.openSnackBar(msg,'')
           // }
-        
-        }).catch((err:any)=>{
-          console.log("error===",err)
+
+        }).catch((err: any) => {
+          console.log("error===", err)
         })
       }
     }
-    catch(err){
-      console.log("error==",err)
+    catch (err) {
+      console.log("error==", err)
     }
   }
-  
-  coinSubmit(data){
-    try{
-      if(this.addCoin.valid){
 
-        this.api.coinRegistration(data).then((res:any)=>{
-          
-          console.log("find submit====",res);
-          if(res.status){
-            this.general.openSnackBar(res.success,'')
+  coinSubmit(data) {
+    try {
+      if (this.addCoin.valid) {
+
+        this.api.coinRegistration(data).then((res: any) => {
+
+          console.log("find submit====", res);
+          if (res.status) {
+            this.general.openSnackBar(res.success, '')
           }
-          else{
-              this.general.openSnackBar(res.success,'')
+          else {
+            this.general.openSnackBar(res.success, '')
           }
-        
-        }).catch((err:any)=>{
-          console.log("error===",err)
+
+        }).catch((err: any) => {
+          console.log("error===", err)
         })
       }
     }
-    catch(err){
-      console.log("error==",err)
+    catch (err) {
+      console.log("error==", err)
 
     }
   }
 
-  refreshGateway(){
-    this.api.getGatewayData().then((res:any)=>{
-      
-      console.log("gatway submit====",res);
-      this.gateway=[]
-      if(res.status){
-        this.gateway=res.success
+  refreshGateway() {
+    this.api.getGatewayData().then((res: any) => {
+
+      console.log("gatway submit====", res);
+      this.gateway = []
+      if (res.status) {
+        this.gateway = res.success
       }
 
-    }).catch((err:any)=>{
-      console.log("error===",err)
+    }).catch((err: any) => {
+      console.log("error===", err)
     })
   }
 

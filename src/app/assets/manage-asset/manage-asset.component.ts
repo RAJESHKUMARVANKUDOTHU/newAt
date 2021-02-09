@@ -52,7 +52,7 @@ export class ManageAssetComponent implements OnInit {
     private general: GeneralService,
     private fb: FormBuilder,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.assignAssetForm = this.fb.group({
@@ -76,7 +76,7 @@ export class ManageAssetComponent implements OnInit {
     this.api
       .allDeviceCount()
       .then((res: any) => {
-        
+
         console.log('allDeviceCount count====', res);
         if (res.success) {
           this.countActive = res.success.online;
@@ -99,7 +99,7 @@ export class ManageAssetComponent implements OnInit {
           ];
           console.log('this.doughnutChartData2', this.doughnutChartData2);
         }
-        else{
+        else {
 
         }
       })
@@ -116,13 +116,13 @@ export class ManageAssetComponent implements OnInit {
     this.api
       .assignAssetList()
       .then((res: any) => {
-        
+
         console.log('assignAsset list res====', res);
         if (res.status) {
           this.getAssetList = res.success;
         }
-        else{
-          this.getAssetList=[]
+        else {
+          this.getAssetList = []
         }
       })
       .catch((err: any) => {
@@ -134,12 +134,12 @@ export class ManageAssetComponent implements OnInit {
     this.api
       .deassignAssetList()
       .then((res: any) => {
-        
+
         console.log('deassignAsset list res====', res);
         if (res.status) {
           this.getDeAssetList = res.success;
         }
-        else{
+        else {
           this.getDeAssetList = [];
 
         }
@@ -154,11 +154,11 @@ export class ManageAssetComponent implements OnInit {
     // data.userId=this.userId
     console.log('assign data==', data);
     if (this.assignAssetForm.valid) {
-      
+
       this.api
         .assignAsset(data)
         .then((res: any) => {
-          
+
           console.log('assignAsset res====', res);
           if (res.status) {
             this.getAssignAssetList();
@@ -168,7 +168,7 @@ export class ManageAssetComponent implements OnInit {
               location.reload();
             }, 1000);
           }
-          else{
+          else {
 
           }
         })
@@ -182,11 +182,11 @@ export class ManageAssetComponent implements OnInit {
     data._id = this.id;
     // data.userId=this.userId
     if (this.deassignAssetForm.valid) {
-      
+
       this.api
         .deassignAsset(data)
         .then((res: any) => {
-          
+
           console.log('De assignAsset res====', res);
           if (res.status) {
             this.getAssignAssetList();
@@ -196,7 +196,7 @@ export class ManageAssetComponent implements OnInit {
             }, 1000);
             this.general.openSnackBar(res.message, '');
           }
-          else{}
+          else { }
         })
         .catch((err: any) => {
           console.log('error===', err);
@@ -209,13 +209,13 @@ export class ManageAssetComponent implements OnInit {
       .getDeviceData()
       .then((res: any) => {
         this.findData = [];
-        
+
         console.log('find data refresh====', res);
         if (res.status) {
           this.findData = res.success;
         }
-        else{
-          this.findData=[]
+        else {
+          this.findData = []
         }
 
       })

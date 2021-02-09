@@ -1,9 +1,9 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import {Router} from '@angular/router'
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
-import { FormGroup, Validators ,FormBuilder} from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router'
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { ApiService } from '../../services/api.service';
 import { GeneralService } from '../../services/general.service';
@@ -15,29 +15,29 @@ import { GeneralService } from '../../services/general.service';
 })
 export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayedColumns: string[] = ["i", 'userName', 'updatedAt'];
-  dataSource:any=[]
-  addUserForm:FormGroup
-  loginData:any
-  getUserList:any=[]
+  dataSource: any = []
+  addUserForm: FormGroup
+  loginData: any
+  getUserList: any = []
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
   constructor(
-    private login:LoginAuthService,
-    private router:Router,
-    private fb:FormBuilder,
+    private login: LoginAuthService,
+    private router: Router,
+    private fb: FormBuilder,
     private api: ApiService,
     private general: GeneralService) { }
 
   ngOnInit(): void {
-    this.loginData=this.login.getLoginDetails()
+    this.loginData = this.login.getLoginDetails()
 
-    this.addUserForm=this.fb.group({
-      userName:['',[Validators.email,Validators.required]],
-      password:['',Validators.required]
+    this.addUserForm = this.fb.group({
+      userName: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required]
     })
-    
+
     this.getAdmins()
 
   }
@@ -46,48 +46,48 @@ export class AdminDashboardComponent implements OnInit {
     this.passwordIcon = this.passwordIcon === 'visibility_off' ? 'visibility' : 'visibility_off';
   }
 
-  addUser(data){
-    console.log("data===",data)
+  addUser(data) {
+    console.log("data===", data)
 
-      if(this.addUserForm.valid){
-        
-        try{
-            this.api.createUsers(data).then((res:any)=>{
-              
-              console.log("created user res===",res)
-              if(res.status){
-                  this.getAdmins()  
-              }
-              else{}
-            })
-            .catch((err)=>{
-              console.log("err======",err)
-            })      
-        }
-        catch (err) {
-          console.log("err======",err)
-        }
+    if (this.addUserForm.valid) {
+
+      try {
+        this.api.createUsers(data).then((res: any) => {
+
+          console.log("created user res===", res)
+          if (res.status) {
+            this.getAdmins()
+          }
+          else { }
+        })
+          .catch((err) => {
+            console.log("err======", err)
+          })
+      }
+      catch (err) {
+        console.log("err======", err)
+      }
     }
   }
 
-  getAdmins(){
-    this.getUserList=[]
-    this.api.viewAdmins().then((res:any)=>{
-      
-      console.log("get user res===",res)
-      if(res.status){
-        this.getUserList=res.success
+  getAdmins() {
+    this.getUserList = []
+    this.api.viewAdmins().then((res: any) => {
+
+      console.log("get user res===", res)
+      if (res.status) {
+        this.getUserList = res.success
         this.dataSource = new MatTableDataSource(this.getUserList);
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator=this.paginator
+          this.dataSource.paginator = this.paginator
         })
       }
-      else{}
-    }).catch((err)=>{
-      console.log("err======",err)
-    })  
+      else { }
+    }).catch((err) => {
+      console.log("err======", err)
+    })
   }
 
   // isDeleted(data){
@@ -101,7 +101,7 @@ export class AdminDashboardComponent implements OnInit {
   //       console.log("err======",err)
   //     }) 
   //   }
- 
+
   // }
 
 }

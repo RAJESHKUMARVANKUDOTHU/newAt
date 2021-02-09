@@ -1,8 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginAuthService } from './services/login-auth.service';
-import { Router , ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import {MatDialog,MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ContactComponent } from './contact/contact.component';
 
 @Component({
@@ -14,65 +14,65 @@ export class AppComponent {
   title = 'ATapp';
   isExpanded = true;
   isShowing = false;
-  showLabel:boolean
-  sideNav:boolean=false
-  loginDetails:any
-  logged:boolean   
-  menu:boolean
-  log:boolean=true
-  statusFreeze:boolean=false
-  freezeMessage:String="Loading"
+  showLabel: boolean
+  sideNav: boolean = false
+  loginDetails: any
+  logged: boolean
+  menu: boolean
+  log: boolean = true
+  statusFreeze: boolean = false
+  freezeMessage: String = "Loading"
   constructor(
-    private login:LoginAuthService,
-    private router:Router,
-    public dialog: MatDialog,    
-    private route:ActivatedRoute,  
-    private deviceService: DeviceDetectorService){
-      this.loginDetails=this.login.getLoginDetails().success
-      this.logged=this.login.loginData()
-      
-      // this.menu=this.login.loginStatusMenu()
-      console.log("this.loginDetails====",this.loginDetails)
-      this.login.loginCheckData.subscribe((res)=>{
-        console.log("res===",res)
-        this.logged=res
-        this.loginDetails=this.login.getLoginDetails().success
-        console.log("this.loginDetails inside====",this.loginDetails)
-        // console.log("this.logged in======",this.logged)
-      });
-      this.login.loginCred.subscribe(res=>{
-        console.log("res1===",res)
+    private login: LoginAuthService,
+    private router: Router,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private deviceService: DeviceDetectorService) {
+    this.loginDetails = this.login.getLoginDetails().success
+    this.logged = this.login.loginData()
 
-        this.menu=res
-        this.loginDetails=this.login.getLoginDetails().success
-        // console.log("this.loginDetails inside====",this.loginDetails)
-        // console.log("this.menu======",this.menu)
-      
-      })
-      
-      console.log("route = ",window.location.pathname)
-    }
-    ngOnInit(): void {
+    // this.menu=this.login.loginStatusMenu()
+    console.log("this.loginDetails====", this.loginDetails)
+    this.login.loginCheckData.subscribe((res) => {
+      console.log("res===", res)
+      this.logged = res
+      this.loginDetails = this.login.getLoginDetails().success
+      console.log("this.loginDetails inside====", this.loginDetails)
+      // console.log("this.logged in======",this.logged)
+    });
+    this.login.loginCred.subscribe(res => {
+      console.log("res1===", res)
 
-    }
-    openDailog(){
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.height = '60vh';
-        dialogConfig.width = '30vw';
+      this.menu = res
+      this.loginDetails = this.login.getLoginDetails().success
+      // console.log("this.loginDetails inside====",this.loginDetails)
+      // console.log("this.menu======",this.menu)
 
-        const dialogRef = this.dialog.open(ContactComponent, dialogConfig);
-      
-        dialogRef.afterClosed().subscribe(result => {
-          
-        });
-    }
+    })
 
-    logout(){
-      localStorage.clear()
-      this.login.loginCheckData.next(false)
-      this.router.navigate(['/login'])
-    }
+    console.log("route = ", window.location.pathname)
+  }
+  ngOnInit(): void {
+
+  }
+  openDailog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '30vw';
+
+    const dialogRef = this.dialog.open(ContactComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+  logout() {
+    localStorage.clear()
+    this.login.loginCheckData.next(false)
+    this.router.navigate(['/login'])
+  }
 }
 

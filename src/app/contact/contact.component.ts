@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,24 +16,24 @@ export class ContactComponent implements OnInit {
   TooltipLabel = TooltipLabel;
   CountryISO = CountryISO;
   preferredCountries: CountryISO[] = [CountryISO.India];
-  contactForm:FormGroup
+  contactForm: FormGroup
   constructor(
     private dialogRef: MatDialogRef<ContactComponent>,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private login:LoginAuthService,
+    private login: LoginAuthService,
     private api: ApiService,
   ) { }
 
   ngOnInit(): void {
-    this.contactForm=this.fb.group({
-      email:['',[Validators.email,Validators.required]],
-      mobileNumber:['',Validators.required]
+    this.contactForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]],
+      mobileNumber: ['', Validators.required]
     })
   }
-  
-  onSubmit(data){
-    console.log("data==",data)
+
+  onSubmit(data) {
+    console.log("data==", data)
   }
 }

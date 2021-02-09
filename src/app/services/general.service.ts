@@ -52,7 +52,7 @@ export class GeneralService {
     return this.decryptedInfo
   }
 
-  getToken(){
+  getToken() {
     return this.login.getLoginDetails().token
   }
 }

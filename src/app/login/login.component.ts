@@ -19,42 +19,42 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private login:LoginAuthService,
-    private general : GeneralService,
+    private login: LoginAuthService,
+    private general: GeneralService,
     private api: ApiService,
   ) { }
 
   ngOnInit(): void {
-    this.loginForm=this.fb.group({
-      userName:['',[Validators.email,Validators.required]],
-      password:['']
+    this.loginForm = this.fb.group({
+      userName: ['', [Validators.email, Validators.required]],
+      password: ['']
     })
 
   }
-  onSubmit(data){
-    console.log("data===",data)
-    this.loginInvalid=false
-    if(this.loginForm.valid){
-      try{
-        console.log("data===",data)
-      
-        this.api.login(data).then((res:any)=>{
-          console.log("login res===",res)
-          
-          if( res.token){
-            if(this.login.login(JSON.stringify(res))){
+  onSubmit(data) {
+    console.log("data===", data)
+    this.loginInvalid = false
+    if (this.loginForm.valid) {
+      try {
+        console.log("data===", data)
+
+        this.api.login(data).then((res: any) => {
+          console.log("login res===", res)
+
+          if (res.token) {
+            if (this.login.login(JSON.stringify(res))) {
               // this.login.loginCheckData.next(true)
               console.log("i stepped")
               this.router.navigate(['/dashboard'])
             }
-            else{
-                this.loginInvalid=true
+            else {
+              this.loginInvalid = true
             }
           }
-          else{}
-        }).catch((err)=>{
-          console.log("err======",err)
-          })
+          else { }
+        }).catch((err) => {
+          console.log("err======", err)
+        })
       }
       catch (err) {
         this.loginInvalid = true;

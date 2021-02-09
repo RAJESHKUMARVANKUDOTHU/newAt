@@ -9,40 +9,40 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./map-center.component.css']
 })
 export class MapCenterComponent implements OnInit {
-  createLocation:FormGroup
-  gateway:any=[]
+  createLocation: FormGroup
+  gateway: any = []
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private login:LoginAuthService,
+    private login: LoginAuthService,
     private api: ApiService,
   ) { }
 
   ngOnInit(): void {
-    this.createLocation=this.fb.group({
-      locationName:['',Validators.required],
-      description:[''],
-      gatewayId:['',Validators.required]
+    this.createLocation = this.fb.group({
+      locationName: ['', Validators.required],
+      description: [''],
+      gatewayId: ['', Validators.required]
     })
     this.refreshGateway()
   }
-  refreshGateway(){
-    this.api.getGatewayData().then((res:any)=>{
-      console.log("gatway submit====",res);
-      this.gateway=[]
-      if(res.status){
-        this.gateway=res.success
+  refreshGateway() {
+    this.api.getGatewayData().then((res: any) => {
+      console.log("gatway submit====", res);
+      this.gateway = []
+      if (res.status) {
+        this.gateway = res.success
       }
 
-    }).catch((err:any)=>{
-      console.log("error===",err)
+    }).catch((err: any) => {
+      console.log("error===", err)
     })
   }
-  search(event){
-    
+  search(event) {
+
   }
-  submit(data){
+  submit(data) {
 
   }
 

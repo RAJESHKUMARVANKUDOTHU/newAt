@@ -19,82 +19,82 @@ import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 export class DashboardComponent implements OnInit {
   date: any = new Date();
   map;
-  zoneList : any = [];
-  deviceList : any = [
+  zoneList: any = [];
+  deviceList: any = [
     {
-      _id : '123456',
-      zoneId : "6017e1f9ddf0806ec7d3ddf5",
-      deviceId : 1,
-      coinId : 1,
-      zoneName : 'job card',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: 71.3125, lng: -94.5}
+      _id: '123456',
+      zoneId: "6017e1f9ddf0806ec7d3ddf5",
+      deviceId: 1,
+      coinId: 1,
+      zoneName: 'job card',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: 71.3125, lng: -94.5 }
     },
     {
-      _id : '23456',
-      zoneId : "60000b28f2f77b310224833e",
-      deviceId : 2,
-      coinId : 2,
-      zoneName : 'washing',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: 37.8125, lng: 179}
+      _id: '23456',
+      zoneId: "60000b28f2f77b310224833e",
+      deviceId: 2,
+      coinId: 2,
+      zoneName: 'washing',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: 37.8125, lng: 179 }
     },
     {
-      _id : '34567',
-      zoneId : "6017e1f9ddf0806ec7d3ddf5",
-      deviceId : 3,
-      coinId : 1,
-      zoneName : 'job card',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: 35.3125, lng: -61.5}
+      _id: '34567',
+      zoneId: "6017e1f9ddf0806ec7d3ddf5",
+      deviceId: 3,
+      coinId: 1,
+      zoneName: 'job card',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: 35.3125, lng: -61.5 }
     },
     {
-      _id : '45678',
-      zoneId : "60000b28f2f77b310224833e",
-      deviceId : 4,
-      coinId : 2,
-      zoneName : 'washing',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: -18.1875, lng: 147}
+      _id: '45678',
+      zoneId: "60000b28f2f77b310224833e",
+      deviceId: 4,
+      coinId: 2,
+      zoneName: 'washing',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: -18.1875, lng: 147 }
     },
     {
-      _id : '56789',
-      zoneId : "6017e20bddf0806ec7d3ddf6",
-      deviceId : 5,
-      coinId : 4,
-      zoneName : 'shopfloor',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: 66.8125, lng: 88}
+      _id: '56789',
+      zoneId: "6017e20bddf0806ec7d3ddf6",
+      deviceId: 5,
+      coinId: 4,
+      zoneName: 'shopfloor',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: 66.8125, lng: 88 }
     },
     {
-      _id : '67890',
-      zoneId : "6017e219c78d016edfc9ca71",
-      deviceId : 6,
-      coinId : 5,
-      zoneName : 'ready post washing',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: 0, lng: 0}
+      _id: '67890',
+      zoneId: "6017e219c78d016edfc9ca71",
+      deviceId: 6,
+      coinId: 5,
+      zoneName: 'ready post washing',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: 0, lng: 0 }
     },
     {
-      _id : '4321',
-      zoneId : "6017e20bddf0806ec7d3ddf6",
-      deviceId : 7,
-      coinId : 4,
-      zoneName : 'shopfloor',
-      inTime : '2021-02-01T10:15:51.108Z',
-      outTime : '2021-02-01T10:15:51.108Z',
-      latlng : {lat: -4.1875, lng: 89.5}
+      _id: '4321',
+      zoneId: "6017e20bddf0806ec7d3ddf6",
+      deviceId: 7,
+      coinId: 4,
+      zoneName: 'shopfloor',
+      inTime: '2021-02-01T10:15:51.108Z',
+      outTime: '2021-02-01T10:15:51.108Z',
+      latlng: { lat: -4.1875, lng: 89.5 }
     },
   ];
-  marker : any = [];
+  marker: any = [];
 
-  constructor(private cd: ChangeDetectorRef, private api: ApiService) {}
+  constructor(private cd: ChangeDetectorRef, private api: ApiService) { }
 
   ngOnInit(): void {
     this.congestionGraph();
@@ -123,12 +123,12 @@ export class DashboardComponent implements OnInit {
     var bounds = this.map.getBounds();
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
-    this.map.on('click',(event)=>{
-      console.log("event click===",event);
-      
+    this.map.on('click', (event) => {
+      console.log("event click===", event);
+
     })
     let data = {
-      _id : "600693933a4d5fc813ff5041"
+      _id: "600693933a4d5fc813ff5041"
     }
     this.api.getLayoutImage(data._id).subscribe((res: any) => {
       L.imageOverlay(res, bounds).addTo(this.map);
@@ -136,15 +136,15 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-// , {color: "white", weight: 1}
-  getZones(){
+  // , {color: "white", weight: 1}
+  getZones() {
     console.log("here zones");
-    
+
     this.api.getZone().then((res: any) => {
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
-        this.zoneList = res.success.map((obj)=> {
+        this.zoneList = res.success.map((obj) => {
           obj.highlight = false;
           obj.selected = false;
           return obj;
@@ -152,55 +152,55 @@ export class DashboardComponent implements OnInit {
         console.log('zone details after==', this.zoneList);
         this.createDevice();
       }
-      else{
+      else {
         this.zoneList = [];
         this.createDevice();
       }
     });
   }
 
-  zoneClick(data){
-    console.log("zone click data===",data);
+  zoneClick(data) {
+    console.log("zone click data===", data);
     this.clearMap();
     // this.zoneList = [];
-    this.zoneList = this.zoneList.map(obj =>{
-      if(obj._id == data._id){
+    this.zoneList = this.zoneList.map(obj => {
+      if (obj._id == data._id) {
         obj.selected = true;
         obj.highlight = true;
       }
     })
-    console.log("this.zoneList===",this.zoneList);
-    
+    console.log("this.zoneList===", this.zoneList);
+
     // this.zoneList.push(data);
     this.createDevice();
   }
 
 
-  createZone(){
+  createZone() {
     this.clearMap();
-    for(let i = 0 ; i < this.zoneList.length ; i++){
-      new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click',()=>{
+    for (let i = 0; i < this.zoneList.length; i++) {
+      new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click', () => {
         this.zoneClick(this.zoneList[i]);
       });
     }
   }
 
-  createDevice(){
+  createDevice() {
     this.clearMap();
     let icon = L.icon({
       iconUrl: '../../assets/marker.png',
       iconSize: [25, 25],
     });
-    for(let i = 0 ; i < this.zoneList.length ; i++){
-      new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click',()=>{
+    for (let i = 0; i < this.zoneList.length; i++) {
+      new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click', () => {
         this.zoneClick(this.zoneList[i]);
       });
-      for(let j = 0 ; j < this.deviceList.length ; j++){
+      for (let j = 0; j < this.deviceList.length; j++) {
         // console.log("this.deviceList[i].zoneId===",this.deviceList[j].zoneId,"\tthis.zoneList[i]._id===",this.zoneList[i]._id);
-        if(this.deviceList[j].zoneId == this.zoneList[i]._id){
-          let latlng = [this.deviceList[j].latlng.lat , this.deviceList[j].latlng.lng]
-          console.log("latlng==",latlng);
-          
+        if (this.deviceList[j].zoneId == this.zoneList[i]._id) {
+          let latlng = [this.deviceList[j].latlng.lat, this.deviceList[j].latlng.lng]
+          console.log("latlng==", latlng);
+
           this.marker.push(new L.marker(
             latlng,
             { icon: icon }

@@ -1,4 +1,6 @@
-<button mat-button mat-dialog-close style="float: right;z-index: 999;"><mat-icon>clear</mat-icon></button>
+<button mat-button mat-dialog-close style="float: right;z-index: 999;">
+    <mat-icon>clear</mat-icon>
+</button>
 
 <div *ngIf="type=='find'">
     <mat-card>
@@ -14,9 +16,9 @@
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label> Device Id</mat-label>
-                    <input type="number" matInput min="1" formControlName="deviceId" disabled >
+                    <input type="number" matInput min="1" formControlName="deviceId" disabled>
                     <mat-error></mat-error>
-                </mat-form-field> <br>  
+                </mat-form-field> <br>
                 <button mat-raised-button [disabled]="!editFind.valid">Submit</button>
             </form>
         </mat-card-content>
@@ -37,7 +39,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label> Gateway Id</mat-label>
-                    <input type="text" matInput formControlName="gatewayId" disabled >
+                    <input type="text" matInput formControlName="gatewayId" disabled>
                     <mat-error></mat-error>
                 </mat-form-field> <br>
                 <button mat-raised-button [disabled]="!editGateway.valid">Submit</button>
@@ -60,14 +62,14 @@
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label>Coin Id</mat-label>
-                    <input type="number" matInput formControlName="coinId" disabled >
+                    <input type="number" matInput formControlName="coinId" disabled>
                     <mat-error></mat-error>
                 </mat-form-field> <br>
                 <mat-form-field class="full-width-field" appearance="fill">
                     <mat-label> Select Gateway Id</mat-label>
-                    <mat-select  formControlName="gatewayId">
+                    <mat-select formControlName="gatewayId">
                         <mat-option *ngFor="let b of gateway" [(value)]="b.gatewayId">
-                          {{b.gatewayId}}
+                            {{b.gatewayId}}
                         </mat-option>
                     </mat-select>
                     <mat-error>
