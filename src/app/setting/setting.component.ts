@@ -48,6 +48,7 @@ export class SettingComponent implements OnInit {
     this.createForm()
     this.refreshDevice()
     this.refreshCoin()
+    this.refreshSetting()
     this.getZoneDetails()
     this.getGroups()
   }
@@ -103,11 +104,26 @@ export class SettingComponent implements OnInit {
 
     this.maxFindForm=this.fb.group({
       coinId:['',Validators.required],
-      maxLimit:['',Validators.required],
+      maxFindAsset:['',Validators.required],
+    })
+  }
+
+  refreshSetting(){
+    this.api.refreshSettings().then((res:any)=>{
+      
+      console.log("refresh Settings====",res);
+      if(res.status){
+      }
+      else{
+      }
+   
+    }).catch((err:any)=>{
+      console.log("error===",err)
     })
   }
   refreshCoin(){
     this.api.getCoinData().then((res:any)=>{
+      
       console.log("coin submit====",res);
       this.coinData=[]
       if(res.status){
@@ -125,6 +141,7 @@ export class SettingComponent implements OnInit {
  refreshDevice(){
 
   this.api.getDeviceData().then((res:any)=>{
+    
     this.deviceData=[]
     console.log("find submit====",res);
     if(res.status){
@@ -163,13 +180,16 @@ export class SettingComponent implements OnInit {
 
   onSubmitDistanceForm(data){
     console.log("data===",data)
+    
     try{
       if(this.distanceForm.valid){
+        
         this.api.setRange(data).then((res:any)=>{
+          
           console.log("range res===",res)
-
           if(res.status){
             this.distanceForm.reset()
+            res.success=this.general.encrypt(res.success)
             this.general.openSnackBar(res.success,'')
           }
           else{}
@@ -184,16 +204,16 @@ export class SettingComponent implements OnInit {
     }
 
   }
+
   onSubmitTimeDelay(data){
     data.deviceId=this.general.filterArray(data.deviceId)
     console.log("onSubmitTimeDelay data==",data)
-   
-
+    
     try{
       if(this.timeDelay.valid){
         this.api.timeDelay(data).then((res:any)=>{
+          
           console.log("timeDelay res===",res)
-
           if(res.status){
             this.timeDelay.reset()
             this.general.openSnackBar(res.success,'')
@@ -210,10 +230,9 @@ export class SettingComponent implements OnInit {
     }
 
   }
+
   onSubmitInactivityFind(data){
     data.deviceId=this.general.filterArray(data.deviceId)
-
-  
     
     try{
       if(this.inactivityFind.valid){
@@ -221,8 +240,8 @@ export class SettingComponent implements OnInit {
         data.email=data.alert=='email'?'yes':'no'
         console.log("onSubmitInactivityFind data==",data)
         this.api.deviceInactivity(data).then((res:any)=>{
+          
           console.log("inactivity find res===",res)
- 
           if(res.status){
             this.inactivityFind.reset()
             this.general.openSnackBar(res.success,'')
@@ -242,14 +261,16 @@ export class SettingComponent implements OnInit {
     }
 
   }
+
   onSubmitInactivityCoin(data){
     data.coinId=this.general.filterArray(data.coinId)
     console.log("onSubmitInactivityCoin data==",data)
+    
     try{
       if(this.inactivityCoin.valid){
         this.api.coinInactivity(data).then((res:any)=>{
+          
           console.log("inactivity coin res===",res)
-
           if(res.status){
             this.inactivityCoin.reset()
             this.general.openSnackBar(res.success,'')
@@ -266,25 +287,67 @@ export class SettingComponent implements OnInit {
     }
 
   }
+
   onSubmitMaxFindForm(data){
     data.deviceId=this.general.filterArray(data.deviceId)
     console.log("onSubmitMaxFindForm data==",data)
-    this.maxFindForm.reset()
+    
+    try{
+      if(this.maxFindForm.valid){
+        this.api.updateMaxFind(data).then((res:any)=>{
+          
+          console.log("max find res===",res)
+          if(res.status){
+            this.maxFindForm.reset()
+            this.general.openSnackBar(res.success,'')
+          }
+          else{}
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+      else{}
+    }
+    catch(error){
+      console.log("error==",error)
+    }
   }
+
   onSumbitCoinCategory(data){
     data.coinId=this.general.filterArray(data.coinId)
     console.log("onSumbitCoinCategory data==",data)
-    this.coinCategory.reset()
+    
+    try{
+      if(this.coinCategory.valid){
+        this.api.zoneConfiguration(data).then((res:any)=>{
+          
+          console.log("zone setting res===",res)
+          if(res.status){
+            this.coinCategory.reset()
+            this.general.openSnackBar(res.success,'')
+          }
+          else{}
+        }).catch((err)=>{
+          console.log("err=",err)
+        })
+      }
+      else{}
+    }
+    catch(error){
+      console.log("error==",error)
+    }
 
 
   }
+
   onSubmitZoneForm(data){
     console.log("onSubmitZoneForm data==",data)
+    
     try{
       if(this.zoneForm.valid){
         this.api.zoneSetting(data).then((res:any)=>{
+          
           console.log("zone setting res===",res)
-
           if(res.status){
             this.zoneForm.reset()
             this.general.openSnackBar(res.success,'')
@@ -305,11 +368,12 @@ export class SettingComponent implements OnInit {
 
   onSubmitGroup(data){
     console.log("onSubmitZoneForm data==",data)
+    
     try{
       if(this.groupRegister.valid){
         this.api.groupRegister(data).then((res:any)=>{
+          
           console.log("Group register res===",res)
-
           if(res.status){
             this.groupRegister.reset()
             this.general.openSnackBar(res.success,'')
@@ -325,16 +389,16 @@ export class SettingComponent implements OnInit {
       console.log("error==",error)
     }
   }
+
   onSubmitGroupCoinForm(data){
     data.coinId=this.general.filterArray(data.coinId)
     
     console.log("onSubmitGroupCoinForm data==",data)
-
     try{
       if(this.groupCoinForm.valid){
         this.api.updateGroup(data).then((res:any)=>{
+          
           console.log("Group coin res===",res)
-
           if(res.status){
             this.groupCoinForm.reset()
             this.general.openSnackBar(res.success,'')
@@ -349,7 +413,6 @@ export class SettingComponent implements OnInit {
     catch(error){
       console.log("error==",error)
     }
-
   }
 
   toggleAllSelectionDevice(formData){
@@ -360,8 +423,8 @@ export class SettingComponent implements OnInit {
     else{
       formData.controls.deviceId.patchValue([])
     }
-
   }
+
   toggleAllSelectionCoins(formData){
     if(this.allSelected1.selected){
       formData.controls.coinId.patchValue([...this.coinData.map(obj=>obj.coinId),0])  
@@ -370,8 +433,8 @@ export class SettingComponent implements OnInit {
        formData.controls.coinId.patchValue([])
     }
   }
+
   toggleAllSelectionDevice2(formData){
-    
     if(this.allSelected2.selected){
       formData.controls.deviceId.patchValue([...this.deviceData.map(obj=>obj.deviceId),0])
     }
@@ -430,19 +493,21 @@ export class SettingComponent implements OnInit {
 
   getZoneDetails(){
     this.api.getZone().then((res:any)=>{
-        console.log("zone details response==",res)
-        this.zoneData=[]
-        if(res.status){
+      
+      console.log("zone details response==",res)
+      this.zoneData=[]
+      if(res.status){
           this.zoneData=res.success
-        }
-        else{
+      }
+      else{
           this.zoneData=[]
-        }
+      }
     })
   }
 
   getGroups(){
     this.api.getGroup().then((res:any)=>{
+      
       console.log("group details response==",res)
       this.groupData=[]
       if(res.status){

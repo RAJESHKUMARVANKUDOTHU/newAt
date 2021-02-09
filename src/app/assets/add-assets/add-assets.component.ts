@@ -51,10 +51,14 @@ export class AddAssetsComponent implements OnInit {
   findSubmit(data){
     try{
       if(this.addFind.valid){
-     
+        
+        console.log("data====",data);
+
         this.api.deviceRegistration(data).then((res:any)=>{
+          
           console.log("find submit====",res);
           if(res.status){
+              
               this.general.openSnackBar(res.success,'')
           }
           else{
@@ -66,15 +70,17 @@ export class AddAssetsComponent implements OnInit {
       }
     }
     catch(err){
-
+      console.log('error==',err)
     }
-
   }
+
   gatewaySubmit(data){
     try{
       if(this.addGateway.valid){
         
+
         this.api.gatewayRegistration(data).then((res:any)=>{
+          
           console.log("find submit====",res);
           if(res.status){
             this.general.openSnackBar(res.success,'')
@@ -96,10 +102,13 @@ export class AddAssetsComponent implements OnInit {
       console.log("error==",err)
     }
   }
+  
   coinSubmit(data){
     try{
       if(this.addCoin.valid){
+
         this.api.coinRegistration(data).then((res:any)=>{
+          
           console.log("find submit====",res);
           if(res.status){
             this.general.openSnackBar(res.success,'')
@@ -121,6 +130,7 @@ export class AddAssetsComponent implements OnInit {
 
   refreshGateway(){
     this.api.getGatewayData().then((res:any)=>{
+      
       console.log("gatway submit====",res);
       this.gateway=[]
       if(res.status){

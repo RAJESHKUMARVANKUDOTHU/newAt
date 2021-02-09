@@ -4,6 +4,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import { ApiService } from '../../services/api.service';
 import { LoginAuthService } from '../../services/login-auth.service';
+import { GeneralService } from '../../services/general.service';
+
 @Component({
   selector: 'app-offline-device',
   templateUrl: './offline-device.component.html',
@@ -16,7 +18,7 @@ export class OfflineDeviceComponent implements OnInit {
   @ViewChild('paginator2') paginator2: MatPaginator;
   @ViewChild('sort3') sort3: MatSort;
   @ViewChild('paginator3') paginator3: MatPaginator;
-  
+  fileName : any = ''
   offlineDeviceData:any=[]
   offlineGatewayData:any=[]
   offlineCoinData:any=[]
@@ -29,6 +31,7 @@ export class OfflineDeviceComponent implements OnInit {
   constructor(
     private login:LoginAuthService,
     private api: ApiService,
+    private general : GeneralService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +41,7 @@ export class OfflineDeviceComponent implements OnInit {
 
   refreshOfflineDeviceList(){
     this.api.getOfflineDevice().then((res:any)=>{
+      
       console.log("getOfflineDevice res====",res);
       this.offlineDeviceData=[]
       this.offlineGatewayData=[]
@@ -69,6 +73,34 @@ export class OfflineDeviceComponent implements OnInit {
     }).catch((err:any)=>{
       console.log("error===",err)
     })
+  }
+
+  download(type){
+    this.fileName=''
+    if(type == 'device'){
+      this.fileName = "Offline Asset"
+      this.api.downloadOfflineDevice(this.fileName).then((res:any)=>{
+          console.log("online device download==",res)
+      }).catch((err:any)=>{
+        console.log("error==",err)
+      })
+    }
+    else if(type == 'gateway'){
+      this.fileName = "Offline Gateway"
+      this.api.downloadOfflineGateways(this.fileName).then((res:any)=>{
+          console.log("Online gateway download==",res)
+      }).catch((err:any)=>{
+        console.log("error==",err)
+      })
+    }
+    else if( type == 'coin'){
+      this.fileName = "Offline coins"
+      this.api.downloadOfflineCoin(this.fileName).then((res:any)=>{
+          console.log("Online coins download==",res)
+      }).catch((err:any)=>{
+        console.log("error==",err)
+      })
+    }
   }
 
 

@@ -95,11 +95,10 @@ export class GeofenceComponent implements OnInit {
       deviceId:this.general.filterArray(value.deviceId),
       coin:this.general.filterArray(value.coin)
     }
- 
     console.log("geofence Data==",data)
     this.api.geofenceSetting(data).then((res:any)=>{
       if(res.status){
-        console.log("geofence setting res==",res);
+        console.log("geofence setting res==",res, this.general.decrypt(res.message));
         this.general.openSnackBar(res.message,'')
         this.getGeofence();
       }
@@ -109,8 +108,8 @@ export class GeofenceComponent implements OnInit {
     }).catch((err:any)=>{
       console.log("err",err)
     })
-
   }
+
   getGeofence(){
     this.api.getGeofenceSetting().then((res:any)=>{
       this.geoFenceData=[]

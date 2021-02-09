@@ -49,6 +49,7 @@ export class ManageCoinComponent implements OnInit {
 
   refreshCoin(){
     this.api.getCoinData().then((res:any)=>{
+      
       console.log("coin submit====",res);
       this.coinData=[]
       if(res.status){
@@ -135,7 +136,7 @@ export class ManageCoinComponent implements OnInit {
 
     if(confirm('Are you sure you want to delete coin?')){
       this.api.deleteCoin(data).then((res:any)=>{
-        // console.log("coin delete====",res);
+        console.log("coin delete====",res);
        
         if(res.status){
           this.refreshCoin()

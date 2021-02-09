@@ -28,7 +28,7 @@ export class SettingInfoComponent implements OnInit {
   dataSource2 : any = []
   dataSource3 : any = []
   timeDelay = ['deviceId','timeDelay']
-  findInactivityTime = ['deviceId','inActivityTime','sms','email']
+  findInactivityTime = ['deviceId','inActivityTime','inactivitySMS','inactivityEmail']
   coinInactivityTime = ['coinId','inActivityTime','sms','email']
   coinConfig = ['coinId','zoneName']
   zoneCategory = ['zoneName', 'standardTime']
@@ -71,12 +71,24 @@ export class SettingInfoComponent implements OnInit {
       this.coinData=[]
       this.dataSource=[]
       if(res.status){
-        this.coinData=res.success
-        this.dataSource = new MatTableDataSource(this.coinData);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator=this.paginator
-        })
+        for(let i=0;i<res.success.length;i++){
+          this.coinData.push({
+              coinId: res.success[i].coinId,
+              coinName: res.success[i].coinName,
+              gatewayId: res.success[i].gatewayId,
+              groupId: res.success[i].groupId,
+              sms: res.success[i].inactivityAlert[0].sms == "no"?'N':res.success[i].inactivityAlert[0].sms == null?'-':'Y',
+              email:res.success[i].inactivityAlert[1].email == "no"?'N': res.success[i].inactivityAlert[1].email == null?'-':'Y',
+              zoneName: res.success[i].zoneId,
+              inactivityTime:res.success[i].inactivityTime
+          })
+          this.dataSource = new MatTableDataSource(this.coinData);
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator=this.paginator
+          })
+        }
+     
       }
       else{}
    
@@ -93,7 +105,21 @@ export class SettingInfoComponent implements OnInit {
         this.dataSource1 = [];
         console.log('find submit====', res);
         if (res.status) {
-          this.deviceData = res.success;
+          for(let i=0;i<res.success.length;i++){
+            this.deviceData.push({
+
+                deviceId: res.success[i].deviceId,
+                deviceName: res.success[i].deviceName,
+                distance:res.success[i].distance,
+                sms:res.success[i].sms=='N'?'N':'Y',
+                email: res.success[i].email=='N'?'N':'Y',
+                inActivityTime:res.success[i].inActivityTime,
+                inactivitySMS:  res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == "no"?'N':res.success[i].inactivityAlert[0].sms == null?'-':'Y':'-',
+                inactivityEmail:res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == "no"?'N': res.success[i].inactivityAlert[1].email == null?'-':'Y':'-',
+                timeDelay: res.success[i].timeDelay,
+
+            })
+          }
           this.dataSource1 = new MatTableDataSource(this.deviceData);
           setTimeout(() => {
             this.dataSource1.sort = this.sort;

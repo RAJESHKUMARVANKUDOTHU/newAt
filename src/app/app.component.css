@@ -1,4 +1,4 @@
-mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
+/* mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
     width: 40px; margin: 16px 0 0px 0;
   }
   mat-sidenav:not(.mat-drawer-opened) .navTitle,
@@ -10,7 +10,7 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
     visibility: visible !important;
     width: 60px !important;
     overflow: hidden;
-  }
+  } */
   .example-container {
     position: absolute;
     top: 0;
@@ -22,15 +22,9 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
 .image{
     width: 150px;
     margin-top: 3px;
+    margin-left: 26px;
   }
-  mat-sidenav.mat-drawer.mat-sidenav.ng-trigger.ng-trigger-transform.mat-drawer-side.mat-drawer-opened.ng-star-inserted,.mat-drawer-inner-container {
-      /* background: black !important; */
-     
-      /* opacity: 0.7;
-      background-size: cover; */
-      overflow: hidden !important;
-      /* width: 12rem; */
-  }
+
 
   mat-icon  {
     vertical-align: sub;
@@ -47,35 +41,35 @@ mat-sidenav:not(.mat-drawer-opened) div.leftNav div.navProfile img {
      background-color: #002060;
      display: block;
      color: white;
+     width: 280px;
+     min-width: fit-content;
   }
-  .full-width {
-    width: 100%;
-    /* color: white; */
-  
-  }
+ 
   .flex{
     display: flex;
   }
  
   .mat-list-item{
-  font-size: 18px;
-  margin-top: 10px;
+    font-size: 18px;
+    margin-top: 10px;
   }
   mat-list-item,.mat-list-item-content{
     color: white !important;
     
   }
+  
   mat-list-item:hover{
     color: whitesmoke !important;
-    background-color:gray;
-    /* rgb(117 116 116) */
-    
+    background-color:gray;   
   }
   mat-toolbar{
     height: 10.5%;
   }
 
   .list{
-    margin-left: 2rem;
+    margin-left: 2.5rem;
+  }
+  .list>.mat-list-item,.list>mat-icon{
+    font-size: 17px;
   }
  

@@ -82,8 +82,9 @@ export class EditAssetsComponent implements OnInit {
     console.log("edit device==",data)
     try{
       if(this.editFind.valid){
-       
+        
         this.api.editDevice(data).then((res:any)=>{
+          
           console.log("find submit====",res);
           if(res.status){
             this.general.openSnackBar(res.success,'')
@@ -108,8 +109,9 @@ export class EditAssetsComponent implements OnInit {
     console.log("gateway ==",data)
     try{
       if(this.editGateway.valid){
-        data.userId=1
+        
         this.api.editGateway(data).then((res:any)=>{
+          
           console.log("gateway submit====",res);
           if(res.status){
             this.general.openSnackBar(res.success,'')
@@ -133,9 +135,10 @@ export class EditAssetsComponent implements OnInit {
     data.userId =this.patchData.userId
     try{
       if(this.editCoin.valid){
-        data.userId=1
+        
         this.api.editCoin(data).then((res:any)=>{
-          console.log("find submit====",res);
+          
+          console.log("coin submit====",res);
           if(res.status){
             this.general.openSnackBar(res.success,'')
           }
@@ -152,8 +155,10 @@ export class EditAssetsComponent implements OnInit {
       console.log("error===",err)
     }
   }
+
   refreshGateway(){
     this.api.getGatewayData().then((res:any)=>{
+      
       console.log("coin submit====",res);
       this.gateway=[]
       if(res.status ){

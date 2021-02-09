@@ -39,6 +39,7 @@ export class MapService {
     this.api
       .getLayouts()
       .then((res: any) => {
+        
         console.log('get layout res===', res);
         if (res.status) {
           this.gatewayList = res.success;

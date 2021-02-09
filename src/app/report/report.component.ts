@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { LoginAuthService } from '../services/login-auth.service';
+import { GeneralService } from '../services/general.service'
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -12,9 +13,10 @@ export class ReportComponent implements OnInit {
   customReport:FormGroup
 
   constructor(
-    private fb: FormBuilder,
-    private login:LoginAuthService,
-    private api: ApiService,
+    private fb : FormBuilder,
+    private login : LoginAuthService,
+    private api : ApiService,
+    private general : GeneralService
   ) { }
 
   ngOnInit(): void {
@@ -64,10 +66,12 @@ export class ReportComponent implements OnInit {
   
   onsubmitGenericReport(data){
     console.log("generic data==",data)
+    data=this.general.encrypt(data)
 
   }
   onsubmitCustomReport(data){
     console.log("custom data==",data)
+    data=this.general.encrypt(data)
 
   }
 

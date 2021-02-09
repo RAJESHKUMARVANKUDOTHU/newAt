@@ -52,6 +52,7 @@ export class ManageDeviceComponent implements OnInit {
 
     this.api.getDeviceData().then((res:any)=>{
       this.findData=[]
+      
       console.log("find submit====",res);
       if(res.status){
         for(let i=0;i<res.success.length;i++){
@@ -81,6 +82,7 @@ export class ManageDeviceComponent implements OnInit {
       console.log("error===",err)
     })
   }
+  
   getBatteryStatus(data){
     if(data == "H"){
       var a = {
@@ -125,13 +127,16 @@ export class ManageDeviceComponent implements OnInit {
       this.refreshDevice()
     });
   }
+
   delete(data){
     console.log("data==",data)
     data.deviceObjectId=data.id
     if(confirm('Are you sure you want to delete device?')){
+      
+
       this.api.deleteDevice(data).then((res:any)=>{
+        
         console.log("device delete====",res);
-       
         if(res.status){
           this.refreshDevice()
           var msg = res.success
@@ -148,16 +153,17 @@ export class ManageDeviceComponent implements OnInit {
   toggle(a){
     var data={
       _id:a.id,
-      userId:a.userId,
       deviceName:a.deviceName,
       deviceId:a.deviceId,
       deviceToggleStatus:a.deviceToggleStatus==true?false:true
 
     }
     if(confirm('Are you sure you want to perform this operation?')){
+      
+
       this.api.deviceOnOff(data).then((res:any)=>{
+        
         console.log("toggle====",res);
-       
         if(res.status){
           this.refreshDevice()
           var msg = res.success
@@ -168,12 +174,14 @@ export class ManageDeviceComponent implements OnInit {
         console.log("error===",err)
       })
     }
-    else{}
+    else{
+      this.refreshDevice()
+    }
   }
   download(){
-    this.fileName = "Registered coins"
-    this.api.downloadRegisteredCoins(this.fileName).then((res:any)=>{
-        console.log("Registerd coins download==",res)
+    this.fileName = "Registered Asset"
+    this.api.downloadRegisteredDevice(this.fileName).then((res:any)=>{
+        console.log("Registerd asset download==",res)
     }).catch((err:any)=>{
       console.log("error==",err)
     })

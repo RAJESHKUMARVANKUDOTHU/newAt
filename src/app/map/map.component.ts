@@ -57,7 +57,6 @@ export class MapComponent implements OnInit {
       maxBoundsViscosity: 1.0,
     });
     var bounds = this.map.getBounds();
-
     this.mapService.selectedLayout.subscribe((data) => {
       this.mapDisable = false;
       this.api.getLayoutImage(data).subscribe((res: any) => {

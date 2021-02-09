@@ -183,6 +183,7 @@ export class MapActionsComponent implements OnInit {
     this.api
       .getGatewayData()
       .then((res: any) => {
+        
         this.newGatewayLayout = [];
         console.log('gateway submit====', res);
         if (res.status) {
@@ -319,9 +320,12 @@ export class MapActionsComponent implements OnInit {
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
+      
+
       this.api
         .createLayout(data)
         .then((res: any) => {
+          
           console.log('create layout res===', res);
           if (res.status) {
             this.general.openSnackBar(res.success, '');
@@ -353,32 +357,7 @@ export class MapActionsComponent implements OnInit {
   //       console.log('error==', err);
   //     });
   // }
-  gatewayName : any =[
-    {
-      gatewayId:'5553253',
-      gatewayName: 'abc'
-    },
-    {
-      gatewayId:'555sdfgsd3253',
-      gatewayName: 'absdgsdfc'
-    },
-    {
-      gatewayId:'5553hrthjy53',
-      gatewayName: 'abcj,hj,h'
-    },
-    {
-      gatewayId:'555325ewt4653',
-      gatewayName: 'abc2424'
-    },
-  ]
-  addCoin(data){
-    console.log("data submit===",data);
-    
-  }
-  addCoin1(data){
-    console.log("data submit===",data);
-    
-  }
+
 
   updateCoinBound() {
 
@@ -387,7 +366,10 @@ export class MapActionsComponent implements OnInit {
       coinName : this.mapService.selectedCoinBound.coinName,
       coinBounds : this.mapService.selectedCoinBound.coinBounds
     };
+    
+
     this.api.updateLatLng(data).then((res: any) => {
+      
       console.log('update bounds res==', res);
       if (res.status) {
         this.general.openSnackBar(res.message, '');
