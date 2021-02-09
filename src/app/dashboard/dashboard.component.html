@@ -142,7 +142,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor = "let a of zoneList; let i = index" (click)="zoneClick(a)">
+                    <tr *ngFor = "let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                       <td>{{a.zoneName}}</td>
                       <td>3</td>
                       <td>{{a.updatedAt | date:'medium'}}</td>

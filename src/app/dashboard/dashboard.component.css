@@ -55,3 +55,7 @@ table{
   .leaflet-control-container {
     display: none;
   }
+  .selected{
+    color: white;
+    background-color: #002060 !important;
+  }

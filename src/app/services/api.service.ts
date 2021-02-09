@@ -34,8 +34,11 @@ export class ApiService {
     };
    
     let url = this.host+'/registerSubUsers';
+    let body = {
+      data : data
+    }
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
+      this.http.post(url,body,httpOptions).subscribe(res=>{
         console.log("get",res)
         resolve(res);
       })
