@@ -52,7 +52,7 @@ export class ManageDeviceComponent implements OnInit {
 
     this.api.getDeviceData().then((res: any) => {
       this.findData = []
-
+      res=res.data
       console.log("find submit====", res);
       if (res.status) {
         for (let i = 0; i < res.success.length; i++) {

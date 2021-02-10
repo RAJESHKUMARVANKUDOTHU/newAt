@@ -46,10 +46,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
           // console.log("tap res==", res)
           if (res.body.hasOwnProperty('data')) {
             res.body.data = this.general.decrypt(res.body.data)
-            return res
+            
           }
           else {
-            return res
+            
           }
         }
         else { }
