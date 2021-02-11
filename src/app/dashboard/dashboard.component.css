@@ -59,3 +59,8 @@ table{
     color: white;
     background-color: #002060 !important;
   }
+  .error{
+    font-size: 13px;
+    font-weight: 600;
+    color: red;
+  }

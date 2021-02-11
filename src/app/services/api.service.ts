@@ -120,11 +120,8 @@ export class ApiService {
     };
 
     let url = this.host + '/loginSuperAdmin';
-    let body = {
-      data: data,
-    };
     return new Promise((resolve, reject) => {
-      this.http.post(url, body, httpOptions).subscribe(
+      this.http.post(url, data, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },

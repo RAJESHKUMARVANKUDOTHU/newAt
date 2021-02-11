@@ -41,7 +41,6 @@ export class ActiveDeviceComponent implements OnInit {
   }
   refreshActiveDeviceList(){
     this.api.getOnlineDevice().then((res:any)=>{
-      res.success=this.general.decrypt(res.success)
       console.log("getOnlineDevice res====",res);
       this.activeDeviceData=[]
       this.activeGatewayData=[]
