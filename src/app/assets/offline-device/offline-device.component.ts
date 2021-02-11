@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { ApiService } from '../../services/api.service';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { GeneralService } from '../../services/general.service';
@@ -18,20 +18,20 @@ export class OfflineDeviceComponent implements OnInit {
   @ViewChild('paginator2') paginator2: MatPaginator;
   @ViewChild('sort3') sort3: MatSort;
   @ViewChild('paginator3') paginator3: MatPaginator;
-  fileName : any = ''
-  offlineDeviceData:any=[]
-  offlineGatewayData:any=[]
-  offlineCoinData:any=[]
+  fileName: any = ''
+  offlineDeviceData: any = []
+  offlineGatewayData: any = []
+  offlineCoinData: any = []
   dataSource0: any = [];
   dataSource1: any = [];
   dataSource2: any = [];
-  displayedColumns1 = ['i','deviceId','deviceName','updatedOn'];
-  displayedColumns2 = ['i','gatewayName','gatewayId','updatedOn'];
-  displayedColumns3 = ['i','coinId','coinName','gatewayId','updatedOn'];
+  displayedColumns1 = ['i', 'deviceId', 'deviceName', 'updatedOn'];
+  displayedColumns2 = ['i', 'gatewayName', 'gatewayId', 'updatedOn'];
+  displayedColumns3 = ['i', 'coinId', 'coinName', 'gatewayId', 'updatedOn'];
   constructor(
-    private login:LoginAuthService,
+    private login: LoginAuthService,
     private api: ApiService,
-    private general : GeneralService
+    private general: GeneralService
   ) { }
 
   ngOnInit(): void {
@@ -39,17 +39,17 @@ export class OfflineDeviceComponent implements OnInit {
   }
 
 
-  refreshOfflineDeviceList(){
-    this.api.getOfflineDevice().then((res:any)=>{
-      
-      console.log("getOfflineDevice res====",res);
-      this.offlineDeviceData=[]
-      this.offlineGatewayData=[]
-      this.offlineCoinData=[]
-      if(res.status){
-        this.offlineDeviceData=res.success.device.offlineDevice
-        this.offlineGatewayData=res.success.gateway.offlineGateway
-        this.offlineCoinData=res.success.coin.offlineCoin
+  refreshOfflineDeviceList() {
+    this.api.getOfflineDevice().then((res: any) => {
+
+      console.log("getOfflineDevice res====", res);
+      this.offlineDeviceData = []
+      this.offlineGatewayData = []
+      this.offlineCoinData = []
+      if (res.status) {
+        this.offlineDeviceData = res.success.device.offlineDevice
+        this.offlineGatewayData = res.success.gateway.offlineGateway
+        this.offlineCoinData = res.success.coin.offlineCoin
         // for(let i=0;i<res.success.onlineDevice.length;i++){
         //   if(res.activeDeviceList[i] != null){
         //     this.activeDeviceData.push(res.success.onlineDevice[i])
@@ -68,37 +68,37 @@ export class OfflineDeviceComponent implements OnInit {
           this.dataSource2.sort = this.sort3
         })
       }
-      else{}
-  
-    }).catch((err:any)=>{
-      console.log("error===",err)
+      else { }
+
+    }).catch((err: any) => {
+      console.log("error===", err)
     })
   }
 
-  download(type){
-    this.fileName=''
-    if(type == 'device'){
+  download(type) {
+    this.fileName = ''
+    if (type == 'device') {
       this.fileName = "Offline Asset"
-      this.api.downloadOfflineDevice(this.fileName).then((res:any)=>{
-          console.log("online device download==",res)
-      }).catch((err:any)=>{
-        console.log("error==",err)
+      this.api.downloadOfflineDevice(this.fileName).then((res: any) => {
+        console.log("online device download==", res)
+      }).catch((err: any) => {
+        console.log("error==", err)
       })
     }
-    else if(type == 'gateway'){
+    else if (type == 'gateway') {
       this.fileName = "Offline Gateway"
-      this.api.downloadOfflineGateways(this.fileName).then((res:any)=>{
-          console.log("Online gateway download==",res)
-      }).catch((err:any)=>{
-        console.log("error==",err)
+      this.api.downloadOfflineGateways(this.fileName).then((res: any) => {
+        console.log("Online gateway download==", res)
+      }).catch((err: any) => {
+        console.log("error==", err)
       })
     }
-    else if( type == 'coin'){
+    else if (type == 'coin') {
       this.fileName = "Offline coins"
-      this.api.downloadOfflineCoin(this.fileName).then((res:any)=>{
-          console.log("Online coins download==",res)
-      }).catch((err:any)=>{
-        console.log("error==",err)
+      this.api.downloadOfflineCoin(this.fileName).then((res: any) => {
+        console.log("Online coins download==", res)
+      }).catch((err: any) => {
+        console.log("error==", err)
       })
     }
   }

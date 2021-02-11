@@ -18,22 +18,23 @@ import { MatSort } from '@angular/material/sort';
 export class SettingInfoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  type:any
-  coinData : any = []
-  deviceData : any = []
-  zoneData : any = []
-  groupData :any = []
-  dataSource : any = []
-  dataSource1 : any = []
-  dataSource2 : any = []
-  dataSource3 : any = []
-  timeDelay = ['deviceId','timeDelay']
-  findInactivityTime = ['deviceId','inActivityTime','inactivitySMS','inactivityEmail']
-  coinInactivityTime = ['coinId','inActivityTime','sms','email']
-  coinConfig = ['coinId','zoneName']
+  type: any
+  coinData: any = []
+  deviceData: any = []
+  zoneData: any = []
+  groupData: any = []
+  dataSource: any = []
+  dataSource1: any = []
+  dataSource2: any = []
+  dataSource3: any = []
+  timeDelay = ['deviceId', 'timeDelay']
+  findInactivityTime = ['deviceId', 'inActivityTime', 'inactivitySMS', 'inactivityEmail']
+  coinInactivityTime = ['coinId', 'inActivityTime', 'sms', 'email']
+  coinConfig = ['coinId', 'zoneName']
   zoneCategory = ['zoneName', 'standardTime']
-  groupInfo = ['i','groupName']
-  coinGroup = ['coinId','coinName','groupId']
+  groupInfo = ['i', 'groupName']
+  coinGroup = ['coinId', 'coinName', 'groupId']
+  maxFind =  ['coinId', 'coinName', 'maxFindAsset']
 
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
@@ -48,52 +49,52 @@ export class SettingInfoComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
   }
-  loadData(){
-    if(this.type == 'timeDelay' || this.type == 'find-inactive' || this.type == 'max-find')
-    {
+  loadData() {
+    if (this.type == 'timeDelay' || this.type == 'find-inactive' ) {
       this.refreshDevice()
     }
-    else if(this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp'){
+    else if (this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp' || this.type == 'max-find') {
       this.refreshCoin()
     }
-    else if(this.type == 'groupName'){
+    else if (this.type == 'groupName') {
       this.getGroups()
     }
-    else{
+    else {
       this.getZoneDetails()
     }
   }
 
- 
-  refreshCoin(){
-    this.api.getCoinData().then((res:any)=>{
-      console.log("coin submit====",res);
-      this.coinData=[]
-      this.dataSource=[]
-      if(res.status){
-        for(let i=0;i<res.success.length;i++){
+
+  refreshCoin() {
+    this.api.getCoinData().then((res: any) => {
+      console.log("coin submit====", res);
+      this.coinData = []
+      this.dataSource = []
+      if (res.status) {
+        for (let i = 0; i < res.success.length; i++) {
           this.coinData.push({
-              coinId: res.success[i].coinId,
-              coinName: res.success[i].coinName,
-              gatewayId: res.success[i].gatewayId,
-              groupId: res.success[i].groupId,
-              sms: res.success[i].inactivityAlert[0].sms == "no"?'N':res.success[i].inactivityAlert[0].sms == null?'-':'Y',
-              email:res.success[i].inactivityAlert[1].email == "no"?'N': res.success[i].inactivityAlert[1].email == null?'-':'Y',
-              zoneName: res.success[i].zoneId,
-              inactivityTime:res.success[i].inactivityTime
+            coinId: res.success[i].coinId,
+            coinName: res.success[i].coinName,
+            gatewayId: res.success[i].gatewayId,
+            groupId: res.success[i].groupId,
+            maxFindAsset:res.success[i].maxFindAsset,
+            sms: res.success[i].inactivityAlert[0].sms == "no" ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y',
+            email: res.success[i].inactivityAlert[1].email == "no" ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y',
+            zoneName: res.success[i].zoneId,
+            inactivityTime: res.success[i].inactivityTime
           })
           this.dataSource = new MatTableDataSource(this.coinData);
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator=this.paginator
+            this.dataSource.paginator = this.paginator
           })
         }
-     
+
       }
-      else{}
-   
-    }).catch((err:any)=>{
-      console.log("error===",err)
+      else { }
+
+    }).catch((err: any) => {
+      console.log("error===", err)
     })
 
   }
@@ -105,32 +106,32 @@ export class SettingInfoComponent implements OnInit {
         this.dataSource1 = [];
         console.log('find submit====', res);
         if (res.status) {
-          for(let i=0;i<res.success.length;i++){
+          for (let i = 0; i < res.success.length; i++) {
             this.deviceData.push({
 
-                deviceId: res.success[i].deviceId,
-                deviceName: res.success[i].deviceName,
-                distance:res.success[i].distance,
-                sms:res.success[i].sms=='N'?'N':'Y',
-                email: res.success[i].email=='N'?'N':'Y',
-                inActivityTime:res.success[i].inActivityTime,
-                inactivitySMS:  res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == "no"?'N':res.success[i].inactivityAlert[0].sms == null?'-':'Y':'-',
-                inactivityEmail:res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == "no"?'N': res.success[i].inactivityAlert[1].email == null?'-':'Y':'-',
-                timeDelay: res.success[i].timeDelay,
+              deviceId: res.success[i].deviceId,
+              deviceName: res.success[i].deviceName,
+              distance: res.success[i].distance,
+              sms: res.success[i].sms == 'N' ? 'N' : 'Y',
+              email: res.success[i].email == 'N' ? 'N' : 'Y',
+              inActivityTime: res.success[i].inActivityTime,
+              inactivitySMS: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == "no" ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y' : '-',
+              inactivityEmail: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == "no" ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y' : '-',
+              timeDelay: res.success[i].timeDelay,
 
             })
           }
           this.dataSource1 = new MatTableDataSource(this.deviceData);
           setTimeout(() => {
             this.dataSource1.sort = this.sort;
-            this.dataSource1.paginator=this.paginator
+            this.dataSource1.paginator = this.paginator
           })
 
-      }
-      else{}
-    }).catch((err:any)=>{
-      console.log("error===",err)
-    })
+        }
+        else { }
+      }).catch((err: any) => {
+        console.log("error===", err)
+      })
   }
 
   getZoneDetails() {
@@ -146,24 +147,24 @@ export class SettingInfoComponent implements OnInit {
           this.dataSource2.paginator = this.paginator;
         });
       }
-      else{}
+      else { }
 
     })
   }
-  
-  getGroups(){
-    this.api.getGroup().then((res:any)=>{
-      console.log("group details response==",res)
-      this.groupData=[]
-      if(res.status){
-        this.groupData=res.success
+
+  getGroups() {
+    this.api.getGroup().then((res: any) => {
+      console.log("group details response==", res)
+      this.groupData = []
+      if (res.status) {
+        this.groupData = res.success
         this.dataSource3 = new MatTableDataSource(this.groupData);
         setTimeout(() => {
           this.dataSource3.sort = this.sort;
-          this.dataSource3.paginator=this.paginator
+          this.dataSource3.paginator = this.paginator
         })
       }
-      else{}
+      else { }
     })
   }
 }

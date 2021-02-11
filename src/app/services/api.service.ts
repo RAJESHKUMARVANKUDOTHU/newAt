@@ -42,7 +42,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
-          console.log('get', res);
+          
           resolve(res.data);
         },
         (err) => {
@@ -61,6 +61,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
         (res:any) => {
+         
           resolve(res.data);
         },
         (err) => {
@@ -667,7 +668,7 @@ export class ApiService {
     let body = {
       data: data,
     };
-    return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
@@ -1048,20 +1049,18 @@ export class ApiService {
 
     let url = this.host + '/downloadRegisteredCoins';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'arraybuffer' })
-        .subscribe(
-          (res:any) => {
-            console.log('res==', res.data);
-            if (res.status == 200) this.downloadFile(res, fileName);
+      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
 
-            resolve(true);
-          },
-          (err) => {
-            console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        err => {
+          console.log("err==", err)
+        })
     });
+
   }
 
   downloadRegisteredGateways(fileName) {
@@ -1069,42 +1068,35 @@ export class ApiService {
 
     let url = this.host + '/downloadRegisteredGateways';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' })
-        .subscribe(
-          (res:any) => {
-            console.log('res==', res.data);
-            if (res.status == 200) this.downloadFile(res, fileName);
+      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
 
-            resolve(true);
-          },
-          (err) => {
-            console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        err => {
+          console.log("err==", err)
+        })
     });
   }
 
   downloadRegisteredDevice(fileName) {
     // this.general.loadingFreez.next({status:true})
-    const httpOptions = {
-      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-    };
-
     let url = this.host + '/downloadRegisterdDevice';
     return new Promise((resolve, reject) => {
-      this.http.get(url, httpOptions).subscribe(
-        (res:any) => {
-          // if(res.status==200)
-          this.downloadFile(res.data, fileName);
+      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
-          resolve(true);
-        },
-        (err) => {
-          console.log('err==', err);
-        }
-      );
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          console.log("err==", err)
+        })
     });
+
   }
 
   downloadOnlineCoin(fileName) {
@@ -1112,19 +1104,18 @@ export class ApiService {
 
     let url = this.host + '/downloadOnlineCoin';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' as 'json' })
-        .subscribe(
-          (res:any) => {
-            if (res.status == 200) this.downloadFile(res.data, fileName);
+      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
-            resolve(true);
-          },
-          (err) => {
-            console.log('err==', err);
-          }
-        );
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          console.log("err==", err)
+        })
     });
+
   }
 
   downloadOfflineCoin(fileName) {

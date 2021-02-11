@@ -12,7 +12,7 @@ export class MapService {
   public mapError = new Subject<any>();
   public mapDetectChanges = new Subject<any>();
   public selectedLayout = new Subject<any>()
-  public GatewayCoinBound : any = [];
+  public GatewayCoinBound: any = [];
   public selectedLayoutZone: any = {
     layoutName: '',
     id: '',
@@ -33,18 +33,18 @@ export class MapService {
   constructor(
     private api: ApiService,
     private general: GeneralService,
-  ) {}
+  ) { }
 
   getLayout() {
     this.api
       .getLayouts()
       .then((res: any) => {
-        
+
         console.log('get layout res===', res);
         if (res.status) {
           this.gatewayList = res.success;
         }
-        else{
+        else {
           this.gatewayList = [];
         }
       })

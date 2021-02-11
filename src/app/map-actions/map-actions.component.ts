@@ -155,8 +155,8 @@ export class MapActionsComponent implements OnInit {
     private api: ApiService,
     private general: GeneralService,
     private cd: ChangeDetectorRef,
-  ) {}
-   patchData = 0;
+  ) { }
+  patchData = 0;
   ngOnInit(): void {
     this.configCoinForm1 = this.fb.group({
       name: ['', Validators.required],
@@ -166,14 +166,14 @@ export class MapActionsComponent implements OnInit {
     this.refreshGateway();
     this.mapService.getLayout();
 
-    this.mapService.mapCoinSelected.subscribe((data)=>{
-      console.log("data sub==",data,"mapService.coinData===",this.mapService.coinData);
-       this.patchData = data;
-       
+    this.mapService.mapCoinSelected.subscribe((data) => {
+      console.log("data sub==", data, "mapService.coinData===", this.mapService.coinData);
+      this.patchData = data;
+
       this.configCoinForm.patchValue({
-        coinId : this.patchData
+        coinId: this.patchData
       })
-      console.log("form coin==",this.configCoinForm.get('coinId'));
+      console.log("form coin==", this.configCoinForm.get('coinId'));
 
       this.cd.detectChanges();
     })
@@ -183,7 +183,7 @@ export class MapActionsComponent implements OnInit {
     this.api
       .getGatewayData()
       .then((res: any) => {
-        
+
         this.newGatewayLayout = [];
         console.log('gateway submit====', res);
         if (res.status) {
@@ -226,9 +226,9 @@ export class MapActionsComponent implements OnInit {
 
   gatewaySelect(data) {
     console.log('data==', data);
-    console.log("gatewaySelect form coin 2==",this.configCoinForm.get('coinId').value);
-    console.log("gatewaySelect form coin 2==",this.configCoinForm.get('gatewayName').value);
-    let gatewayData = this.mapService.gatewayData.filter((obj)=>{
+    console.log("gatewaySelect form coin 2==", this.configCoinForm.get('coinId').value);
+    console.log("gatewaySelect form coin 2==", this.configCoinForm.get('gatewayName').value);
+    let gatewayData = this.mapService.gatewayData.filter((obj) => {
       return obj.gatewayId == data
     })
     this.mapService.clear();
@@ -240,9 +240,9 @@ export class MapActionsComponent implements OnInit {
 
   coinSelect(data) {
     console.log('data==', data);
-    console.log("form coin 2==",this.configCoinForm.get('coinId'));
-    console.log("form coin 2==",this.configCoinForm.get('gatewayName'));
-    let coinData = this.mapService.coinData.filter((obj)=>{
+    console.log("form coin 2==", this.configCoinForm.get('coinId'));
+    console.log("form coin 2==", this.configCoinForm.get('gatewayName'));
+    let coinData = this.mapService.coinData.filter((obj) => {
       return obj.coinId == data
     })
     this.mapService.selectedCoinBound.coinId = coinData[0].coinId;
@@ -313,24 +313,24 @@ export class MapActionsComponent implements OnInit {
       data.gatewayId[0] +
       parseInt(this.randomNumber().toString()) +
       data.fileData.filename;
-      // data.file=data.fileData.filename
-      console.log('file===', data);
+    // data.file=data.fileData.filename
+    console.log('file===', data);
     if (
       data.fileData.filetype == 'image/jpg' ||
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
-      
+
 
       this.api
         .createLayout(data)
         .then((res: any) => {
-          
+
           console.log('create layout res===', res);
           if (res.status) {
             this.general.openSnackBar(res.success, '');
           }
-          else{
+          else {
             this.general.openSnackBar(res.success, '');
           }
         })
@@ -362,24 +362,24 @@ export class MapActionsComponent implements OnInit {
   updateCoinBound() {
 
     var data = {
-      coinId : this.mapService.selectedCoinBound.coinId,
-      coinName : this.mapService.selectedCoinBound.coinName,
-      coinBounds : this.mapService.selectedCoinBound.coinBounds
+      coinId: this.mapService.selectedCoinBound.coinId,
+      coinName: this.mapService.selectedCoinBound.coinName,
+      coinBounds: this.mapService.selectedCoinBound.coinBounds
     };
-    
+
 
     this.api.updateLatLng(data).then((res: any) => {
-      
+
       console.log('update bounds res==', res);
       if (res.status) {
         this.general.openSnackBar(res.message, '');
         this.mapService.getLayout();
       }
-      else{
+      else {
         this.general.openSnackBar(res.message, '');
       }
-    }).catch(err=>{
-      console.log("err==",err);
+    }).catch(err => {
+      console.log("err==", err);
     });
   }
 

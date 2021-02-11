@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  constructor(private cd: ChangeDetectorRef, private api: ApiService) {}
+  constructor(private cd: ChangeDetectorRef, private api: ApiService) { }
 
   ngOnInit(): void {
     this.congestionGraph();

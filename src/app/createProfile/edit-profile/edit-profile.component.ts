@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { GeneralService } from '../../services/general.service';
@@ -9,37 +9,36 @@ import { GeneralService } from '../../services/general.service';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-  profileData:any
+  profileData: any
   editProfile
   constructor(
     public dialogRef: MatDialogRef<EditProfileComponent>,
-    @Inject(MAT_DIALOG_DATA)  data,
+    @Inject(MAT_DIALOG_DATA) data,
     private fb: FormBuilder,
-    private general:GeneralService,
+    private general: GeneralService,
     private api: ApiService
   ) {
-    this.profileData=data.data
-   }
+    this.profileData = data.data
+  }
 
   ngOnInit(): void {
-    this.editProfile=this.fb.group({
-      userName:[this.profileData.userName,[Validators.email,Validators.required]]
+    this.editProfile = this.fb.group({
+      userName: [this.profileData.userName, [Validators.email, Validators.required]]
     })
   }
 
-  submit(data){
-    data.id=this.profileData._id
-    console.log("edit profile data==",data)
+  submit(data) {
+    data.id = this.profileData._id
+    console.log("edit profile data==", data)
 
-    this.api.updateSubUser(data).then((res:any)=>{
-        res.success = this.general.decrypt(res.success)
-        console.log("update sub user res===",res)
-        if(res.status){
-          this.general.openSnackBar(res.success,'')
-        }
-        else{}
-    }).catch((err:any)=>{
-      console.log("error===",err)
+    this.api.updateSubUser(data).then((res: any) => {
+      console.log("update sub user res===", res)
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
+      }
+      else { }
+    }).catch((err: any) => {
+      console.log("error===", err)
     })
   }
 }

@@ -53,7 +53,7 @@ export class ZoneConfigurationComponent implements OnInit {
     public mapService: MapService,
     private api: ApiService,
     private general: GeneralService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.mapService.clear();
@@ -97,7 +97,7 @@ export class ZoneConfigurationComponent implements OnInit {
 
   getZoneDetails() {
     this.api.getZone().then((res: any) => {
-      
+
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
@@ -105,7 +105,7 @@ export class ZoneConfigurationComponent implements OnInit {
         this.mapService.clear();
         this.mapService.mapDetectChanges.next({ type: 'zone' });
       }
-      else{
+      else {
         this.zoneList = [];
       }
     });
@@ -137,25 +137,25 @@ export class ZoneConfigurationComponent implements OnInit {
 
   submitZone(data) {
     console.log('zone submit===', data);
-    console.log("this.mapService.selectedLayoutZone==============",this.mapService.selectedLayoutZone);
+    console.log("this.mapService.selectedLayoutZone==============", this.mapService.selectedLayoutZone);
     this.api.updateZoneBound(data).then((res: any) => {
       console.log('update zone bounds res==', res);
       if (res.status) {
         this.general.openSnackBar(res.message, '');
         this.getZoneDetails();
       }
-      else{
+      else {
         this.general.openSnackBar(res.message, '');
       }
-    }).catch(err=>{
-      console.log("err==",err);
+    }).catch(err => {
+      console.log("err==", err);
     });
   }
 
   removeZone(data) {
     console.log('zone remove===', data);
     let sendData = {
-      id : data.id
+      id: data.id
     }
     this.api.deleteZoneBound(sendData).then((res: any) => {
       console.log('delete zone bounds res==', res);
@@ -163,11 +163,11 @@ export class ZoneConfigurationComponent implements OnInit {
         this.general.openSnackBar(res.message, '');
         this.getZoneDetails();
       }
-      else{
+      else {
         this.general.openSnackBar(res.message, '');
       }
-    }).catch(err=>{
-      console.log("err==",err);
+    }).catch(err => {
+      console.log("err==", err);
     });
   }
 }

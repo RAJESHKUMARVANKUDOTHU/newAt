@@ -25,122 +25,124 @@
 
 <br>
 
+<mat-card>
+  <mat-card-title>Coin Configuration</mat-card-title>
+  <mat-card-content>
     <mat-card>
-        <mat-card-title>Coin Configuration</mat-card-title>
-        <mat-card-content>
-              <mat-card>
-                <mat-grid-list cols="2" rowHeight="2:1" class="list">
-                  <mat-grid-tile>
-                      <mat-card>
-                          <mat-card-content>
-                            <form [formGroup]="configCoinForm">
-                              <mat-form-field>
-                                <mat-label> Select Gateway </mat-label>
-                                  <mat-select  formControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
-                                      <mat-option *ngFor="let list of mapService.gatewayData" [value]="list.gatewayId">{{list.gatewayId}}
-                                        
-                                      </mat-option>
-                                  </mat-select>
-                              </mat-form-field> <br>
-                              <mat-form-field>
-                                <mat-label>Select Coin</mat-label>
-                                <mat-select  formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-                                    <mat-option  *ngFor="let a of mapService.coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
-                                </mat-select>
-                            </mat-form-field> <br>
-
-                            <button mat-raised-button color="primary" [disabled]="mapService.selectedCoinBound.coinId == 0" (click)="updateCoinBound()">Add</button>
-                            <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
-                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
-                          </form>
-                          </mat-card-content>
-                      </mat-card>
-                  </mat-grid-tile>
-
-                  <mat-grid-tile>
-                      <table class="table bordered">
-                        <thead>
-                          <th>Coin ID</th>
-                          <th>Coin Name</th>
-                          <th>Zone Name</th>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor = "let a of mapService.coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
-                            <td>{{i+1}}</td>
-                            <td>{{a.coinId}}</td>
-                            <td>{{a.coinName}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                  </mat-grid-tile>
-              </mat-grid-list>
-              </mat-card>
-        </mat-card-content>
-    </mat-card> <br>
-
-    <mat-card class="border-card">
-      <mat-card-title>
-        <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
-      </mat-card-title> <br>
-      <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="2:1" class="list">
+        <mat-grid-tile>
           <mat-card>
-            <form [formGroup]="newLayoutForm" (ngSubmit)="createNewLayout(newLayoutForm.value)">
-              <mat-form-field appearance="outline" class="example-form">
-                <mat-label>Gateway list</mat-label>
-                <mat-select formControlName="gatewayId" multiple> 
-                  <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All</mat-option>
-                  <ng-container *ngFor="let list of newGatewayLayout">
-                    <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
-                  </ng-container>
-                </mat-select>
-                <mat-error>
-                  Select the gateway
-                </mat-error>
-              </mat-form-field>
-            
-              <mat-form-field appearance="outline"class="example-form">
-                <mat-label>Layout name</mat-label>
-                <input type="text" matInput formControlName="layoutName" required>
-                <mat-error>
-                  Location name is required
-                </mat-error>
-              </mat-form-field>
-            
-              <input type="file" #fileInput (change)="fileChange($event.target.files)" required class="example-form">
-              <br><br>
-              <div class="btn">
-                <button mat-raised-button [disabled]="!newLayoutForm.valid" color="primary">Create Layout</button>
-              </div>
-               
-          </form>
+            <mat-card-content>
+              <form [formGroup]="configCoinForm">
+                <mat-form-field>
+                  <mat-label> Select Gateway </mat-label>
+                  <mat-select formControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
+                    <mat-option *ngFor="let list of mapService.gatewayData" [value]="list.gatewayId">{{list.gatewayId}}
+
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> <br>
+                <mat-form-field>
+                  <mat-label>Select Coin</mat-label>
+                  <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
+                    <mat-option *ngFor="let a of mapService.coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
+                  </mat-select>
+                </mat-form-field> <br>
+
+                <button mat-raised-button color="primary" [disabled]="mapService.selectedCoinBound.coinId == 0"
+                  (click)="updateCoinBound()">Add</button>
+                <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
+<button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
+              </form>
+            </mat-card-content>
           </mat-card>
-      </mat-card-content>
-    </mat-card> <br>
+        </mat-grid-tile>
 
+        <mat-grid-tile>
+          <table class="table bordered">
+            <thead>
+              <th>Coin ID</th>
+              <th>Coin Name</th>
+              <th>Zone Name</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of mapService.coinData;let i=index"
+                [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
+                <td>{{i+1}}</td>
+                <td>{{a.coinId}}</td>
+                <td>{{a.coinName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
+  </mat-card-content>
+</mat-card> <br>
 
-    <!-- <form [formGroup]="configCoinForm1" (ngSubmit)="addCoin1(configCoinForm1.value)">
-      <mat-form-field>
-        <mat-label> Select Gateway </mat-label>
-        <input type="text" matInput name="" id="" formControlName="name">
-      </mat-form-field> <br>
-      <mat-form-field>
-        <mat-label> Select Gateway </mat-label>
-          <mat-select  fromControlName="gname" required>
-            <span *ngFor="let a of gatewayName">
-              <mat-option  [value]="a.gatewayId">{{a.gatewayId}}
-                
-              </mat-option>
-            </span>
-              
+<mat-card class="border-card">
+  <mat-card-title>
+    <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
+  </mat-card-title> <br>
+  <mat-card-content>
+    <mat-card>
+      <form [formGroup]="newLayoutForm" (ngSubmit)="createNewLayout(newLayoutForm.value)">
+        <mat-form-field appearance="outline" class="example-form">
+          <mat-label>Gateway list</mat-label>
+          <mat-select formControlName="gatewayId" multiple>
+            <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All</mat-option>
+            <ng-container *ngFor="let list of newGatewayLayout">
+              <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
+            </ng-container>
           </mat-select>
-      </mat-form-field> <br> 
-      <mat-form-field  >
+          <mat-error>
+            Select the gateway
+          </mat-error>
+        </mat-form-field>
 
-        <mat-label>Minutes</mat-label>
-        <mat-select  formControlName="gname">
-          <mat-option *ngFor="let a of gatewayName"  [value]="a">{{a.gatewayId}}</mat-option>
-        </mat-select>
+        <mat-form-field appearance="outline" class="example-form">
+          <mat-label>Layout name</mat-label>
+          <input type="text" matInput formControlName="layoutName" required>
+          <mat-error>
+            Location name is required
+          </mat-error>
+        </mat-form-field>
 
-    </mat-form-field>
-    <button>submit</button>
-  </form> -->
+        <input type="file" #fileInput (change)="fileChange($event.target.files)" required class="example-form">
+        <br><br>
+        <div class="btn">
+          <button mat-raised-button [disabled]="!newLayoutForm.valid" color="primary">Create Layout</button>
+        </div>
+
+      </form>
+    </mat-card>
+  </mat-card-content>
+</mat-card> <br>
+
+
+<!-- <form [formGroup]="configCoinForm1" (ngSubmit)="addCoin1(configCoinForm1.value)">
+<mat-form-field>
+<mat-label> Select Gateway </mat-label>
+<input type="text" matInput name="" id="" formControlName="name">
+</mat-form-field> <br>
+<mat-form-field>
+<mat-label> Select Gateway </mat-label>
+<mat-select  fromControlName="gname" required>
+<span *ngFor="let a of gatewayName">
+<mat-option  [value]="a.gatewayId">{{a.gatewayId}}
+
+</mat-option>
+</span>
+
+</mat-select>
+</mat-form-field> <br> 
+<mat-form-field  >
+
+<mat-label>Minutes</mat-label>
+<mat-select  formControlName="gname">
+<mat-option *ngFor="let a of gatewayName"  [value]="a">{{a.gatewayId}}</mat-option>
+</mat-select>
+
+</mat-form-field>
+<button>submit</button>
+</form> -->
