@@ -34,6 +34,7 @@ export class SettingInfoComponent implements OnInit {
   zoneCategory = ['zoneName', 'standardTime']
   groupInfo = ['i', 'groupName']
   coinGroup = ['coinId', 'coinName', 'groupId']
+  maxFind =  ['coinId', 'coinName', 'maxFindAsset']
 
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
@@ -49,10 +50,10 @@ export class SettingInfoComponent implements OnInit {
     this.loadData();
   }
   loadData() {
-    if (this.type == 'timeDelay' || this.type == 'find-inactive' || this.type == 'max-find') {
+    if (this.type == 'timeDelay' || this.type == 'find-inactive' ) {
       this.refreshDevice()
     }
-    else if (this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp') {
+    else if (this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp' || this.type == 'max-find') {
       this.refreshCoin()
     }
     else if (this.type == 'groupName') {
@@ -76,6 +77,7 @@ export class SettingInfoComponent implements OnInit {
             coinName: res.success[i].coinName,
             gatewayId: res.success[i].gatewayId,
             groupId: res.success[i].groupId,
+            maxFindAsset:res.success[i].maxFindAsset,
             sms: res.success[i].inactivityAlert[0].sms == "no" ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y',
             email: res.success[i].inactivityAlert[1].email == "no" ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y',
             zoneName: res.success[i].zoneId,

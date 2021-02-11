@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginAuthService } from './services/login-auth.service';
 import { GeneralService } from './services/general.service';
 import { EMPTY } from 'rxjs';
 import { throwError, Observable, BehaviorSubject, of, pipe } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { catchError, tap, take } from "rxjs/operators";
 import {
   HttpRequest,
   HttpHandler,
@@ -19,29 +20,28 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   status: any
   constructor(
     private login: LoginAuthService,
-    private general: GeneralService
+    private general: GeneralService,
+    private router: Router,
   ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // console.log("tok==",this.login.getLoginDetails())
     request = this.addAuthenticationToken(request)
     return next.handle(request).pipe(
+     ( take(1),
       catchError((error: any) => {
         // console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
           localStorage.clear()
-          
           return EMPTY
-        }
-        else if (error.status === 200) {
-          // console.log("error 200===", error);
-
+          
+         
         }
         else {
           return throwError(error);
         }
 
-      }), tap((res: any) => {
+      })), tap((res: any) => {
         if (res instanceof HttpResponse) {
           // console.log("tap res==", res)
           if (res.body.hasOwnProperty('data')) {
@@ -73,8 +73,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if (authHeaders) {
           let body = request.body
           if(body){
-            request.body = {}
-            request.body.data = this.general.encrypt(body)
+            // request.body = {}
+            request.body.data = this.general.encrypt(body.data)
           }
         }
         else {

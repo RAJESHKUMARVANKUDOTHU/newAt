@@ -32,7 +32,6 @@ export class EditProfileComponent implements OnInit {
     console.log("edit profile data==", data)
 
     this.api.updateSubUser(data).then((res: any) => {
-      res.success = this.general.decrypt(res.success)
       console.log("update sub user res===", res)
       if (res.status) {
         this.general.openSnackBar(res.success, '')

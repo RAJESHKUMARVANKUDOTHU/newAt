@@ -36,18 +36,18 @@ export class GeneralService {
 
     this.encryptInfo = CryptoJS.AES.encrypt(JSON.stringify(data), this.getToken()).toString();
 
-    console.log("encryptInfo===", this.encryptInfo);
+    // console.log("encryptInfo===", this.encryptInfo);
 
     return this.encryptInfo
   }
 
   decrypt(data: any) {
-
+    console.log(data)
     var deData = CryptoJS.AES.decrypt(data, this.getToken());
 
     this.decryptedInfo = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
 
-    console.log("decryptedInfo====", this.decryptedInfo);
+    // console.log("decryptedInfo====", this.decryptedInfo);
 
     return this.decryptedInfo
   }

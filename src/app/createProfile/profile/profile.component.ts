@@ -83,7 +83,6 @@ export class ProfileComponent implements OnInit {
     if (this.addSubUserForm.valid) {
       try {
         this.api.createSubUsers(data).then((res: any) => {
-          res.success = this.general.decrypt(res.success)
           console.log("created sub user res===", res)
           if (res.status) {
             this.getUsers()
@@ -103,7 +102,6 @@ export class ProfileComponent implements OnInit {
   getUsers() {
     this.getUserList = []
     this.api.viewUsers().then((res: any) => {
-      res.success = this.general.decrypt(res.success)
       console.log("get user res===", res)
       if (res.status) {
         this.getUserList = res.success
@@ -124,7 +122,6 @@ export class ProfileComponent implements OnInit {
     data.isDeleted = data.isDeleted == 'y' ? 'n' : 'y'
 
     this.api.deleteSubuser(data).then((res: any) => {
-      res.success = this.general.decrypt(res.success)
       console.log("delete sub user res===", res)
       if (res.status) {
         this.general.openSnackBar(res.success, '')

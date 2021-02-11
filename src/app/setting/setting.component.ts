@@ -189,7 +189,6 @@ export class SettingComponent implements OnInit {
           console.log("range res===", res)
           if (res.status) {
             this.distanceForm.reset()
-            res.success = this.general.encrypt(res.success)
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -289,7 +288,7 @@ export class SettingComponent implements OnInit {
   }
 
   onSubmitMaxFindForm(data) {
-    data.deviceId = this.general.filterArray(data.deviceId)
+    data.coinId = this.general.filterArray(data.coinId)
     console.log("onSubmitMaxFindForm data==", data)
 
     try {
