@@ -48,7 +48,9 @@
   .flex{
     display: flex;
   }
- 
+  .mobilemenu{
+    display: none;
+    }
   .mat-list-item{
     font-size: 18px;
     margin-top: 10px;
@@ -57,7 +59,11 @@
     color: white !important;
     
   }
-  
+  mat-expansion-panel.mat-expansion-panel {
+    background-color: #002060;
+    color: white;
+    border: none;
+  }
   mat-list-item:hover{
     color: whitesmoke !important;
     background-color:gray;   
@@ -67,9 +73,11 @@
   }
 
   .list{
-    margin-left: 2.5rem;
+    margin-left: 3rem;
   }
-  .list>.mat-list-item,.list>mat-icon{
-    font-size: 17px;
+
+  @media only screen and (max-width: 768px) {
+    .mobilemenu{
+      display: block;
+      }
   }
- 

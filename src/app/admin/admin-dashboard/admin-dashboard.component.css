@@ -17,7 +17,12 @@ mat-card.mat-card.mat-focus-indicator {
 .flex{
   display: flex
 }
-
+.example-full-width{
+  width: -webkit-fill-available;
+}
+th.mat-header-cell {
+  text-align: center !important;
+}
 mat-card-title{
     text-align: center;
     font-size: large;

@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, BehaviorSubject } from 'rxjs'
 import { LoginAuthService } from './login-auth.service';
 import * as CryptoJS from 'crypto-js';
-
+import { HttpResponse } from '@angular/common/http'; 
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +11,7 @@ export class GeneralService {
   public encryptInfo;
   public decryptedInfo;
   public token;
+  private requests: any = { }; 
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([])
   constructor(
     private _snackBar: MatSnackBar,
@@ -42,7 +43,7 @@ export class GeneralService {
   }
 
   decrypt(data: any) {
-    console.log(data)
+    
     var deData = CryptoJS.AES.decrypt(data, this.getToken());
 
     this.decryptedInfo = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
@@ -55,4 +56,19 @@ export class GeneralService {
   getToken() {
     return this.login.getLoginDetails().token
   }
+  put(url: string, response: HttpResponse<any>): void {  
+    console.log("urll",url, this.requests[url])
+    this.requests[url] = response;  
+  }  
+  
+  get(url: string): HttpResponse<any> | undefined { 
+    console.log("urll",url,this.requests[url]) 
+    return this.requests[url];  
+  }  
+  
+  invalidateCache(): void { 
+     
+    this.requests = { };  
+  }
+  
 }

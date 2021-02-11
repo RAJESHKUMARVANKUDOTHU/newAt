@@ -12,6 +12,10 @@ import { ContactComponent } from './contact/contact.component';
 })
 export class AppComponent {
   title = 'ATapp';
+  deviceInfo:any
+  isMobile: boolean
+  isTablet: boolean
+  isDesktopDevice: boolean
   isExpanded = true;
   isShowing = false;
   showLabel: boolean
@@ -31,29 +35,28 @@ export class AppComponent {
     this.loginDetails = this.login.getLoginDetails().success
     this.logged = this.login.loginData()
 
-    // this.menu=this.login.loginStatusMenu()
     console.log("this.loginDetails====", this.loginDetails)
     this.login.loginCheckData.subscribe((res) => {
       console.log("res===", res)
       this.logged = res
       this.loginDetails = this.login.getLoginDetails().success
       console.log("this.loginDetails inside====", this.loginDetails)
-      // console.log("this.logged in======",this.logged)
     });
     this.login.loginCred.subscribe(res => {
       console.log("res1===", res)
 
       this.menu = res
       this.loginDetails = this.login.getLoginDetails().success
-      // console.log("this.loginDetails inside====",this.loginDetails)
-      // console.log("this.menu======",this.menu)
 
     })
 
     console.log("route = ", window.location.pathname)
   }
   ngOnInit(): void {
-
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    this.isMobile = this.deviceService.isMobile();
+    this.isTablet = this.deviceService.isTablet();
+    this.isDesktopDevice = this.deviceService.isDesktop();
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();

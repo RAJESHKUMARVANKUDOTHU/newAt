@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginAuthService } from './services/login-auth.service';
 import { GeneralService } from './services/general.service';
-import { EMPTY } from 'rxjs';
+import { EMPTY, observable } from 'rxjs';
 import { throwError, Observable, BehaviorSubject, of, pipe } from "rxjs";
 import { catchError, tap, take } from "rxjs/operators";
 import {
@@ -26,20 +26,19 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // console.log("tok==",this.login.getLoginDetails())
+    this.status = this.login.getLoginDetails();
     request = this.addAuthenticationToken(request)
     return next.handle(request).pipe(
      ( take(1),
       catchError((error: any) => {
         // console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
-          localStorage.clear()
-          return EMPTY
-          
-         
+            this.login.logout()         
         }
         else {
-          return throwError(error);
+          
         }
+        return throwError(error);
 
       })), tap((res: any) => {
         if (res instanceof HttpResponse) {
