@@ -124,7 +124,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, data, httpOptions).subscribe(
         (res: any) => {
-          resolve(res.data);
+          resolve(res);
         },
         (err) => {
           console.log('err==', err);
