@@ -20,6 +20,7 @@ export class MapComponent implements OnInit {
   @Input() type: string;
   host: string = environment.apiHost;
   map;
+  imageMarker :any = '';
   marker: any = [];
   mapDisable : boolean = true;
   constructor(
@@ -35,7 +36,9 @@ export class MapComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.map.remove();
+    if(this.map){
+      this.map.remove();
+    }
   }
 
   ngAfterViewInit() {
@@ -57,15 +60,23 @@ export class MapComponent implements OnInit {
       maxBoundsViscosity: 1.0,
     });
     var bounds = this.map.getBounds();
+    this.map.setMaxBounds(bounds);
+    this.map.dragging.disable();
+
     this.mapService.selectedLayout.subscribe((data) => {
       this.mapDisable = false;
-      this.api.getLayoutImage(data).subscribe((res: any) => {
-        L.imageOverlay(res, bounds).addTo(this.map);
+      this.clearMap();
+      // this.clearImage();
+      this.api.getLayoutImage(data).then((res: any) => {
+        if (this.map.hasLayer(this.imageMarker)) {
+          this.map.removeLayer(this.imageMarker);
+        }
+        this.imageMarker = L.imageOverlay(res, bounds);
+        this.imageMarker.addTo(this.map);
       });
     });
 
-    this.map.setMaxBounds(bounds);
-    this.map.dragging.disable();
+   
 
     this.map.on('click', (data) => {
       console.log('data click == ', data);
@@ -175,6 +186,8 @@ export class MapComponent implements OnInit {
     }
     for (let i in this.map._layers) {
       if (!this.map._layers[i].hasOwnProperty('_url')) {
+        console.log("this.map._layers[i]===",this.map._layers[i]);
+        
         try {
           this.map.removeLayer(this.map._layers[i]);
         } catch (e) {
@@ -183,4 +196,17 @@ export class MapComponent implements OnInit {
       }
     }
   }
+
+  clearImage(){
+    for (let i in this.map._layers) {
+      if (this.map._layers[i].hasOwnProperty('_url')) {
+        try {
+          this.map.removeLayer(this.map._layers[i]);
+        } catch (e) {
+          console.log('problem with ' + e + this.map._layers[i]);
+        }
+      }
+    }
+  }
+
 }
