@@ -1053,20 +1053,6 @@ export class ApiService {
   }
 
   //---------------------manage asset download -------------------------------
-  // downloadFile(response, fileName) {
-  //   let body = response.body;
-  //   let dataType = 'application/ms-excel';
-  //   let binaryData = [];
-  //   binaryData.push(body);
-  //   // this.general.loadingFreez.next({status:false})
-  //   let downloadLink = document.createElement('a');
-  //   downloadLink.href = window.URL.createObjectURL(
-  //     new Blob(binaryData, { type: dataType })
-  //   );
-  //   downloadLink.setAttribute('download', fileName);
-  //   document.body.appendChild(downloadLink);
-  //   downloadLink.click();
-  // }
 
   downloadFile(response,fileName){
     let body = response.body
