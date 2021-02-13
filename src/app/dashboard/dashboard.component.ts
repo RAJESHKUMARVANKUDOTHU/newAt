@@ -108,11 +108,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.map.remove();
+    if(this.map){
+      this.map.remove();
+    }
   }
 
   ngAfterViewInit() {
-    this.map = L.map('map', {
+    this.map = new L.map('map', {
       attributionControl: false,
       minZoom: 1,
       maxZoom: 5,
@@ -122,6 +124,7 @@ export class DashboardComponent implements OnInit {
       fullscreenControlOptions: {
         title: 'Show me the fullscreen !',
         titleCancel: 'Exit fullscreen mode',
+        position: 'topleft'
       },
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
@@ -135,7 +138,7 @@ export class DashboardComponent implements OnInit {
     let data = {
       _id: '600693933a4d5fc813ff5041',
     };
-    this.api.getLayoutImage(data._id).subscribe((res: any) => {
+    this.api.getLayoutImage(data._id).then((res: any) => {
       L.imageOverlay(res, bounds).addTo(this.map);
       this.map.on('load', this.getZones());
     });

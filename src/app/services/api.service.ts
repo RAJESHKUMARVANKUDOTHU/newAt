@@ -969,18 +969,21 @@ export class ApiService {
     };
 
     let url = this.host + '/getLayoutImage/' + data;
-    return new Observable((observer) => {
+    return new Promise((resolve,reject) => {
       this.http.get(url, { responseType: 'blob' }).subscribe(
         (res:any) => {
           // observer.next(res);
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = function () {
-            observer.next(reader.result);
+            console.log("reader");
+            
+           resolve(reader.result);
           };
         },
         (err) => {
           console.log(err);
+          reject(err)
         }
       );
     });
@@ -1050,16 +1053,28 @@ export class ApiService {
   }
 
   //---------------------manage asset download -------------------------------
-  downloadFile(response, fileName) {
-    let body = response.body;
-    let dataType = 'application/ms-excel';
+  // downloadFile(response, fileName) {
+  //   let body = response.body;
+  //   let dataType = 'application/ms-excel';
+  //   let binaryData = [];
+  //   binaryData.push(body);
+  //   // this.general.loadingFreez.next({status:false})
+  //   let downloadLink = document.createElement('a');
+  //   downloadLink.href = window.URL.createObjectURL(
+  //     new Blob(binaryData, { type: dataType })
+  //   );
+  //   downloadLink.setAttribute('download', fileName);
+  //   document.body.appendChild(downloadLink);
+  //   downloadLink.click();
+  // }
+
+  downloadFile(response,fileName){
+    let body = response.body
+    let dataType = body.type;
     let binaryData = [];
     binaryData.push(body);
-    // this.general.loadingFreez.next({status:false})
     let downloadLink = document.createElement('a');
-    downloadLink.href = window.URL.createObjectURL(
-      new Blob(binaryData, { type: dataType })
-    );
+    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
     downloadLink.setAttribute('download', fileName);
     document.body.appendChild(downloadLink);
     downloadLink.click();
