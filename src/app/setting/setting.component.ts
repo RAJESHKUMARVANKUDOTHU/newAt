@@ -20,6 +20,8 @@ export class SettingComponent implements OnInit {
   @ViewChild('allSelected3') private allSelected3: MatOption
   @ViewChild('allSelected4') private allSelected4: MatOption
   @ViewChild('allSelected5') private allSelected5: MatOption
+  @ViewChild('allSelected6') private allSelected6: MatOption
+
   dateTimeForm: FormGroup
   distanceForm: FormGroup
   timeDelay: FormGroup
@@ -30,6 +32,7 @@ export class SettingComponent implements OnInit {
   zoneForm: FormGroup
   maxFindForm: FormGroup
   groupRegister: FormGroup
+  createServiceType:FormGroup
   feetValue: any = [25, 50, 75, 100]
   coinData: any = []
   deviceData: any = []
@@ -105,6 +108,11 @@ export class SettingComponent implements OnInit {
     this.maxFindForm = this.fb.group({
       coinId: ['', Validators.required],
       maxFindAsset: ['', Validators.required],
+    })
+
+    this.createServiceType = this.fb.group({
+      zoneId:['',Validators.required],
+      serviceTypeName:['',Validators.required]
     })
   }
 
@@ -414,8 +422,32 @@ export class SettingComponent implements OnInit {
     }
   }
 
+  onSubmitServiceType(data) {
+    data.zoneId = this.general.filterArray(data.zoneId)
+
+    console.log("onSubmitServiceTye data==", data)
+    try {
+      if (this.createServiceType.valid) {
+        this.api.createServiceType(data).then((res: any) => {
+
+          console.log("Group coin res===", res)
+          if (res.status) {
+            this.createServiceType.reset()
+            this.general.openSnackBar(res.success, '')
+          }
+          else { }
+        }).catch((err) => {
+          console.log("err=", err)
+        })
+      }
+      else { }
+    }
+    catch (error) {
+      console.log("error==", error)
+    }
+  }
+
   toggleAllSelectionDevice(formData) {
-    console.log("allselected", this.allSelected)
     if (this.allSelected.selected) {
       formData.controls.deviceId.patchValue([...this.deviceData.map(obj => obj.deviceId), 0])
     }
@@ -471,7 +503,14 @@ export class SettingComponent implements OnInit {
     }
   }
 
-
+  toggleAllSelectionZone(formData) {
+    if (this.allSelected6.selected) {
+      formData.controls.zoneId.patchValue([...this.zoneData.map(obj => obj.zoneId), 0])
+    }
+    else {
+      formData.controls.zoneId.patchValue([])
+    }
+  }
 
   openInfo(data) {
     console.log("data==", data)

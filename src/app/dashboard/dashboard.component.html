@@ -1,108 +1,101 @@
 <br>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <mat-card class="flex">
-        <table>
-          <thead class="thead">
-            <th>Vehicle for <br> Service Today</th>
-            <th>Vehicle Under <br> Service</th>
-            <th>Serviced Vehicle</th>
-            <th>OverAll Efficiency<br> of the SC</th>
-          </thead>
-          <tbody>
-            <td class="circle-disp">
-              <div>
-                <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
-                  [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                  [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
-                  [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                  [responsive]="false"></circle-progress>
-
-              </div>
-            </td>
-            <td class="circle-disp">
-              <div>
-                <circle-progress class="circle" [percent]="100" [maxPercent]="1000" [showUnits]="false"
-                  [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                  [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
-                  [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                  [responsive]="false"></circle-progress>
-
-              </div>
-            </td>
-            <td class="circle-disp">
-              <div>
-                <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
-                  [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                  [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
-                  [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                  [responsive]="false"></circle-progress>
-
-              </div>
-            </td>
-            <td class="circle-disp">
-              <div>
-                <circle-progress class="circle" [percent]="100" [maxPercent]="1000" [showUnits]="false"
-                  [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                  [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
-                  [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                  [responsive]="false"></circle-progress>
-
-              </div>
-            </td>
-          </tbody>
-        </table>
-        <div> <br>
-          <mat-card>
-            <mat-card-content>Least Performing zone</mat-card-content>
-          </mat-card> <br>
-          <mat-card>
-            <mat-card-content>High Congestion zone</mat-card-content>
-          </mat-card>
+    <div>
+      <mat-card  >
+        <div class="row pl-md-4 pr-md-4 text-center">
+          <div class="col-md-2">
+              <h2>Vehicle for Service Today</h2>
+              <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
+                [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
+                [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
+                [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
+                [responsive]="true"></circle-progress>
+          </div>
+          <div class="col-md-2">
+              <h2>Vehicle Under  Service</h2>
+              <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
+                [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
+                [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
+                [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
+                [responsive]="true"></circle-progress>
+          </div>
+          <div class="col-md-2">
+              <h2>Serviced Vehicle</h2> 
+              <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
+                [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
+                [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
+                [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
+                [responsive]="true"></circle-progress>
+          </div>
+          <div class="col-md-3">
+              <h2>OverAll Efficiency of the SC</h2>
+              <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
+                [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
+                [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false
+                [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true"
+                [responsive]="true"></circle-progress>
+            </div>
+          <div class="col-md-3">
+            <mat-card >
+              <mat-card-content>Least Performing zone</mat-card-content>
+            </mat-card> <br>
+            <mat-card>
+              <mat-card-content>High Congestion zone</mat-card-content>
+            </mat-card>
+          </div>
         </div>
+ 
 
       </mat-card>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="map-container">
-      <div class="map-frame">
-        <div id="map" #mapId></div>
+      <br>
+      <div>
+        <form>
+          <mat-form-field>
+            <mat-label>Vehicle number</mat-label>
+            <input matInput type='search' (keyup)="searchVehicle($event.target.value)">
+            <mat-hint class="align-items-start"><strong>Search using vehicle number</strong> </mat-hint>
+          </mat-form-field>
+        </form>
+        <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
+
       </div>
-    </div>
-  </div>
+      <div class="row">
+        <div class="map-container">
+          <div class="map-frame">
+            <div id="map" #mapId></div>
+          </div>
+        </div>
+      </div>
+ <div class="container-fluid">
   <div class="row">
     <div class="col-md-6">
-        <mat-card>
-          <mat-card-content>
-              <table class="table bordered table-striped">
-                  <thead class="thead-dark">
-                      <tr>
-                        <th>Zone</th>
-                        <th>No. of Vehicles</th>
-                        <th>Avg. Time</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor = "let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
-                      <td>{{a.zoneName}}</td>
-                      <td>3</td>
-                      <td>{{a.updatedAt | date:'medium'}}</td>
-                    </tr>
-                  </tbody>
-              </table>
-          </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="col-md-6">
-      <mat-card class="chart">
+      <mat-card>
         <mat-card-content>
-          <div id="line" style="height: 300px; width: 450px;border: 1px solid beige;"></div>
+          <table class="table bordered table-striped table-md-responsive text-center ">
+            <thead class="thead-dark font-weight-bold">
+              <tr>
+                <th>Zone</th>
+                <th>No. of Vehicles</th>
+                <th>Avg. Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)"
+                [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                <td>{{a.zoneName}}</td>
+                <td>3</td>
+                <td>{{a.updatedAt | date:'medium'}}</td>
+              </tr>
+            </tbody>
+          </table>
         </mat-card-content>
       </mat-card>
     </div>
-    <br>
-
-  </div>
+    <div class="col-md-6">
+      <mat-card>
+        <mat-card-content>
+          <div id="line"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+   </div>
+ </div>

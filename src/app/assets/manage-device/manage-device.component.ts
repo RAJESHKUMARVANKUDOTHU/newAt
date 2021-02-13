@@ -63,6 +63,7 @@ export class ManageDeviceComponent implements OnInit {
               deviceName: res.success[i].deviceName,
               deviceId: res.success[i].deviceId,
               updatedOn: res.success[i].updatedAt,
+              deviceAssignedStatus: res.success[i].deviceAssignedStatus,
               deviceToggleStatus: res.success[i].deviceToggleStatus,
               edit: 'edit',
               delete: 'delete_forever'
@@ -80,6 +81,19 @@ export class ManageDeviceComponent implements OnInit {
     }).catch((err: any) => {
       console.log("error===", err)
     })
+  }
+  onServiceSelection(data){
+    console.log("service select data==",data);
+    this.api.coinRegistration(data).then((res:any)=>{
+      console.log("update Services===",res)
+      if(res.status){
+        this.general.openSnackBar(res.success,'')
+      }
+      else{
+        this.general.openSnackBar(res.success,'')
+      }
+    })
+    
   }
 
   getBatteryStatus(data) {
@@ -158,10 +172,7 @@ export class ManageDeviceComponent implements OnInit {
 
     }
     if (confirm('Are you sure you want to perform this operation?')) {
-
-
       this.api.deviceOnOff(data).then((res: any) => {
-
         console.log("toggle====", res);
         if (res.status) {
           this.refreshDevice()

@@ -8,13 +8,13 @@
       <mat-error *ngIf="loginInvalid">
         Invalid User Name or Password
       </mat-error>
-      <mat-form-field class="full-width-input" appearance="outline">
+      <mat-form-field class="w-100" appearance="outline">
         <input matInput placeholder="Email" formControlName="userName" required>
         <mat-error>
           Please provide a valid email address
         </mat-error>
       </mat-form-field> <br> <br>
-      <mat-form-field class="full-width-input" appearance="outline">
+      <mat-form-field class="w-100" appearance="outline">
         <input matInput [type]="passwordType" placeholder="Password" formControlName="password" matInput required>
         <mat-icon matSuffix (click)="hideShowPassword()" class="cursor">{{passwordIcon}}</mat-icon>
         <mat-error>

@@ -47,3 +47,13 @@
         animation-duration: 1s;
         animation-fill-mode: both;
     }
+
+    @media only screen and (max-width: 768px) {
+        .log-in{
+            text-align: center;
+            width: fit-content;
+            margin: 6rem 1rem;
+            border: 1px solid beige;
+            box-shadow: 0px 0px 1px 1px beige;
+        }
+    }

@@ -35,7 +35,7 @@ export class SettingInfoComponent implements OnInit {
   groupInfo = ['i', 'groupName']
   coinGroup = ['coinId', 'coinName', 'groupId']
   maxFind =  ['coinId', 'coinName', 'maxFindAsset']
-
+  servicetype = ['zoneId', 'zoneName', 'serviceTypeName']
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -50,7 +50,7 @@ export class SettingInfoComponent implements OnInit {
     this.loadData();
   }
   loadData() {
-    if (this.type == 'timeDelay' || this.type == 'find-inactive' ) {
+    if (this.type == 'timeDelay' || this.type == 'find-inactive' || this.type == 'serviceType' ) {
       this.refreshDevice()
     }
     else if (this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp' || this.type == 'max-find') {

@@ -11,25 +11,28 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
-
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
-  status: any
+  status: any;
   constructor(
     private login: LoginAuthService,
     private general: GeneralService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     // console.log("tok==",this.login.getLoginDetails())
     this.status = this.login.getLoginDetails();
     request = this.addAuthenticationToken(request)
+
     return next.handle(request).pipe(
-     ( take(1),
+      (take(1),
       catchError((error: any) => {
         // console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
@@ -42,21 +45,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
       })), tap((res: any) => {
         if (res instanceof HttpResponse) {
-          // console.log("tap res==", res)
+          // console.log('tap res==', res);
           if (res.body.hasOwnProperty('data')) {
-            res.body.data = this.general.decrypt(res.body.data)
-            
+            res.body.data = this.general.decrypt(res.body.data);
           }
-          else {
-            
-          }
+          return res;
+        } else {
+          return res;
         }
-        else { }
-
       })
-
-    ) as any
-
+    ) as any;
   }
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
@@ -64,27 +62,24 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     if (this.status.token && this.status.token != null) {
       request = request.clone({
-        setHeaders: { Authorization: `Bearer ${this.status.token}` }
-      })
-      if ( request instanceof HttpRequest){
+        setHeaders: { Authorization: `Bearer ${this.status.token}` },
+      });
+      if (request instanceof HttpRequest) {
         // console.log("http request==", request);
         let authHeaders = request.headers.get('authorization');
         if (authHeaders) {
-          let body = request.body
-          if(body){
+          let body = request.body;
+          if (body) {
             // request.body = {}
-            request.body.data = this.general.encrypt(body.data)
+            request.body.data = this.general.encrypt(body.data);
           }
-        }
-        else {
-          return request
+        } else {
+          return request;
         }
       }
-      return request
-    }
-    else {
+      return request;
+    } else {
       return request;
     }
   }
-
 }

@@ -45,10 +45,11 @@ export class LoginAuthService {
   }
 
   popState() {
+    var status = JSON.parse(localStorage.getItem('sensegiz'))
     this.location.subscribe(
       ((value: PopStateEvent) => {
 
-        if (window.location.pathname == '/login' || window.location.pathname == '/admin-login') {
+        if (window.location.pathname == '/login' || window.location.pathname == '/admin-login' && status.success.role == undefined) {
           this.loginCheckData.next(false)
           this.loginCred.next(false)
           localStorage.clear()

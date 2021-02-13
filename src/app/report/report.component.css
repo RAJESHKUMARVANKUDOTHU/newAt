@@ -1,9 +1,4 @@
-.report {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 1rem;
-}
+
 mat-card.mat-card.mat-focus-indicator {
    text-align: center;
     width: 35%;
@@ -15,4 +10,11 @@ mat-radio-group.mat-radio-group {
 }
 mat-form-field{
     width: 70%;
+}
+@media only screen and (max-width: 768px) {
+    mat-card.mat-card.mat-focus-indicator {
+        text-align: center;
+         width: 100%;
+         margin: 1rem;
+     }
 }

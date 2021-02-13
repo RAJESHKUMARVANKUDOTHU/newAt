@@ -57,7 +57,7 @@
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
             <div>
-                <ng-container matColumnDef="i">
+                <ng-container matColumnDef="i" class="table-md-responsive">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
                     <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                 </ng-container>

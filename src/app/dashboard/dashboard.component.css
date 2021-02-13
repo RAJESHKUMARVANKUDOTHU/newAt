@@ -1,36 +1,13 @@
-.flex{
-    display: flex;
-    justify-content: space-around;
-}
 
-.head{
-    font-size: large;
-    text-align: center;
-}
 ::ng-deep svg.circle {
     height: 120px !important;
     width: 120px !important;
 
 }
-th, td{
-    text-align: center;
-    padding-left: 1rem;
-    font-weight: 500;
-}
-.circle-disp{
-    text-align: center;
-    padding: 0 2rem 0 2rem;
-}
-
-table{
-   max-width: 100%;
-   margin: 0%;
-}
-
-.chart{
-    text-align: center;
-    width: fit-content;
-    height: fit-content;
+#line{
+  height: 300px;
+   width: 450px;
+   border: 1px solid beige;
 }
 
 .map-container {
@@ -58,4 +35,17 @@ table{
   .selected{
     color: white;
     background-color: #002060 !important;
+  }
+  .error{
+    font-size: 13px;
+    font-weight: 600;
+    color: red;
+  }
+  @media only screen and (max-width: 768px){
+    #line{
+      height: 300px;
+       width: 350px;
+       border: 1px solid beige;
+    }
+   
   }

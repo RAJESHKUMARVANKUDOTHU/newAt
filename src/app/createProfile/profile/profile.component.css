@@ -9,40 +9,6 @@ button.mat-focus-indicator.mat-raised-button.mat-button-base{
     border: none;
     color: white;
 }
-mat-card.mat-card.mat-focus-indicator {
-    width: 100%;
-    margin: 2rem 1rem 0 1rem;
-    height: 1005
-}
-.flex{
-  display: flex
-}
-    .mat-header-cell{
-      text-align: center;
-      background-color: orange;
-      font-size: 13px;
-      color: white;
-    }
-    .mat-cell{
-      text-align: center;
-    }
-    .mat-form-field {
-      width: 100%;
-    }
-    /* .mat-tab-group{
-      position: absolute;
-      margin-left: 26%;
-      width: 74%;
-      margin-top: -16.5%;
-    } */
-    .mat-table{
-      width: 100%;
-    }
-    mat-card-title{
-      text-align: center;
-      font-size: large;
-      color: #002060;
-  }
-  hr{
+hr{
     width: 12rem;
-  }
+}

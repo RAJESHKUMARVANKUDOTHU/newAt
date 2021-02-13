@@ -5,14 +5,14 @@
                 <mat-card-title>User Registration</mat-card-title>
                 <mat-card-content>
                     <form class="example-form" [formGroup]="addUserForm" (ngSubmit)="addUser(addUserForm.value)">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="w-100">
                             <mat-label>UserName</mat-label>
                             <input matInput type="email" formControlName="userName" required>
                             <mat-error>
                                 Please provide valid user name.
                             </mat-error>
                         </mat-form-field><br>
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="w-100">
                             <mat-label>Portal Password</mat-label>
                             <input matInput [type]="passwordType" formControlName="password" required>
                             <mat-icon matSuffix (click)="hideShowPassword()" class="cursor">{{passwordIcon}}</mat-icon>
@@ -30,7 +30,7 @@
                 <mat-card-title>User Details</mat-card-title>
                 <hr>
                 <mat-card-content>
-                    <div class="mat-elevation-z8">
+                    <div class="mat-elevation-z8" class="table-md-responsive">
                         <table mat-table [dataSource]="dataSource">
                             <ng-container matColumnDef="i">
                                 <th mat-header-cell *matHeaderCellDef> Sl.NO </th>

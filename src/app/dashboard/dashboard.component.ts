@@ -23,76 +23,83 @@ export class DashboardComponent implements OnInit {
   deviceList: any = [
     {
       _id: '123456',
-      zoneId: "6017e1f9ddf0806ec7d3ddf5",
+      zoneId: '6017e1f9ddf0806ec7d3ddf5',
       deviceId: 1,
       coinId: 1,
       zoneName: 'job card',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 71.3125, lng: -94.5 }
+      latlng: { lat: 71.3125, lng: -94.5 },
     },
     {
       _id: '23456',
-      zoneId: "60000b28f2f77b310224833e",
+      zoneId: '60000b28f2f77b310224833e',
       deviceId: 2,
       coinId: 2,
       zoneName: 'washing',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 37.8125, lng: 179 }
+      latlng: { lat: 37.8125, lng: 179 },
     },
     {
       _id: '34567',
-      zoneId: "6017e1f9ddf0806ec7d3ddf5",
+      zoneId: '6017e1f9ddf0806ec7d3ddf5',
       deviceId: 3,
       coinId: 1,
       zoneName: 'job card',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 35.3125, lng: -61.5 }
+      latlng: { lat: 35.3125, lng: -61.5 },
     },
     {
       _id: '45678',
-      zoneId: "60000b28f2f77b310224833e",
+      zoneId: '60000b28f2f77b310224833e',
       deviceId: 4,
       coinId: 2,
       zoneName: 'washing',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: -18.1875, lng: 147 }
+      latlng: { lat: -18.1875, lng: 147 },
     },
     {
       _id: '56789',
-      zoneId: "6017e20bddf0806ec7d3ddf6",
+      zoneId: '6017e20bddf0806ec7d3ddf6',
       deviceId: 5,
       coinId: 4,
       zoneName: 'shopfloor',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 66.8125, lng: 88 }
+      latlng: { lat: 66.8125, lng: 88 },
     },
     {
       _id: '67890',
-      zoneId: "6017e219c78d016edfc9ca71",
+      zoneId: '6017e219c78d016edfc9ca71',
       deviceId: 6,
       coinId: 5,
       zoneName: 'ready post washing',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 0, lng: 0 }
+      latlng: { lat: 0, lng: 0 },
     },
     {
       _id: '4321',
-      zoneId: "6017e20bddf0806ec7d3ddf6",
+      zoneId: '6017e20bddf0806ec7d3ddf6',
       deviceId: 7,
       coinId: 4,
       zoneName: 'shopfloor',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: -4.1875, lng: 89.5 }
+      latlng: { lat: -4.1875, lng: 89.5 },
     },
   ];
+  tempDeviceList :any = [];
+  tempZoneList :any = [];
   marker: any = [];
+  errStatus :any = {
+    searchError : false,
+    searchMessage : 'Vehicle not found'
+  }
+
 
   constructor(private cd: ChangeDetectorRef, private api: ApiService) { }
 
@@ -126,8 +133,8 @@ export class DashboardComponent implements OnInit {
     //   console.log("event click===",event);
     // })
     let data = {
-      _id: "600693933a4d5fc813ff5041"
-    }
+      _id: '600693933a4d5fc813ff5041',
+    };
     this.api.getLayoutImage(data._id).subscribe((res: any) => {
       L.imageOverlay(res, bounds).addTo(this.map);
       this.map.on('load', this.getZones());
@@ -136,7 +143,7 @@ export class DashboardComponent implements OnInit {
 
   // , {color: "white", weight: 1}
   getZones() {
-    console.log("here zones");
+    console.log('here zones');
     this.api.getZone().then((res: any) => {
       console.log('zone details response==', res);
       this.zoneList = [];
@@ -145,10 +152,11 @@ export class DashboardComponent implements OnInit {
           obj.highlight = false;
           obj.selected = true;
           return obj;
-        })
+        });
+        this.tempZoneList = this.zoneList;
+        this.tempDeviceList = this.deviceList;
         this.createDevice();
-      }
-      else {
+      } else {
         this.zoneList = [];
         this.createDevice();
       }
@@ -156,46 +164,107 @@ export class DashboardComponent implements OnInit {
   }
 
   zoneClick(data) {
-    console.log("zone click data===", data);
+    console.log('zone click data===', data);
     this.clearMap();
     // this.zoneList = [];
-    this.zoneList = this.zoneList.map(obj => {
+    this.zoneList = this.zoneList.map((obj) => {
       if (obj._id == data._id) {
         obj.selected = true;
         obj.highlight = true;
-      }
-      else{
+      } else {
         obj.selected = false;
         obj.highlight = false;
       }
       return obj;
-    })
-    console.log("this.zoneList===",this.zoneList);
+    });
+    console.log('this.zoneList===', this.zoneList);
     this.createDevice();
   }
 
-  createDevice(){
+  createDevice() {
     this.clearMap();
     let icon = L.icon({
       iconUrl: '../../assets/marker.png',
       iconSize: [25, 25],
     });
-    for(let i = 0 ; i < this.zoneList.length ; i++){
-      if(this.zoneList[i].selected){
-        new L.polygon(this.zoneList[i].bounds).addTo(this.map).on('click',()=>{
-          this.zoneClick(this.zoneList[i]);
-        });
-        for(let j = 0 ; j < this.deviceList.length ; j++){
-          if(this.deviceList[j].zoneId == this.zoneList[i]._id){
-            let latlng = [this.deviceList[j].latlng.lat , this.deviceList[j].latlng.lng]
-            this.marker.push(new L.marker(
-              latlng,
-              { icon: icon }
-            ).addTo(this.map));
+    for (let i = 0; i < this.zoneList.length; i++) {
+      if (this.zoneList[i].selected) {
+        new L.polygon(this.zoneList[i].bounds)
+          .addTo(this.map)
+          .on('click', () => {
+            this.zoneClick(this.zoneList[i]);
+          });
+        for (let j = 0; j < this.deviceList.length; j++) {
+          if (this.deviceList[j].zoneId == this.zoneList[i]._id) {
+            let latlng = [
+              this.deviceList[j].latlng.lat,
+              this.deviceList[j].latlng.lng,
+            ];
+            this.marker.push(
+              new L.marker(latlng, { icon: icon })
+                .addTo(this.map)
+                .bindPopup(this.getPopUpForm(this.deviceList[j]))
+                .openPopup()
+            );
           }
         }
       }
     }
+  }
+
+
+  searchVehicle(data){
+    console.log("search data===",data);
+    if(data){
+      this.deviceList = this.tempDeviceList.filter((obj)=> {
+        return ((obj.deviceId.toString().toLowerCase().indexOf(data.toString().toLowerCase()) > -1));
+      });
+      
+      for(let i=0 ; i<this.deviceList.length ; i++){
+        this.zoneList = this.tempZoneList.filter(obj=>{
+          if((obj._id.toString().toLowerCase().indexOf(this.deviceList[i].zoneId.toString().toLowerCase()) > -1)){
+            obj.selected = true;
+            obj.highlight = true; 
+            return obj;
+          }
+          else{
+            return
+          }
+        })
+      }
+  
+      if(!this.zoneList.length || !this.deviceList.length){
+        this.errStatus.searchError = true;
+        this.clearSearchDeviceZone();
+      }
+      else{
+        this.errStatus.searchError = false;
+      }
+    }
+    else{
+      this.clearSearchDeviceZone();
+    }
+    this.createDevice()
+  }
+
+  clearSearchDeviceZone(){
+    this.deviceList = this.tempDeviceList;
+    this.zoneList = this.tempZoneList;
+    this.zoneList = this.zoneList.map((obj) => {
+      obj.selected = true;
+      obj.highlight = false;
+      return obj;
+    });
+  }
+
+  getPopUpForm(data) {
+    let a = '<table>';
+    a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceId + '</td></tr>';
+    a += '<tr><td><b>Location Name</b></td><td>' + data.coinId + '</td></tr>';
+    a += '<tr><td><b>SDT</b></td><td>11.15am</td></tr>';
+    a += '<tr><td><b>EDT</b></td><td>11.30am</td></tr>';
+    a += '</table>';
+    return a;
   }
 
   clearMap() {
@@ -212,7 +281,6 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-
 
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {

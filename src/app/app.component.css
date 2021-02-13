@@ -44,13 +44,7 @@
      width: 280px;
      min-width: fit-content;
   }
- 
-  .flex{
-    display: flex;
-  }
-  .mobilemenu{
-    display: none;
-    }
+
   .mat-list-item{
     font-size: 18px;
     margin-top: 10px;
@@ -77,7 +71,12 @@
   }
 
   @media only screen and (max-width: 768px) {
-    .mobilemenu{
-      display: block;
+   
+      .mat-mini-fab{
+        background:#002060 ;
       }
+        button.mat-menu-item, .mat-icon{ 
+          color: white !important;
+          border: none;
+    }    
   }

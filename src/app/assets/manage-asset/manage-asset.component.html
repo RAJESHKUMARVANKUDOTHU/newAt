@@ -1,85 +1,84 @@
-<div class="container-fluid">
-  <div style="display: flex;">
-    <div style="height: 20%; width:25%">
-      <p class="status">Registered</p>
-      <canvas baseChart chartType="doughnut" [data]="doughnutChartData2" [labels]="doughnutChartLabels"
-        [options]="chartOptions" [colors]="colors" [legend]="false">
-      </canvas>
-    </div>
-    <div style="height: 20%; width:25%">
-      <p class="status">Active</p>
-      <canvas baseChart chartType="doughnut" [data]="doughnutChartData" [labels]="doughnutChartLabels"
-        [options]="chartOptions" [colors]="colors" [legend]="false">
-      </canvas>
-    </div>
-    <div style="height: 20%; width:25%">
-      <p class="status">Offline</p>
-      <canvas baseChart chartType="doughnut" [data]="doughnutChartData1" [labels]="doughnutChartLabels"
-        [options]="chartOptions" [colors]="colors" [legend]="false">
-      </canvas>
-    </div>
+<div class="d-flex flex-wrap justify-content-center font-weight-bold">
+  <div class="h-25 w-25 text-center">
+    <p>Registered</p>
+    <canvas baseChart chartType="doughnut" [data]="doughnutChartData2" [labels]="doughnutChartLabels"
+      [options]="chartOptions" [colors]="colors" [legend]="false">
+    </canvas>
+  </div>
+  <div class="h-25 w-25 text-center">
+    <p>Active</p>
+    <canvas baseChart chartType="doughnut" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+      [options]="chartOptions" [colors]="colors" [legend]="false">
+    </canvas>
+  </div>
+  <div class="h-25 w-25 text-center">
+    <p>Offline</p>
+    <canvas baseChart chartType="doughnut" [data]="doughnutChartData1" [labels]="doughnutChartLabels"
+      [options]="chartOptions" [colors]="colors" [legend]="false">
+    </canvas>
+  </div>
 
-    <div class="assets">
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span>
-                <mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset
-              </span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
-            <mat-form-field>
-              <mat-label>Device Id</mat-label>
-              <mat-select formControlName="deviceId">
-                <mat-option *ngFor="let list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
-                  {{list.deviceId}}</mat-option>
-              </mat-select>
-              <mat-error>
-                Device ID is required
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Device Name</mat-label>
-              <input type="text" matInput formControlName="deviceName" required>
+  <div class="text-center">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span>
+              <mat-icon style="vertical-align: bottom !important;">arrow_circle_up</mat-icon>&nbsp; Assign Asset
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
+          <mat-form-field>
+            <mat-label>Device Id</mat-label>
+            <mat-select formControlName="deviceId">
+              <mat-option *ngFor="let list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
+                {{list.deviceId}}</mat-option>
+            </mat-select>
+            <mat-error>
+              Device ID is required
+            </mat-error>
+          </mat-form-field> <br>
+          <mat-form-field>
+            <mat-label>Device Name</mat-label>
+            <input type="text" matInput formControlName="deviceName" required>
 
-              <mat-error>
-                Device name is required
-              </mat-error>
-            </mat-form-field>
-            <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary">Submit</button>
-          </form>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span>
-                <mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset
-              </span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
-            <mat-form-field>
-              <mat-label>Device Id</mat-label>
+            <mat-error>
+              Device name is required
+            </mat-error>
+          </mat-form-field> <br>
+          <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary">Submit</button>
+        </form>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span>
+              <mat-icon style="vertical-align: bottom !important;">arrow_circle_down</mat-icon>&nbsp; Deassign Asset
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
+          <mat-form-field>
+            <mat-label>Device Id</mat-label>
 
-              <mat-select formControlName="deviceId">
-                <mat-option *ngFor=" let list of getDeAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
-                  {{list.deviceId}}</mat-option>
-              </mat-select>
-              <mat-error>
-                Device ID is required
-              </mat-error>
-            </mat-form-field> <br>
+            <mat-select formControlName="deviceId">
+              <mat-option *ngFor=" let list of getDeAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
+                {{list.deviceId}}</mat-option>
+            </mat-select>
+            <mat-error>
+              Device ID is required
+            </mat-error>
+          </mat-form-field> <br>
 
-            <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary">Submit</button>
-          </form>
-        </mat-expansion-panel>
-      </mat-accordion>
+          <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary">Submit</button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-    </div>
   </div>
 </div>
+
 <mat-tab-group>
   <mat-tab>
     <ng-template mat-tab-label>

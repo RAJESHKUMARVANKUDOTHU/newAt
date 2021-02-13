@@ -1,14 +1,5 @@
 button.mat-focus-indicator.mat-button.mat-button-base{
   color: #f8f9fa;
-   font-weight: 500;
-}
-
-  .assets {
-    margin: 1rem;
-    text-align: center;
-}
-.status{
-  text-align: center;
-  font-size: larger;
   font-weight: 500;
 }
+

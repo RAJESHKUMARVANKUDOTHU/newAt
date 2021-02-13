@@ -12,16 +12,7 @@ button.mat-focus-indicator.mat-raised-button.mat-button-base{
 mat-card.mat-card.mat-focus-indicator {
     width: 100%;
     margin: 2rem 1rem 0 1rem;
-    height: 1005
-}
-.flex{
-  display: flex
-}
-.example-full-width{
-  width: -webkit-fill-available;
-}
-th.mat-header-cell {
-  text-align: center !important;
+    height: 100%
 }
 mat-card-title{
     text-align: center;
@@ -31,21 +22,5 @@ mat-card-title{
 hr{
     width: 12rem;
 }
-@media (max-width: 575.98px) {
-    .mat-card{
-      width: 100% !important;
-    }
-    .mat-tab-group{
-      margin-left: 1%;
-      width: 100%;
-      margin-top: 1%;
-    
-    }
-    .mat-table{
-      width: 500px;
-    }
-    .rounded-circle{
-      margin-right: 20px;
-    }  
-}
+
     
