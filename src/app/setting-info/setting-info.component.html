@@ -219,12 +219,12 @@
     </div>
     <div *ngIf="type=='serviceType'">
         <h1>Available services</h1>
-        <!-- <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource1" matSort>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource4" matSort>
                 <div>
-                    <ng-container matColumnDef="serviceTypeName">
+                    <ng-container matColumnDef="serviceName">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> ServiceType Name</th>
-                        <td mat-cell *matCellDef="let find"> {{find.serviceTypeName}} </td>
+                        <td mat-cell *matCellDef="let find"> {{find.serviceName}} </td>
                     </ng-container>
                     <ng-container matColumnDef="zoneName">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
@@ -232,9 +232,9 @@
                     </ng-container>
 
                 </div>
-                <tr mat-header-row *matHeaderRowDef="timeDelay"></tr>
-                <tr mat-row *matRowDef="let row; columns: timeDelay;"></tr>
+                <tr mat-header-row *matHeaderRowDef="servicetype"></tr>
+                <tr mat-row *matRowDef="let row; columns: servicetype;"></tr>
             </table>
             <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div> -->
+        </div>
     </div>

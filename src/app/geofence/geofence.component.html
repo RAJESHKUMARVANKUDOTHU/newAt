@@ -83,12 +83,12 @@
 
                 <ng-container matColumnDef="sms">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                    <td mat-cell *matCellDef="let find"> {{find.sms == "false" ? 'N' : find.sms}} </td>
+                    <td mat-cell *matCellDef="let find"> {{find.sms == "false" ? 'N' : "Y"}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="email">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                    <td mat-cell *matCellDef="let find"> {{find.email == "false" ? 'N' : find.email}} </td>
+                    <td mat-cell *matCellDef="let find"> {{find.email == "false" ? 'N' : "Y"}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="updatedOn">

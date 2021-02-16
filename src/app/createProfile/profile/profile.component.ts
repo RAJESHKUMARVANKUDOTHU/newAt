@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit {
   }
 
   isDeleted(data) {
-    data.isDeleted = data.isDeleted == 'y' ? 'n' : 'y'
+    data.isDeleted = data.isDeleted == true ? false : true
 
     this.api.deleteSubuser(data).then((res: any) => {
       console.log("delete sub user res===", res)

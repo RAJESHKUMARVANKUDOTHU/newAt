@@ -27,6 +27,8 @@ export class SettingInfoComponent implements OnInit {
   dataSource1: any = []
   dataSource2: any = []
   dataSource3: any = []
+  dataSource4: any = []
+  serviceData: any = []
   timeDelay = ['deviceId', 'timeDelay']
   findInactivityTime = ['deviceId', 'inActivityTime', 'inactivitySMS', 'inactivityEmail']
   coinInactivityTime = ['coinId', 'inActivityTime', 'sms', 'email']
@@ -35,7 +37,7 @@ export class SettingInfoComponent implements OnInit {
   groupInfo = ['i', 'groupName']
   coinGroup = ['coinId', 'coinName', 'groupId']
   maxFind =  ['coinId', 'coinName', 'maxFindAsset']
-  servicetype = ['zoneId', 'zoneName', 'serviceTypeName']
+  servicetype = ['zoneId', 'zoneName', 'serviceName']
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -50,7 +52,7 @@ export class SettingInfoComponent implements OnInit {
     this.loadData();
   }
   loadData() {
-    if (this.type == 'timeDelay' || this.type == 'find-inactive' || this.type == 'serviceType' ) {
+    if (this.type == 'timeDelay' || this.type == 'find-inactive' ) {
       this.refreshDevice()
     }
     else if (this.type == 'coin' || this.type == 'coin-cat' || this.type == 'coinGrp' || this.type == 'max-find') {
@@ -58,6 +60,9 @@ export class SettingInfoComponent implements OnInit {
     }
     else if (this.type == 'groupName') {
       this.getGroups()
+    }
+    else if(this.type == 'serviceType' ){
+      this.getServiceDetails()
     }
     else {
       this.getZoneDetails()
@@ -78,8 +83,8 @@ export class SettingInfoComponent implements OnInit {
             gatewayId: res.success[i].gatewayId,
             groupId: res.success[i].groupId,
             maxFindAsset:res.success[i].maxFindAsset,
-            sms: res.success[i].inactivityAlert[0].sms == "no" ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y',
-            email: res.success[i].inactivityAlert[1].email == "no" ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y',
+            sms:  res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == false ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y' : '-',
+            email:  res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == false ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y' : '-',
             zoneName: res.success[i].zoneId,
             inactivityTime: res.success[i].inactivityTime
           })
@@ -112,11 +117,11 @@ export class SettingInfoComponent implements OnInit {
               deviceId: res.success[i].deviceId,
               deviceName: res.success[i].deviceName,
               distance: res.success[i].distance,
-              sms: res.success[i].sms == 'N' ? 'N' : 'Y',
-              email: res.success[i].email == 'N' ? 'N' : 'Y',
+              sms: res.success[i].sms == false ? 'N' : 'Y',
+              email: res.success[i].email == false ? 'N' : 'Y',
               inActivityTime: res.success[i].inActivityTime,
-              inactivitySMS: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == "no" ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y' : '-',
-              inactivityEmail: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == "no" ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y' : '-',
+              inactivitySMS: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == false ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y' : '-',
+              inactivityEmail: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == false ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y' : '-',
               timeDelay: res.success[i].timeDelay,
 
             })
@@ -162,6 +167,22 @@ export class SettingInfoComponent implements OnInit {
         setTimeout(() => {
           this.dataSource3.sort = this.sort;
           this.dataSource3.paginator = this.paginator
+        })
+      }
+      else { }
+    })
+  }
+
+  getServiceDetails() {
+    this.api.getServiceType().then((res: any) => {
+      console.log("service details response==", res)
+      this.serviceData = []
+      if (res.status) {
+        this.serviceData = res.success
+        this.dataSource4 = new MatTableDataSource(this.serviceData);
+        setTimeout(() => {
+          this.dataSource4.sort = this.sort;
+          this.dataSource4.paginator = this.paginator
         })
       }
       else { }

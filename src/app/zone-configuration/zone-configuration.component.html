@@ -4,7 +4,7 @@
             <mat-form-field>
                 <mat-label>Layout</mat-label>
                 <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-                    <mat-option *ngFor="let list of mapService.gatewayList" [value]="list">{{list.layoutName}}</mat-option>
+                    <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layoutName}}</mat-option>
                 </mat-select>
                 <mat-error>
                     Select the layout
@@ -16,7 +16,7 @@
         <form [formGroup]="selectZoneForm">
             <mat-form-field>
                 <mat-label>Select zone</mat-label>
-                <mat-select formControlName="zone" (selectionChange)="zoneSelect($event.value)" [disabled]="mapService.selectedLayoutZone.layout == ''">
+                <mat-select formControlName="zone" (selectionChange)="zoneSelect($event.value)" [disabled]="layoutData.layoutName == ''">
                     <mat-option *ngFor="let list of zoneList" [value]="list">{{list.zoneName}}</mat-option>
                 </mat-select>
                 <mat-error>
@@ -26,13 +26,21 @@
         </form>
     </div>
     <div class="col-md-4">
-        <button mat-flat-button color="primary"  (click)="submitZone(mapService.selectedLayoutZone)" [disabled]="mapService.selectedLayoutZone.layoutName =='' || mapService.selectedLayoutZone.id == ''">Create</button> &nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-flat-button color="primary"  (click)="removeZone(mapService.selectedLayoutZone)" [disabled]="mapService.selectedLayoutZone.layoutName =='' || mapService.selectedLayoutZone.id == ''">Remove</button>
+        <button mat-flat-button color="primary"  (click)="submitZone()" [disabled]="selectLayoutForm.get('layout').value=='' || selectZoneForm.get('zone').value==''">Create</button> &nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-flat-button color="primary"  (click)="removeZone()" [disabled]="selectLayoutForm.get('layout').value=='' || selectZoneForm.get('zone').value==''">Remove</button>
     </div>
 </div>
 
-<div [ngClass]='mapService.selectedLayoutZone.layoutName == "" || mapService.selectedLayoutZone.zone == "" ? "hide" : "visible"'>
-    <app-map type='zone'></app-map>
+<div [ngClass]=" selectLayoutForm.get('layout').value=='' || selectZoneForm.get('zone').value==''? 'hide' : 'visible' ">
+    <div class = "map-alternative" *ngIf = "mapDisable">
+        Please select the layout..!
+      </div>
+      <div class="map-container" >
+        <div class="map-frame">
+          <div id="map" #mapId></div>
+        </div>
+      </div>
+      
 </div>
 
 <br> 

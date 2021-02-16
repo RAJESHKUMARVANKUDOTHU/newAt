@@ -18,6 +18,7 @@ export class ManageDeviceComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   findData: any = []
   dataSource: any = [];
+  serviceData:any = []
   fileName: String = ''
   displayedColumns = ['i', 'deviceId', 'deviceName', 'on-off', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
   constructor(
@@ -29,6 +30,7 @@ export class ManageDeviceComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshDevice()
+    this.getServiceDetails()
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
@@ -194,6 +196,16 @@ export class ManageDeviceComponent implements OnInit {
       console.log("Registerd asset download==", res)
     }).catch((err: any) => {
       console.log("error==", err)
+    })
+  }
+  getServiceDetails() {
+    this.api.getServiceType().then((res: any) => {
+      console.log("servoce details response==", res)
+      this.serviceData = []
+      if (res.status) {
+        this.serviceData = res.success
+      }
+      else { }
     })
   }
 }

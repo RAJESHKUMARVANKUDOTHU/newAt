@@ -90,8 +90,8 @@ export class GeofenceComponent implements OnInit {
 
   submit(value) {
     var data = {
-      sms: value.alert == 'sms' ? 'Y' : 'N',
-      email: value.alert == 'email' ? 'Y' : 'N',
+      sms: value.alert == 'sms' ? true : false,
+      email: value.alert == 'email' ? true : false,
       deviceId: this.general.filterArray(value.deviceId),
       coin: this.general.filterArray(value.coin)
     }
@@ -123,9 +123,12 @@ export class GeofenceComponent implements OnInit {
           this.dataSource.paginator = this.paginator
         })
       }
-      else { }
+      else { } 
 
 
+    }).catch(err => {
+      console.log("error===",err);
+      
     })
   }
 

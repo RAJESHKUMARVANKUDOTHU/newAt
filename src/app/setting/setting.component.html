@@ -157,11 +157,13 @@
             <form [formGroup]="createServiceType">
                 <mat-form-field>
                     <mat-label>Enter service type name</mat-label>
-                    <input type="text" matInput formControlName="serviceTypeName" required>
+                    <input type="text" matInput formControlName="serviceName" required>
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Select zone category</mat-label>
-                    <mat-select formControlName="zoneId">
+                    <mat-select formControlName="zoneId" multiple>
+                        <mat-option #allSelected4 (click)="toggleAllSelectionZone(createServiceType)" [value]="0">All
+                        </mat-option>
                         <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}</mat-option>
                     </mat-select>
                 </mat-form-field> <br><br>

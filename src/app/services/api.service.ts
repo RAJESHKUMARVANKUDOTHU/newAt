@@ -788,7 +788,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/updateMultipleCoinId';
+    let url = this.host + '/updateCoinZone';
     let body = {
       data: data,
     };
@@ -884,12 +884,13 @@ export class ApiService {
       );
     });
   }
+
   createServiceType(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/updateServiceTypeName';
+    let url = this.host + '/updateZoneIdServices';
     let body = {
       data: data,
     };
@@ -904,6 +905,45 @@ export class ApiService {
       );
     });
   }
+
+  getServiceType(){
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getServiceDetails';
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+  
+  updateServiceId(){
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/updateServiceId';
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   refreshSettings() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

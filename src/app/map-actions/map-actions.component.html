@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label>Layout</mat-label>
         <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-          <mat-option *ngFor="let list of mapService.gatewayList" [value]="list">{{list.layoutName}}</mat-option>
+          <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layoutName}}</mat-option>
         </mat-select>
         <mat-error>
           Select the layout
@@ -19,9 +19,19 @@
   </div>
 </div>
 
+
+
 <div [ngClass]="getValidation()">
-  <app-map type='edit'></app-map>
+  <div class = "map-alternative" *ngIf = "mapDisable">
+    Please select the layout..!
+  </div>
+  <div class="map-container" >
+    <div class="map-frame">
+      <div id="map" #mapId></div>
+    </div>
+  </div>
 </div>
+
 
 <br>
 
@@ -37,7 +47,7 @@
                 <mat-form-field>
                   <mat-label> Select Gateway </mat-label>
                   <mat-select formControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
-                    <mat-option *ngFor="let list of mapService.gatewayData" [value]="list.gatewayId">{{list.gatewayId}}
+                    <mat-option *ngFor="let list of layoutData.gateways" [value]="list">{{list.gatewayId}}
 
                     </mat-option>
                   </mat-select>
@@ -45,11 +55,11 @@
                 <mat-form-field>
                   <mat-label>Select Coin</mat-label>
                   <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-                    <mat-option *ngFor="let a of mapService.coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
+                    <mat-option *ngFor="let a of coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
                   </mat-select>
                 </mat-form-field> <br>
 
-                <button mat-raised-button color="primary" [disabled]="mapService.selectedCoinBound.coinId == 0"
+                <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid"
                   (click)="updateCoinBound()">Add</button>
                 <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
 <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
@@ -66,7 +76,7 @@
               <th>Zone Name</th>
             </thead>
             <tbody>
-              <tr *ngFor="let a of mapService.coinData;let i=index"
+              <tr *ngFor="let a of coinData;let i=index"
                 [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
                 <td>{{i+1}}</td>
                 <td>{{a.coinId}}</td>

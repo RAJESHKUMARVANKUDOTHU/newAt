@@ -41,7 +41,7 @@
      background-color: #002060;
      display: block;
      color: white;
-     width: 280px;
+     width: fit-content;
      min-width: fit-content;
   }
 

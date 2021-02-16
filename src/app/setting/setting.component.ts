@@ -112,7 +112,7 @@ export class SettingComponent implements OnInit {
 
     this.createServiceType = this.fb.group({
       zoneId:['',Validators.required],
-      serviceTypeName:['',Validators.required]
+      serviceName:['',Validators.required]
     })
   }
 
@@ -243,8 +243,8 @@ export class SettingComponent implements OnInit {
 
     try {
       if (this.inactivityFind.valid) {
-        data.sms = data.alert == 'sms' ? 'yes' : 'no'
-        data.email = data.alert == 'email' ? 'yes' : 'no'
+        data.sms = data.alert == 'sms' ? true : false
+        data.email = data.alert == 'email' ? true : false
         console.log("onSubmitInactivityFind data==", data)
         this.api.deviceInactivity(data).then((res: any) => {
 
@@ -272,7 +272,8 @@ export class SettingComponent implements OnInit {
   onSubmitInactivityCoin(data) {
     data.coinId = this.general.filterArray(data.coinId)
     console.log("onSubmitInactivityCoin data==", data)
-
+    data.sms = data.alert == 'sms' ? true : false
+    data.email = data.alert == 'email' ? true : false
     try {
       if (this.inactivityCoin.valid) {
         this.api.coinInactivity(data).then((res: any) => {
