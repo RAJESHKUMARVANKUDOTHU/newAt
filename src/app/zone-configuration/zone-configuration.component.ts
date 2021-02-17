@@ -5,7 +5,6 @@ import {
   ViewChild,
   ElementRef,
   ChangeDetectorRef,
-
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapService } from '../services/map-services/map.service';
@@ -19,49 +18,41 @@ import * as L from 'leaflet';
   styleUrls: ['./zone-configuration.component.css'],
 })
 export class ZoneConfigurationComponent implements OnInit {
-  selectLayoutForm: FormGroup;
+  @ViewChild('mapElement') mapElement: ElementRef;
   selectZoneForm: FormGroup;
+  selectedLayout: any = '';
   gatewayList: any = [];
-  zoneList: any = [ ];
-  bound: any = []
-  zoneBounds:  any = []
-  layoutZone: any = []
-  layoutData: any = []
-  imageMarker: any = ''
-  marker:any = []
-  mapDisable:boolean = true
-  map: any
+  zoneList: any = [];
+  bound: any = [];
+  layoutData: any = [];
+  marker: any = [];
+  mapDisable: boolean = true;
+  map: any = null;
   constructor(
     private fb: FormBuilder,
     public mapService: MapService,
     private api: ApiService,
     private general: GeneralService,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    // this.mapService.clear();
-   console.log("this.layoutData",this.layoutData);
-   
-    this.getZoneDetails();
     this.getLayout();
-    this.selectLayoutForm = this.fb.group({
-      layout: ['', Validators.required],
-    });
     this.selectZoneForm = this.fb.group({
-      zone: ['', Validators.required],
+      layout: ['', Validators.required],
+      id: ['', Validators.required],
+      bounds: ['', Validators.required],
     });
-
-   }
+  }
 
   ngOnDestroy() {
-    if (this.map !='') {
+    if (this.map != null) {
       this.map.remove();
     }
-    this.layoutData=[]
-    this.layoutZone = ''
+    this.layoutData = [];
   }
-  ngAfterViewInit() {
+
+  createMap() {
     this.mapDisable = true;
     this.map = new L.map('map', {
       attributionControl: false,
@@ -73,7 +64,7 @@ export class ZoneConfigurationComponent implements OnInit {
       fullscreenControlOptions: {
         title: 'Show me the fullscreen !',
         titleCancel: 'Exit fullscreen mode',
-        position: 'topleft'
+        position: 'topleft',
       },
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
@@ -82,108 +73,121 @@ export class ZoneConfigurationComponent implements OnInit {
     this.map.setMaxBounds(this.bound);
     this.map.dragging.disable();
     this.map.on('click', (data) => {
-      console.log("click data==",data);
-      
       let latlng = [data.latlng.lat, data.latlng.lng];
-      this.zoneBounds.push(latlng);
-      console.log("this.zoneBounds==",this.zoneBounds);
-      L.polygon(this.zoneBounds).addTo(this.map); 
+      let bounds = this.selectZoneForm.get('bounds').value;
+      let id = this.selectZoneForm.get('id').value;
+      if (id) {
+        bounds.push(latlng);
+        this.selectZoneForm.patchValue({
+          bounds: bounds,
+        });
+        this.clearMap();
+        L.polygon(bounds).addTo(this.map);
+      }
+
       this.cd.detectChanges();
-    })
+    });
   }
 
-  
   layoutSelect(data) {
-    // this.mapService.selectedLayout.next(data._id);
-    // this.mapService.selectedLayoutZone.layoutName = data.layoutName;
-    // console.log(
-    //   'data selectedLayoutCoin zone =',
-    //   this.mapService.selectedLayoutZone
-    // );
+    console.log('layoutchange===', data);
     this.mapDisable = false;
-    this.clearMap()
-    this.layoutData = []
-    this.layoutZone={}
-    this.layoutData = data
-    console.log('data layout===', this.layoutData);
-    this.api.getLayoutImage(data._id).then((res: any) => {
-      
-      if (this.map.hasLayer(this.imageMarker)) {
-        this.map.removeLayer(this.imageMarker);
-      }
-      this.imageMarker = L.imageOverlay(res, this.bound);
-      this.imageMarker.addTo(this.map);
-      // for(let i = 0; i< this.zoneList.length; i++){
-      //     L.polygon(this.zoneList[i].bounds).addTo(this.map); 
-      // }
-    
+    let layout = this.gatewayList.filter((obj) => {
+      return obj._id == data;
     });
-   
+    console.log('layout===', layout);
+
+    this.selectedLayout = data;
+    if (layout) {
+      this.api.getLayoutImage(layout[0]._id).then((res: any) => {
+        L.imageOverlay(res, this.bound).addTo(this.map);
+        this.getZoneDetails();
+      });
+    }
   }
 
   zoneSelect(data) {
-    this.clearMap()
-    console.log("zone data on select===",data)
-    this.layoutZone = {}
-    this.layoutZone = {
-      id: data._id,
-      bounds : data.bounds.length ? data.bounds : []
-    }
-    console.log("this.layoutZone==",this.layoutZone)
-    L.polygon(this.layoutZone.bounds).addTo(this.map); 
+    console.log('zone data on select===', data);
+    let zone = this.zoneList.filter((obj) => {
+      return obj._id == data;
+    });
+    console.log('zone===', zone);
+
+    this.selectZoneForm.patchValue({
+      bounds: zone[0].bounds,
+    });
+    this.createPolygon(data);
+  }
+
+  createPolygon(zoneId = 0) {
+    this.clearMap();
+    this.zoneList.forEach((obj) => {
+      if (zoneId == 0) {
+        L.polygon(obj.bounds).addTo(this.map);
+      } else {
+        if (obj._id == zoneId) {
+          L.polygon(obj.bounds).addTo(this.map);
+        }
+      }
+    });
     this.cd.detectChanges();
-    // this.mapService.selectedLayoutZone.id = data._id;
-    // if (data.bounds.length) {
-    //   this.mapService.selectedLayoutZone.bounds = data.bounds;
-    // } else {
-    //   this.mapService.selectedLayoutZone.bounds = [];
-    // }
-    // this.mapService.mapDetectChanges.next({ type: 'zone' });
-    // console.log(
-    //   'data selectedLayoutCoin zone =',
-    //   this.mapService.selectedLayoutZone
-    // );
-    // this.zoneBounds = this.layoutZone.bounds
-   
+    setTimeout(() => {
+      this.mapElement.nativeElement.focus();
+    }, 0);
   }
 
   submitZone() {
-    var data ={
-      id : this.layoutZone.id,
-      bounds : this.zoneBounds
-    }
+    var data = {
+      id: this.selectZoneForm.get('id').value,
+      bounds: this.selectZoneForm.get('bounds').value,
+    };
     console.log('zone submit===', data);
-    this.api.updateZoneBound(data).then((res: any) => {
-      console.log('update zone bounds res==', res);
-      if (res.status) {
-        this.general.openSnackBar(res.message, '');
-        this.getZoneDetails();
-      }
-      else {
-        this.general.openSnackBar(res.message, '');
-      }
-    }).catch(err => {
-      console.log("err==", err);
-    });
+    this.api
+      .updateZoneBound(data)
+      .then((res: any) => {
+        console.log('update zone bounds res==', res);
+        if (res.status) {
+          this.selectZoneForm.reset();
+          this.general.openSnackBar(res.message, '');
+          this.getZoneDetails();
+          this.selectZoneForm.patchValue({
+            layout: this.selectedLayout,
+          });
+          this.cd.detectChanges();
+        } else {
+          this.general.openSnackBar(res.message, '');
+          this.cd.detectChanges();
+        }
+      })
+      .catch((err) => {
+        console.log('err==', err);
+      });
   }
 
   removeZone() {
-    // console.log('zone remove===', data);
     let sendData = {
-      id: this.layoutZone.id
-    }
-    this.api.deleteZoneBound(sendData).then((res: any) => {
-      console.log('delete zone bounds res==', res);
-      if (res.status) {
-        this.general.openSnackBar(res.message, '');
-        this.getZoneDetails();
-      }
-      else {
-        this.general.openSnackBar(res.message, '');
-      }
-    }).catch(err => {
-      console.log("err==", err);
-    });
+      id: this.selectZoneForm.get('id').value,
+    };
+    this.api
+      .deleteZoneBound(sendData)
+      .then((res: any) => {
+        console.log('delete zone bounds res==', res);
+        if (res.status) {
+          this.selectZoneForm.reset();
+          this.general.openSnackBar(res.message, '');
+          this.getZoneDetails();
+          this.selectZoneForm.patchValue({
+            layout: this.selectedLayout,
+          });
+          this.cd.detectChanges();
+        } else {
+          this.general.openSnackBar(res.message, '');
+          this.cd.detectChanges();
+        }
+      })
+      .catch((err) => {
+        console.log('err==', err);
+      });
   }
 
   getLayout() {
@@ -193,9 +197,14 @@ export class ZoneConfigurationComponent implements OnInit {
         console.log('get layout res===', res);
         if (res.status) {
           this.gatewayList = res.success;
-        }
-        else{
+          if (!this.map) {
+            this.createMap();
+          }
+        } else {
           this.gatewayList = [];
+          if (!this.map) {
+            this.createMap();
+          }
         }
       })
       .catch((err: any) => {
@@ -205,19 +214,16 @@ export class ZoneConfigurationComponent implements OnInit {
 
   getZoneDetails() {
     this.api.getZone().then((res: any) => {
-
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
         this.zoneList = res.success;
-       
-      }
-      else {
+        this.createPolygon();
+      } else {
         this.zoneList = [];
+        this.createPolygon();
       }
     });
-
-
   }
 
   clearMap() {
@@ -227,8 +233,6 @@ export class ZoneConfigurationComponent implements OnInit {
       }
       for (let i in this.map._layers) {
         if (!this.map._layers[i].hasOwnProperty('_url')) {
-          console.log("this.map._layers[i]===", this.map._layers[i]);
-
           try {
             this.map.removeLayer(this.map._layers[i]);
           } catch (e) {
@@ -237,13 +241,8 @@ export class ZoneConfigurationComponent implements OnInit {
         }
       }
     }
-
   }
-
-  
 }
-
-
 
 // {
 //   id: 1,

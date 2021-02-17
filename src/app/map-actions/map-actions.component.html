@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label>Layout</mat-label>
         <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-          <mat-option *ngFor="let list of gatewayList" [value]="list">{{list.layoutName}}</mat-option>
+          <mat-option *ngFor="let list of gatewayList" [value]="list.layoutName">{{list.layoutName}}</mat-option>
         </mat-select>
         <mat-error>
           Select the layout
@@ -27,7 +27,7 @@
   </div>
   <div class="map-container" >
     <div class="map-frame">
-      <div id="map" #mapId></div>
+      <div id="map" #mapElement></div>
     </div>
   </div>
 </div>
@@ -43,11 +43,11 @@
         <mat-grid-tile>
           <mat-card>
             <mat-card-content>
-              <form [formGroup]="configCoinForm">
+              <form [formGroup]="configCoinForm" (ngSubmit)="updateCoinBound(configCoinForm.value)">
                 <mat-form-field>
                   <mat-label> Select Gateway </mat-label>
-                  <mat-select formControlName="gatewayName" (selectionChange)="gatewaySelect($event.value)">
-                    <mat-option *ngFor="let list of layoutData.gateways" [value]="list">{{list.gatewayId}}
+                  <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
+                    <mat-option *ngFor="let list of layoutData.gateways" [value]="list.gatewayId">{{list.gatewayId}}
 
                     </mat-option>
                   </mat-select>
@@ -59,8 +59,7 @@
                   </mat-select>
                 </mat-form-field> <br>
 
-                <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid"
-                  (click)="updateCoinBound()">Add</button>
+                <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Add</button>
                 <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
 <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
               </form>
