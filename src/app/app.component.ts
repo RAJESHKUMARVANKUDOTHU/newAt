@@ -16,14 +16,13 @@ export class AppComponent {
   isMobile: boolean
   isTablet: boolean
   isDesktopDevice: boolean
-  isExpanded = true;
-  isShowing = false;
+  // isExpanded = true;
+  // isShowing = false;
   showLabel: boolean
-  sideNav: boolean = false
   loginDetails: any
   logged: boolean
   menu: boolean
-  log: boolean = true
+  role: boolean = false
   statusFreeze: boolean = false
   freezeMessage: String = "Loading"
   constructor(
@@ -39,7 +38,6 @@ export class AppComponent {
     this.login.loginCheckData.subscribe((res) => {
       console.log("res===", res)
       this.logged = res
-      this.loginDetails = this.login.getLoginDetails().success
       console.log("this.loginDetails inside====", this.loginDetails)
     });
     this.login.loginCred.subscribe(res => {
@@ -47,8 +45,7 @@ export class AppComponent {
 
       this.menu = res
       this.loginDetails = this.login.getLoginDetails().success
-
-    })
+      })
 
     console.log("route = ", window.location.pathname)
   }

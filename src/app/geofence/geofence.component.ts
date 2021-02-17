@@ -98,7 +98,7 @@ export class GeofenceComponent implements OnInit {
     console.log("geofence Data==", data)
     this.api.geofenceSetting(data).then((res: any) => {
       if (res.status) {
-        console.log("geofence setting res==", res, this.general.decrypt(res.message));
+        console.log("geofence setting res==", res);
         this.general.openSnackBar(res.message, '')
         this.getGeofence();
       }

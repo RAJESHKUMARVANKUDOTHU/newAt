@@ -130,7 +130,7 @@
                     </ng-container>
                     <ng-container matColumnDef="zoneName">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.zoneId == null ? '-' : coin.zoneName}} </td>
+                        <td mat-cell *matCellDef="let coin"> {{coin.zoneName == null ? '-' : coin.zoneName.zoneName}} </td>
                     </ng-container>
 
                 </div>

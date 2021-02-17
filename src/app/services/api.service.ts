@@ -77,7 +77,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/updateSubuserStatus';
+    let url = this.host + '/updateSubUserStatus';
     let body = {
       data: data,
     };
@@ -99,7 +99,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/updateSubuserEmailid';
+    let url = this.host + '/updateSubuserEmail';
     let body = {
       data: data,
     };

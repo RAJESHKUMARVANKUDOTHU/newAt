@@ -121,8 +121,12 @@ export class SettingComponent implements OnInit {
 
       console.log("refresh Settings====", res);
       if (res.status) {
+        this.distanceForm.patchValue({
+          range : res.success.range
+        })
       }
       else {
+        this.general.openSnackBar(res.success,'')
       }
 
     }).catch((err: any) => {
@@ -197,6 +201,7 @@ export class SettingComponent implements OnInit {
           console.log("range res===", res)
           if (res.status) {
             this.distanceForm.reset()
+            this.refreshSetting()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -223,6 +228,7 @@ export class SettingComponent implements OnInit {
           console.log("timeDelay res===", res)
           if (res.status) {
             this.timeDelay.reset()
+            this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -251,6 +257,7 @@ export class SettingComponent implements OnInit {
           console.log("inactivity find res===", res)
           if (res.status) {
             this.inactivityFind.reset()
+            this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -281,6 +288,7 @@ export class SettingComponent implements OnInit {
           console.log("inactivity coin res===", res)
           if (res.status) {
             this.inactivityCoin.reset()
+            this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -307,6 +315,7 @@ export class SettingComponent implements OnInit {
           console.log("max find res===", res)
           if (res.status) {
             this.maxFindForm.reset()
+            this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -332,6 +341,7 @@ export class SettingComponent implements OnInit {
           console.log("zone setting res===", res)
           if (res.status) {
             this.coinCategory.reset()
+            this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -358,6 +368,7 @@ export class SettingComponent implements OnInit {
           console.log("zone setting res===", res)
           if (res.status) {
             this.zoneForm.reset()
+            this.getZoneDetails()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -384,6 +395,7 @@ export class SettingComponent implements OnInit {
           console.log("Group register res===", res)
           if (res.status) {
             this.groupRegister.reset()
+            this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -409,6 +421,7 @@ export class SettingComponent implements OnInit {
           console.log("Group coin res===", res)
           if (res.status) {
             this.groupCoinForm.reset()
+            this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
           else { }

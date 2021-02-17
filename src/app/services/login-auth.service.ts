@@ -30,9 +30,8 @@ export class LoginAuthService {
   // }
 
   loginData() {
-    var status = localStorage.getItem('sensegiz')
     // console.log("login data===",status)
-    if (status && status != 'undefined' || status != null) {
+    if (this.checkRole() && this.checkRole() != null) {
       // console.log("true")
       this.loginCheckData.next(true)
       return true
@@ -69,7 +68,7 @@ export class LoginAuthService {
   getLoginDetails() {
     var status = JSON.parse(localStorage.getItem('sensegiz'))
     // console.log("getLoginDetails===",status)
-    if (status && status != 'undefined' || status != null) {
+    if (this.checkRole() && this.checkRole() != null) {
       // console.log("hmm")
       return status
     }
@@ -79,7 +78,22 @@ export class LoginAuthService {
 
   }
 
-
+  checkRole() {
+    var status = JSON.parse(localStorage.getItem('sensegiz'))
+    if (status && status != 'undefined' || status != null) {
+      if (status.success.role == 'adminRole' ||
+        status.success.role == 'userRole' ||
+        status.success.role == 'coAdminRole' ||
+        status.success.role == 'subAdminRole') {
+        return true
+      }
+      else {
+        return false
+      }
+    } else {
+      return false
+    }
+  }
   login(data) {
     // console.log("setting data",localStorage.setItem('sensegiz',data))
     localStorage.setItem('sensegiz', data)

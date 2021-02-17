@@ -11,7 +11,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="example-container"
-    *ngIf="logged && menu && loginDetails.role=='adminRole'" autosize="true">
+    *ngIf="logged && menu" autosize="true">
     <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
 
       <div class="bg-white">
@@ -82,7 +82,7 @@
         <span style="flex: 1 1 auto;"></span>
         <span *ngIf="logged">{{loginDetails.userName}} </span>
       </mat-toolbar>
-      <div *ngIf="logged && loginDetails.role=='adminRole'" class="example-sidenav-content">
+      <div *ngIf="logged" class="example-sidenav-content">
         <router-outlet></router-outlet>
       </div>
 
@@ -90,7 +90,7 @@
 
   </mat-sidenav-container>
 </div>
-<div *ngIf="(isMobile || isTablet) && (logged && menu && loginDetails.role=='adminRole')" >
+<div *ngIf="(isMobile || isTablet) && (logged && menu)" >
   <div class="d-flex">
   <mat-toolbar>
 
