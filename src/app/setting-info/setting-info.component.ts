@@ -83,10 +83,10 @@ export class SettingInfoComponent implements OnInit {
             gatewayId: res.success[i].gatewayId,
             groupId: res.success[i].groupId,
             maxFindAsset:res.success[i].maxFindAsset,
-            sms:  res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == false ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y' : '-',
-            email:  res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == false ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y' : '-',
+            sms:   res.success[i].inactivityAlert.sms == false ? 'N' : 'Y' ,
+            email:  res.success[i].inactivityAlert.email == false ? 'N' :'Y' ,
             zoneName: res.success[i].zoneId,
-            inactivityTime: res.success[i].inactivityTime
+            inActivityTime: res.success[i].inActivityTime
           })
           this.dataSource = new MatTableDataSource(this.coinData);
           setTimeout(() => {
@@ -120,8 +120,8 @@ export class SettingInfoComponent implements OnInit {
               sms: res.success[i].sms == false ? 'N' : 'Y',
               email: res.success[i].email == false ? 'N' : 'Y',
               inActivityTime: res.success[i].inActivityTime,
-              inactivitySMS: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == false ? 'N' : res.success[i].inactivityAlert[0].sms == null ? '-' : 'Y' : '-',
-              inactivityEmail: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == false ? 'N' : res.success[i].inactivityAlert[1].email == null ? '-' : 'Y' : '-',
+              inactivitySMS: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[0].sms == false ? 'N' : 'Y' : '-',
+              inactivityEmail: res.success[i].inactivityAlert.length ? res.success[i].inactivityAlert[1].email == false ? 'N' : 'Y' : '-',
               timeDelay: res.success[i].timeDelay,
 
             })

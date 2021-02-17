@@ -33,7 +33,6 @@ export class SettingComponent implements OnInit {
   maxFindForm: FormGroup
   groupRegister: FormGroup
   createServiceType:FormGroup
-  feetValue: any = [25, 50, 75, 100]
   coinData: any = []
   deviceData: any = []
   groupData: any = []
@@ -124,6 +123,7 @@ export class SettingComponent implements OnInit {
         this.distanceForm.patchValue({
           range : res.success.range
         })
+        console.log("this.distanceForm==",this.distanceForm)
       }
       else {
         this.general.openSnackBar(res.success,'')
@@ -192,19 +192,18 @@ export class SettingComponent implements OnInit {
 
   onSubmitDistanceForm(data) {
     console.log("data===", data)
-
     try {
       if (this.distanceForm.valid) {
-
         this.api.setRange(data).then((res: any) => {
-
-          console.log("range res===", res)
+        console.log("range res===", res)
           if (res.status) {
             this.distanceForm.reset()
+            this.general.openSnackBar(res.success, '')
             this.refreshSetting()
+          }
+          else { 
             this.general.openSnackBar(res.success, '')
           }
-          else { }
         }).catch((err) => {
           console.log("err=", err)
         })

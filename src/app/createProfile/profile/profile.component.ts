@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
           }
         })
           .catch((err) => {
-            console.log("err======", err)
+            console.log("error======", err)
           })
       }
       catch (err) {
@@ -120,15 +120,20 @@ export class ProfileComponent implements OnInit {
 
   isDeleted(data) {
     data.isDeleted = data.isDeleted == true ? false : true
-
+    data.id = data._id
+    console.log("delete sub usser data==",data);
+    
     this.api.deleteSubuser(data).then((res: any) => {
       console.log("delete sub user res===", res)
       if (res.status) {
+        this.getUsers()
         this.general.openSnackBar(res.success, '')
       }
-      else { }
+      else { 
+        this.general.openSnackBar(res.success, '')
+      }
     }).catch((err) => {
-      console.log("err======", err)
+      console.log("error======", err)
     })
   }
 

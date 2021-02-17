@@ -77,7 +77,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/updateSubUserStatus';
+    let url = this.host + '/updateSubuserStatus';
     let body = {
       data: data,
     };
@@ -669,12 +669,15 @@ export class ApiService {
     let body = {
       data: data,
     };
+    console.log("range data==",body)
       return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
+          console.log("range res==",res)
           resolve(res.data);
         },
         (err) => {
+          console.log("range err==",err)
           reject(err);
         }
       );

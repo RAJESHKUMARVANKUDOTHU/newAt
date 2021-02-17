@@ -31,7 +31,10 @@
                 <mat-form-field>
                     <mat-label>In feet</mat-label>
                     <mat-select formControlName="range">
-                        <mat-option *ngFor="let feet of feetValue" [value]="feet">{{feet}}</mat-option>
+                        <mat-option [value]=25>25</mat-option>
+                        <mat-option [value]=50>50</mat-option>
+                        <mat-option [value]=75>75</mat-option>
+                        <mat-option [value]=100>100</mat-option>
                     </mat-select>
                 </mat-form-field> <br>
 
@@ -162,7 +165,7 @@
                 <mat-form-field>
                     <mat-label>Select zone category</mat-label>
                     <mat-select formControlName="zoneId" multiple>
-                        <mat-option #allSelected4 (click)="toggleAllSelectionZone(createServiceType)" [value]="0">All
+                        <mat-option #allSelected6 (click)="toggleAllSelectionZone(createServiceType)" [value]="0">All
                         </mat-option>
                         <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}</mat-option>
                     </mat-select>
