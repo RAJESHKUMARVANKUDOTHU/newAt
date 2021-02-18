@@ -37,7 +37,7 @@ export class SettingInfoComponent implements OnInit {
   groupInfo = ['i', 'groupName']
   coinGroup = ['coinId', 'coinName', 'groupId']
   maxFind =  ['coinId', 'coinName', 'maxFindAsset']
-  servicetype = ['zoneId', 'zoneName', 'serviceName']
+  servicetype = [ 'serviceName','zoneId']
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,

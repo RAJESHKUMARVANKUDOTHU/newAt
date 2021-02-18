@@ -518,7 +518,7 @@ export class SettingComponent implements OnInit {
 
   toggleAllSelectionZone(formData) {
     if (this.allSelected6.selected) {
-      formData.controls.zoneId.patchValue([...this.zoneData.map(obj => obj.zoneId), 0])
+      formData.controls.zoneId.patchValue([...this.zoneData.map(obj => obj._id), 0])
     }
     else {
       formData.controls.zoneId.patchValue([])

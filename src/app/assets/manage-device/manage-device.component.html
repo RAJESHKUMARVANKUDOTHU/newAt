@@ -29,19 +29,19 @@
                     </span>
                 </td>
             </ng-container>
-            <!-- <ng-container matColumnDef="deviceName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Device Name </th>
+            <ng-container matColumnDef="serviceCategoryId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Type</th>
                 <td mat-cell *matCellDef="let find">
                     <mat-form-field>
                         <mat-label>Service Type</mat-label>
-                        <mat-select  [(value)]="find" (selectionChange)="onServiceSelection(find)" [disabled]="find.deviceAssignedStatus == false && find.deviceToggleStatus == false">
-                            <mat-option *ngFor=" let a of find" [value]="find">
-                            {{}}
+                        <mat-select  [(value)]="find.serviceCategoryId" [disabled]="find.deviceAssignedStatus == false || find.deviceToggleStatus == false">
+                            <mat-option *ngFor=" let a of serviceData" [value]="a._id" (click)="onServiceSelection(find,a)" >
+                            {{a.serviceName}}
                             </mat-option>
                      </mat-select>
                    </mat-form-field>
                 </td>
-            </ng-container> -->
+            </ng-container>
 
             <!-- <ng-container matColumnDef="batteryStatus">
 <th mat-header-cell *matHeaderCellDef mat-sort-header> Battery </th>

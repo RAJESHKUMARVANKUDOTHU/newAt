@@ -20,7 +20,7 @@ export class ManageDeviceComponent implements OnInit {
   dataSource: any = [];
   serviceData:any = []
   fileName: String = ''
-  displayedColumns = ['i', 'deviceId', 'deviceName', 'on-off', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
+  displayedColumns = ['i', 'deviceId', 'deviceName','serviceCategoryId', 'on-off', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,
     private login: LoginAuthService,
@@ -65,6 +65,7 @@ export class ManageDeviceComponent implements OnInit {
               deviceName: res.success[i].deviceName,
               deviceId: res.success[i].deviceId,
               updatedOn: res.success[i].updatedAt,
+              serviceCategoryId: res.success[i].serviceCategoryId,
               deviceAssignedStatus: res.success[i].deviceAssignedStatus,
               deviceToggleStatus: res.success[i].deviceToggleStatus,
               edit: 'edit',
@@ -84,9 +85,14 @@ export class ManageDeviceComponent implements OnInit {
       console.log("error===", err)
     })
   }
-  onServiceSelection(data){
+  onServiceSelection(value,a){
+    
+    var data={
+      serviceId: a._id,
+      deviceId: value.deviceId
+    }
     console.log("service select data==",data);
-    this.api.coinRegistration(data).then((res:any)=>{
+    this.api.updateServiceId(data).then((res:any)=>{
       console.log("update Services===",res)
       if(res.status){
         this.general.openSnackBar(res.success,'')
