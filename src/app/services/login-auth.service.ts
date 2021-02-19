@@ -16,30 +16,30 @@ export class LoginAuthService {
 
   }
 
-
-  // loginStatusMenu(){
-  //   var status = localStorage.getItem('sensegizlogin')
-  //   var route = window.location.pathname
-  //   // console.log("route==",route)
-  //   if(route !='/login' && route!='/admin-login' ){
-  //     this.loginCred.next(true)
-  //   }
-  //   else{
-  //     this.loginCred.next(false)
-  //   }
-  // }
-
   loginData() {
-    // console.log("login data===",status)
+    var status = JSON.parse(localStorage.getItem('sensegiz'))
     if (this.checkRole() && this.checkRole() != null) {
       // console.log("true")
-      this.loginCheckData.next(true)
-      return true
+      if(status.success.role ==  'superAdminRole'){
+        var a ={
+          menu : false,
+          other : true
+        }
+      }
+      else{
+        a ={
+          menu : true,
+          other : true
+        }
+      }
+      this.loginCheckData.next(a)
     }
     else {
-      // console.log("false")
-      this.loginCheckData.next(false)
-      return false
+       a ={
+        menu : false,
+        other : false
+      }
+      this.loginCheckData.next(a)
     }
   }
 
@@ -49,13 +49,22 @@ export class LoginAuthService {
       ((value: PopStateEvent) => {
 
         if (window.location.pathname == '/login' || window.location.pathname == '/admin-login' && status.success.role == undefined) {
-          this.loginCheckData.next(false)
-          this.loginCred.next(false)
+          var a ={
+            menu : false,
+            other : false
+          }
+          this.loginCheckData.next(a)
           localStorage.clear()
+          return a
+          
         }
         else {
-          this.loginCheckData.next(true)
-          this.loginCred.next(true)
+          a ={
+            menu : true,
+            other : true
+          }
+          this.loginCheckData.next(a)
+          return a
         }
 
       }),
@@ -67,15 +76,12 @@ export class LoginAuthService {
   }
   getLoginDetails() {
     var status = JSON.parse(localStorage.getItem('sensegiz'))
-    // console.log("getLoginDetails===",status)
     if (this.checkRole() && this.checkRole() != null) {
-      // console.log("hmm")
       return status
     }
     else {
       return false
     }
-
   }
 
   checkRole() {
@@ -84,7 +90,7 @@ export class LoginAuthService {
       if (status.success.role == 'adminRole' ||
         status.success.role == 'userRole' ||
         status.success.role == 'coAdminRole' ||
-        status.success.role == 'subAdminRole') {
+        status.success.role == 'subAdminRole' || status.success.role == 'superAdminRole') {
         return true
       }
       else {
@@ -101,7 +107,11 @@ export class LoginAuthService {
   }
 
   logout() {
-    this.loginCheckData.next(false)
+    var a={
+      menu:false,
+      other:false
+    }
+    this.loginCheckData.next(a)
     localStorage.clear()
     this.router.navigate(['/login'])
 

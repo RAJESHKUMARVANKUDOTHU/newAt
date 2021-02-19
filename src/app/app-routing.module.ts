@@ -15,7 +15,7 @@ import { ManageGatewayComponent } from './assets/manage-gateway/manage-gateway.c
 import { ManageCoinComponent } from './assets/manage-coin/manage-coin.component';
 import { ActiveDeviceComponent } from './assets/active-device/active-device.component';
 import { OfflineDeviceComponent } from './assets/offline-device/offline-device.component';
-import { SettingComponent } from './setting/setting.component';
+import { SettingComponent } from './setting/setting/setting.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
 import { ProfileComponent } from './createProfile/profile/profile.component';
@@ -24,6 +24,7 @@ import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
 
 const routes: Routes = [
+  // {path : '', component:LoginComponent},
   {path:'login' , component:LoginComponent},
   { path: '', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'dashboard', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},

@@ -25,24 +25,28 @@ export class AuthGuard implements CanActivate {
       console.log("role ===",role)
         if(role.length){
           if (role[0] == "superAdminRole") {
-            // console.log("in")
-            this.login.loginCred.next(false)
-            this.login.loginCheckData.next(true)
+            var a ={
+              menu : false,
+              other : true
+            }
+            this.login.loginCheckData.next(a)
           }
           else if (role[0] == "adminRole" || role[0] == "userRole"
            || role[0] == 'coAminRole' || role[0]== 'subAdminRole') {
+            var a ={
+              menu : true,
+              other : true
+            }
             if( role[0] == "userRole" || role[0]== 'subAdminRole'){
                 if(state.url == '/setting' || state.url == '/profile'){
                     this.router.navigate(['/dashboard'])
                 }
                 else{
-                  this.login.loginCred.next(true)
-                  this.login.loginCheckData.next(true)
+                  this.login.loginCheckData.next(a)
                 }
             }
             else{
-              this.login.loginCred.next(true)
-              this.login.loginCheckData.next(true)
+              this.login.loginCheckData.next(a)
             }
           }
     
@@ -51,8 +55,11 @@ export class AuthGuard implements CanActivate {
     }
 
     else {
-      this.login.loginCred.next(false)
-      this.login.loginCheckData.next(false)
+      var a ={
+        menu : false,
+        other : false
+      }
+      this.login.loginCheckData.next(a)
       this.router.navigate(['/login'])
     }
   }

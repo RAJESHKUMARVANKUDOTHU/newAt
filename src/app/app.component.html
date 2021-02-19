@@ -2,10 +2,10 @@
   <mat-spinner mode="indeterminate"></mat-spinner><span [innerHTML]="freezeMessage"></span>
 </div>
 <div *ngIf="isDesktopDevice">
-  <mat-toolbar *ngIf="logged && loginDetails.role=='superAdminRole'">
+  <mat-toolbar *ngIf="logged">
     <span style="flex: 1 1 auto;"></span>
     <span>{{loginDetails.userName}} </span> &nbsp;
-    <span (click)="logout()" class="cursor">
+    <span (click)="login.logout()" class="cursor" *ngIf="loginDetails.role == 'superAdminRole'">
       <mat-icon>exit_to_app</mat-icon>
     </span>
   </mat-toolbar>
@@ -70,7 +70,7 @@
           </mat-list-item>
         </div>
 
-        <mat-list-item (click)="logout()">
+        <mat-list-item (click)="login.logout()">
           <mat-icon mat-list-icon>exit_to_app</mat-icon>
           <span mat-line> Logout</span>
         </mat-list-item>
@@ -152,11 +152,11 @@
   <router-outlet></router-outlet>
 </div>
 
-<div *ngIf="logged && loginDetails.role=='superAdminRole'">
+<div *ngIf="logged && !menu">
   <router-outlet></router-outlet>
 
 </div>
 
-<div *ngIf="!logged">
+<div *ngIf="!logged && !menu">
   <router-outlet></router-outlet>
 </div>

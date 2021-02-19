@@ -27,11 +27,11 @@ import { OfflineDeviceComponent } from './assets/offline-device/offline-device.c
 import { ChartsModule } from 'ng2-charts';
 import { AddAssetsComponent } from './assets/add-assets/add-assets.component';
 import { EditAssetsComponent } from './assets/edit-assets/edit-assets.component';
-import { SettingComponent } from './setting/setting.component';
+import { SettingComponent } from './setting/setting/setting.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
-import { SettingInfoComponent } from './setting-info/setting-info.component';
+import { SettingInfoComponent } from './setting/setting-info/setting-info.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
 import { ProfileComponent } from './createProfile/profile/profile.component';
 import { MapComponent } from './map/map.component';

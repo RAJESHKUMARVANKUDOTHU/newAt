@@ -19,8 +19,8 @@ export class AppComponent {
   // isExpanded = true;
   // isShowing = false;
   showLabel: boolean
-  loginDetails: any
-  logged: boolean
+  loginDetails: any = ''
+  logged: any
   menu: boolean
   role: boolean = false
   statusFreeze: boolean = false
@@ -31,23 +31,25 @@ export class AppComponent {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private deviceService: DeviceDetectorService) {
-    this.loginDetails = this.login.getLoginDetails().success
     this.logged = this.login.loginData()
-
-    console.log("this.loginDetails====", this.loginDetails)
     this.login.loginCheckData.subscribe((res) => {
-      console.log("res===", res)
-      this.logged = res
-      console.log("this.loginDetails inside====", this.loginDetails)
+      if(res){
+      console.log("loginCheckData===", res)
+      this.logged = res.other
+      this.menu = res.menu
+        if(this.logged == true){
+          this.loginDetails = this.login.getLoginDetails().success
+          console.log("res===", this.logged,this.menu)
+          console.log("this.loginDetails inside====", this.loginDetails)
+        }
+        else{
+          
+        }
+      }
+    
+
     });
-    this.login.loginCred.subscribe(res => {
-      console.log("res1===", res)
-
-      this.menu = res
-      this.loginDetails = this.login.getLoginDetails().success
-      })
-
-    console.log("route = ", window.location.pathname)
+ 
   }
   ngOnInit(): void {
     this.deviceInfo = this.deviceService.getDeviceInfo();
@@ -69,10 +71,5 @@ export class AppComponent {
     });
   }
 
-  logout() {
-    localStorage.clear()
-    this.login.loginCheckData.next(false)
-    this.router.navigate(['/login'])
-  }
-}
+ }
 

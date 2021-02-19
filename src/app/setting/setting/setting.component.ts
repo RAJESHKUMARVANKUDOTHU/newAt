@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginAuthService } from '../services/login-auth.service';
-import { GeneralService } from '../services/general.service';
-import { ApiService } from '../services/api.service';
+import { LoginAuthService } from '../../services/login-auth.service';
+import { GeneralService } from '../../services/general.service';
+import { ApiService } from '../../services/api.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SettingInfoComponent } from '../setting-info/setting-info.component';
 import { MatOption } from '@angular/material/core';
@@ -530,8 +530,8 @@ export class SettingComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.height = 'fit-content';
+    dialogConfig.width = 'fit-content';
     dialogConfig.data = {
       type: data
     }
