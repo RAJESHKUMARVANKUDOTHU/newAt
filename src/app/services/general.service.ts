@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, BehaviorSubject } from 'rxjs'
+import { Observable, BehaviorSubject, Subject} from 'rxjs'
 import { LoginAuthService } from './login-auth.service';
 import * as CryptoJS from 'crypto-js';
 import { HttpResponse } from '@angular/common/http'; 
@@ -13,6 +13,7 @@ export class GeneralService {
   public token;
   private requests: any = { }; 
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([])
+  public deviceChanges = new Subject<any>();
   constructor(
     private _snackBar: MatSnackBar,
     private login: LoginAuthService) {
@@ -31,6 +32,16 @@ export class GeneralService {
       return obj != 0
     })
     return array
+  }
+  
+  filterIds(array){
+    let arr = []
+    array.filter((obj) => {
+      arr.push(
+       obj.coinId
+      )
+    })
+    return arr
   }
 
   encrypt(data: any) {
@@ -55,20 +66,6 @@ export class GeneralService {
 
   getToken() {
     return this.login.getLoginDetails().token
-  }
-  put(url: string, response: HttpResponse<any>): void {  
-    console.log("urll",url, this.requests[url])
-    this.requests[url] = response;  
-  }  
-  
-  get(url: string): HttpResponse<any> | undefined { 
-    console.log("urll",url,this.requests[url]) 
-    return this.requests[url];  
-  }  
-  
-  invalidateCache(): void { 
-     
-    this.requests = { };  
   }
   
 }

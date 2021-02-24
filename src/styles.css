@@ -58,7 +58,9 @@ hr {
   justify-content: center;
   font-size:1rem;
 } 
-
+a.canvasjs-chart-credit {
+  display: none !important;
+}
 @media only screen and (max-width: 768px) {
 
     .mat-menu-panel{

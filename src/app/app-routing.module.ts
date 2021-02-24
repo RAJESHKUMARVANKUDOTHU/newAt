@@ -22,6 +22,7 @@ import { ProfileComponent } from './createProfile/profile/profile.component';
 import { MapComponent } from './map/map.component';
 import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
+import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 
 const routes: Routes = [
   // {path : '', component:LoginComponent},
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'map', component:MapComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'map-actions', component:MapActionsComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'zone-configuration', component:ZoneConfigurationComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
+  { path: 'vehicle-status', component:VehicleStatusComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['superAdminRole']}},

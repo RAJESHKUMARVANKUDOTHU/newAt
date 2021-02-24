@@ -34,6 +34,8 @@ export class SettingComponent implements OnInit {
   groupRegister: FormGroup
   createServiceType:FormGroup
   coinData: any = []
+  coinDataTemp: any = []
+  coinDataZone: any = []
   deviceData: any = []
   groupData: any = []
   name: any
@@ -140,6 +142,8 @@ export class SettingComponent implements OnInit {
       this.coinData = []
       if (res.status) {
         this.coinData = res.success
+        this.coinDataTemp = this.filter(this.coinData,'group')
+        this.coinDataZone = this.filter(this.coinData,'zone')
       }
       else {
         this.coinData = []
@@ -568,5 +572,51 @@ export class SettingComponent implements OnInit {
         this.groupData = []
       }
     })
+  }
+
+  filter(data,type){
+    let arr = []
+    data.filter((data)=>{
+      if(type == 'group'){
+        arr.push({
+          coinId:data.coinId,
+          coinName : data.coinName,
+          groupId : data.graoupId,
+        
+        })
+        if(data.groupId == null){
+          arr.push({
+            valid :false
+          })
+        }
+        else{
+          arr.push({
+            valid :true
+          })
+        }
+      }
+      else if(type == 'zone'){
+        if(data.zoneId == null){
+          arr.push({
+            coinId:data.coinId,
+            coinName : data.coinName,
+            groupId : data.graoupId,
+            zoneId : data.zoneId,
+            valid :false
+          })
+        }
+        else{
+          arr.push({
+            coinId:data.coinId,
+            coinName : data.coinName,
+            groupId : data.graoupId,
+            zoneId : data.zoneId,
+            valid :true
+          })
+        }
+      }
+    
+  })
+  return arr
   }
 }

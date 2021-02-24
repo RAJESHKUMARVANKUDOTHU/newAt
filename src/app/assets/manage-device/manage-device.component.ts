@@ -20,7 +20,7 @@ export class ManageDeviceComponent implements OnInit {
   dataSource: any = [];
   serviceData:any = []
   fileName: String = ''
-  displayedColumns = ['i', 'deviceId', 'deviceName','serviceCategoryId', 'on-off', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
+  displayedColumns = ['i', 'deviceId', 'deviceName','serviceCategoryId', 'deviceToggleStatus', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,
     private login: LoginAuthService,
@@ -31,6 +31,11 @@ export class ManageDeviceComponent implements OnInit {
   ngOnInit(): void {
     this.refreshDevice()
     this.getServiceDetails()
+    this.general.deviceChanges.subscribe((res)=>{
+      if(res){
+        this.refreshDevice()
+      }
+    })
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();

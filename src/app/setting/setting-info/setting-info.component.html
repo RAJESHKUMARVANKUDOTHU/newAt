@@ -1,501 +1,417 @@
-   <!-- <button mat-button mat-dialog-close class="float-right">
-        <mat-icon>clear</mat-icon>
-    </button>
-    <div *ngIf="type=='timeDelay'">
-        <h1 mat-dialog-title>Time Delay setting</h1>
-        <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper">
-            <mat-card>
-                <form [formGroup]="form2"  >
-                            <table  formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
-                                <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
-                                <ng-container [formGroupName]="i">
-                                    <td>{{i+1}}.&nbsp;&nbsp;</td>
-                                <td>
-                                    <mat-form-field >
-                                        <mat-label></mat-label>
-                                        <input matInput  type="number"  formControlName="deviceId" matInput required >
-                                        <mat-error>
-                                            Please provide a valid coin name
-                                        </mat-error>
-                                    </mat-form-field>  
-                                </td>
-              
-                              <td>
-                                <mat-form-field>
-                                    <input matInput  type="time"  formControlName="timeDelay" matInput required >
-                                    <mat-error>
-                                        Please provide a valid limit
-                                    </mat-error>
-                                </mat-form-field>
-                              </td>
-                              <td>
-                                  <button type="button" mat-raised-button color="primary" (click)="submit(a.value)">Submit</button>
-                              </td>
-                              <td>
-                                  <mat-icon matListIcon (click)="delete(a.value)"  class="cursor">delete</mat-icon>
-                              </td>
-                                  </ng-container>
-                            </tr>
-                    </table>
-                          </form>
-            </mat-card>
-          </div>
-    </div>
-    <div *ngIf="type=='find-inactive'">
-        <h1 mat-dialog-title>Find Inactivity time setting</h1>
-        <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper">
-          
-                <form [formGroup]="form2" >
-                    <table  formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
-                        <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
-                            <ng-container [formGroupName]="i">
-                               <td> {{i+1}}.&nbsp;&nbsp;</td>
-                                <td>
-                                    <mat-form-field >
-                                        <mat-label> Device Id</mat-label>
-                                        <input matInput  type="number"  formControlName="deviceId" matInput required disabled >
-                                    </mat-form-field> 
-                                </td>
-                                <td>
-                                    <mat-form-field >
-                                        <mat-label>Device Name</mat-label>
-                                        <input matInput  type="text"  formControlName="deviceName" matInput required >
-                                        <mat-error>
-                                            Please provide a valid device name
-                                        </mat-error>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field>
-                                        <mat-label> Inactivity time</mat-label>
-                                        <input matInput  type="number"  formControlName="inActivityTime" matInput required >
-                                        <mat-error>
-                                            Please provide a valid inActivity time
-                                        </mat-error>
-                                    </mat-form-field>  
-                                </td>
-                                <td>
-                                    <mat-radio-group color="primary" formControlName="inactivityAlert">
-                                        <mat-radio-button class="example-radio-button" value="sms" [checked]="form2.get('inactivitySMS').value == true">SMS</mat-radio-button>
-                                        <mat-radio-button class="example-radio-button" value="email" [checked]="form2.get('inactivityEmail').value  == true">Email</mat-radio-button>
-                                    </mat-radio-group><br>
-                                </td>
-                                <td>
-                                    <button type="button" mat-raised-button color="primary" (click)="submit(a.value)">Submit</button>
-    
-                                </td>
-                                <td>
-                                    <mat-icon matListIcon (click)="delete(a.value)"  class="cursor">delete</mat-icon>
-
-                                </td>
-                            </ng-container>
-                            
-                        </tr>
-                    </table>
-
-                </form>
-          </div>
-    </div>
-
-    <div *ngIf="type=='coin-inactive'">
-        <h1 mat-dialog-title>Coin Inactivity time setting</h1>
-        <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper">
-          
-                <form [formGroup]="form1" >
-                    <table  formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
-                        <tr *ngFor="let a of form1.get('items')['controls']; let i=index;">
-                            <ng-container [formGroupName]="i">
-                               <td> {{i+1}}.&nbsp;&nbsp;</td>
-                                <td>
-                                    <mat-form-field >
-                                        <mat-label> Coin Id</mat-label>
-                                        <input matInput  type="number"  formControlName="deviceId" matInput required disabled >
-                                    </mat-form-field> 
-                                </td>
-                                <td>
-                                    <mat-form-field >
-                                        <mat-label>Coin Name</mat-label>
-                                        <input matInput  type="text"  formControlName="coinName" matInput required >
-                                        <mat-error>
-                                            Please provide a valid coin name
-                                        </mat-error>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field>
-                                        <mat-label> Inactivity time</mat-label>
-                                        <input matInput  type="number"  formControlName="inActivityTime" matInput required >
-                                        <mat-error>
-                                            Please provide a valid inActivity time
-                                        </mat-error>
-                                    </mat-form-field>  
-                                </td>
-                                <td>
-                                    <mat-radio-group color="primary" formControlName="inactivityAlert">
-                                        <mat-radio-button class="example-radio-button" value="sms" [checked]="form2.get('inactivitySMS').value == true">SMS</mat-radio-button>
-                                        <mat-radio-button class="example-radio-button" value="email" [checked]="form2.get('inactivityEmail').value  == true">Email</mat-radio-button>
-                                    </mat-radio-group><br>
-                                </td>
-                                <td>
-                                    <button type="button" mat-raised-button color="primary" (click)="submit(a.value)">Submit</button>
-    
-                                </td>
-                                <td>
-                                    <mat-icon matListIcon (click)="delete(a.value)"  class="cursor">delete</mat-icon>
-
-                                </td>
-                            </ng-container>
-                            
-                        </tr>
-                    </table>
-
-                </form>
-          </div>
-    </div>
-
-    <div *ngIf="type=='coinGrp'">
-        <h1 mat-dialog-title>Group coin setting</h1>
-        <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper">
-          
-                <form [formGroup]="form1" >
-                    <table  formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
-                        <tr *ngFor="let a of form1.get('items')['controls']; let i=index;">
-                            <ng-container [formGroupName]="i">
-                               <td> {{i+1}}.&nbsp;&nbsp;</td>
-                            <td>
-                                <mat-form-field >
-                                    <mat-label>Coin Name</mat-label>
-                                    <mat-select formControlName="coinName" multiple  [compareWith]="compareCoin">
-                                        <mat-option *ngFor="let coin of coinData;let i= index" [value]="coinId" >{{coin.coinName}}</mat-option>
-                                    </mat-select>
-                                    <mat-error>
-                                        Please provide a valid coin name
-                                    </mat-error>
-                                </mat-form-field>
-                            </td>
-                                <td>
-                                    <mat-form-field>
-                                        <mat-label> Group Name</mat-label>
-                                        <mat-select formControlName="groupId" required>
-                                            <mat-option *ngFor="let group of groupData" [value]="group._id">{{group.groupName}}</mat-option>
-                                        </mat-select>
-                                        <mat-error>
-                                            Please provide a valid inActivity time
-                                        </mat-error>
-                                    </mat-form-field>  
-                                </td>
-
-                                <td>
-                                    <button type="button" mat-raised-button color="primary" (click)="submit(a.value)">Submit</button>
-                                    </td>
-                                <td>
-                                    <mat-icon matListIcon (click)="delete(a.value)"  class="cursor">delete</mat-icon>
-                                </td>
-                            </ng-container>
-                            
-                        </tr>
-                    </table>
-
-                </form>
-          </div>
-    </div> -->
-    <!-- <div *ngIf="type=='timeDelay'">
-        <h1 mat-dialog-title>Time Delay setting</h1>
-        <div class="mat-elevation-z8" mat-dialog-conten>
-            <table mat-table [dataSource]="dataSource1" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="deviceId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
-                        <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="timeDelay">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time Delay </th>
-                        <td mat-cell *matCellDef="let find"> {{find.timeDelay}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let find" (click)="delete(find)">
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+<button mat-button mat-dialog-close class="float-right">
+    <mat-icon>clear</mat-icon>
+</button>
+<div *ngIf="type=='timeDelay'">
+    <h1 mat-dialog-title>Time Delay </h1>
+    <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="form2">
+            <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td>{{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Device Name</mat-label>
+                                <input matInput type="text" formControlName="deviceName" matInput required>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Time delay</mat-label>
+                                <input matInput type="number" formControlName="timeDelay" matInput required>
+                                <mat-error>
+                                    Please provide a valid time delay
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteTimeDelay(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitTimeDelay(a.value)">Submit</button>
                         </td>
                     </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="timeDelay"></tr>
-                <tr mat-row *matRowDef="let row; columns: timeDelay;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
+        </form>
     </div>
+</div>
 
-    <div *ngIf="type=='max-find'">
-        <h1>Number of Maximum assinged assets</h1>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="coinId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin ID </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.coinId}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="coinName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.coinName}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="maxFindAsset">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. of find assigned </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.maxFindAsset}} </td>
-                    </ng-container>
+<div *ngIf="type=='find-inactive'">
+    <h1 mat-dialog-title>Find Inactivity time </h1>
+    <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper text-center">
 
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let coin" (click)=delete(coin)>
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+        <form [formGroup]="form2">
+            <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Device Id</mat-label>
+                                <mat-select formControlName="deviceId">
+                                    <mat-option [value]="a.get('deviceId').value">{{a.get('deviceId').value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Device Name</mat-label>
+                                
+                                <mat-select formControlName="deviceName">
+                                    <mat-option [value]="a.get('deviceName').value">{{a.get('deviceName').value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Inactivity time</mat-label>
+                                <input matInput type="number" formControlName="inActivityTime" matInput required>
+                                <mat-error>
+                                    Please provide a valid inActivity time
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-radio-group color="primary" formControlName="inactivityAlert">
+                                <mat-radio-button class="example-radio-button" value="sms">SMS</mat-radio-button>
+                                <mat-radio-button class="example-radio-button" value="email">Email</mat-radio-button>
+                            </mat-radio-group><br>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteInactivityFind(a.value)" class="cursor">delete_forever
+                            </mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitInactivityFind(a.value)">Submit</button>
                         </td>
                     </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="maxFind"></tr>
-                <tr mat-row *matRowDef="let row; columns: maxFind;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
+        </form>
     </div>
+</div>
 
-    <div *ngIf="type=='find-inactive'">
-        <h1>Find Inactivity time setting</h1>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource1" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="deviceId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
-                        <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="inActivityTime">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Inactivity Time </th>
-                        <td mat-cell *matCellDef="let find"> {{find.inActivityTime}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="inactivitySMS">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                        <td mat-cell *matCellDef="let find"> {{find.inactivitySMS}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="inactivityEmail">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                        <td mat-cell *matCellDef="let find"> {{find.inactivityEmail}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let find" (click)="delete(find)">
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+<div *ngIf="type=='coin'">
+    <h1 mat-dialog-title>Coin Inactivity time </h1>
+    <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="form1">
+            <table formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form1.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Coin Id</mat-label>
+                                <mat-select formControlName="coinId">
+                                    <mat-option [value]="a.get('coinId').value">{{a.get('coinId').value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Coin Name</mat-label>
+                                <mat-select formControlName="coinName">
+                                    <mat-option [value]="a.get('coinName').value">{{a.get('coinName').value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Inactivity time</mat-label>
+                                <input matInput type="number" formControlName="inActivityTime" matInput required>
+                                <mat-error>
+                                    Please provide a valid inActivity time
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-radio-group color="primary" formControlName="inactivityAlert">
+                                <mat-radio-button class="example-radio-button" value="sms"
+                                   >SMS</mat-radio-button>
+                                <mat-radio-button class="example-radio-button" value="email"
+                                  >Email</mat-radio-button>
+                            </mat-radio-group><br>
+                        </td>
+                        <td>
+                            <mat-icon (click)="deleteInactivityCoin(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitInactivityCoin(a.value)">Submit</button>
                         </td>
                     </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="findInactivityTime"></tr>
-                <tr mat-row *matRowDef="let row; columns: findInactivityTime;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
+        </form>
     </div>
+</div>
 
-    <div *ngIf="type=='coin'">
-        <h1>Coin Inactivity time setting</h1>
-
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="coinId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin ID </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.coinId}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="inActivityTime">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Inactivity Time </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.inActivityTime}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="sms">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SMS </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.sms}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="email">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.email}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let coin" (click)=delete(coin)>
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+<div *ngIf="type=='max-find'">
+    <h1 mat-dialog-title>Maximum Find to assign for Coin</h1>
+    <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="form1">
+            <table formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form1.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Coin Name</mat-label>
+                                <mat-select formControlName="coinName">
+                                    <mat-option [value]="a.get('coinName').value">{{a.get('coinName').value}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Please provide a valid coin name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Maximun Find</mat-label>
+                                <input type="number" formControlName="maxFindAsset" matInput required>
+                                <mat-error>
+                                    Please provide a valid Find number
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteMaxFindForm(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitMaxFindForm(a.value)">Submit</button>
                         </td>
                     </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="coinInactivityTime"></tr>
-                <tr mat-row *matRowDef="let row; columns: coinInactivityTime;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
+        </form>
     </div>
+</div>
 
-    <div *ngIf="type=='coin-cat'">
-        <h1>Zone configuration for coin</h1>
-
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="coinId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin ID </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.coinId}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="zoneName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.zoneName == null ? '-' : coin.zoneName.zoneName}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let coin" (click)=delete(coin)>
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+<div *ngIf="type=='groupName'">
+    <h1>Available Group Names</h1>
+    <div mat-dialog-content *ngIf="groupData" class="d-flex justify-content-around diagWrapper">
+        <form [formGroup]="form5">
+            <table formArrayName="items" *ngIf="form5.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form5.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Group Name</mat-label>
+                                <input type="text" formControlName="groupName" matInput required>
+                                <mat-error>
+                                    Please provide a valid group name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteGroup(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitGroup(a.value)">Submit</button>
                         </td>
                     </ng-container>
-                </div>
-                <tr mat-header-row *matHeaderRowDef="coinConfig"></tr>
-                <tr mat-row *matRowDef="let row; columns: coinConfig;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
+        </form>
     </div>
 
-    <div *ngIf="type=='zone'">
-        <h1>Available Zones and its standard time</h1>
+</div>
 
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource2" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="zoneName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
-                        <td mat-cell *matCellDef="let zone"> {{zone.zoneName}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="standardTime">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Standard Time </th>
-                        <td mat-cell *matCellDef="let zone"> {{zone.standardTime}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let zone" (click)="delete(zone)">
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+<div *ngIf="type=='zone'">
+    <h1 mat-dialog-title>Create Zone</h1>
+    <div mat-dialog-content *ngIf="zoneData" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="form3">
+            <table formArrayName="items" *ngIf="form3.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form3.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Zone Name</mat-label>
+                                <input type="text" formControlName="zoneName" matInput required>
+                                <mat-error>
+                                    Please provide a valid zone name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Standard Time</mat-label>
+                                <input type="number" formControlName="standardTime" matInput required>
+                                <mat-error>
+                                    Please provide a valid standard time
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteZoneForm(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitZoneForm(a.value)">Submit</button>
                         </td>
                     </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="zoneCategory"></tr>
-                <tr mat-row *matRowDef="let row; columns: zoneCategory;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
+        </form>
     </div>
+</div>
 
-    <div *ngIf="type=='groupName'">
-        <h1>Available Group Names</h1>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource3" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="i">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
-                        <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="groupName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Group Name </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.groupName}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let coin" (click)=delete(coin)>
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+<div *ngIf="type=='coinGrp'">
+    <h1 mat-dialog-title>Group coin setting</h1>
+    <div mat-dialog-content *ngIf="coinDataTemp" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="groupForm">
+            <table formArrayName="items" *ngIf="groupForm.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of groupForm.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Coin Name</mat-label>
+                                <mat-select formControlName="coinId" [compareWith]="compareFn" multiple>
+                                    <mat-option *ngFor="let coin of coinData;let i= index"
+                                        [disabled]="reduce(coin,a.get('groupId').value,'group')" [value]="coin.coinId">
+                                        {{coin.coinName}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Please provide a valid coin name
+                                </mat-error> <nav></nav>
+                            </mat-form-field>
                         </td>
-                    </ng-container>
-                </div>
-                <tr mat-header-row *matHeaderRowDef="groupInfo"></tr>
-                <tr mat-row *matRowDef="let row; columns: groupInfo;"></tr>
-            </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
-    </div>
-
-    <div *ngIf="type=='coinGrp'">
-        <h1>Coin Group</h1>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
-                <div>
-                    <ng-container matColumnDef="coinId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin ID </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.coinId}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="coinName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.coinName}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="groupId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Group Name </th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.groupId == null? '-' :coin.groupId.groupName}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let coin" (click)=delete(coin)>
-                            <span><mat-icon>delete_forever</mat-icon></span> 
-                        </td>
-                    </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="coinGroup"></tr>
-                <tr mat-row *matRowDef="let row; columns: coinGroup;"></tr>
-            </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-
-    </div>
-    <div *ngIf="type=='serviceType'">
-        <h1>Available services</h1>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource4" matSort>
-                <div>
-                    <ng-container matColumnDef="serviceName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ServiceType Name</th>
-                        <td mat-cell *matCellDef="let find"> {{find.serviceName}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="zoneId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Zone Name </th>
-                        <td mat-cell *matCellDef="let find"> 
-                            <span *ngFor="let a of find.zoneId">
-                                {{a.zoneName}},
+                        <td class="w-25">
+                            <span *ngFor="let b of  a.get('coinName')['controls']">
+                                {{b.get('coinName').value}},
                             </span>
-                         </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="delete">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delete</th>
-                        <td mat-cell *matCellDef="let find" (click)="delete(find)">
-                            <span><mat-icon>delete_forever</mat-icon></span> 
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Group Name</mat-label>
+                                <mat-select formControlName="groupId" required>
+                                    <mat-option *ngFor="let group of groupData" [value]="group._id">{{group.groupName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteGroupCoinForm(a.value)" class="cursor">delete_forever
+                            </mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitGroupCoinForm(a.value)">Submit</button>
                         </td>
                     </ng-container>
-
-                </div>
-                <tr mat-header-row *matHeaderRowDef="servicetype"></tr>
-                <tr mat-row *matRowDef="let row; columns: servicetype;"></tr>
+                </tr>
             </table>
-            <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-        </div>
-    </div> -->
+        </form>
+    </div>
+</div>
+
+
+<div *ngIf="type=='coin-cat'">
+    <h1 mat-dialog-title>Coin configuration</h1>
+    <div mat-dialog-content *ngIf="coinDataTemp" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="zoneForm">
+            <table formArrayName="items" *ngIf="zoneForm.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of zoneForm.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Coin Name</mat-label>
+                                <mat-select formControlName="coinId" [compareWith]="compareFn" multiple>
+                                    <mat-option *ngFor="let coin of coinData;let i= index"
+                                        [disabled]="reduce(coin,a.get('zoneId').value,'zone')" [value]="coin.coinId">
+                                        {{coin.coinName}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Please provide a valid coin name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td class="w-25">
+                            <span *ngFor="let b of  a.get('coinName')['controls']">
+                                {{b.get('coinName').value}},
+                            </span>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Zone Name</mat-label>
+                                <mat-select formControlName="zoneId" required>
+                                    <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Please provide a valid zone name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteCoinCategory(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSumbitCoinCategory(a.value)">Submit</button>
+                        </td>
+                    </ng-container>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="type=='serviceType'">
+    <h1 mat-dialog-title>Service Type setting</h1>
+    <div mat-dialog-content *ngIf="serviceData" class="d-flex justify-content-around diagWrapper text-center">
+        <form [formGroup]="form4">
+            <table formArrayName="items" *ngIf="form4.get('items')['controls']?.length>0">
+                <tr *ngFor="let a of form4.get('items')['controls']; let i=index;">
+                    <ng-container [formGroupName]="i">
+                        <td> {{i+1}}.&nbsp;&nbsp;</td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label>Service Name</mat-label>
+                                <mat-select formControlName="serviceName">
+                                    <mat-option [value]="a.get('serviceName').value">{{a.get('serviceName').value}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Please provide a valid service name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td class="w-25">
+                            <span *ngFor="let b of  a.get('zoneName')['controls']">
+                                {{b.get('zoneName').value}},
+                            </span>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <mat-label> Zone Name</mat-label>
+                                <mat-select formControlName="zoneId" required multiple [compareWith]="compareFn1">
+                                    <mat-option *ngFor="let zone of zoneData" [value]="zone._id">{{zone.zoneName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    Please provide a valid zone name
+                                </mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-icon matListIcon (click)="deleteServiceType(a.value)" class="cursor">delete_forever</mat-icon>
+                        </td>
+                        <td>
+                            <button type="button" mat-raised-button color="primary"
+                                (click)="onSubmitServiceType(a.value)">Submit</button>
+                        </td>
+                    </ng-container>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

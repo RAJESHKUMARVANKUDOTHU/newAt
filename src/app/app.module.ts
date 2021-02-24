@@ -38,6 +38,7 @@ import { MapComponent } from './map/map.component';
 import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
 import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.component';
+import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.
     MapActionsComponent,
     ZoneConfigurationComponent,
     EditProfileComponent,
+    VehicleStatusComponent,
   ],
   imports: [
     BrowserModule,

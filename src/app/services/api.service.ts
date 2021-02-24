@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   host: string = environment.apiHost;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // user/subuser login
   login(data) {
@@ -17,14 +17,14 @@ export class ApiService {
     };
 
     let url = this.host + '/loginUser';
-    
+
     return new Promise((resolve, reject) => {
       this.http.post(url, data, httpOptions).subscribe(
         (res) => {
           resolve(res);
         },
         (err) => {
-          console.log('err==', err);
+          // console.log('err==', err);
           reject(err);
         }
       );
@@ -43,7 +43,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
-          
+
           resolve(res.data);
         },
         (err) => {
@@ -61,8 +61,8 @@ export class ApiService {
     let url = this.host + '/getAllUsers';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
-         
+        (res: any) => {
+
           resolve(res.data);
         },
         (err) => {
@@ -84,7 +84,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
-          console.log('get', res);
+          // console.log('get', res);
           resolve(res.data);
         },
         (err) => {
@@ -106,7 +106,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
-          console.log('get', res);
+          // console.log('get', res);
           resolve(res.data);
         },
         (err) => {
@@ -128,7 +128,7 @@ export class ApiService {
           resolve(res);
         },
         (err) => {
-          console.log('err==', err);
+          // console.log('err==', err);
           reject(err);
         }
       );
@@ -164,7 +164,7 @@ export class ApiService {
     let url = this.host + '/getAllAdmins';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -269,7 +269,7 @@ export class ApiService {
     let url = this.host + '/viewDevice';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -279,7 +279,7 @@ export class ApiService {
     });
   }
   getGatewayData() {
-    console.log('gateway res check');
+    // console.log('gateway res check');
 
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -288,7 +288,7 @@ export class ApiService {
     let url = this.host + '/viewGateway';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -305,7 +305,7 @@ export class ApiService {
     let url = this.host + '/viewCoin';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -453,7 +453,7 @@ export class ApiService {
     let url = this.host + '/getDevicesCount';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -534,7 +534,7 @@ export class ApiService {
     let url = this.host + '/getAssignAsset';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -551,7 +551,7 @@ export class ApiService {
     let url = this.host + '/getDeAssignAsset';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -572,7 +572,7 @@ export class ApiService {
     let url = this.host + '/getOnlineDevice';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -589,7 +589,7 @@ export class ApiService {
     let url = this.host + '/getOfflineDevice';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -647,7 +647,7 @@ export class ApiService {
     let url = this.host + '/getGeoFenceSetting';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -659,7 +659,7 @@ export class ApiService {
 
   // ---------------end----------------------------
 
-  /* -------------Range Setting ----------------------- */
+  /* ------------- Setting ----------------------- */
   setRange(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -669,15 +669,15 @@ export class ApiService {
     let body = {
       data: data,
     };
-    console.log("range data==",body)
-      return new Promise((resolve, reject) => {
+    // console.log("range data==", body)
+    return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
-          console.log("range res==",res)
+          // console.log("range res==", res)
           resolve(res.data);
         },
         (err) => {
-          console.log("range err==",err)
+          // console.log("range err==", err)
           reject(err);
         }
       );
@@ -690,6 +690,27 @@ export class ApiService {
     };
 
     let url = this.host + '/timeDelay';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteTimeDelay(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/deleteTimeDelay';
     let body = {
       data: data,
     };
@@ -726,6 +747,27 @@ export class ApiService {
     });
   }
 
+  deleteZoneName(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/deleteZoneDetails';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   getZone() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -734,7 +776,7 @@ export class ApiService {
     let url = this.host + '/getZonesDetails';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -750,6 +792,27 @@ export class ApiService {
     };
 
     let url = this.host + '/updateDeviceInactivityTime';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteFindInactivity(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/deleteDeviceInactivityTime';
     let body = {
       data: data,
     };
@@ -785,7 +848,26 @@ export class ApiService {
       );
     });
   }
+  deleteCoinInactivity(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/deleteCoinInActivityTime';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   zoneConfiguration(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -827,6 +909,47 @@ export class ApiService {
       );
     });
   }
+  updateGroupName(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/updateGroupName';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  deleteGroupDetails(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/deleteGroupDetails';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
 
   getGroup() {
     const httpOptions = {
@@ -836,7 +959,7 @@ export class ApiService {
     let url = this.host + '/getAllGroupDetails';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -888,7 +1011,7 @@ export class ApiService {
     });
   }
 
-  createServiceType(data){
+  createServiceType(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -909,8 +1032,8 @@ export class ApiService {
     });
   }
 
-  getServiceType(){
-    
+  getServiceType() {
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -927,9 +1050,9 @@ export class ApiService {
       );
     });
   }
-  
-  updateServiceId(data){
-    
+
+  updateServiceId(data) {
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -939,7 +1062,7 @@ export class ApiService {
       data: data,
     };
     return new Promise((resolve, reject) => {
-      this.http.post(url,body,httpOptions).subscribe(
+      this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },
@@ -949,7 +1072,26 @@ export class ApiService {
       );
     });
   }
+  deleteServices(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/deleteServiceId';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   refreshSettings() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -958,7 +1100,7 @@ export class ApiService {
     let url = this.host + '/getSettings';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -999,7 +1141,7 @@ export class ApiService {
     let url = this.host + '/getLayouts';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
-        (res:any) => {
+        (res: any) => {
           resolve(res.data);
         },
         (err) => {
@@ -1015,20 +1157,20 @@ export class ApiService {
     };
 
     let url = this.host + '/getLayoutImage/' + data;
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' }).subscribe(
-        (res:any) => {
+        (res: any) => {
           // observer.next(res);
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = function () {
-            console.log("reader");
-            
-           resolve(reader.result);
+            // console.log("reader");
+
+            resolve(reader.result);
           };
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           reject(err)
         }
       );
@@ -1100,13 +1242,13 @@ export class ApiService {
 
   //---------------------manage asset download -------------------------------
 
-  downloadFile(response,fileName){
+  downloadFile(response, fileName) {
     let body = response.body
     let dataType = body.type;
     let binaryData = [];
     binaryData.push(body);
     let downloadLink = document.createElement('a');
-    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
     downloadLink.setAttribute('download', fileName);
     document.body.appendChild(downloadLink);
     downloadLink.click();
@@ -1118,14 +1260,14 @@ export class ApiService {
     let url = this.host + '/downloadRegisteredCoins';
     return new Promise((resolve, reject) => {
       this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
+        // console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
         resolve(true);
       },
         err => {
-          console.log("err==", err)
+          // console.log("err==", err)
         })
     });
 
@@ -1137,14 +1279,14 @@ export class ApiService {
     let url = this.host + '/downloadRegisteredGateways';
     return new Promise((resolve, reject) => {
       this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
+        // console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
         resolve(true);
       },
         err => {
-          console.log("err==", err)
+          // console.log("err==", err)
         })
     });
   }
@@ -1161,7 +1303,7 @@ export class ApiService {
         resolve(true);
       },
         err => {
-          console.log("err==", err)
+          // console.log("err==", err)
         })
     });
 
@@ -1180,7 +1322,7 @@ export class ApiService {
         resolve(true);
       },
         err => {
-          console.log("err==", err)
+          // console.log("err==", err)
         })
     });
 
@@ -1194,13 +1336,13 @@ export class ApiService {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
         .subscribe(
-          (res:any) => {
+          (res: any) => {
             if (res.status == 200) this.downloadFile(res.data, fileName);
 
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            // console.log('err==', err);
           }
         );
     });
@@ -1214,13 +1356,13 @@ export class ApiService {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
         .subscribe(
-          (res:any) => {
+          (res: any) => {
             if (res.status == 200) this.downloadFile(res.data, fileName);
 
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            // console.log('err==', err);
           }
         );
     });
@@ -1234,13 +1376,13 @@ export class ApiService {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
         .subscribe(
-          (res:any) => {
+          (res: any) => {
             if (res.status == 200) this.downloadFile(res.data, fileName);
 
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            // console.log('err==', err);
           }
         );
     });
@@ -1254,13 +1396,13 @@ export class ApiService {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
         .subscribe(
-          (res:any) => {
+          (res: any) => {
             if (res.status == 200) this.downloadFile(res.data, fileName);
 
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            // console.log('err==', err);
           }
         );
     });
@@ -1274,13 +1416,13 @@ export class ApiService {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
         .subscribe(
-          (res:any) => {
+          (res: any) => {
             if (res.status == 200) this.downloadFile(res.data, fileName);
 
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            // console.log('err==', err);
           }
         );
     });

@@ -1,0 +1,30 @@
+.parallellogram{
+     -webkit-transform: skew(-30deg);
+    -moz-transform: skew(-30deg);
+    -o-transform: skew(-30deg);
+    transform: skew(-30deg);
+    border-right:1px solid white;
+    z-index:999;
+}
+.zone{
+    height: 10%;
+    width: fit-content;
+}
+mat-card{
+    height: 10%;
+    width: fit-content;
+  
+}
+mat-card-content.mat-card-content{
+    -webkit-transform: skew(30deg);
+    -moz-transform: skew(30deg);
+    -o-transform: skew(30deg);
+    transform: skew(30deg);
+  }
+  .border{
+    -webkit-transform: skew(0deg);
+    -moz-transform: skew(0deg);
+    -o-transform: skew(0deg);
+    transform: skew(0deg);
+    
+  }

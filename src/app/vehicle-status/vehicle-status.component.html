@@ -1,0 +1,17 @@
+<div class="container-fluid">
+
+          <div class="d-flex zone">
+            <mat-card  *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;"
+             [ngClass]="first || last ? 'border': 'parallellogram'">
+           
+
+                    <mat-card-content >
+                        <span >{{zone.zoneName}}</span>
+                     
+                    </mat-card-content>
+                
+            </mat-card>
+          </div>
+    
+      
+   </div>

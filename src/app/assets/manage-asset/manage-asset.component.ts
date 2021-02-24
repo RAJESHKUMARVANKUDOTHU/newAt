@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartType } from 'chart.js';
 import { MultiDataSet, Label } from 'ng2-charts';
@@ -6,6 +6,7 @@ import { LoginAuthService } from '../../services/login-auth.service';
 import { ApiService } from '../../services/api.service';
 import { GeneralService } from '../../services/general.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-manage-asset',
@@ -13,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   styleUrls: ['./manage-asset.component.css'],
 })
 export class ManageAssetComponent implements OnInit {
+  @ViewChild('allSelected') private allSelected: MatOption
   assignAssetForm: FormGroup;
   deassignAssetForm: FormGroup;
   findData: any;
@@ -67,7 +69,7 @@ export class ManageAssetComponent implements OnInit {
     // this.doughnutChartData2=this.countReg
 
     this.devicesCount();
-    this.refreshDevice();
+    // this.refreshDevice();
     this.getAssignAssetList();
     this.getDeAssignAssetList();
   }
@@ -161,15 +163,14 @@ export class ManageAssetComponent implements OnInit {
 
           console.log('assignAsset res====', res);
           if (res.status) {
+            this.assignAssetForm.reset()
+            this.general.openSnackBar(res.success, '');
             this.getAssignAssetList();
             this.getDeAssignAssetList();
-            this.general.openSnackBar(res.message, '');
-            setTimeout(() => {
-              location.reload();
-            }, 1000);
+            this.general.deviceChanges.next(true)
           }
           else {
-
+            this.general.deviceChanges.next(false)
           }
         })
         .catch((err: any) => {
@@ -189,38 +190,28 @@ export class ManageAssetComponent implements OnInit {
 
           console.log('De assignAsset res====', res);
           if (res.status) {
-            this.getAssignAssetList();
+            this.deassignAssetForm.reset()
+            this.getAssignAssetList()
             this.getDeAssignAssetList();
-            setTimeout(() => {
-              location.reload();
-            }, 1000);
-            this.general.openSnackBar(res.message, '');
+            this.general.deviceChanges.next(true)
+            this.general.openSnackBar(res.success, '');
           }
-          else { }
+          else { 
+            this.general.deviceChanges.next(false)
+          }
         })
         .catch((err: any) => {
           console.log('error===', err);
         });
     }
   }
-
-  refreshDevice() {
-    this.api
-      .getDeviceData()
-      .then((res: any) => {
-        this.findData = [];
-
-        console.log('find data refresh====', res);
-        if (res.status) {
-          this.findData = res.success;
-        }
-        else {
-          this.findData = []
-        }
-
-      })
-      .catch((err: any) => {
-        console.log('error===', err);
-      });
+  toggleAllSelectionDevice(formData) {
+        
+    if (this.allSelected.selected) {
+      formData.controls.deviceId.patchValue([...this.getDeAssetList.map(obj => obj.deviceId), 0])
+    } 
+    else {
+      formData.controls.deviceId.patchValue([])
+    }
   }
 }
