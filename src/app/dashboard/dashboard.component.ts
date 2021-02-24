@@ -105,6 +105,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.congestionGraph();
+    setTimeout(()=>{
+      this.createMap();
+    },1)
   }
 
   ngOnDestroy() {
@@ -113,7 +116,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit() {
+  createMap(){
     this.map = new L.map('map', {
       attributionControl: false,
       minZoom: 1,
@@ -132,13 +135,11 @@ export class DashboardComponent implements OnInit {
     var bounds = this.map.getBounds();
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
-    // this.map.on('click',(event)=>{
-    //   console.log("event click===",event);
-    // })
     let data = {
       _id: '600693933a4d5fc813ff5041',
     };
     this.api.getLayoutImage(data._id).then((res: any) => {
+      this.clearMapImage();
       L.imageOverlay(res, bounds).addTo(this.map);
       this.map.on('load', this.getZones());
     });
@@ -276,6 +277,18 @@ export class DashboardComponent implements OnInit {
     }
     for (let i in this.map._layers) {
       if (!this.map._layers[i].hasOwnProperty('_url')) {
+        try {
+          this.map.removeLayer(this.map._layers[i]);
+        } catch (e) {
+          console.log('problem with ' + e + this.map._layers[i]);
+        }
+      }
+    }
+  }
+
+  clearMapImage(){
+    for (let i in this.map._layers) {
+      if (this.map._layers[i].hasOwnProperty('_url')) {
         try {
           this.map.removeLayer(this.map._layers[i]);
         } catch (e) {
