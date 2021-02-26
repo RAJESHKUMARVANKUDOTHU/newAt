@@ -83,23 +83,21 @@ export class AppComponent {
   }
 
   startTimer() {
-
-    var diff
     clearInterval(this.countDownTimer);
-
-
     this.countDownTimer = setInterval(() => {
+
       var start = new Date() as any
       var diff = Math.abs(this.duration - start)
-      let timer = diff, seconds;
-      var minutes = Math.floor(timer / (60 * 1000))
-      seconds = Math.floor((timer % (60 * 1000) / 1000))
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-      this.time = (minutes < 10 ? "0" + minutes : minutes) + ":" + seconds;
+      var minutes = Math.floor((diff / 1000 / 60) << 0)
+      var seconds = Math.floor((diff / 1000) % 60);
+      this.time = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds)
+      console.log(minutes, seconds);
+      if (minutes == 0 && seconds == 0) {
+        console.log("true");
 
+        this.login.logout()
+      }
     }, 1000);
-
   }
-
 }
 
