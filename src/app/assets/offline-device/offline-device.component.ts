@@ -35,7 +35,11 @@ export class OfflineDeviceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refreshOfflineDeviceList()
+    this.general.deviceChanges.subscribe((res) => {
+      if (res) {
+        this.refreshOfflineDeviceList()
+      }
+    })
   }
 
 

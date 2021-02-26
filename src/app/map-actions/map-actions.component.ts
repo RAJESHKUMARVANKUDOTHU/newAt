@@ -11,7 +11,7 @@ import { MapService } from '../services/map-services/map.service';
 import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
 import { MatOption } from '@angular/material/core';
-import * as L from 'leaflet';
+import * as L from 'leaflet' ;
 @Component({
   selector: 'app-map-actions',
   templateUrl: './map-actions.component.html',
@@ -443,6 +443,24 @@ export class MapActionsComponent implements OnInit {
       .catch((err: any) => {
         console.log('error===', err);
       });
+  }
+  deleteLayout(data){
+    console.log("delete layout ==",data)
+    let layout = this.gatewayList.filter(obj=>{
+      return obj.layoutName == data.layout
+    })
+   data._id=layout[0]._id
+  
+   this.api.deleteLayout(data).then((res:any)=>{
+     if(res.status){
+      this.resetMap()
+      this.coinData=[]
+      this.mapDisable=true
+      this.selectLayoutForm.reset()
+      this.getLayout()
+     }
+   })
+    console.log("delete layout ==",data)
   }
 }
 

@@ -113,11 +113,15 @@ export class ManageGatewayComponent implements OnInit {
         console.log("gateway delete====", res);
 
         if (res.status) {
+
+          this.general.deviceChanges.next(true)
           this.refreshGateway()
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
-        else { }
+        else {
+          this.general.deviceChanges.next(false)
+        }
       }).catch((err: any) => {
         console.log("error===", err)
       })

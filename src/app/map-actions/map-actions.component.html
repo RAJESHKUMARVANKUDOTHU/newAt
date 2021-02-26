@@ -1,5 +1,5 @@
-<div class="row container-fluid">
-  <div class="col-md-4">
+<div class="container-fluid">
+  <div  class="d-flex justify-content-between">
     <form [formGroup]="selectLayoutForm">
       <mat-form-field>
         <mat-label>Layout</mat-label>
@@ -9,16 +9,15 @@
         <mat-error>
           Select the layout
         </mat-error>
-      </mat-form-field>
+      </mat-form-field>&nbsp;
+    
+      <button mat-flat-button (click)="deleteLayout(selectLayoutForm.value)" [disabled]="!selectLayoutForm.valid"><mat-icon>delete</mat-icon></button>
     </form>
-  </div>
-  <div class="col-md-4">
-  </div>
-  <div class="col-md-4">
+  
+  <div>
     <button mat-flat-button color="primary" routerLink="/zone-configuration">Zone Configuration</button>
   </div>
 </div>
-
 
 
 <div [ngClass]="getValidation()">
@@ -126,7 +125,11 @@
       </form>
     </mat-card>
   </mat-card-content>
-</mat-card> <br>
+</mat-card>
+</div>
+
+
+
 
 
 <!-- <form [formGroup]="configCoinForm1" (ngSubmit)="addCoin1(configCoinForm1.value)">

@@ -18,9 +18,9 @@ export class ManageDeviceComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   findData: any = []
   dataSource: any = [];
-  serviceData:any = []
+  serviceData: any = []
   fileName: String = ''
-  displayedColumns = ['i', 'deviceId', 'deviceName','serviceCategoryId', 'deviceToggleStatus', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
+  displayedColumns = ['i', 'deviceId', 'deviceName', 'serviceCategoryId', 'deviceToggleStatus', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,
     private login: LoginAuthService,
@@ -31,8 +31,8 @@ export class ManageDeviceComponent implements OnInit {
   ngOnInit(): void {
     this.refreshDevice()
     this.getServiceDetails()
-    this.general.deviceChanges.subscribe((res)=>{
-      if(res){
+    this.general.deviceChanges.subscribe((res) => {
+      if (res) {
         this.refreshDevice()
       }
     })
@@ -90,23 +90,23 @@ export class ManageDeviceComponent implements OnInit {
       console.log("error===", err)
     })
   }
-  onServiceSelection(value,a){
-    
-    var data={
+  onServiceSelection(value, a) {
+
+    var data = {
       serviceId: a._id,
       deviceId: value.deviceId
     }
-    console.log("service select data==",data);
-    this.api.updateServiceId(data).then((res:any)=>{
-      console.log("update Services===",res)
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+    console.log("service select data==", data);
+    this.api.updateServiceId(data).then((res: any) => {
+      console.log("update Services===", res)
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
       }
-      else{
-        this.general.openSnackBar(res.success,'')
+      else {
+        this.general.openSnackBar(res.success, '')
       }
     })
-    
+
   }
 
   getBatteryStatus(data) {
@@ -164,11 +164,13 @@ export class ManageDeviceComponent implements OnInit {
 
         console.log("device delete====", res);
         if (res.status) {
-          this.refreshDevice()
+          this.general.deviceChanges.next(true)
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
-        else { }
+        else {
+          this.general.deviceChanges.next(false)
+        }
       }).catch((err: any) => {
         console.log("error===", err)
       })

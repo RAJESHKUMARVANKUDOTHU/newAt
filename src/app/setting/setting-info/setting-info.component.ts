@@ -92,10 +92,10 @@ export class SettingInfoComponent implements OnInit {
     this.api.getCoinData().then((res: any) => {
       console.log("coin submit====", res);
       this.coinData = []
+      this.coinDataTemp = []
       if (res.status) {
         this.coinData = res.success
         if (this.type == 'coinGrp') {
-          this.coinDataTemp = []
           const control = <FormArray>this.groupForm.controls.items;
           control.controls = [];
           var groupData = this.dataDateReduce(res.success, 'group')
@@ -105,53 +105,54 @@ export class SettingInfoComponent implements OnInit {
               data: groupData[data],
             }
           })
+          console.log("this.coinDataTemp", this.coinDataTemp)
           for (let i = 0; i < this.coinDataTemp.length; i++) {
             control.push(this.fb.group(
               {
                 coinId: [this.setCoin(this.coinDataTemp[i].data)],
-                coinName:this.setData(this.coinDataTemp[i].data),
+                coinName: this.setData(this.coinDataTemp[i].data),
                 groupId: [this.coinDataTemp[i].name]
               }
-              ));
-            }
+            ));
           }
-          else if (this.type == 'coin-cat') {
-            const control = <FormArray>this.zoneForm.controls.items;
-            control.controls = [];
-            this.coinDataTemp = []
-            var zoneData = this.dataDateReduce(res.success, 'zone')
-            this.coinDataTemp = Object.keys(zoneData).map((data) => {
-              return {
-                name: data,
-                data: zoneData[data],
-                
+        }
+        else if (this.type == 'coin-cat') {
+          const control = <FormArray>this.zoneForm.controls.items;
+          control.controls = [];
+
+          var zoneData = this.dataDateReduce(res.success, 'zone')
+          this.coinDataTemp = Object.keys(zoneData).map((data) => {
+            return {
+              name: data,
+              data: zoneData[data],
+
             }
           })
-                 for (let i = 0; i < this.coinDataTemp.length; i++) {
+          for (let i = 0; i < this.coinDataTemp.length; i++) {
             control.push(this.fb.group(
               {
                 coinId: [this.setCoin(this.coinDataTemp[i].data)],
-                coinName:this.setData(this.coinDataTemp[i].data),
+                coinName: this.setData(this.coinDataTemp[i].data),
                 zoneId: [this.coinDataTemp[i].name]
               }
-              ));
-            }
+            ));
           }
-          else {
-            const control = <FormArray>this.form1.controls.items;
-            control.controls = [];
-            for (let i = 0; i < this.coinData.length; i++) {
-              control.push(this.fb.group(
-                {
-                  coinId: [this.coinData[i].coinId],
-                  coinName: [this.coinData[i].coinName],
-                  _id:[this.coinData[i]._id],
+        }
+        else {
+          const control = <FormArray>this.form1.controls.items;
+          control.controls = [];
+          for (let i = 0; i < this.coinData.length; i++) {
+            control.push(this.fb.group(
+              {
+                coinId: [this.coinData[i].coinId],
+                coinName: [this.coinData[i].coinName],
+                _id: [this.coinData[i]._id],
                 gatewayId: [this.coinData[i].gatewayId],
-                groupId: [this.coinData[i].groupId != null ? this.coinData[i].groupId._id : ''],
+                groupId: [this.coinData[i].groupId != null ? this.coinData[i].groupId._id : '-'],
                 maxFindAsset: [this.coinData[i].maxFindAsset],
                 zoneName: [this.coinData[i].zoneId != null ? this.coinData[i].zoneId : '-'],
                 inActivityTime: [this.coinData[i].inActivityTime],
-                inactivityAlert: [this.coinData[i].inactivityAlert.sms == true ? 'sms':this.coinData[i].inactivityAlert.email == true ? 'email':''],
+                inactivityAlert: [this.coinData[i].inactivityAlert.sms == true ? 'sms' : this.coinData[i].inactivityAlert.email == true ? 'email' : ''],
                 disable: true
               }
             ));
@@ -181,14 +182,14 @@ export class SettingInfoComponent implements OnInit {
           for (let i = 0; i < this.deviceData.length; i++) {
             control.push(this.fb.group(
               {
-                _id:[this.deviceData[i]._id],
+                _id: [this.deviceData[i]._id],
                 deviceId: [this.deviceData[i].deviceId],
                 deviceName: [this.deviceData[i].deviceName],
                 distance: [this.deviceData[i].distance],
                 sms: [this.deviceData[i].sms == false ? 'N' : 'Y'],
                 email: [this.deviceData[i].email == false ? 'N' : 'Y'],
                 inActivityTime: [this.deviceData[i].inActivityTime],
-                inactivityAlert: [this.deviceData[i].inactivityAlert.sms == true ? 'sms':this.deviceData[i].inactivityAlert.email == true ? 'email':''],
+                inactivityAlert: [this.deviceData[i].inactivityAlert.sms == true ? 'sms' : this.deviceData[i].inactivityAlert.email == true ? 'email' : ''],
                 timeDelay: [this.deviceData[i].timeDelay],
                 disable: true
               }
@@ -214,7 +215,7 @@ export class SettingInfoComponent implements OnInit {
             {
               standardTime: [this.zoneData[i].standardTime],
               zoneName: [this.zoneData[i].zoneName],
-              id: [this.zoneData[i]._id]
+              _id: [this.zoneData[i]._id]
 
             }
           ));
@@ -260,7 +261,7 @@ export class SettingInfoComponent implements OnInit {
               serviceName: [this.serviceData[i].serviceName],
               zoneId: [this.serviceData[i].zoneId],
               zoneName: this.setZone(this.serviceData[i].zoneId),
-              id: [this.serviceData[i]._id]
+              _id: [this.serviceData[i]._id]
             }
           ));
         }
@@ -295,57 +296,57 @@ export class SettingInfoComponent implements OnInit {
     catch (error) {
       console.log("error==", error)
     }
-    
+
   }
-  
-  onSubmitInactivityFind(value,a) {
-    console.log("onSubmitInactivityFind data==", value,a)
+
+  onSubmitInactivityFind(value, a) {
+    console.log("onSubmitInactivityFind data==", value, a)
     var data = {
-      inactivityTime:value.inActivityTime,
-      sms: value.inactivityAlert == 'sms'?true:false,
-      email:value.inactivityAlert == 'email'?true:false,
-      deviceId:[value.deviceId]
+      inactivityTime: value.inActivityTime,
+      sms: value.inactivityAlert == 'sms' ? true : false,
+      email: value.inactivityAlert == 'email' ? true : false,
+      deviceId: [value.deviceId]
     }
     try {
       if (this.form2.valid) {
         console.log("onSubmitInactivityFind data==", data)
         this.api.deviceInactivity(data).then((res: any) => {
-          
+
           console.log("inactivity find res===", res)
           if (res.status) {
             this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
           else { }
-          
+
         }).catch((err) => {
           console.log("err=", err)
         })
       }
       else { }
-      
-      
+
+
     }
     catch (error) {
       console.log("error==", error)
     }
-    
+
   }
-  
+
   onSubmitInactivityCoin(value) {
     console.log("onSubmitInactivityCoin data==", value)
     var data = {
-      inactivityTime:value.inActivityTime,
-      sms: value.inactivityAlert == 'sms'?true:false,
-      email:value.inactivityAlert == 'email'?true:false,
-      coinId:[value.coinId]
+      inactivityTime: value.inActivityTime,
+      sms: value.inactivityAlert == 'sms' ? true : false,
+      email: value.inactivityAlert == 'email' ? true : false,
+      coinId: [value.coinId]
     }
     console.log("onSubmitInactivityCoin data==", data)
-    
+
     try {
       if (this.form1.valid) {
         this.api.coinInactivity(data).then((res: any) => {
-          
+
           console.log("inactivity coin res===", res)
           if (res.status) {
             this.refreshCoin()
@@ -362,12 +363,12 @@ export class SettingInfoComponent implements OnInit {
       console.log("error==", error)
     }
   }
-  
+
   onSubmitMaxFindForm(value) {
     console.log("onSubmitMaxFindForm data==", value)
     var data = {
-      coinId:[value.coinId],
-      maxFindAsset:value.maxFindAsset,
+      coinId: [value.coinId],
+      maxFindAsset: value.maxFindAsset,
     }
     console.log("onSubmitMaxFindForm data==", data)
     try {
@@ -392,10 +393,10 @@ export class SettingInfoComponent implements OnInit {
 
   onSumbitCoinCategory(value) {
     console.log("onSumbitCoinCategory data==", value)
-    value.coinId=this.general.filterIds(value.coinId)
+    value.coinId = this.general.filterIds(value.coinId)
     var data = {
-      coinId:value.coinId,
-      zoneId:value.zoneId
+      coinId: value.coinId,
+      zoneId: value.zoneId
     }
     console.log("onSumbitCoinCategory data==", data)
 
@@ -422,16 +423,13 @@ export class SettingInfoComponent implements OnInit {
 
   }
 
-  onSubmitZoneForm(value) {
-    console.log("onSubmitZoneForm data==", value)
-    var data = {
+  onSubmitZoneForm(data) {
 
-    }
     console.log("onSubmitZoneForm data==", data)
-
+    data.zoneName = data.zoneName.trim()
     try {
       if (this.form3.valid) {
-        this.api.zoneSetting(data).then((res: any) => {
+        this.api.updateZoneDetails(data).then((res: any) => {
 
           console.log("zone setting res===", res)
           if (res.status) {
@@ -455,8 +453,8 @@ export class SettingInfoComponent implements OnInit {
   onSubmitGroup(value) {
     console.log("onSubmitGroup data==", value)
     var data = {
-      _id:value._id,
-      groupName:value.groupName
+      _id: value._id,
+      groupName: value.groupName.trim()
     }
     console.log("onSubmitZoneForm data==", data)
 
@@ -482,11 +480,11 @@ export class SettingInfoComponent implements OnInit {
   }
 
   onSubmitGroupCoinForm(value) {
-    // console.log("onSubmitGroupCoinForm data==", value)
-    value.coinId=this.general.filterIds(value.coinId)
-    console.log(value.coinId)
+    console.log("onSubmitGroupCoinForm data==", value)
+    value.coinId = this.general.filterIds(value.coinId)
+
     var data = {
-      coinId:value.coinId,
+      coinId: value.coinId,
       groupId: value.groupId,
     }
     console.log("onSubmitGroupCoinForm data==", data)
@@ -495,6 +493,7 @@ export class SettingInfoComponent implements OnInit {
         this.api.updateGroup(data).then((res: any) => {
           console.log("Group coin res===", res)
           if (res.status) {
+            this.refreshCoin()
             this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
@@ -513,8 +512,8 @@ export class SettingInfoComponent implements OnInit {
   onSubmitServiceType(value) {
     console.log("onSubmitServiceType data==", value)
     var data = {
-      zoneId:value.zoneId,
-      serviceName:value.serviceName,
+      zoneId: value.zoneId,
+      serviceName: value.serviceName.trim(),
     }
     console.log("onSubmitServiceTye data==", data)
     try {
@@ -523,7 +522,7 @@ export class SettingInfoComponent implements OnInit {
 
           console.log("Group coin res===", res)
           if (res.status) {
-              this.general.openSnackBar(res.success, '')
+            this.general.openSnackBar(res.success, '')
           }
           else { }
         }).catch((err) => {
@@ -536,116 +535,105 @@ export class SettingInfoComponent implements OnInit {
       console.log("error==", error)
     }
   }
-  deleteTimeDelay(value){
-    var data={
-      _id:value._id
+  deleteTimeDelay(value) {
+    var data = {
+      _id: value._id
     }
-    console.log("delete TimeDelay data==",data)
-    this.api.deleteTimeDelay(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+    console.log("delete TimeDelay data==", data)
+    this.api.deleteTimeDelay(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
+        this.refreshDevice()
+      }
+    })
+  }
+  deleteInactivityFind(data) {
+    console.log("delete InactivityFind data==", data)
+    this.api.deleteFindInactivity(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
+        this.refreshDevice()
+      }
+    })
+  }
+  deleteInactivityCoin(data) {
+    console.log("delete InactivityCoin data==", data)
+    this.api.deleteCoinInactivity(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
       }
     })
   }
-  deleteInactivityFind(value){
-    var data={
-      _id:value._id
-    }
-    console.log("delete InactivityFind data==",data)
-    this.api.deleteFindInactivity(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+  deleteMaxFindForm(data) {
+
+    console.log("delete max find data==", data)
+    this.api.deleteMaxFindAsset(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
       }
     })
   }
-  deleteInactivityCoin(value){
-    var data={
-      _id:value._id
+  deleteGroup(value) {
+    var data = {
+      _id: value._id
     }
-    console.log("delete InactivityCoin data==",data)
-    this.api.deleteCoinInactivity(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+    console.log("delete  group data==", data)
+    this.api.deleteGroupDetails(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
+        this.getGroups()
       }
     })
   }
-  deleteMaxFindForm(value){
-    var data={
-      
-    }
-    console.log("delete max find data==",data)
-    this.api.deleteZoneName(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+  deleteZoneForm(data) {
+    console.log("delete zone data==", data)
+    this.api.deleteZoneName(data).then((res: any) => {
+      if (res.status) {
+        console.log("delete zone res==", res)
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
+        this.getZoneDetails()
       }
     })
   }
-  deleteGroup(value){
-    var data={
-      _id:value._id
-    }
-    console.log("delete  group data==",data)
-    this.api.deleteGroupDetails(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+  deleteGroupCoinForm(data) {
+
+    console.log("delete GroupCoinForm data==", data)
+    this.api.updateGroup(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
+        this.getGroups()
       }
     })
   }
-  deleteZoneForm(value){
-    var data={
-      _id:value.id
-    }
-    console.log("delete zone data==",data)
-    this.api.deleteZoneName(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+  deleteCoinCategory(data) {
+
+    console.log("delete CoinCategory data==", data)
+    this.api.zoneConfiguration(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
+        this.getZoneDetails()
+
       }
     })
   }
-  deleteGroupCoinForm(value){
-    var data={
-      
-    }
-    console.log("delete GroupCoinForm data==",data)
-    this.api.deleteZoneName(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
+  deleteServiceType(data) {
+    console.log("delete ServiceType data==", data)
+    this.api.deleteServices(data).then((res: any) => {
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
         this.refreshCoin()
-      }
-    })
-  }
-  deleteCoinCategory(value){
-    var data={
-      
-    }
-    console.log("delete CoinCategory data==",data)
-    this.api.deleteZoneName(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
-        this.refreshCoin()
-      }
-    })
-  }
-  deleteServiceType(value){
-    var data={
-      _id:value.id
-    }
-    console.log("delete ServiceType data==",data)
-    this.api.deleteZoneName(data).then((res:any)=>{
-      if(res.status){
-        this.general.openSnackBar(res.success,'')
-        this.refreshCoin()
+        this.getServiceDetails()
       }
     })
   }
   compareFn(o1, o2): boolean {
-    return o1 == o2.coinId;
+    return o1.coinId == o2.coinId;
   }
   compareFn1(o1, o2): boolean {
     return o1 == o2._id;
@@ -671,20 +659,20 @@ export class SettingInfoComponent implements OnInit {
         groupId: obj.groupId,
         zoneId: obj.zoneId,
       })
-      
+
     })
     return arr1;
   }
-  setData(data){
-    let arr= new FormArray([])
+  setData(data) {
+    let arr = new FormArray([])
     data.forEach(obj => {
       arr.push(this.fb.group({
-        coinId:[ obj.coinId],
-        coinName:[ obj.coinName],
-        groupId:[ obj.groupId],
+        coinId: [obj.coinId],
+        coinName: [obj.coinName],
+        groupId: [obj.groupId],
         zoneId: [obj.zoneId],
       }))
-      
+
     })
     return arr;
   }
@@ -694,6 +682,7 @@ export class SettingInfoComponent implements OnInit {
       data = data.filter((obj) => {
         return obj.groupId != null
       })
+      console.log("data==", data)
       return data.reduce((group, obj) => {
         const name = obj.groupId._id
         if (!group[name]) {
@@ -718,24 +707,4 @@ export class SettingInfoComponent implements OnInit {
       }, {})
     }
   }
-
-  reduce(data, a, type) {
-    if (type == 'group') {
-      if (data.groupId != null && a != null) {
-        return data.groupId._id != a
-      }
-      else {
-        return false
-      }
-    }
-    else {
-      if (data.zoneId != null && a != null) {
-        return data.zoneId._id != a
-      }
-      else {
-        return false
-      }
-    }
-  }
-
 }

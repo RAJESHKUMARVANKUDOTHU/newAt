@@ -759,6 +759,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
+          console.log("res.data", res.data)
           resolve(res.data);
         },
         (err) => {
@@ -767,7 +768,27 @@ export class ApiService {
       );
     });
   }
+  deleteMaxFindAsset(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/deleteMaxFindAsset';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          console.log("res.data", res.data)
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   getZone() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -909,7 +930,7 @@ export class ApiService {
       );
     });
   }
-  updateGroupName(data){
+  updateGroupName(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -930,7 +951,7 @@ export class ApiService {
     });
   }
 
-  deleteGroupDetails(data){
+  deleteGroupDetails(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -996,6 +1017,26 @@ export class ApiService {
     };
 
     let url = this.host + '/updateMaxFindAsset';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+  updateZoneDetails(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/updateZoneDetails';
     let body = {
       data: data,
     };
@@ -1084,6 +1125,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
+          console.log(res.data)
           resolve(res.data);
         },
         (err) => {
@@ -1239,7 +1281,26 @@ export class ApiService {
       );
     });
   }
+  deleteLayout(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/deleteImageLayout';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   //---------------------manage asset download -------------------------------
 
   downloadFile(response, fileName) {

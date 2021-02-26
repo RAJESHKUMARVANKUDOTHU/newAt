@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ContactComponent } from './contact/contact.component';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,7 @@ import { ContactComponent } from './contact/contact.component';
 })
 export class AppComponent {
   title = 'ATapp';
-  deviceInfo:any
+  deviceInfo: any
   isMobile: boolean
   isTablet: boolean
   isDesktopDevice: boolean
@@ -25,6 +27,9 @@ export class AppComponent {
   role: boolean = false
   statusFreeze: boolean = false
   freezeMessage: String = "Loading"
+  countDownTimer: any
+  duration: any
+  time: any
   constructor(
     private login: LoginAuthService,
     private router: Router,
@@ -33,29 +38,35 @@ export class AppComponent {
     private deviceService: DeviceDetectorService) {
     this.logged = this.login.loginData()
     this.login.loginCheckData.subscribe((res) => {
-      if(res){
-      console.log("loginCheckData===", res)
-      this.logged = res.other
-      this.menu = res.menu
-        if(this.logged == true){
+      if (res) {
+        console.log("loginCheckData===", res)
+        this.logged = res.other
+        this.menu = res.menu
+        if (this.logged == true) {
           this.loginDetails = this.login.getLoginDetails().success
-          console.log("res===", this.logged,this.menu)
+          this.duration = this.loginDetails.timer
+          console.log("res===", this.logged, this.menu)
           console.log("this.loginDetails inside====", this.loginDetails)
         }
-        else{
-          
+        else {
+
         }
       }
-    
+
 
     });
- 
+
+    this.startTimer()
   }
   ngOnInit(): void {
+    this.duration = this.loginDetails.timer
     this.deviceInfo = this.deviceService.getDeviceInfo();
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
+  }
+  ngOnDestroy() {
+    this.startTimer()
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
@@ -71,5 +82,24 @@ export class AppComponent {
     });
   }
 
- }
+  startTimer() {
+
+    var diff
+    clearInterval(this.countDownTimer);
+
+
+    this.countDownTimer = setInterval(() => {
+      var start = new Date() as any
+      var diff = Math.abs(this.duration - start)
+      let timer = diff, seconds;
+      var minutes = Math.floor(timer / (60 * 1000))
+      seconds = Math.floor((timer % (60 * 1000) / 1000))
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      this.time = (minutes < 10 ? "0" + minutes : minutes) + ":" + seconds;
+
+    }, 1000);
+
+  }
+
+}
 

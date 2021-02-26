@@ -196,7 +196,7 @@ export class ManageAssetComponent implements OnInit {
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '');
           }
-          else { 
+          else {
             this.general.deviceChanges.next(false)
           }
         })
@@ -206,10 +206,10 @@ export class ManageAssetComponent implements OnInit {
     }
   }
   toggleAllSelectionDevice(formData) {
-        
+
     if (this.allSelected.selected) {
       formData.controls.deviceId.patchValue([...this.getDeAssetList.map(obj => obj.deviceId), 0])
-    } 
+    }
     else {
       formData.controls.deviceId.patchValue([])
     }

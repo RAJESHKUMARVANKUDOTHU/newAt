@@ -44,8 +44,12 @@ export class AdminLoginComponent implements OnInit {
         this.api.adminLogin(data).then((res: any) => {
           console.log("admin res===", res)
           if (res.token) {
-            console.log("this.login.login===",this.login.login(JSON.stringify(res)));
-            
+            var start = new Date() as any
+            var end = new Date()
+            var date = end.setHours(start.getHours() + 1);
+            res.success.timer = date
+            console.log("this.login.login===", this.login.login(JSON.stringify(res)));
+
             if (this.login.login(JSON.stringify(res))) {
               this.router.navigate(['/admin-dashboard'])
             }

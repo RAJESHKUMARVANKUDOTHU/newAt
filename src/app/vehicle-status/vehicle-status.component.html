@@ -1,17 +1,64 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid"> --><br>
+<div class="d-flex justify-content-around">
+    <div style="font-size:xxx-large">
+        <span><strong>DL 25 GY 1234</strong></span>
+    </div>
 
-          <div class="d-flex zone">
-            <mat-card  *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;"
-             [ngClass]="first || last ? 'border': 'parallellogram'">
-           
+    <div>
+        <span style="font-size:xx-large"> <span>Estimated Delivery Time </span>: 14:00:00</span>
+    </div>
+</div> <br> <br>
+<div class="d-flex justify-content-around">
+    <div>
+        <span style="font-size:x-large;margin-right:5rem"><span>Service Type :</span> Service 1</span>
+    </div>
+    <div>
+        <span style="font-size:x-large;margin-right:8rem"><span>Delayed Time :</span> 5 min </span>
+    </div>
+</div>
+<br>
 
-                    <mat-card-content >
-                        <span >{{zone.zoneName}}</span>
-                     
-                    </mat-card-content>
-                
-            </mat-card>
-          </div>
-    
-      
-   </div>
+<div class="d-flex text-center zone">
+    <mat-card id="card" *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;"
+        [ngClass]="first || last ? 'border-less': 'parallellogram'">
+        <span>
+            <p *ngIf="first">{{zone.zoneName}}</p>
+            <p *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</p>
+            <p *ngIf="last">{{zone.zoneName}}</p>
+        </span>
+    </mat-card> <br>
+</div> <br>
+<div class="d-flex text-center zone">
+    <mat-card class="status-bar" *ngFor="let zone of zoneData ;let i=index" [ngStyle]="getFillColor(i)">
+        <span style="visibility:hidden">
+            {{zone.zoneName}}
+        </span>
+    </mat-card>
+</div>
+
+<br>
+
+<div style="font-size:x-large" class="text-center">
+    <span><strong>Current Location : </strong> Location 1</span>
+</div> <br>
+<div>
+    <table class="table table-stripped text-center">
+        <thead>
+            <th>Location</th>
+            <th>In time </th>
+            <th>Out time</th>
+            <th>Total time</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Location</td>
+                <td>16:00:00</td>
+                <td>17:00:00</td>
+                <td>23 hours 10 minutes</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- </div> -->

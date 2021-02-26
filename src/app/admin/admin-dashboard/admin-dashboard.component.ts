@@ -34,7 +34,7 @@ export class AdminDashboardComponent implements OnInit {
     this.loginData = this.login.getLoginDetails()
 
     this.addUserForm = this.fb.group({
-      userName: ['', [Validators.email, Validators.required]],
+      userName: ['', [Validators.email, Validators.required,Validators.pattern('/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/')]],
       password: ['', Validators.required]
     })
 

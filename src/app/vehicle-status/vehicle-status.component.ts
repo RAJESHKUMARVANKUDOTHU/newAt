@@ -7,7 +7,7 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./vehicle-status.component.css']
 })
 export class VehicleStatusComponent implements OnInit {
-  zoneData:any=[]
+  zoneData: any = []
   constructor(
     private api: ApiService,
     private general: GeneralService,
@@ -22,9 +22,19 @@ export class VehicleStatusComponent implements OnInit {
       this.zoneData = [];
       if (res.status) {
         this.zoneData = res.success;
-       }
+      }
       else { }
 
     })
   }
+  getFillColor(value) {
+
+    var a = {
+      'background-color': 'green',
+      width: 'fit-content'
+
+    }
+    return a
+  }
+
 }

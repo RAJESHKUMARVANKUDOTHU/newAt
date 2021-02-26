@@ -10,8 +10,7 @@
     </span>
   </mat-toolbar>
 
-  <mat-sidenav-container class="example-container"
-    *ngIf="logged && menu" autosize="true">
+  <mat-sidenav-container class="example-container" *ngIf="logged && menu" autosize="true">
     <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
 
       <div class="bg-white">
@@ -37,11 +36,6 @@
 
         <mat-list-item routerLink="/map-actions">
           <span mat-line> Map Center</span>
-          <mat-icon mat-list-icon>map</mat-icon>
-        </mat-list-item>
-
-        <mat-list-item routerLink="/vehicle-status">
-          <span mat-line> Vehicle</span>
           <mat-icon mat-list-icon>map</mat-icon>
         </mat-list-item>
 
@@ -87,73 +81,75 @@
         <span style="flex: 1 1 auto;"></span>
         <span *ngIf="logged">{{loginDetails.userName}} </span>
       </mat-toolbar>
-      <div *ngIf="logged" class="example-sidenav-content">
+      <div *ngIf="logged && menu" class="example-sidenav-content">
         <router-outlet></router-outlet>
+        <div>
+          <br>
+          <span class="timer">Your session expires in <b>{{time}}</b></span>
+        </div>
       </div>
 
     </mat-sidenav-content>
 
   </mat-sidenav-container>
 </div>
-<div *ngIf="(isMobile || isTablet) && (logged && menu)" >
+<div *ngIf="(isMobile || isTablet) && (logged && menu)">
   <div class="d-flex">
-  <mat-toolbar>
+    <mat-toolbar>
+      <div class="w-100 flex-grow-1">
+        <button mat-mini-fab [matMenuTriggerFor]="belowMenu" class="menu">
+          <mat-icon>menu</mat-icon>
+        </button>
 
-   
-        <div class="w-100 flex-grow-1">
-          <button mat-mini-fab [matMenuTriggerFor]="belowMenu" class="menu">
-            <mat-icon>menu</mat-icon>
+        <mat-menu #belowMenu="matMenu" yPosition="below">
+          <div class="bg-white">
+            <img src="../assets/logo.png" alt="" class="image">
+          </div>
+          <button mat-menu-item routerLink="/dashboard">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <span mat-line>Home</span>
           </button>
-    
-          <mat-menu #belowMenu="matMenu" yPosition="below">
-            <div class="bg-white">
-              <img src="../assets/logo.png" alt="" class="image">
-            </div>
-            <button mat-menu-item routerLink="/dashboard">
-              <mat-icon mat-list-icon>home</mat-icon>
-              <span mat-line>Home</span>
-            </button>
-            <button mat-menu-item routerLink="/manage-asset">
-              <mat-icon mat-list-icon>home</mat-icon>
-              <span mat-line>Manage Assets</span>
-            </button>
-            <button mat-menu-item routerLink="/geofence-dashboard">
-              <mat-icon mat-list-icon>home</mat-icon>
-              <span mat-line>Geofence Dashboard</span>
-            </button>
-            <button mat-menu-item routerLink="/map-actions">
-              <mat-icon mat-list-icon>home</mat-icon>
-              <span mat-line>Map center</span>
-            </button>
-            <button mat-menu-item routerLink="/report">
-              <mat-icon mat-list-icon> home</mat-icon>
-              <span mat-line>Report</span>
-            </button>
-            <button mat-menu-item routerLink="/profile">
-              <mat-icon mat-list-icon>home</mat-icon>
-              <span mat-line>Create Profile</span>
-            </button>
-            <span></span>
-            <button mat-menu-item [matMenuTriggerFor]="settings">
-              <mat-icon>settings</mat-icon>
-              <span mat-line>Settings</span>
-            </button>
-            <mat-menu #settings="matMenu">
-              <button mat-menu-item routerLink="/setting">General settings</button>
-              <button mat-menu-item routerLink="/geofence">Geofence settings</button>
-            </mat-menu>
-            <button mat-menu-item (click)="logout()" class="logout">
-              <mat-icon>exit_to_app</mat-icon>Logout
-            </button>
+          <button mat-menu-item routerLink="/manage-asset">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <span mat-line>Manage Assets</span>
+          </button>
+          <button mat-menu-item routerLink="/geofence-dashboard">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <span mat-line>Geofence Dashboard</span>
+          </button>
+          <button mat-menu-item routerLink="/map-actions">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <span mat-line>Map center</span>
+          </button>
+          <button mat-menu-item routerLink="/report">
+            <mat-icon mat-list-icon> home</mat-icon>
+            <span mat-line>Report</span>
+          </button>
+          <button mat-menu-item routerLink="/profile">
+            <mat-icon mat-list-icon>home</mat-icon>
+            <span mat-line>Create Profile</span>
+          </button>
+          <span></span>
+          <button mat-menu-item [matMenuTriggerFor]="settings">
+            <mat-icon>settings</mat-icon>
+            <span mat-line>Settings</span>
+          </button>
+          <mat-menu #settings="matMenu">
+            <button mat-menu-item routerLink="/setting">General settings</button>
+            <button mat-menu-item routerLink="/geofence">Geofence settings</button>
           </mat-menu>
-        </div>
+          <button mat-menu-item (click)="logout()" class="logout">
+            <mat-icon>exit_to_app</mat-icon>Logout
+          </button>
+        </mat-menu>
+      </div>
       <div class="flex-shrink-1">
         <p>{{loginDetails.userName}} </p>
-       </div>
-    
+      </div>
 
-  </mat-toolbar>
-</div>
+
+    </mat-toolbar>
+  </div>
   <router-outlet></router-outlet>
 </div>
 

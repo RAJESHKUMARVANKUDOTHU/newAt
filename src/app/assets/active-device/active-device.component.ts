@@ -37,7 +37,11 @@ export class ActiveDeviceComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshActiveDeviceList()
-
+    this.general.deviceChanges.subscribe((res) => {
+      if (res) {
+        this.refreshActiveDeviceList()
+      }
+    })
   }
   refreshActiveDeviceList() {
     this.api.getOnlineDevice().then((res: any) => {

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginAuthService } from '../services/login-auth.service';
 import { GeneralService } from '../services/general.service'
 import { ApiService } from '../services/api.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -42,6 +41,10 @@ export class LoginComponent implements OnInit {
           console.log("login res===", res)
 
           if (res.token) {
+            var start = new Date() as any
+            var end = new Date()
+            var date = end.setHours(start.getHours() + 1);
+            res.success.timer = date
             if (this.login.login(JSON.stringify(res))) {
               // this.login.loginCheckData.next(true)
               console.log("i stepped")

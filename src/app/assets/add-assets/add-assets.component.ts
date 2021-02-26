@@ -37,7 +37,7 @@ export class AddAssetsComponent implements OnInit {
     })
     this.addGateway = this.fb.group({
       gatewayName: ['', Validators.required],
-      gatewayId: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12),Validators.pattern('^[a-zA-z0-9]{12}$')]],
+      gatewayId: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12), Validators.pattern('^[a-zA-z0-9]{12}$')]],
     })
     this.addCoin = this.fb.group({
       coinName: ['', Validators.required],
@@ -58,10 +58,11 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
-
+            this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
+            this.general.deviceChanges.next(false)
             this.general.openSnackBar(res.success, '')
           }
         }).catch((err: any) => {
@@ -83,9 +84,12 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
+            this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
+            this.general.deviceChanges.next(false)
+
             this.general.openSnackBar(res.success, '')
           }
           // else if((res.status || !res.status) && res.success.toLowerCase()!="gateway registered successfully"){
@@ -111,9 +115,11 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
+            this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
+            this.general.deviceChanges.next(false)
             this.general.openSnackBar(res.success, '')
           }
 

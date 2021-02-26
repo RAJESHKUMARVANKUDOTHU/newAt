@@ -87,9 +87,11 @@ export class EditAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
+            this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
+            this.general.deviceChanges.next(false)
             this.general.openSnackBar(res.success, '')
           }
 
@@ -114,9 +116,11 @@ export class EditAssetsComponent implements OnInit {
 
           console.log("gateway submit====", res);
           if (res.status) {
+            this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
+            this.general.deviceChanges.next(false)
             this.general.openSnackBar(res.success, '')
           }
 
@@ -140,9 +144,11 @@ export class EditAssetsComponent implements OnInit {
 
           console.log("coin submit====", res);
           if (res.status) {
+            this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
+            this.general.deviceChanges.next(false)
             this.general.openSnackBar(res.success, '')
           }
 

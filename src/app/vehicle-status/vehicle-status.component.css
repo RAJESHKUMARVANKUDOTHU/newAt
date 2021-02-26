@@ -1,30 +1,45 @@
 .parallellogram{
-     -webkit-transform: skew(-30deg);
-    -moz-transform: skew(-30deg);
-    -o-transform: skew(-30deg);
-    transform: skew(-30deg);
-    border-right:1px solid white;
-    z-index:999;
+    transform: skew(-20deg);
+    z-index:1;
+    background: #7ea6e0;
+    
 }
 .zone{
-    height: 10%;
-    width: fit-content;
-}
-mat-card{
-    height: 10%;
-    width: fit-content;
-  
-}
-mat-card-content.mat-card-content{
-    -webkit-transform: skew(30deg);
-    -moz-transform: skew(30deg);
-    -o-transform: skew(30deg);
-    transform: skew(30deg);
+    width:fit-content;
+    background: #7ea6e0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px transparent;
   }
-  .border{
-    -webkit-transform: skew(0deg);
-    -moz-transform: skew(0deg);
-    -o-transform: skew(0deg);
-    transform: skew(0deg);
-    
+#card{
+    padding: 16px 16px 0 16px !important;
+   align-items: center;
+}
+.noSkew{
+    transform: skew(20deg);
   }
+
+.border-less{
+ border: 1px solid transparent;
+ box-shadow: 1px 0 1px 0 transparent;
+ background: #7ea6e0;
+}
+
+.status{
+    font-weight: 500;
+    font-size: x-large;
+}
+.status-bar{
+    border: 1px solid black;
+    border-radius: 0 !important;
+    box-shadow: none;
+    width: 100%;
+    height: 1px;
+    padding: 5px 16px 5px 16px;
+}
+thead{
+    background: #7ea6e0;
+}
+tbody{
+    background: #d4e1f5;
+}

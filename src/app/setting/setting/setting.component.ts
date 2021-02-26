@@ -32,7 +32,7 @@ export class SettingComponent implements OnInit {
   zoneForm: FormGroup
   maxFindForm: FormGroup
   groupRegister: FormGroup
-  createServiceType:FormGroup
+  createServiceType: FormGroup
   coinData: any = []
   coinDataTemp: any = []
   coinDataZone: any = []
@@ -112,8 +112,8 @@ export class SettingComponent implements OnInit {
     })
 
     this.createServiceType = this.fb.group({
-      zoneId:['',Validators.required],
-      serviceName:['',Validators.required]
+      zoneId: ['', Validators.required],
+      serviceName: ['', Validators.required]
     })
   }
 
@@ -123,12 +123,12 @@ export class SettingComponent implements OnInit {
       console.log("refresh Settings====", res);
       if (res.status) {
         this.distanceForm.patchValue({
-          range : res.success.range
+          range: res.success.range
         })
-        console.log("this.distanceForm==",this.distanceForm)
+        console.log("this.distanceForm==", this.distanceForm)
       }
       else {
-        this.general.openSnackBar(res.success,'')
+        this.general.openSnackBar(res.success, '')
       }
 
     }).catch((err: any) => {
@@ -142,8 +142,9 @@ export class SettingComponent implements OnInit {
       this.coinData = []
       if (res.status) {
         this.coinData = res.success
-        this.coinDataTemp = this.filter(this.coinData,'group')
-        this.coinDataZone = this.filter(this.coinData,'zone')
+        this.coinDataTemp = this.filter(this.coinData, 'group')
+        this.coinDataZone = this.filter(this.coinData, 'zone')
+        console.log(" this.coinDataTemp==", this.coinDataTemp)
       }
       else {
         this.coinData = []
@@ -199,13 +200,13 @@ export class SettingComponent implements OnInit {
     try {
       if (this.distanceForm.valid) {
         this.api.setRange(data).then((res: any) => {
-        console.log("range res===", res)
+          console.log("range res===", res)
           if (res.status) {
             this.distanceForm.reset()
             this.general.openSnackBar(res.success, '')
             this.refreshSetting()
           }
-          else { 
+          else {
             this.general.openSnackBar(res.success, '')
           }
         }).catch((err) => {
@@ -345,6 +346,7 @@ export class SettingComponent implements OnInit {
           if (res.status) {
             this.coinCategory.reset()
             this.refreshCoin()
+            this.getZoneDetails()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -424,6 +426,7 @@ export class SettingComponent implements OnInit {
           console.log("Group coin res===", res)
           if (res.status) {
             this.groupCoinForm.reset()
+            this.refreshCoin()
             this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
@@ -450,6 +453,7 @@ export class SettingComponent implements OnInit {
           console.log("Group coin res===", res)
           if (res.status) {
             this.createServiceType.reset()
+            this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
           else { }
@@ -542,7 +546,23 @@ export class SettingComponent implements OnInit {
     const dialogRef = this.dialog.open(SettingInfoComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-
+      if (data == 'timeDelay' || data == 'find-inactive') {
+        this.refreshDevice()
+      }
+      else if (data == 'coin' || data == 'max-find') {
+        this.refreshCoin()
+      }
+      else if (data == 'coin-cat') {
+        this.refreshCoin()
+        this.getZoneDetails()
+      }
+      else if (data == 'groupName' || data == 'coinGrp') {
+        this.refreshCoin()
+        this.getGroups()
+      }
+      else {
+        this.getZoneDetails()
+      }
     });
   }
 
@@ -574,49 +594,49 @@ export class SettingComponent implements OnInit {
     })
   }
 
-  filter(data,type){
+  filter(data, type) {
     let arr = []
-    data.filter((data)=>{
-      if(type == 'group'){
-        arr.push({
-          coinId:data.coinId,
-          coinName : data.coinName,
-          groupId : data.graoupId,
-        
-        })
-        if(data.groupId == null){
+    data.filter((data) => {
+      if (type == 'group') {
+        if (data.groupId == null) {
           arr.push({
-            valid :false
+            coinId: data.coinId,
+            coinName: data.coinName,
+            groupId: data.groupId,
+            valid: false
           })
         }
-        else{
+        else {
           arr.push({
-            valid :true
-          })
-        }
-      }
-      else if(type == 'zone'){
-        if(data.zoneId == null){
-          arr.push({
-            coinId:data.coinId,
-            coinName : data.coinName,
-            groupId : data.graoupId,
-            zoneId : data.zoneId,
-            valid :false
-          })
-        }
-        else{
-          arr.push({
-            coinId:data.coinId,
-            coinName : data.coinName,
-            groupId : data.graoupId,
-            zoneId : data.zoneId,
-            valid :true
+            coinId: data.coinId,
+            coinName: data.coinName,
+            groupId: data.groupId,
+            valid: true
           })
         }
       }
-    
-  })
-  return arr
+      else if (type == 'zone') {
+        if (data.zoneId == null) {
+          arr.push({
+            coinId: data.coinId,
+            coinName: data.coinName,
+            groupId: data.graoupId,
+            zoneId: data.zoneId,
+            valid: false
+          })
+        }
+        else {
+          arr.push({
+            coinId: data.coinId,
+            coinName: data.coinName,
+            groupId: data.graoupId,
+            zoneId: data.zoneId,
+            valid: true
+          })
+        }
+      }
+
+    })
+    return arr
   }
 }
