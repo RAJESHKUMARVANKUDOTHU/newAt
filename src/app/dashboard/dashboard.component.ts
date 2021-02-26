@@ -10,8 +10,9 @@ import * as L from 'leaflet';
 import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
+import 'leaflet.animatedmarker/src/AnimatedMarker';
 
-@Component({
+@Component({ 
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
@@ -29,7 +30,10 @@ export class DashboardComponent implements OnInit {
       zoneName: 'job card',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 71.3125, lng: -94.5 },
+      latlng: [
+        { lat: 71.3125, lng: -94.5 },
+        { lat: 37.8125, lng: 179 },
+      ],
     },
     {
       _id: '23456',
@@ -39,7 +43,10 @@ export class DashboardComponent implements OnInit {
       zoneName: 'washing',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 37.8125, lng: 179 },
+      latlng: [
+        { lat: 37.8125, lng: 179 },
+        { lat: 71.3125, lng: -94.5 },
+      ],
     },
     {
       _id: '34567',
@@ -49,7 +56,7 @@ export class DashboardComponent implements OnInit {
       zoneName: 'job card',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 35.3125, lng: -61.5 },
+      latlng: [{ lat: 35.3125, lng: -61.5 },{ lat: -18.1875, lng: 147 },{ lat: 35.3125, lng: -61.5 },{ lat: 66.8125, lng: 88 }],
     },
     {
       _id: '45678',
@@ -59,7 +66,7 @@ export class DashboardComponent implements OnInit {
       zoneName: 'washing',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: -18.1875, lng: 147 },
+      latlng: [{ lat: -18.1875, lng: 147 }],
     },
     {
       _id: '56789',
@@ -69,7 +76,7 @@ export class DashboardComponent implements OnInit {
       zoneName: 'shopfloor',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 66.8125, lng: 88 },
+      latlng: [{ lat: 66.8125, lng: 88 }],
     },
     {
       _id: '67890',
@@ -79,7 +86,7 @@ export class DashboardComponent implements OnInit {
       zoneName: 'ready post washing',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: 0, lng: 0 },
+      latlng: [{ lat: 0, lng: 0 }],
     },
     {
       _id: '4321',
@@ -89,34 +96,33 @@ export class DashboardComponent implements OnInit {
       zoneName: 'shopfloor',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: { lat: -4.1875, lng: 89.5 },
+      latlng: [{ lat: -4.1875, lng: 89.5 }],
     },
   ];
-  tempDeviceList :any = [];
-  tempZoneList :any = [];
+  tempDeviceList: any = [];
+  tempZoneList: any = [];
   marker: any = [];
-  errStatus :any = {
-    searchError : false,
-    searchMessage : 'Vehicle not found'
-  }
+  errStatus: any = {
+    searchError: false,
+    searchMessage: 'Vehicle not found',
+  };
 
-
-  constructor(private cd: ChangeDetectorRef, private api: ApiService) { }
+  constructor(private cd: ChangeDetectorRef, private api: ApiService) {}
 
   ngOnInit(): void {
     this.congestionGraph();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.createMap();
-    },1)
+    }, 1);
   }
 
   ngOnDestroy() {
-    if(this.map){
+    if (this.map) {
       this.map.remove();
     }
   }
 
-  createMap(){
+  createMap() {
     this.map = new L.map('map', {
       attributionControl: false,
       minZoom: 1,
@@ -127,7 +133,7 @@ export class DashboardComponent implements OnInit {
       fullscreenControlOptions: {
         title: 'Show me the fullscreen !',
         titleCancel: 'Exit fullscreen mode',
-        position: 'topleft'
+        position: 'topleft',
       },
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
@@ -191,6 +197,7 @@ export class DashboardComponent implements OnInit {
       iconUrl: '../../assets/marker.png',
       iconSize: [25, 25],
     });
+
     for (let i = 0; i < this.zoneList.length; i++) {
       if (this.zoneList[i].selected) {
         new L.polygon(this.zoneList[i].bounds)
@@ -200,12 +207,15 @@ export class DashboardComponent implements OnInit {
           });
         for (let j = 0; j < this.deviceList.length; j++) {
           if (this.deviceList[j].zoneId == this.zoneList[i]._id) {
-            let latlng = [
-              this.deviceList[j].latlng.lat,
-              this.deviceList[j].latlng.lng,
-            ];
+            let latlng = [];
+            for (let k = 0; k < this.deviceList[j].latlng.length; k++) {
+              latlng.push([
+                this.deviceList[j].latlng[k].lat,
+                this.deviceList[j].latlng[k].lng,
+              ]);
+            }
             this.marker.push(
-              new L.marker(latlng, { icon: icon })
+              new L.animatedMarker(latlng, { icon: icon , interval: 3000})
                 .addTo(this.map)
                 .bindPopup(this.getPopUpForm(this.deviceList[j]))
                 .openPopup()
@@ -216,42 +226,48 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
-  searchVehicle(data){
-    console.log("search data===",data);
-    if(data){
-      this.deviceList = this.tempDeviceList.filter((obj)=> {
-        return ((obj.deviceId.toString().toLowerCase().indexOf(data.toString().toLowerCase()) > -1));
+  searchVehicle(data) {
+    console.log('search data===', data);
+    if (data) {
+      this.deviceList = this.tempDeviceList.filter((obj) => {
+        return (
+          obj.deviceId
+            .toString()
+            .toLowerCase()
+            .indexOf(data.toString().toLowerCase()) > -1
+        );
       });
-      
-      for(let i=0 ; i<this.deviceList.length ; i++){
-        this.zoneList = this.tempZoneList.filter(obj=>{
-          if((obj._id.toString().toLowerCase().indexOf(this.deviceList[i].zoneId.toString().toLowerCase()) > -1)){
+
+      for (let i = 0; i < this.deviceList.length; i++) {
+        this.zoneList = this.tempZoneList.filter((obj) => {
+          if (
+            obj._id
+              .toString()
+              .toLowerCase()
+              .indexOf(this.deviceList[i].zoneId.toString().toLowerCase()) > -1
+          ) {
             obj.selected = true;
-            obj.highlight = true; 
+            obj.highlight = true;
             return obj;
+          } else {
+            return;
           }
-          else{
-            return
-          }
-        })
+        });
       }
-  
-      if(!this.zoneList.length || !this.deviceList.length){
+
+      if (!this.zoneList.length || !this.deviceList.length) {
         this.errStatus.searchError = true;
         this.clearSearchDeviceZone();
-      }
-      else{
+      } else {
         this.errStatus.searchError = false;
       }
-    }
-    else{
+    } else {
       this.clearSearchDeviceZone();
     }
-    this.createDevice()
+    this.createDevice();
   }
 
-  clearSearchDeviceZone(){
+  clearSearchDeviceZone() {
     this.deviceList = this.tempDeviceList;
     this.zoneList = this.tempZoneList;
     this.zoneList = this.zoneList.map((obj) => {
@@ -286,7 +302,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  clearMapImage(){
+  clearMapImage() {
     for (let i in this.map._layers) {
       if (this.map._layers[i].hasOwnProperty('_url')) {
         try {
@@ -325,4 +341,5 @@ export class DashboardComponent implements OnInit {
     });
     chart.render();
   }
+
 }

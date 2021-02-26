@@ -5,6 +5,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ContactComponent } from './contact/contact.component';
 import * as moment from 'moment';
+import {timer} from 'rxjs';
 
 
 @Component({
@@ -30,6 +31,8 @@ export class AppComponent {
   countDownTimer: any
   duration: any
   time: any
+  private timer = timer(1000,1000);
+
   constructor(
     private login: LoginAuthService,
     private router: Router,
@@ -99,6 +102,13 @@ export class AppComponent {
 
     }, 1000);
 
+  }
+
+  loginTimer(){
+    let time =  this.timer.subscribe((next)=>{
+      console.log("next timer==",next);
+      
+    })
   }
 
 }

@@ -29,6 +29,8 @@
     "google-libphonenumber": "^3.2.15",
     "intl-tel-input": "^17.0.8",
     "leaflet": "^1.7.1",
+    "leaflet-moving-marker": "^0.3.0",
+    "leaflet.animatedmarker": "^1.0.0",
     "leaflet.fullscreen": "^2.0.0",
     "ng-circle-progress": "^1.6.0",
     "ng2-charts": "^2.4.2",
@@ -36,6 +38,7 @@
     "ngx-device-detector": "^2.0.3",
     "ngx-intl-tel-input": "^3.0.5",
     "rxjs": "~6.6.0",
+    "screenfull": "^5.1.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
