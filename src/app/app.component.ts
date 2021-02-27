@@ -55,11 +55,10 @@ export class AppComponent {
 
         }
       }
-
-
     });
-
+    this.loginTimer()
     this.startTimer()
+    
   }
   ngOnInit(): void {
     this.duration = this.loginDetails.timer
@@ -68,9 +67,7 @@ export class AppComponent {
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
-  ngOnDestroy() {
-    this.startTimer()
-  }
+
   openDailog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -88,26 +85,24 @@ export class AppComponent {
   startTimer() {
     clearInterval(this.countDownTimer);
     this.countDownTimer = setInterval(() => {
-
       var start = new Date() as any
       var diff = Math.abs(this.duration - start)
       var minutes = Math.floor((diff / 1000 / 60) << 0)
       var seconds = Math.floor((diff / 1000) % 60);
       this.time = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds)
-      console.log(minutes, seconds);
+      // console.log(minutes, seconds);
       if (minutes == 0 && seconds == 0) {
         console.log("true");
-
         this.login.logout()
+        return
       }
     }, 1000);
   }
 
   loginTimer(){
     let time =  this.timer.subscribe((next)=>{
-      console.log("next timer==",next);
-      
-    })
+      // console.log("next timer==",next);     
+    });
   }
 }
 

@@ -1,4 +1,4 @@
-<button mat-raised-button (click)="openDailog()"><mat-icon>add</mat-icon> Add Coin </button>
+<button mat-raised-button (click)="openDailog()" [hidden]="role=='userRole'"><mat-icon>add</mat-icon> Add Coin </button>
 <span style="flex: 1 1 auto;"></span>
 <span style="float: right;">
     <button mat-flat-button color="primary" (click)="download()">Download <mat-icon>download</mat-icon></button><br>
@@ -48,13 +48,13 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
                 <td mat-cell *matCellDef="let coin" > {{coin.updatedOn  | date : 'medium'}} </td>
             </ng-container>   
-            <ng-container matColumnDef="edit">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
-                <td mat-cell *matCellDef="let coin" (click)="edit(coin)" class="cursor"> <mat-icon>{{coin.edit}} </mat-icon></td>
+            <ng-container matColumnDef="edit" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>
+                <td mat-cell *matCellDef="let coin" (click)="edit(coin)" class="cursor" [hidden]="role=='userRole'"> <mat-icon>{{coin.edit}} </mat-icon></td>
             </ng-container>  
-            <ng-container matColumnDef="delete">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-                <td mat-cell *matCellDef="let coin" (click)="delete(coin)" class="cursor"><mat-icon> {{coin.delete}}</mat-icon> </td>
+            <ng-container matColumnDef="delete" >
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Delete </th>
+                    <td mat-cell *matCellDef="let coin" (click)="delete(coin)" class="cursor" [hidden]="role=='userRole'"><mat-icon> {{coin.delete}}</mat-icon> </td>
             </ng-container>     
         </div>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

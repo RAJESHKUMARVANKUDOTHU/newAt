@@ -19,6 +19,7 @@ export class ManageCoinComponent implements OnInit {
   dataSource: any = [];
   coinData: any = []
   fileName: String = ''
+  role:any
   displayedColumns = ['i', 'coinId', 'coinName', 'gatewayId', 'coinBattery', 'updatedOn', 'edit', 'delete'];
   constructor(
     public dialog: MatDialog,
@@ -29,6 +30,8 @@ export class ManageCoinComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshCoin()
+    this.role=this.login.getLoginDetails().success.role
+
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();

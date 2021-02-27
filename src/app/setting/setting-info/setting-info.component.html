@@ -298,8 +298,13 @@
                             </mat-form-field>
                         </td>
                         <td class="w-25">
-                            <span *ngFor="let b of  a.get('coinName')['controls']">
-                                {{b.get('coinName').value}},
+                            <span *ngFor="let b of  a.get('coinName')['controls'];let i=index;let last= last;">
+                                <span *ngIf="!last">
+                                    {{b.get('coinName').value}},
+                                </span>
+                                <span *ngIf="last">
+                                    {{b.get('coinName').value}}.
+                                </span>
                             </span>
                         </td>
                         <td>
@@ -350,8 +355,13 @@
                             </mat-form-field>
                         </td>
                         <td class="w-25">
-                            <span *ngFor="let b of  a.get('coinName')['controls']">
-                                {{b.get('coinName').value}},
+                            <span *ngFor="let b of  a.get('coinName')['controls'];let i=index;let last= last;">
+                                <span *ngIf="!last">
+                                    {{b.get('coinName').value}},
+                                </span>
+                                <span *ngIf="last">
+                                    {{b.get('coinName').value}}.
+                                </span>
                             </span>
                         </td>
                         <td>
@@ -399,9 +409,11 @@
                             </mat-form-field>
                         </td>
                         <td class="w-25">
-                            <span *ngFor="let b of  a.get('zoneName')['controls']">
-                                {{b.get('zoneName').value}},
+                            <span *ngFor="let b of  a.get('zoneName')['controls'];let i=index;let last= last;">
+                                <span *ngIf="!last">{{b.get('zoneName').value}},</span>
+                                <span *ngIf="last">{{b.get('zoneName').value}}.</span>
                             </span>
+
                         </td>
                         <td>
                             <mat-form-field>
