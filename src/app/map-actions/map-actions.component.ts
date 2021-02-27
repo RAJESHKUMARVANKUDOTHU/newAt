@@ -120,6 +120,8 @@ export class MapActionsComponent implements OnInit {
         return obj.layoutName == data
       })
       this.api.getLayoutImage(layout[0]._id).then((res: any) => {
+        console.log("image layout==",res);
+        
         this.layoutData = layout[0];
         this.configCoinForm.reset()
         this.updateSelected();
