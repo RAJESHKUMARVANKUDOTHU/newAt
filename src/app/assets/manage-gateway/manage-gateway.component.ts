@@ -19,6 +19,7 @@ export class ManageGatewayComponent implements OnInit {
   gatewayData: any = []
   dataSource: any = [];
   fileName: String = ''
+  role:any
   displayedColumns = ['i', 'gatewayId', 'gatewayName', 'macId', 'updatedOn', 'edit', 'delete'];
   constructor(
     public dialog: MatDialog,
@@ -29,6 +30,7 @@ export class ManageGatewayComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshGateway()
+    this.role=this.login.getLoginDetails().success.role
   }
 
   openDailog() {
@@ -106,7 +108,6 @@ export class ManageGatewayComponent implements OnInit {
   delete(data) {
     data._Id = data.id
     if (confirm('Are you sure you want to delete gateway?')) {
-
 
       this.api.deleteGateway(data).then((res: any) => {
 

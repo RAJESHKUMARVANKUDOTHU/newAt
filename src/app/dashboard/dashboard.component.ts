@@ -11,7 +11,6 @@ import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
-
 @Component({ 
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -123,7 +122,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createMap() {
-    this.map = new L.map('map', {
+    this.map = L.map('map', {
       attributionControl: false,
       minZoom: 1,
       maxZoom: 5,

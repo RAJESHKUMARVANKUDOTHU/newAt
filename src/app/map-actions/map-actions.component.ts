@@ -47,8 +47,7 @@ export class MapActionsComponent implements OnInit {
     this.createForm();
     this.refreshGateway();
     this.getLayout();
-  }
-
+      }
   ngOnDestroy() {
     this.resetMap();
   }
@@ -69,6 +68,7 @@ export class MapActionsComponent implements OnInit {
       maxZoom: 5,
       center: [0, 0],
       zoom: 0,
+      zoomControl: true,
       fullscreenControl: true,
       fullscreenControlOptions: {
         title: 'Show me the fullscreen !',
@@ -78,6 +78,7 @@ export class MapActionsComponent implements OnInit {
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
     });
+   
     this.bound = this.map.getBounds();
     this.map.setMaxBounds(this.bound);
     this.map.dragging.disable();

@@ -50,7 +50,6 @@ export class AppComponent {
         }
       }
     });
-
     this.startTimer();
   }
   ngOnInit(): void {
@@ -59,9 +58,6 @@ export class AppComponent {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-  }
-  ngOnDestroy() {
-    this.startTimer();
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
@@ -88,6 +84,7 @@ export class AppComponent {
         (seconds < 10 ? '0' + seconds : seconds);
       if (minutes == 0 && seconds == 0) {
         this.login.logout();
+        return;
       }
     }, 1000);
   }

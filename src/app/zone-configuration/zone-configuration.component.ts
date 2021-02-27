@@ -54,18 +54,19 @@ export class ZoneConfigurationComponent implements OnInit {
 
   createMap() {
     this.mapDisable = true;
-    this.map = new L.map('map', {
-      attributionControl: false,
-      minZoom: 1,
-      maxZoom: 5,
-      center: [0, 0],
-      zoom: 0,
+    console.log("l==",L)
+    this.map =  L.map('map', {
       fullscreenControl: true,
       fullscreenControlOptions: {
         title: 'Show me the fullscreen !',
         titleCancel: 'Exit fullscreen mode',
         position: 'topleft',
       },
+      attributionControl: false,
+      minZoom: 1,
+      maxZoom: 5,
+      center: [0, 0],
+      zoom: 0,
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
     });
