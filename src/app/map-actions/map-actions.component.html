@@ -33,60 +33,71 @@
 
 
 <br>
-
 <mat-card>
-  <mat-card-title>Coin Configuration</mat-card-title>
+  <mat-card-title>Coin Configuration</mat-card-title> <br>
+  <div class="row d-flex">
+    <div class="col-md-4"> 
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="configCoinForm" (ngSubmit)="updateCoinBound(configCoinForm.value)">
+            <mat-form-field>
+              <mat-label> Select Gateway </mat-label>
+              <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
+                <mat-option *ngFor="let list of layoutData.gateways" [value]="list.gatewayId">{{list.gatewayId}}
+
+                </mat-option>
+              </mat-select>
+            </mat-form-field> <br>
+            <mat-form-field>
+              <mat-label>Select Coin</mat-label>
+              <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
+                <mat-option *ngFor="let a of coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
+              </mat-select>
+            </mat-form-field> <br>
+
+            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Add</button>
+            <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
+<button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-8"> 
+      <table class="table bordered">
+        <thead>
+          <th>Coin ID</th>
+          <th>Coin Name</th>
+          <th>Zone Name</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of coinData;let i=index"
+            [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
+            <td>{{i+1}}</td>
+            <td>{{a.coinId}}</td>
+            <td>{{a.coinName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </mat-card>
+
+
+<!-- <mat-card>
   <mat-card-content>
     <mat-card>
       <mat-grid-list cols="2" rowHeight="2:1" class="list">
         <mat-grid-tile>
-          <mat-card>
-            <mat-card-content>
-              <form [formGroup]="configCoinForm" (ngSubmit)="updateCoinBound(configCoinForm.value)">
-                <mat-form-field>
-                  <mat-label> Select Gateway </mat-label>
-                  <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
-                    <mat-option *ngFor="let list of layoutData.gateways" [value]="list.gatewayId">{{list.gatewayId}}
 
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field> <br>
-                <mat-form-field>
-                  <mat-label>Select Coin</mat-label>
-                  <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-                    <mat-option *ngFor="let a of coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
-                  </mat-select>
-                </mat-form-field> <br>
-
-                <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Add</button>
-                <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
-<button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
-              </form>
-            </mat-card-content>
-          </mat-card>
         </mat-grid-tile>
 
         <mat-grid-tile>
-          <table class="table bordered">
-            <thead>
-              <th>Coin ID</th>
-              <th>Coin Name</th>
-              <th>Zone Name</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let a of coinData;let i=index"
-                [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
-                <td>{{i+1}}</td>
-                <td>{{a.coinId}}</td>
-                <td>{{a.coinName}}</td>
-              </tr>
-            </tbody>
-          </table>
+
         </mat-grid-tile>
       </mat-grid-list>
     </mat-card>
   </mat-card-content>
-</mat-card> <br>
+</mat-card> <br> -->
 
 <mat-card class="border-card">
   <mat-card-title>

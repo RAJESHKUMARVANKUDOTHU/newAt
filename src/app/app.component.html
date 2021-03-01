@@ -34,7 +34,8 @@
           <mat-icon mat-list-icon>dashboard</mat-icon>
         </mat-list-item>
 
-        <mat-list-item routerLink="/map-actions">
+        <mat-list-item routerLink="/map-actions" 
+        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
           <span mat-line> Map Center</span>
           <mat-icon mat-list-icon>map</mat-icon>
         </mat-list-item>
@@ -49,12 +50,14 @@
         <span *ngIf="isExpanded"mat-line> Contact</span>     
       </mat-list-item> -->
 
-        <mat-list-item routerLink="/profile">
+        <mat-list-item routerLink="/profile"
+        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
           <mat-icon mat-list-icon>perm_identity</mat-icon>
           <span mat-line>Create Profile</span>
         </mat-list-item>
 
-        <mat-list-item (click)="showLabel = !showLabel">
+        <mat-list-item (click)="showLabel = !showLabel"
+        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
           <mat-icon mat-list-icon>settings</mat-icon>
           <span mat-line> Settings </span>
           <mat-icon>keyboard_arrow_down</mat-icon>

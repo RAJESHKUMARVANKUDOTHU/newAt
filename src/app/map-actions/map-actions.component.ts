@@ -98,7 +98,7 @@ export class MapActionsComponent implements OnInit {
   createForm() {
     this.newLayoutForm = this.fb.group({
       gatewayId: ['', Validators.required],
-      layoutName: ['', Validators.required],
+      layoutName: ['', [Validators.required,Validators.pattern('/^[a-zA-z]/')]],
       fileData: [''],
     });
     this.selectLayoutForm = this.fb.group({

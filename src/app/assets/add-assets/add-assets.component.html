@@ -16,7 +16,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Device Id</mat-label>
-                    <input type="number" min="1" matInput formControlName="deviceId" disabled required>
+                    <input type="number" min="1" max="255" matInput formControlName="deviceId" disabled required>
                     <mat-error>
                         Device Id cannot be empty or 0.
                     </mat-error>
@@ -33,7 +33,7 @@
             <form [formGroup]="addGateway" (ngSubmit)="gatewaySubmit(addGateway.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
-                    <input type="text" min="1" matInput formControlName="gatewayName" disabled required>
+                    <input type="text" min="1" max="255" matInput formControlName="gatewayName" disabled required>
                     <mat-error>
                         Gateway name is required.
                     </mat-error>
@@ -64,7 +64,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Id</mat-label>
-                    <input type="number" min='1' matInput formControlName="coinId" disabled required>
+                    <input type="number" min='1' max="255" matInput formControlName="coinId" disabled required>
                     <mat-error>
                         Coin Id cannot be empty or 0.
                     </mat-error>
