@@ -43,7 +43,7 @@ export class EditAssetsComponent implements OnInit {
     })
     this.editCoin = this.fb.group({
       coinName: ['', Validators.required],
-      coinId: [{ value: '', disabled: true }],
+      coinId: [{ value: '', disabled: true },[Validators.min(1),Validators.max(255)]],
       gatewayId: ['', Validators.required]
     })
 

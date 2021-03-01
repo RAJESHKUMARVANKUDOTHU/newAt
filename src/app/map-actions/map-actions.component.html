@@ -81,7 +81,7 @@
     </div>
   </div>
   </mat-card>
-
+<br>
 
 <!-- <mat-card>
   <mat-card-content>
@@ -127,7 +127,7 @@
           </mat-error>
         </mat-form-field>
 
-        <input type="file" #fileInput (change)="fileChange($event.target.files)" required class="example-form">
+        <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true" class="example-form">
         <br><br>
         <div class="btn">
           <button mat-raised-button [disabled]="!newLayoutForm.valid" color="primary">Create Layout</button>

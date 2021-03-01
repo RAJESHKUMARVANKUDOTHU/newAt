@@ -98,8 +98,8 @@ export class MapActionsComponent implements OnInit {
   createForm() {
     this.newLayoutForm = this.fb.group({
       gatewayId: ['', Validators.required],
-      layoutName: ['', [Validators.required,Validators.pattern('/^[a-zA-z]/')]],
-      fileData: [''],
+      layoutName: ['', [Validators.required]],
+      fileData: ['',Validators.required],
     });
     this.selectLayoutForm = this.fb.group({
       layout: ['', Validators.required],
@@ -328,6 +328,7 @@ export class MapActionsComponent implements OnInit {
   }
 
   createNewLayout(data) {
+    data.layoutName=data.layoutNAme.trim()
     data.gatewayObjectId = this.general.filterArray(data.gatewayId);
     data.fileData.filename =
       data.gatewayId[0] +

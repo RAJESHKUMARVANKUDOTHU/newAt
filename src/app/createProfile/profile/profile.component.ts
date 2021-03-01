@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     this.addSubUserForm = this.fb.group({
       userName: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required],
-      type: ['', Validators.required],
+      role: ['', Validators.required],
       department: ['']
     },
       {
@@ -49,10 +49,10 @@ export class ProfileComponent implements OnInit {
 
   formValidator() {
     return (formGroup: FormGroup) => {
-      const type = formGroup.get('type');
+      const type = formGroup.get('role');
       const dept = formGroup.get('department');
 
-      if (type.value == "subAdmin") {
+      if (type.value == "subAdminRole") {
         if (dept.value != '') {
           dept.setErrors(null)
           return
@@ -79,7 +79,6 @@ export class ProfileComponent implements OnInit {
 
   addSubUser(data) {
     console.log("data===", data)
-    data.role=data.type
     if (this.addSubUserForm.valid) {
       try {
         this.api.createSubUsers(data).then((res: any) => {

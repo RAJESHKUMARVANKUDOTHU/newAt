@@ -8,20 +8,20 @@
                     <form [formGroup]="addSubUserForm" (ngSubmit)="addSubUser(addSubUserForm.value)">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>User type</mat-label>
-                            <mat-select formControlName="type" required>
-                                <mat-option value="CoAdminRole">
+                            <mat-select formControlName="role" required>
+                                <mat-option value="coAdminRole">
                                     <span>Co. Admin</span>
                                 </mat-option>
-                                <mat-option value="SubAdminRole">
+                                <mat-option value="subAdminRole">
                                     <span>Sub admin</span>
                                 </mat-option>
-                                <mat-option value="UserRole">
+                                <mat-option value="userRole">
                                     <span>Normal user</span>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
 
-                        <mat-form-field class="w-100" *ngIf="addSubUserForm.get('type').value == 'subAdmin'">
+                        <mat-form-field class="w-100" *ngIf="addSubUserForm.get('role').value == 'subAdminRole'">
                             <input matInput placeholder="Department" formControlName="department" required>
                             <mat-error>
                                 Please provide a valid department
