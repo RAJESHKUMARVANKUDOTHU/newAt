@@ -54,7 +54,16 @@ export class ManageAssetComponent implements OnInit {
     private general: GeneralService,
     private fb: FormBuilder,
     public dialog: MatDialog
-  ) { }
+  ) { 
+    this.general.deviceChanges.subscribe((res)=>{
+      console.log(res)
+      if(res){
+        this.devicesCount();
+        this.getAssignAssetList();
+        this.getDeAssignAssetList();
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.assignAssetForm = this.fb.group({
@@ -72,6 +81,7 @@ export class ManageAssetComponent implements OnInit {
     // this.refreshDevice();
     this.getAssignAssetList();
     this.getDeAssignAssetList();
+ 
   }
 
   devicesCount() {
