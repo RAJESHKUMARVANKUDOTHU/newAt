@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
 
   addSubUser(data) {
     console.log("data===", data)
-
+    data.role=data.type
     if (this.addSubUserForm.valid) {
       try {
         this.api.createSubUsers(data).then((res: any) => {
