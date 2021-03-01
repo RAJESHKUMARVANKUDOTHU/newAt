@@ -71,13 +71,16 @@
   }
 .timer{
   position: fixed;
-  right:1rem;
-  bottom: 1rem;
+  right: 1rem;
+  bottom: 0;
   z-index: 999;
-  padding: 5px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background:rgb(212, 165, 44);
+  background-color: #002060;
+  color: navajowhite;
+  height: 2rem;
+  text-align: center;
+  width: 14rem;
+  padding: 0.5rem;
+  border-radius: 1rem 0 0 1rem;
 }
   @media only screen and (max-width: 768px) {
    
@@ -88,4 +91,4 @@
           color: white !important;
           border: none;
     }    
-  }
+  } 
