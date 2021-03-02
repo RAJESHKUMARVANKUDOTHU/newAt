@@ -1286,7 +1286,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/deleteImageLayout';
+    let url = this.host + '/deleteLayout';
     let body = {
       data: data,
     };

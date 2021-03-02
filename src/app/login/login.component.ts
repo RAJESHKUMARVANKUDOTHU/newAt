@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.email, Validators.required]],
-      password: ['']
+      userName: ['', [Validators.email,Validators.required]],
+      password: ['',Validators.required]
     })
 
   }
@@ -36,10 +36,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       try {
         console.log("data===", data)
-
         this.api.login(data).then((res: any) => {
           console.log("login res===", res)
-
           if (res.token) {
             var start = new Date() as any
             var end = new Date()

@@ -22,7 +22,7 @@
                     <mat-label>Device Id</mat-label>
                     <input type="number" min="1" max="255" matInput formControlName="deviceId" required>
                     <mat-error>
-                        Device Id cannot be empty or 0.
+                        Device Id should be between 1-255.
                     </mat-error>
                 </mat-form-field><br>
                 <button mat-raised-button [disabled]="!addFind.valid" color="primary">Submit</button>
@@ -78,7 +78,7 @@
                     <mat-label>Coin Id</mat-label>
                     <input type="number" min='1' max="255" matInput formControlName="coinId" required>
                     <mat-error>
-                        Coin Id cannot be empty or 0.
+                        Device Id should be between 1-255.
                     </mat-error>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
