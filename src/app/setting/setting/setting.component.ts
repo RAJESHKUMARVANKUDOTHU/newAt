@@ -44,7 +44,7 @@ export class SettingComponent implements OnInit {
     private fb: FormBuilder,
     private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
     public dialog: MatDialog,
   ) { }
 
@@ -85,7 +85,7 @@ export class SettingComponent implements OnInit {
     })
 
     this.groupRegister = this.fb.group({
-      groupName: ['', Validators.required]
+      groupName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]]
     })
 
 
@@ -102,7 +102,7 @@ export class SettingComponent implements OnInit {
     })
 
     this.zoneForm = this.fb.group({
-      zoneName: ['', Validators.required],
+      zoneName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       standardTime: ['', Validators.required]
     })
 
@@ -113,7 +113,7 @@ export class SettingComponent implements OnInit {
 
     this.createServiceType = this.fb.group({
       zoneId: ['', Validators.required],
-      serviceName: ['', Validators.required]
+      serviceName: ['',[Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]]
     })
   }
 

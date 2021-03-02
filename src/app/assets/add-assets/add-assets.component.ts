@@ -23,24 +23,25 @@ export class AddAssetsComponent implements OnInit {
     public dialogRef: MatDialogRef<AddAssetsComponent>,
     @Inject(MAT_DIALOG_DATA) data,
     private fb: FormBuilder,
-    private general: GeneralService,
+    public general: GeneralService,
     private login: LoginAuthService,
     private api: ApiService,
+    
   ) {
     this.type = data.type
   }
 
   ngOnInit(): void {
     this.addFind = this.fb.group({
-      deviceName: ['', Validators.required],
+      deviceName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       deviceId: ['', [Validators.required, Validators.min(1),Validators.max(255)]]
     });
     this.addGateway = this.fb.group({
-      gatewayName: ['', Validators.required],
+      gatewayName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       gatewayId: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12), Validators.pattern('^[a-zA-z0-9]{12}$')]],
     })
     this.addCoin = this.fb.group({
-      coinName: ['', Validators.required],
+      coinName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       coinId: ['', [Validators.required, Validators.min(1),Validators.max(255)]],
       gatewayId: ['', Validators.required]
     })

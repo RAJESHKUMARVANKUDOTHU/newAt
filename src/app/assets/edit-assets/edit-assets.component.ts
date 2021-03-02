@@ -24,7 +24,7 @@ export class EditAssetsComponent implements OnInit {
     private fb: FormBuilder,
     private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
 
   ) {
     this.type = data.type
@@ -34,15 +34,15 @@ export class EditAssetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.editFind = this.fb.group({
-      deviceName: ['', Validators.required],
+      deviceName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       deviceId: [{ value: '', disabled: true }],
     })
     this.editGateway = this.fb.group({
-      gatewayName: ['', Validators.required],
+      gatewayName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       gatewayId: [{ value: '', disabled: true }],
     })
     this.editCoin = this.fb.group({
-      coinName: ['', Validators.required],
+      coinName: ['',[Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       coinId: [{ value: '', disabled: true },[Validators.min(1),Validators.max(255)]],
       gatewayId: ['', Validators.required]
     })

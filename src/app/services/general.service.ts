@@ -11,6 +11,7 @@ export class GeneralService {
   public encryptInfo;
   public decryptedInfo;
   public token;
+  public mismatch: boolean
   private requests: any = {};
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([])
   public deviceChanges = new Subject<any>();
@@ -67,5 +68,18 @@ export class GeneralService {
   getToken() {
     return this.login.getLoginDetails().token
   }
+  public validate(data) {
+    console.log(data)
+    this.mismatch = true
+    const expression = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+    var string = expression.test(String(data).toLowerCase());
 
+    if (data) {
+      if (data == data.match(string)) {
+        this.mismatch = false
+      } else {
+        this.mismatch = true
+      }
+    }
+  }
 }

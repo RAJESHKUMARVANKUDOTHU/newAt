@@ -68,7 +68,7 @@ export class AppComponent {
 
     const dialogRef = this.dialog.open(ContactComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   startTimer() {

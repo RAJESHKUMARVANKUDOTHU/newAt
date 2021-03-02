@@ -38,7 +38,7 @@ export class MapActionsComponent implements OnInit {
     private fb: FormBuilder,
     public mapService: MapService,
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -98,7 +98,7 @@ export class MapActionsComponent implements OnInit {
   createForm() {
     this.newLayoutForm = this.fb.group({
       gatewayId: ['', Validators.required],
-      layoutName: ['', [Validators.required]],
+      layoutName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
       fileData: ['',Validators.required],
     });
     this.selectLayoutForm = this.fb.group({
@@ -330,7 +330,7 @@ export class MapActionsComponent implements OnInit {
   }
 
   createNewLayout(data) {
-    data.layoutName=data.layoutNAme.trim()
+    console.log(this.newLayoutForm)
     data.gatewayObjectId = this.general.filterArray(data.gatewayId);
     data.fileData.filename =
       data.gatewayId[0] +
@@ -466,6 +466,8 @@ export class MapActionsComponent implements OnInit {
    })
     console.log("delete layout ==",data)
   }
+
+
 }
 
 // selectedLayoutCoin: any = {

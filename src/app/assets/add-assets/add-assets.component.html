@@ -2,21 +2,25 @@
     <button mat-button mat-dialog-close class="float-right">
         <mat-icon>clear</mat-icon>
     </button>
-    
+
     <div *ngIf="type=='find'">
         <h1 mat-dialog-title class="text-center">Add Find</h1>
-        <div mat-dialog-content class="h-100 text-center"> 
+        <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="addFind" (ngSubmit)="findSubmit(addFind.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Device Name</mat-label>
-                    <input type="text" matInput formControlName="deviceName" required>
-                    <mat-error>
+                    <input type="text" matInput formControlName="deviceName"
+                        (change)="general.validate($event.target.value)" required>
+                    <mat-error *ngIf="addFind.get('deviceName').value ==''">
                         Device name is required.
                     </mat-error>
+                    <mat-error *ngIf="general.mismatch">
+                        No special characters are allowed. And device name cannot start/end with space(s).
+                    </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Device Id</mat-label>
-                    <input type="number" min="1" max="255" matInput formControlName="deviceId" disabled required>
+                    <input type="number" min="1" max="255" matInput formControlName="deviceId" required>
                     <mat-error>
                         Device Id cannot be empty or 0.
                     </mat-error>
@@ -24,19 +28,23 @@
                 <button mat-raised-button [disabled]="!addFind.valid" color="primary">Submit</button>
             </form>
         </div>
-    
+
     </div>
-    
+
     <div *ngIf="type=='gateway'">
         <h1 mat-dialog-title class="text-center">Add Gateway</h1>
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="addGateway" (ngSubmit)="gatewaySubmit(addGateway.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
-                    <input type="text" min="1" max="255" matInput formControlName="gatewayName" disabled required>
-                    <mat-error>
+                    <input type="text" matInput formControlName="gatewayName"
+                        (change)="general.validate($event.target.value)" required>
+                    <mat-error *ngIf="addGateway.get('gatewayName').value ==''">
                         Gateway name is required.
                     </mat-error>
+                    <mat-error *ngIf="general.mismatch">
+                        No special characters are allowed. And gateway name cannot start/end with space(s).
+                    </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Id</mat-label>
@@ -45,26 +53,30 @@
                         Gateway id should be of 12 Characters.
                     </mat-error>
                 </mat-form-field> <br>
-    
+
                 <button mat-raised-button [disabled]="!addGateway.valid" color="primary">Submit</button>
             </form>
         </div>
     </div>
-    
+
     <div *ngIf="type=='coin'">
         <h1 mat-dialog-title class="text-center">Add Coin</h1>
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="addCoin" (ngSubmit)="coinSubmit(addCoin.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Name</mat-label>
-                    <input type="text" matInput formControlName="coinName" required>
-                    <mat-error>
+                    <input type="text" matInput formControlName="coinName"
+                        (change)="general.validate($event.target.value)" required>
+                    <mat-error *ngIf="addCoin.get('coinName').value ==''">
                         Coin Name is required.
                     </mat-error>
+                    <mat-error *ngIf="general.mismatch">
+                        No special characters are allowed. And coin name cannot start/end with space(s).
+                    </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Id</mat-label>
-                    <input type="number" min='1' max="255" matInput formControlName="coinId" disabled required>
+                    <input type="number" min='1' max="255" matInput formControlName="coinId" required>
                     <mat-error>
                         Coin Id cannot be empty or 0.
                     </mat-error>
@@ -78,7 +90,7 @@
                     </mat-select>
                     <mat-error></mat-error>
                 </mat-form-field> <br>
-    
+
                 <button mat-raised-button [disabled]="!addCoin.valid" color="primary">Submit</button>
             </form>
         </div>

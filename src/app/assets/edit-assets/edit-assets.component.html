@@ -2,40 +2,45 @@
     <button mat-button mat-dialog-close class="float-right">
         <mat-icon>clear</mat-icon>
     </button>
-    
+
     <div *ngIf="type=='find'">
         <h1 mat-dialog-title class="text-center">Edit Find</h1>
-    
+
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="editFind" (ngSubmit)="updateFind(editFind.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Device Name</mat-label>
                     <input type="text" matInput formControlName="deviceName" required>
-                    <mat-error>
-                        Device Name is required.
+                    <mat-error *ngIf="editFind.get('deviceName').value ==''">
+                        Device name is required.
                     </mat-error>
+                    <mat-error *ngIf="general.mismatch">
+                        No special characters are allowed. And device name cannot start/end with space(s).
+                    </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Device Id</mat-label>
                     <input type="number" matInput min="1" formControlName="deviceId" disabled>
-                    <mat-error></mat-error>
                 </mat-form-field> <br>
                 <button mat-raised-button [disabled]="!editFind.valid" color="primary">Submit</button>
             </form>
         </div>
     </div>
-    
+
     <div *ngIf="type=='gateway'">
         <h1 mat-dialog-title class="text-center">Edit Gateway</h1>
-    
+
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="editGateway" (ngSubmit)="updateGateway(editGateway.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
                     <input type="text" min="1" matInput formControlName="gatewayName" required>
-                    <mat-error>
+                    <mat-error *ngIf="editGateway.get('gatewayName').value ==''">
                         Gateway name is required.
                     </mat-error>
+                    <mat-error *ngIf="general.mismatch">
+                        No special characters are allowed. And gateway name cannot start/end with space(s).
+                    </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Id</mat-label>
@@ -46,18 +51,21 @@
             </form>
         </div>
     </div>
-    
+
     <div *ngIf="type=='coin'">
         <h1 mat-dialog-title class="text-center">Edit Coin</h1>
-    
+
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="editCoin" (ngSubmit)="updateCoin(editCoin.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Name</mat-label>
                     <input type="text" matInput formControlName="coinName" required>
-                    <mat-error>
+                    <mat-error *ngIf="editCoin.get('coinName').value ==''">
                         Coin Name is required.
                     </mat-error>
+                    <mat-error *ngIf="general.mismatch">
+                        No special characters are allowed. And coin name cannot start/end with space(s).
+                    </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Id</mat-label>
