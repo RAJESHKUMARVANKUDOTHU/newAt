@@ -34,7 +34,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       (take(1),
       catchError((error: any) => {
-        // console.log("erooorr=", error)
+        console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
               this.login.logout()         
         }

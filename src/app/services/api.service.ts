@@ -1319,6 +1319,24 @@ export class ApiService {
       );
     });
   }
+
+  getZoneDashBoard(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+  
+    let url = this.host + '/getZoneDashBoard';
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   //---------------------manage asset download -------------------------------
 
   downloadFile(response, fileName) {

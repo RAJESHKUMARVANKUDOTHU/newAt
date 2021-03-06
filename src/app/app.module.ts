@@ -39,6 +39,7 @@ import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
 import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.component';
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
+import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { VehicleStatusComponent } from './vehicle-status/vehicle-status.componen
     ZoneConfigurationComponent,
     EditProfileComponent,
     VehicleStatusComponent,
+    ZoneDashboardComponent,
   ],
   imports: [
     BrowserModule,

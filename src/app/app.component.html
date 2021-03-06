@@ -33,6 +33,11 @@
           <span mat-line> Geofence Dashboard</span>
           <mat-icon mat-list-icon>dashboard</mat-icon>
         </mat-list-item>
+        
+        <mat-list-item routerLink="/zone-dashboard">
+          <span mat-line> Zone Dashboard</span>
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+        </mat-list-item>
 
         <mat-list-item routerLink="/map-actions" 
         [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
