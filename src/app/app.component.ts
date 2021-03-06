@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ContactComponent } from './contact/contact.component';
 import * as moment from 'moment';
 import { timer } from 'rxjs';
+import { GeneralService } from './services/general.service';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,8 @@ export class AppComponent {
     private router: Router,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private general: GeneralService,
   ) {
     this.logged = this.login.loginData();
     this.login.loginCheckData.subscribe((res) => {
@@ -51,6 +53,7 @@ export class AppComponent {
       }
     });
     this.startTimer();
+    this.freezeSubscribe();
   }
   ngOnInit(): void {
     this.duration = this.loginDetails.timer;
@@ -71,6 +74,15 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe((result) => { });
   }
 
+  freezeSubscribe(){
+    this.general.loadingFreez.subscribe((res:any)=>{
+      console.log("free==",res);
+      
+      this.statusFreeze = res.status
+      this.freezeMessage = res.msg
+    })
+  }
+
   startTimer() {
     clearInterval(this.countDownTimer);
     this.countDownTimer = setInterval(() => {
@@ -83,6 +95,8 @@ export class AppComponent {
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
       if (minutes == 0 && seconds == 0) {
+        console.log("timer==",this.countDownTimer);
+        
         this.login.logout();
         return;
       }

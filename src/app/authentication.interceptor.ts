@@ -36,23 +36,20 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       catchError((error: any) => {
         // console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
-              this.login.logout()         
-        }
-        else {
-          
+          this.general.loadingFreez.next({status:true,msg:'Your session has logged out..! please try again later'})
+          setTimeout(() => {
+            this.login.logout() ;
+            this.general.loadingFreez.next({status:false,msg:''})       
+          }, 3000);
         }
         return throwError(error);
-
       })), tap((res: any) => {
         if (res instanceof HttpResponse) {
-          // console.log('tap res==', res);
           if (res.body.hasOwnProperty('data')) {
             res.body.data = this.general.decrypt(res.body.data);
           }
-          return res;
-        } else {
-          return res;
         }
+        return res;
       })
     ) as any;
   }
@@ -65,12 +62,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         setHeaders: { Authorization: `Bearer ${this.status.token}` },
       });
       if (request instanceof HttpRequest) {
-        // console.log("http request==", request);
         let authHeaders = request.headers.get('authorization');
         if (authHeaders) {
           let body = request.body;
           if (body) {
-            // request.body = {}
             request.body.data = this.general.encrypt(body.data);
           }
         } else {
