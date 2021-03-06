@@ -122,16 +122,19 @@ export class MapActionsComponent implements OnInit {
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
-      this.api.getLayoutImage(layout[0]._id).then((res: any) => {
-        console.log("image layout==", res);
-
-        this.layoutData = layout[0];
-        this.configCoinForm.reset()
-        this.updateSelected();
-        this.clearMapImage();
-        L.imageOverlay(res, this.bound).addTo(this.map);
-        this.createMarker();
-      });
+      console.log(layout)
+      if(layout.length>0){
+        this.api.getLayoutImage(layout[0]._id).then((res: any) => {
+          console.log("image layout==", res);
+  
+          this.layoutData = layout[0];
+          this.configCoinForm.reset()
+          this.updateSelected();
+          this.clearMapImage();
+          L.imageOverlay(res, this.bound).addTo(this.map);
+          this.createMarker();
+        });
+      }
     }
   }
 
@@ -350,6 +353,7 @@ export class MapActionsComponent implements OnInit {
         .then((res: any) => {
           console.log('create layout res===', res);
           if (res.status) {
+            this.getLayout()
             this.general.openSnackBar(res.message, '');
           } else {
             this.general.openSnackBar(res.message, '');
@@ -466,13 +470,17 @@ export class MapActionsComponent implements OnInit {
       if (res.status) {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
-        this.coinData = []
         this.mapDisable = true
         this.selectLayoutForm.reset()
         this.getLayout()
       }
       else {
-        this.general.openSnackBar(res.success, '')
+        if(!res.success){
+          this.general.openSnackBar(res.message, '')
+        }
+        else{
+          this.general.openSnackBar(res.success, '')
+        }
       }
     })
   }
