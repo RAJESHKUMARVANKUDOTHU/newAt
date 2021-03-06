@@ -12,7 +12,10 @@
                         <td>
                             <mat-form-field>
                                 <mat-label>Device Name</mat-label>
-                                <input matInput type="text" formControlName="deviceName" matInput required>
+                                <mat-select formControlName="deviceName">
+                                    <mat-option [value]="a.get('deviceName').value">{{a.get('deviceName').value}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </td>
                         <td>
@@ -211,10 +214,13 @@
                             <mat-form-field>
                                 <mat-label>Group Name</mat-label>
                                 <input type="text" formControlName="groupName" matInput required>
-                                <mat-error>
-                                    Please provide a valid group name
+                                <mat-error *ngIf="a.get('groupName').value ==''">
+                                    Group Name is required
                                 </mat-error>
-                            </mat-form-field>
+                                <mat-error *ngIf="a.get('groupName').value !='' || general.mismatch">
+                                    No special characters are allowed. And group name cannot start/end with space(s).
+                                </mat-error>
+                            </mat-form-field> <br><br>
                         </td>
                         <td>
                             <mat-icon matListIcon (click)="deleteGroup(a.value)" class="cursor">delete_forever
@@ -244,10 +250,13 @@
                             <mat-form-field>
                                 <mat-label>Zone Name</mat-label>
                                 <input type="text" formControlName="zoneName" matInput required>
-                                <mat-error>
-                                    Please provide a valid zone name
+                                <mat-error *ngIf="a.get('zoneName').value ==''">
+                                    ZoneName is required
                                 </mat-error>
-                            </mat-form-field>
+                                <mat-error *ngIf="a.get('zoneName').value !='' || general.mismatch">
+                                    No special characters are allowed. And zone name cannot start/end with space(s).
+                                </mat-error>
+                            </mat-form-field> <br><br>
                         </td>
                         <td>
                             <mat-form-field>
@@ -403,10 +412,13 @@
                             <mat-form-field>
                                 <mat-label>Service Name</mat-label>
                                 <input type="text" matInput formControlName="serviceName" required>
-                                <mat-error>
-                                    Please provide a valid service name
+                                <mat-error *ngIf="a.get('serviceName').value ==''">
+                                    Service Name is required
                                 </mat-error>
-                            </mat-form-field>
+                                <mat-error *ngIf="a.get('serviceName').value !='' || general.mismatch">
+                                    No special characters are allowed. And service name cannot start/end with space(s).
+                                </mat-error>
+                            </mat-form-field> <br><br>
                         </td>
                         <td class="w-25">
                             <span *ngFor="let b of  a.get('zoneName')['controls'];let i=index;let last= last;">

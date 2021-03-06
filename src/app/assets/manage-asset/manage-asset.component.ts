@@ -174,12 +174,13 @@ export class ManageAssetComponent implements OnInit {
           console.log('assignAsset res====', res);
           if (res.status) {
             this.assignAssetForm.reset()
-            this.general.openSnackBar(res.success, '');
+            this.general.openSnackBar(res.message, '');
             this.getAssignAssetList();
             this.getDeAssignAssetList();
             this.general.deviceChanges.next(true)
           }
           else {
+            this.general.openSnackBar(res.message, '');
             this.general.deviceChanges.next(false)
           }
         })
@@ -190,7 +191,7 @@ export class ManageAssetComponent implements OnInit {
   }
 
   deassignAsset(data) {
-    data._id = this.id;
+     console.log("data==",data)
     // data.userId=this.userId
     if (this.deassignAssetForm.valid) {
 
@@ -207,6 +208,7 @@ export class ManageAssetComponent implements OnInit {
             this.general.openSnackBar(res.success, '');
           }
           else {
+            this.general.openSnackBar(res.message, '');
             this.general.deviceChanges.next(false)
           }
         })

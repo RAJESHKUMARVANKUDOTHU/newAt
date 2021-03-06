@@ -11,7 +11,7 @@ import { MapService } from '../services/map-services/map.service';
 import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
 import { MatOption } from '@angular/material/core';
-import * as L from 'leaflet' ;
+import * as L from 'leaflet';
 @Component({
   selector: 'app-map-actions',
   templateUrl: './map-actions.component.html',
@@ -40,19 +40,19 @@ export class MapActionsComponent implements OnInit {
     private api: ApiService,
     public general: GeneralService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.resetMap();
     this.createForm();
     this.refreshGateway();
     this.getLayout();
-      }
+  }
   ngOnDestroy() {
     this.resetMap();
   }
 
-  resetMap(){
+  resetMap() {
     if (this.map != null) {
       this.clearMap();
       this.clearMapImage();
@@ -60,7 +60,7 @@ export class MapActionsComponent implements OnInit {
     }
   }
 
-  createMap(){
+  createMap() {
     this.mapDisable = true;
     this.map = L.map('map', {
       attributionControl: false,
@@ -78,7 +78,7 @@ export class MapActionsComponent implements OnInit {
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
     });
-   
+
     this.bound = this.map.getBounds();
     this.map.setMaxBounds(this.bound);
     this.map.dragging.disable();
@@ -98,8 +98,10 @@ export class MapActionsComponent implements OnInit {
   createForm() {
     this.newLayoutForm = this.fb.group({
       gatewayId: ['', Validators.required],
-      layoutName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
-      fileData: ['',Validators.required],
+      layoutName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
+      fileData: ['', Validators.required],
+      height: ['', Validators.required],
+      width: ['', Validators.required]
     });
     this.selectLayoutForm = this.fb.group({
       layout: ['', Validators.required],
@@ -115,14 +117,14 @@ export class MapActionsComponent implements OnInit {
   layoutSelect(data) {
     this.mapDisable = false;
     console.log('data layout===', data);
-    if(data){
+    if (data) {
       this.selectedLayout = data
-      let layout = this.gatewayList.filter(obj=>{
+      let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
       this.api.getLayoutImage(layout[0]._id).then((res: any) => {
-        console.log("image layout==",res);
-        
+        console.log("image layout==", res);
+
         this.layoutData = layout[0];
         this.configCoinForm.reset()
         this.updateSelected();
@@ -136,7 +138,7 @@ export class MapActionsComponent implements OnInit {
   gatewaySelect(data) {
     console.log('data==', data);
     this.coinData = [];
-    let gatewayData = this.layoutData.gateways.filter(obj=>{
+    let gatewayData = this.layoutData.gateways.filter(obj => {
       return obj.gatewayId == data
     });
     this.coinData = gatewayData[0].coinIds;
@@ -192,8 +194,8 @@ export class MapActionsComponent implements OnInit {
   createMarker() {
     this.clearMap();
     let coin = this.configCoinForm.get('coinBounds').value;
-    console.log("coin===",coin);
-    
+    console.log("coin===", coin);
+
     if (coin != null) {
       let data = {
         bounds: this.configCoinForm.get('coinBounds').value,
@@ -202,7 +204,7 @@ export class MapActionsComponent implements OnInit {
         coinName: this.configCoinForm.get('coinName').value,
       };
       this.addCoinMarker(data);
-    } else  {
+    } else {
       for (let i = 0; i < this.layoutData.gateways.length; i++) {
         if (this.layoutData.gateways[i].selected) {
           for (let j = 0; j < this.layoutData.gateways[i].coinIds.length; j++) {
@@ -227,9 +229,9 @@ export class MapActionsComponent implements OnInit {
       }
     }
     this.cd.detectChanges();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.mapElement.nativeElement.focus();
-    },0);
+    }, 0);
   }
 
   addCoinMarker(data) {
@@ -275,7 +277,7 @@ export class MapActionsComponent implements OnInit {
         this.createMarker();
       });
     this.marker.push(marker);
-    
+
   }
 
   getValidation() {
@@ -348,9 +350,9 @@ export class MapActionsComponent implements OnInit {
         .then((res: any) => {
           console.log('create layout res===', res);
           if (res.status) {
-            this.general.openSnackBar(res.success, '');
+            this.general.openSnackBar(res.message, '');
           } else {
-            this.general.openSnackBar(res.success, '');
+            this.general.openSnackBar(res.message, '');
           }
         })
         .catch((err: any) => {
@@ -396,7 +398,7 @@ export class MapActionsComponent implements OnInit {
     }
   }
 
-  clearMapImage(){
+  clearMapImage() {
     for (let i in this.map._layers) {
       if (this.map._layers[i].hasOwnProperty('_url')) {
         try {
@@ -416,15 +418,15 @@ export class MapActionsComponent implements OnInit {
         if (res.status) {
           this.gatewayList = res.success;
           this.selectLayoutForm.patchValue({
-            layout : this.selectedLayout
+            layout: this.selectedLayout
           })
           this.layoutSelect(this.selectedLayout);
-          if(!this.map){
+          if (!this.map) {
             this.createMap();
           }
         } else {
           this.gatewayList = [];
-          if(!this.map){
+          if (!this.map) {
             this.createMap();
           }
         }
@@ -448,23 +450,31 @@ export class MapActionsComponent implements OnInit {
         console.log('error===', err);
       });
   }
-  deleteLayout(data){
-    console.log("delete layout ==",data)
-    let layout = this.gatewayList.filter(obj=>{
-      return obj.layoutName == data.layout
+
+  deleteLayout(value) {
+    let layout = this.gatewayList.filter(obj => {
+      return obj.layoutName == value.layout
     })
-   data._id=layout[0]._id
-  
-   this.api.deleteLayout(data).then((res:any)=>{
-     if(res.status){
-      this.resetMap()
-      this.coinData=[]
-      this.mapDisable=true
-      this.selectLayoutForm.reset()
-      this.getLayout()
-     }
-   })
-    console.log("delete layout ==",data)
+    var data = {
+      gatewayObjectId: layout[0]._id,
+      layoutName: value.layout
+    }
+    console.log("delete layout ==", data)
+
+    this.api.deleteLayout(data).then((res: any) => {
+      console.log("delete layout res ==", res)
+      if (res.status) {
+        this.general.openSnackBar(res.success, '')
+        this.resetMap()
+        this.coinData = []
+        this.mapDisable = true
+        this.selectLayoutForm.reset()
+        this.getLayout()
+      }
+      else {
+        this.general.openSnackBar(res.success, '')
+      }
+    })
   }
 
 

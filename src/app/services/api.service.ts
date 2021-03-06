@@ -657,6 +657,24 @@ export class ApiService {
     });
   }
 
+  getDeviceGeofence(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+  
+    let url = this.host + '/getDeviceGeofence';
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
   // ---------------end----------------------------
 
   /* ------------- Setting ----------------------- */
@@ -1286,7 +1304,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/deleteLayout';
+    let url = this.host + '/deleteLayoutInfo';
     let body = {
       data: data,
     };

@@ -7,9 +7,11 @@ mat-card-title.mat-card-title {
 } */
 
 .example-form{
-    padding-left: 3rem;
-    width: 30%;
-
+    /* padding-left: 3rem; */
+    width: 20%;
+}
+.example-form1{
+  width: 10%;
 }
 
 .btn{

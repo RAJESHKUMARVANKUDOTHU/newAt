@@ -12,7 +12,8 @@ export class GeneralService {
   public decryptedInfo;
   public token;
   public mismatch: boolean
-  private requests: any = {};
+  public date1:any
+  public date2:any
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([])
   public deviceChanges = new Subject<any>();
   constructor(
@@ -80,6 +81,61 @@ export class GeneralService {
       } else {
         this.mismatch = true
       }
+    }
+  }
+  convertTime(a){
+    // console.log(a)
+  
+    var timeArr = a.split(':')
+  
+    var date = ''
+    if(timeArr[0]!='00'){
+      date += timeArr[0] + ' hour '
+    }
+    if(timeArr[1]!='00'){
+      date += timeArr[1] + ' minute '
+    }
+    if(timeArr[2]!='00'){
+      date += timeArr[2] + ' second '
+    }
+    if(date == '' ||   date == '-'){
+      date = '05 second'
+    }
+    return date
+  }
+  
+  getTotTime(inTime,outTime){
+    console.log("time===",inTime,outTime)
+  
+    this.date1 = new Date(inTime)
+    this.date2 = outTime==null? new Date():new Date(outTime)
+  
+    // console.log("time2===",this.date1, this.date2)
+  
+    if(this.date1 !="Invalid Date" ){
+  
+      if(this.date2!="Invalid Date" ){
+        var diff = Math.abs(this.date2 - this.date1)
+      }
+      else {
+        return '-'
+      }
+  
+      let ms = diff % 1000;
+      diff = (diff - ms) / 1000;
+      let s = diff % 60;
+      diff = (diff - s) / 60;
+      let m = diff % 60;
+      diff = (diff - m) / 60;
+      let h = diff
+  
+      let ss = s <= 9 && s >= 0 ? "0"+s : s;
+      let mm = m <= 9 && m >= 0 ? "0"+m : m;
+      let hh = h <= 9 && h >= 0 ? "0"+h : h;
+  
+     var time = hh +':' + mm + ':' +ss
+    //  console.log("time======",this.time)
+     return this.convertTime(time)
     }
   }
 }

@@ -33,7 +33,7 @@ export class SettingInfoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data,
     private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
     private fb: FormBuilder,
   ) {
     this.type = data.type;
@@ -214,7 +214,7 @@ export class SettingInfoComponent implements OnInit {
           control.push(this.fb.group(
             {
               standardTime: [this.zoneData[i].standardTime],
-              zoneName: [this.zoneData[i].zoneName],
+              zoneName: [this.zoneData[i].zoneName,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
               _id: [this.zoneData[i]._id]
 
             }
@@ -237,7 +237,7 @@ export class SettingInfoComponent implements OnInit {
         for (let i = 0; i < this.groupData.length; i++) {
           control.push(this.fb.group(
             {
-              groupName: [this.groupData[i].groupName],
+              groupName: [this.groupData[i].groupName,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
               _id: [this.groupData[i]._id]
             }
           ));
@@ -258,7 +258,7 @@ export class SettingInfoComponent implements OnInit {
         for (let i = 0; i < this.serviceData.length; i++) {
           control.push(this.fb.group(
             {
-              serviceName: [this.serviceData[i].serviceName],
+              serviceName: [this.serviceData[i].serviceName,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
               zoneId: [this.serviceData[i].zoneId],
               zoneName: this.setZone(this.serviceData[i].zoneId),
               _id: [this.serviceData[i]._id]
@@ -317,7 +317,9 @@ export class SettingInfoComponent implements OnInit {
             this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
 
         }).catch((err) => {
           console.log("err=", err)
@@ -352,7 +354,9 @@ export class SettingInfoComponent implements OnInit {
             this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -379,7 +383,9 @@ export class SettingInfoComponent implements OnInit {
             this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -409,7 +415,9 @@ export class SettingInfoComponent implements OnInit {
             this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -436,7 +444,9 @@ export class SettingInfoComponent implements OnInit {
             this.getZoneDetails()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -446,8 +456,6 @@ export class SettingInfoComponent implements OnInit {
     catch (error) {
       console.log("error==", error)
     }
-
-
   }
 
   onSubmitGroup(value) {
@@ -467,7 +475,9 @@ export class SettingInfoComponent implements OnInit {
             this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -497,7 +507,9 @@ export class SettingInfoComponent implements OnInit {
             this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -524,7 +536,9 @@ export class SettingInfoComponent implements OnInit {
           if (res.status) {
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else {
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -563,6 +577,9 @@ export class SettingInfoComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.refreshCoin()
       }
+      else {
+        this.general.openSnackBar(res.message, '')
+      }
     })
   }
   deleteMaxFindForm(data) {
@@ -572,6 +589,9 @@ export class SettingInfoComponent implements OnInit {
       if (res.status) {
         this.general.openSnackBar(res.success, '')
         this.refreshCoin()
+      }
+      else {
+        this.general.openSnackBar(res.message, '')
       }
     })
   }
@@ -586,6 +606,9 @@ export class SettingInfoComponent implements OnInit {
         this.refreshCoin()
         this.getGroups()
       }
+      else {
+        this.general.openSnackBar(res.message, '')
+      }
     })
   }
   deleteZoneForm(data) {
@@ -597,6 +620,9 @@ export class SettingInfoComponent implements OnInit {
         this.refreshCoin()
         this.getZoneDetails()
       }
+      else {
+        this.general.openSnackBar(res.message, '')
+      }
     })
   }
   deleteGroupCoinForm(data) {
@@ -607,6 +633,9 @@ export class SettingInfoComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.refreshCoin()
         this.getGroups()
+      }
+      else {
+        this.general.openSnackBar(res.message, '')
       }
     })
   }
@@ -620,6 +649,9 @@ export class SettingInfoComponent implements OnInit {
         this.getZoneDetails()
 
       }
+      else {
+        this.general.openSnackBar(res.message, '')
+      }
     })
   }
   deleteServiceType(data) {
@@ -629,6 +661,9 @@ export class SettingInfoComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.refreshCoin()
         this.getServiceDetails()
+      }
+      else {
+        this.general.openSnackBar(res.message, '')
       }
     })
   }

@@ -85,7 +85,7 @@ export class SettingComponent implements OnInit {
     })
 
     this.groupRegister = this.fb.group({
-      groupName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]]
+      groupName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]]
     })
 
 
@@ -102,7 +102,7 @@ export class SettingComponent implements OnInit {
     })
 
     this.zoneForm = this.fb.group({
-      zoneName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
+      zoneName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
       standardTime: ['', Validators.required]
     })
 
@@ -113,7 +113,7 @@ export class SettingComponent implements OnInit {
 
     this.createServiceType = this.fb.group({
       zoneId: ['', Validators.required],
-      serviceName: ['',[Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]]
+      serviceName: ['',[Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]]
     })
   }
 
@@ -207,7 +207,7 @@ export class SettingComponent implements OnInit {
             this.refreshSetting()
           }
           else {
-            this.general.openSnackBar(res.success, '')
+            this.general.openSnackBar(res.message, '')
           }
         }).catch((err) => {
           console.log("err=", err)
@@ -235,7 +235,9 @@ export class SettingComponent implements OnInit {
             this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -264,7 +266,9 @@ export class SettingComponent implements OnInit {
             this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
 
         }).catch((err) => {
           console.log("err=", err)
@@ -295,7 +299,9 @@ export class SettingComponent implements OnInit {
             this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -322,7 +328,9 @@ export class SettingComponent implements OnInit {
             this.refreshDevice()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -349,7 +357,9 @@ export class SettingComponent implements OnInit {
             this.getZoneDetails()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -376,7 +386,9 @@ export class SettingComponent implements OnInit {
             this.getZoneDetails()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -403,7 +415,9 @@ export class SettingComponent implements OnInit {
             this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -430,7 +444,9 @@ export class SettingComponent implements OnInit {
             this.getGroups()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })
@@ -456,7 +472,9 @@ export class SettingComponent implements OnInit {
             this.refreshCoin()
             this.general.openSnackBar(res.success, '')
           }
-          else { }
+          else{
+            this.general.openSnackBar(res.message, '')
+          }
         }).catch((err) => {
           console.log("err=", err)
         })

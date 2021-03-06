@@ -117,10 +117,10 @@ export class ManageGatewayComponent implements OnInit {
 
           this.general.deviceChanges.next(true)
           this.refreshGateway()
-          var msg = res.success
-          this.general.openSnackBar(msg, '')
+          this.general.openSnackBar(res.success, '')
         }
         else {
+          this.general.openSnackBar(res.message, '')
           this.general.deviceChanges.next(false)
         }
       }).catch((err: any) => {

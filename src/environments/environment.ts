@@ -4,6 +4,8 @@
 
 export const environment = {
   apiHost:'http://3.7.17.108:3000',
+  // apiHost:'http://localhost:3000',
+
   production: false
 };
 
