@@ -34,7 +34,7 @@
             <form [formGroup]="editGateway" (ngSubmit)="updateGateway(editGateway.value)">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
-                    <input type="text" min="1" matInput formControlName="gatewayName" required>
+                    <input type="text" matInput formControlName="gatewayName" required>
                     <mat-error *ngIf="editGateway.get('gatewayName').value ==''">
                         Gateway name is required.
                     </mat-error>

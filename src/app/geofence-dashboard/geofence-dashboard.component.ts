@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ApiService } from '../services/api.service';
-import { LoginAuthService } from '../services/login-auth.service';
+import { GeneralService } from '../services/general.service';
 @Component({
   selector: 'app-geofence-dashboard',
   templateUrl: './geofence-dashboard.component.html',
@@ -12,11 +12,11 @@ import { LoginAuthService } from '../services/login-auth.service';
 export class GeofenceDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  assetData: any = []
+  deviceData: any = []
   dataSource: any = [];
-  displayedColumns = ['i', 'assetId', 'assetName', 'updatedOn', 'location', 'geofenceStatus'];
+  displayedColumns = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime','totalTime'];
   constructor(
-    private login: LoginAuthService,
+    private general: GeneralService,
     private api: ApiService,
   ) { }
 
@@ -25,12 +25,24 @@ export class GeofenceDashboardComponent implements OnInit {
   }
 
   refreshGeofence() {
-    this.dataSource = new MatTableDataSource(this.assetData);
+    this.api.getDeviceGeofence().then((res:any)=>{
+      console.log("getDeviceGeofence res==",res)
+      if(res.status){
+        this.deviceData=res.success
+        for(let i=0; i<res.success.length;i++){
+          res.success[i].totalTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
+        }
+        this.dataSource = new MatTableDataSource(this.deviceData);
+    
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator
+    
+        })
+      }
+      else{
 
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator
-
+      }
     })
   }
 

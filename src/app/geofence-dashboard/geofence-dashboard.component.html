@@ -10,25 +10,29 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
                 <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
             </ng-container>
-            <ng-container matColumnDef="assetId">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset ID </th>
-                <!-- <td mat-cell *matCellDef="let asset" > {{asset.assetId}} </td> -->
+            <ng-container matColumnDef="deviceId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                <td mat-cell *matCellDef="let find" > {{find.deviceId}} </td>
             </ng-container>
-            <ng-container matColumnDef="assetName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Name </th>
-                <!-- <td mat-cell *matCellDef="let asset" > {{asset.assetName}} </td> -->
+            <ng-container matColumnDef="deviceName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Device Name </th>
+                <td mat-cell *matCellDef="let find" > {{find.deviceName}} </td>
             </ng-container>
-            <ng-container matColumnDef="updatedOn">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Time </th>
-                <!-- <td mat-cell *matCellDef="let asset" > {{asset.updatedOn  | date : 'medium'}} </td> -->
+            <ng-container matColumnDef="coinName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Coin Name </th>
+                <td mat-cell *matCellDef="let find" > {{find.coinName}} </td>
             </ng-container>
-            <ng-container matColumnDef="location">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Location </th>
-                <!-- <td mat-cell *matCellDef="let asset" > {{asset.location}} </td> -->
+            <ng-container matColumnDef="inTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>In Time</th>
+                <td mat-cell *matCellDef="let find" > {{find.inTime | date : 'medium'}} </td>
             </ng-container>
-            <ng-container matColumnDef="geofenceStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Geofence Status </th>
-                <!-- <td mat-cell *matCellDef="let asset" > {{asset.geofenceStatus}} </td> -->
+            <ng-container matColumnDef="outTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Out Time </th>
+                <td mat-cell *matCellDef="let find" > {{find.outTime | date : 'medium'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="totalTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Time</th>
+                <td mat-cell *matCellDef="let find" > {{find.totalTime}} </td>
             </ng-container>
         </div>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

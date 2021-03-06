@@ -145,10 +145,10 @@ export class ManageCoinComponent implements OnInit {
           this.refreshCoin()
 
           this.general.deviceChanges.next(true)
-          var msg = res.success
-          this.general.openSnackBar(msg, '')
+          this.general.openSnackBar(res.sucess, '')
         }
         else {
+          this.general.openSnackBar(res.message, '')
           this.general.deviceChanges.next(false)
         }
       }).catch((err: any) => {

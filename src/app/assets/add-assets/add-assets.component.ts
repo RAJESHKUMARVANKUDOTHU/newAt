@@ -33,15 +33,15 @@ export class AddAssetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.addFind = this.fb.group({
-      deviceName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
+      deviceName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
       deviceId: ['', [Validators.required, Validators.min(1),Validators.max(255)]]
     });
     this.addGateway = this.fb.group({
-      gatewayName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
+      gatewayName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
       gatewayId: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12), Validators.pattern('^[a-zA-z0-9]{12}$')]],
     })
     this.addCoin = this.fb.group({
-      coinName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$')]],
+      coinName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
       coinId: ['', [Validators.required, Validators.min(1),Validators.max(255)]],
       gatewayId: ['', Validators.required]
     })
@@ -64,7 +64,7 @@ export class AddAssetsComponent implements OnInit {
           }
           else {
             this.general.deviceChanges.next(false)
-            this.general.openSnackBar(res.success, '')
+            this.general.openSnackBar(res.message, '')
           }
         }).catch((err: any) => {
           console.log("error===", err)
@@ -91,7 +91,7 @@ export class AddAssetsComponent implements OnInit {
           else {
             this.general.deviceChanges.next(false)
 
-            this.general.openSnackBar(res.success, '')
+            this.general.openSnackBar(res.message, '')
           }
           // else if((res.status || !res.status) && res.success.toLowerCase()!="gateway registered successfully"){
           //   var msg = 'Gateway Name Already exists, try different Name'
@@ -121,7 +121,7 @@ export class AddAssetsComponent implements OnInit {
           }
           else {
             this.general.deviceChanges.next(false)
-            this.general.openSnackBar(res.success, '')
+            this.general.openSnackBar(res.message, '')
           }
 
         }).catch((err: any) => {

@@ -106,7 +106,7 @@ export class ManageDeviceComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
       }
       else {
-        this.general.openSnackBar(res.success, '')
+        this.general.openSnackBar(res.message, '')
       }
     })
 

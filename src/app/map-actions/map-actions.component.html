@@ -106,49 +106,68 @@
       <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
     </mat-card-title> <br>
     <mat-card-content>
-      <mat-card>
-        <form [formGroup]="newLayoutForm" (ngSubmit)="createNewLayout(newLayoutForm.value)">
-          <mat-form-field appearance="outline" class="example-form">
-            <mat-label>Gateway list</mat-label>
-            <mat-select formControlName="gatewayId" multiple>
-              <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All</mat-option>
-              <ng-container *ngFor="let list of newGatewayLayout">
-                <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
-              </ng-container>
-            </mat-select>
-            <mat-error>
-              Select the gateway
-            </mat-error>
-          </mat-form-field>
+      <!-- <mat-card> -->
+      <form [formGroup]="newLayoutForm" class="d-flex justify-content-around">
+        <mat-form-field appearance="outline" class="example-form">
+          <mat-label>Gateway list</mat-label>
+          <mat-select formControlName="gatewayId" multiple>
+            <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All</mat-option>
+            <ng-container *ngFor="let list of newGatewayLayout">
+              <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error>
+            Select the gateway
+          </mat-error>
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" class="example-form">
-            <mat-label>Layout name</mat-label>
-            <input type="text" matInput formControlName="layoutName" (change)="general.validate($event.target.value)"
-              required>
-            <mat-error *ngIf="newLayoutForm.get('layoutName').value ==''">
-              Location name is required
-            </mat-error>
-            <mat-error *ngIf="newLayoutForm.get('layoutName').value !='' || general.mismatch">
-              No special characters are allowed. And layout name cannot start/end with space(s).
-            </mat-error>
-          </mat-form-field>
+        <mat-form-field appearance="outline" class="example-form">
+          <mat-label>Layout name</mat-label>
+          <input type="text" matInput formControlName="layoutName" (change)="general.validate($event.target.value)"
+            required>
+          <mat-error *ngIf="newLayoutForm.get('layoutName').value ==''">
+            Location name is required
+          </mat-error>
+          <mat-error *ngIf="newLayoutForm.get('layoutName').value !='' || general.mismatch">
+            No special characters are allowed. And layout name cannot start/end with space(s).
+          </mat-error>
+        </mat-form-field>
 
-          <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true"
-            class="example-form">
-          <br><br>
-          <div class="btn">
-            <button mat-raised-button [disabled]="!newLayoutForm.valid" color="primary">Create Layout</button>
-          </div>
+        <mat-form-field appearance="outline" class="example-form1">
+          <mat-label>Height in feet</mat-label>
+          <input type="number" min="0" matInput formControlName="height" required>
+          <mat-error>
+            Field required.
+          </mat-error>
+        </mat-form-field>
+        <span class="py-3"><b>X</b></span>
+        
+        
+        <mat-form-field appearance="outline" class="example-form1">
+          <mat-label>Width in feet</mat-label>
+          <input type="number" min="0" matInput formControlName="width" required>
+          <mat-error>
+            Field required.
+          </mat-error>
+        </mat-form-field>
+        <!-- <mat-error *ngIf="newLayoutForm.get('height').touched || newLayoutForm.get('width').touched" class="w-2">
+              Height and width are required.
+            </mat-error> -->
 
-        </form>
-      </mat-card>
+
+        <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true"
+          class="example-form  py-3">
+        <br><br>
+
+      </form>
+      <div class="btn">
+        <button mat-raised-button [disabled]="!newLayoutForm.valid" (click)="createNewLayout(newLayoutForm.value)"
+          color="primary">Create Layout</button>
+      </div>
+      <!-- </mat-card> -->
     </mat-card-content>
   </mat-card>
 </div>
-
-
-
-
 
 <!-- <form [formGroup]="configCoinForm1" (ngSubmit)="addCoin1(configCoinForm1.value)">
 <mat-form-field>
