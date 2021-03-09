@@ -123,8 +123,6 @@ export class MapActionsComponent implements OnInit {
         return obj.layoutName == data
       })
       this.api.getLayoutImage(layout[0]._id).then((res: any) => {
-        console.log("image layout==", res);
-
         this.layoutData = layout[0];
         this.configCoinForm.reset()
         this.updateSelected();
@@ -203,7 +201,9 @@ export class MapActionsComponent implements OnInit {
         coinId: this.configCoinForm.get('coinId').value,
         coinName: this.configCoinForm.get('coinName').value,
       };
-      this.addCoinMarker(data);
+      if(data.bounds.length){
+        this.addCoinMarker(data);
+      }
     } else {
       for (let i = 0; i < this.layoutData.gateways.length; i++) {
         if (this.layoutData.gateways[i].selected) {
@@ -349,6 +349,8 @@ export class MapActionsComponent implements OnInit {
         .createLayout(data)
         .then((res: any) => {
           console.log('create layout res===', res);
+          this.refreshGateway();
+          this.getLayout();
           if (res.status) {
             this.general.openSnackBar(res.message, '');
           } else {
@@ -469,7 +471,8 @@ export class MapActionsComponent implements OnInit {
         this.coinData = []
         this.mapDisable = true
         this.selectLayoutForm.reset()
-        this.getLayout()
+        this.refreshGateway();
+        this.getLayout();
       }
       else {
         this.general.openSnackBar(res.success, '')

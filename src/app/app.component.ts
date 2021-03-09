@@ -74,10 +74,10 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe((result) => { });
   }
 
-  freezeSubscribe(){
-    this.general.loadingFreez.subscribe((res:any)=>{
-      console.log("free==",res);
-      
+  freezeSubscribe() {
+    this.general.loadingFreez.subscribe((res: any) => {
+      console.log("free==", res);
+
       this.statusFreeze = res.status
       this.freezeMessage = res.msg
     })
@@ -94,9 +94,12 @@ export class AppComponent {
         (minutes < 10 ? '0' + minutes : minutes) +
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
+      if (minutes == 0 && seconds == 2) {
+        this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+      }
       if (minutes == 0 && seconds == 0) {
-        console.log("timer==",this.countDownTimer);
-        
+        console.log("timer==", this.countDownTimer);
+        this.general.loadingFreez.next({ status: false, msg: '' })
         this.login.logout();
         return;
       }

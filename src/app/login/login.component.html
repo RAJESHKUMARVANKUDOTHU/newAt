@@ -1,32 +1,24 @@
-<div class="fadeInDown">
-
-  <div class="log-in">
+<div class="log-in">
     <div class="login">
-      <h1>Log in</h1>
+        <h1>Log in</h1>
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="log">
-      <mat-error *ngIf="loginInvalid">
-        Invalid User Name or Password
-      </mat-error>
-      <mat-form-field class="full-width-input" appearance="outline">
-        <input matInput placeholder="Email" formControlName="userName" required>
-        <mat-error>
-          Please provide a valid email address
+        <mat-error *ngIf="loginInvalid">
+            Invalid User Name or Password
         </mat-error>
-      </mat-form-field> <br> <br>
-      <mat-form-field class="full-width-input" appearance="outline">
-        <input matInput [type]="passwordType" placeholder="Password" formControlName="password" matInput required>
-        <mat-icon matSuffix (click)="hideShowPassword()" class="cursor">{{passwordIcon}}</mat-icon>
-        <mat-error>
-          Please provide a valid password
-        </mat-error>
-      </mat-form-field> <br>
-
-      <button mat-raised-button class="btn-set" [disabled]="!loginForm.valid">Login</button> <br>
-
+        <mat-form-field class="full-width-input" appearance="outline">
+            <input matInput placeholder="Email" formControlName="userName" required>
+            <mat-error>
+                Please provide a valid email address
+            </mat-error>
+        </mat-form-field> <br> <br>
+        <mat-form-field class="full-width-input" appearance="outline">
+            <input matInput [type]="passwordType" placeholder="Password" formControlName="password" matInput required>
+            <mat-icon matSuffix (click)="hideShowPassword()" class="cursor">{{passwordIcon}}</mat-icon>
+            <mat-error>
+                Please provide a valid password
+            </mat-error>
+        </mat-form-field> <br>
+        <button mat-raised-button class="btn-set" [disabled]="!loginForm.valid">Login</button> <br>
     </form>
-  </div>
-
-
-
 </div>

@@ -1390,7 +1390,7 @@ export class ApiService {
 
   downloadRegisteredDevice(fileName) {
     // this.general.loadingFreez.next({status:true})
-    let url = this.host + '/downloadRegisterdDevice';
+    let url = this.host + '/downloadRegisteredDeviceData';
     return new Promise((resolve, reject) => {
       this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 

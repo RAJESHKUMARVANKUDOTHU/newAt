@@ -1,173 +1,170 @@
 <div class="statusFreeze flexWrap" *ngIf="statusFreeze">
-  <mat-spinner mode="indeterminate"></mat-spinner><span [innerHTML]="freezeMessage"></span>
+    <mat-spinner mode="indeterminate"></mat-spinner><span [innerHTML]="freezeMessage"></span>
 </div>
 <div *ngIf="isDesktopDevice">
-  <mat-toolbar *ngIf="logged">
-    <span style="flex: 1 1 auto;"></span>
-    <span>{{loginDetails.userName}} </span> &nbsp;
-    <span (click)="login.logout()" class="cursor" *ngIf="loginDetails.role == 'superAdminRole'">
+    <mat-toolbar *ngIf="logged">
+        <span style="flex: 1 1 auto;"></span>
+        <span>{{loginDetails.userName}} </span> &nbsp;
+        <span (click)="login.logout()" class="cursor" *ngIf="loginDetails.role == 'superAdminRole'">
       <mat-icon>exit_to_app</mat-icon>
     </span>
-  </mat-toolbar>
+    </mat-toolbar>
 
-  <mat-sidenav-container class="example-container" *ngIf="logged && menu" autosize="true">
-    <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
+    <mat-sidenav-container class="example-container" *ngIf="logged && menu" autosize="true">
+        <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
 
-      <div class="bg-white">
-        <img src="../assets/logo.png" alt="" class="image">
-      </div>
+            <div class="bg-white">
+                <img src="../assets/logo.png" alt="" class="image">
+            </div>
 
 
-      <mat-list class="text-white">
-        <mat-list-item routerLink="/dashboard">
-          <span mat-line> Home</span>
-          <mat-icon mat-list-icon>home</mat-icon>
-        </mat-list-item>
+            <mat-list class="text-white">
+                <mat-list-item routerLink="/dashboard">
+                    <span mat-line> Home</span>
+                    <mat-icon mat-list-icon>home</mat-icon>
+                </mat-list-item>
 
-        <mat-list-item routerLink="/manage-asset">
-          <span mat-line> Manage Assets</span>
-          <mat-icon mat-list-icon>dashboard</mat-icon>
-        </mat-list-item>
+                <mat-list-item routerLink="/manage-asset">
+                    <span mat-line> Manage Assets</span>
+                    <mat-icon mat-list-icon>dashboard</mat-icon>
+                </mat-list-item>
 
-        <mat-list-item routerLink="/geofence-dashboard">
-          <span mat-line> Geofence Dashboard</span>
-          <mat-icon mat-list-icon>vpn_lock</mat-icon>
-        </mat-list-item>
+                <mat-list-item routerLink="/geofence-dashboard">
+                    <span mat-line> Geofence Dashboard</span>
+                    <mat-icon mat-list-icon>vpn_lock</mat-icon>
+                </mat-list-item>
 
-        <mat-list-item routerLink="/zone-dashboard">
-          <span mat-line> Zone Dashboard</span>
-          <mat-icon mat-list-icon>view_list</mat-icon>
-        </mat-list-item>
+                <mat-list-item routerLink="/zone-dashboard">
+                    <span mat-line> Zone Dashboard</span>
+                    <mat-icon mat-list-icon>view_list</mat-icon>
+                </mat-list-item>
 
-        <mat-list-item routerLink="/map-actions" 
-        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
-          <span mat-line> Map Center</span>
-          <mat-icon mat-list-icon>map</mat-icon>
-        </mat-list-item>
+                <mat-list-item routerLink="/map-actions" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                    <span mat-line> Map Center</span>
+                    <mat-icon mat-list-icon>map</mat-icon>
+                </mat-list-item>
 
-        <mat-list-item routerLink="/report">
-          <span mat-line> Report</span>
-          <mat-icon mat-list-icon>rate_review</mat-icon>
-        </mat-list-item>
+                <mat-list-item routerLink="/report">
+                    <span mat-line> Report</span>
+                    <mat-icon mat-list-icon>rate_review</mat-icon>
+                </mat-list-item>
 
-        <!-- <mat-list-item (click)="openDailog()">
+                <!-- <mat-list-item (click)="openDailog()">
         <mat-icon mat-list-icon>contact_phone</mat-icon>
         <span *ngIf="isExpanded"mat-line> Contact</span>     
       </mat-list-item> -->
 
-        <mat-list-item routerLink="/profile"
-        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
-          <mat-icon mat-list-icon>perm_identity</mat-icon>
-          <span mat-line>Create Profile</span>
-        </mat-list-item>
+                <mat-list-item routerLink="/profile" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                    <mat-icon mat-list-icon>perm_identity</mat-icon>
+                    <span mat-line>Create Profile</span>
+                </mat-list-item>
 
-        <mat-list-item (click)="showLabel = !showLabel"
-        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
-          <mat-icon mat-list-icon>settings</mat-icon>
-          <span mat-line> Settings </span>
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </mat-list-item>
+                <mat-list-item (click)="showLabel = !showLabel" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                    <mat-icon mat-list-icon>settings</mat-icon>
+                    <span mat-line> Settings </span>
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                </mat-list-item>
 
-        <div class="list">
-          <mat-list-item *ngIf="showLabel" routerLink="/setting">
-            <span mat-line> General Settings</span>
-          </mat-list-item>
-          <mat-list-item *ngIf="showLabel" routerLink="/geofence">
-            <span> Geofence Settings</span>
-          </mat-list-item>
-        </div>
+                <div class="list">
+                    <mat-list-item *ngIf="showLabel" routerLink="/setting">
+                        <span mat-line> General Settings</span>
+                    </mat-list-item>
+                    <mat-list-item *ngIf="showLabel" routerLink="/geofence">
+                        <span> Geofence Settings</span>
+                    </mat-list-item>
+                </div>
 
-        <mat-list-item (click)="login.logout()">
-          <mat-icon mat-list-icon>exit_to_app</mat-icon>
-          <span mat-line> Logout</span>
-        </mat-list-item>
+                <mat-list-item (click)="login.logout()">
+                    <mat-icon mat-list-icon>exit_to_app</mat-icon>
+                    <span mat-line> Logout</span>
+                </mat-list-item>
 
-      </mat-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar>
-        <span style="flex: 1 1 auto;"></span>
-        <span *ngIf="logged">{{loginDetails.userName}} </span>
-      </mat-toolbar>
-      <div *ngIf="logged && menu" class="example-sidenav-content">
-        <router-outlet></router-outlet>
-        <div>
-          <br>
-          <div class="timer">
-            <span >Your session expires in <b>{{time}}</b></span>
-          </div>
-        </div>
-      </div>
+            </mat-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <mat-toolbar>
+                <span style="flex: 1 1 auto;"></span>
+                <span *ngIf="logged">{{loginDetails.userName}} </span>
+            </mat-toolbar>
+            <div *ngIf="logged && menu" class="example-sidenav-content">
+                <router-outlet></router-outlet>
+                <div>
+                    <br>
+                    <div class="timer">
+                        <span>Your session expires in <b>{{time}}</b></span>
+                    </div>
+                </div>
+            </div>
 
-    </mat-sidenav-content>
+        </mat-sidenav-content>
 
-  </mat-sidenav-container>
+    </mat-sidenav-container>
 </div>
 <div *ngIf="(isMobile || isTablet) && (logged && menu)">
-  <div class="d-flex">
-    <mat-toolbar>
-      <div class="w-100 flex-grow-1">
-        <button mat-mini-fab [matMenuTriggerFor]="belowMenu" class="menu">
+    <div class="d-flex">
+        <mat-toolbar>
+            <div class="w-100 flex-grow-1">
+                <button mat-mini-fab [matMenuTriggerFor]="belowMenu" class="menu">
           <mat-icon>menu</mat-icon>
         </button>
 
-        <mat-menu #belowMenu="matMenu" yPosition="below">
-          <div class="bg-white">
-            <img src="../assets/logo.png" alt="" class="image">
-          </div>
-          <button mat-menu-item routerLink="/dashboard">
+                <mat-menu #belowMenu="matMenu" yPosition="below">
+                    <div class="bg-white">
+                        <img src="../assets/logo.png" alt="" class="image">
+                    </div>
+                    <button mat-menu-item routerLink="/dashboard">
             <mat-icon mat-list-icon>home</mat-icon>
             <span mat-line>Home</span>
           </button>
-          <button mat-menu-item routerLink="/manage-asset">
+                    <button mat-menu-item routerLink="/manage-asset">
             <mat-icon mat-list-icon>home</mat-icon>
             <span mat-line>Manage Assets</span>
           </button>
-          <button mat-menu-item routerLink="/geofence-dashboard">
+                    <button mat-menu-item routerLink="/geofence-dashboard">
             <mat-icon mat-list-icon>home</mat-icon>
             <span mat-line>Geofence Dashboard</span>
           </button>
-          <button mat-menu-item routerLink="/map-actions">
+                    <button mat-menu-item routerLink="/map-actions">
             <mat-icon mat-list-icon>home</mat-icon>
             <span mat-line>Map center</span>
           </button>
-          <button mat-menu-item routerLink="/report">
+                    <button mat-menu-item routerLink="/report">
             <mat-icon mat-list-icon> home</mat-icon>
             <span mat-line>Report</span>
           </button>
-          <button mat-menu-item routerLink="/profile">
+                    <button mat-menu-item routerLink="/profile">
             <mat-icon mat-list-icon>home</mat-icon>
             <span mat-line>Create Profile</span>
           </button>
-          <span></span>
-          <button mat-menu-item [matMenuTriggerFor]="settings">
+                    <span></span>
+                    <button mat-menu-item [matMenuTriggerFor]="settings">
             <mat-icon>settings</mat-icon>
             <span mat-line>Settings</span>
           </button>
-          <mat-menu #settings="matMenu">
-            <button mat-menu-item routerLink="/setting">General settings</button>
-            <button mat-menu-item routerLink="/geofence">Geofence settings</button>
-          </mat-menu>
-          <button mat-menu-item (click)="logout()" class="logout">
+                    <mat-menu #settings="matMenu">
+                        <button mat-menu-item routerLink="/setting">General settings</button>
+                        <button mat-menu-item routerLink="/geofence">Geofence settings</button>
+                    </mat-menu>
+                    <button mat-menu-item (click)="logout()" class="logout">
             <mat-icon>exit_to_app</mat-icon>Logout
           </button>
-        </mat-menu>
-      </div>
-      <div class="flex-shrink-1">
-        <p>{{loginDetails.userName}} </p>
-      </div>
+                </mat-menu>
+            </div>
+            <div class="flex-shrink-1">
+                <p>{{loginDetails.userName}} </p>
+            </div>
 
 
-    </mat-toolbar>
-  </div>
-  <router-outlet></router-outlet>
+        </mat-toolbar>
+    </div>
+    <router-outlet></router-outlet>
 </div>
 
 <div *ngIf="logged && !menu">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 
 </div>
 
 <div *ngIf="!logged && !menu">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
