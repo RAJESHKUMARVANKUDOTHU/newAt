@@ -34,6 +34,7 @@ export class MapActionsComponent implements OnInit {
   selectedLayout: any = '';
   coinData: any = [];
   gatewayList: any = [];
+  gateways:any = []
   constructor(
     private fb: FormBuilder,
     public mapService: MapService,
@@ -122,7 +123,8 @@ export class MapActionsComponent implements OnInit {
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
-      console.log(layout)
+      this.gatewayList=this.gatewayList
+      console.log("check==",this.gatewayList)
       if(layout.length>0){
         this.api.getLayoutImage(layout[0]._id).then((res: any) => {
           console.log("image layout==", res);
@@ -354,6 +356,8 @@ export class MapActionsComponent implements OnInit {
           console.log('create layout res===', res);
           if (res.status) {
             this.getLayout()
+            this.newLayoutForm.reset()
+            this.clearFile()
             this.general.openSnackBar(res.message, '');
           } else {
             this.general.openSnackBar(res.message, '');
@@ -471,7 +475,6 @@ export class MapActionsComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
         this.mapDisable = true
-        this.selectLayoutForm.reset()
         this.getLayout()
       }
       else {
