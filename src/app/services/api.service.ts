@@ -1390,7 +1390,7 @@ export class ApiService {
 
   downloadRegisteredDevice(fileName) {
     // this.general.loadingFreez.next({status:true})
-    let url = this.host + '/downloadRegisterdDeviceData';
+    let url = this.host + '/downloadRegisteredDeviceData';
     return new Promise((resolve, reject) => {
       this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
@@ -1488,7 +1488,7 @@ export class ApiService {
   downloadOnlineDevice(fileName) {
     // this.general.loadingFreez.next({status:true})
 
-    let url = this.host + '/downloadOnlineDevice';
+    let url = this.host + '/downloadOnlineDeviceData';
     return new Promise((resolve, reject) => {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
@@ -1508,7 +1508,7 @@ export class ApiService {
   downloadOfflineDevice(fileName) {
     // this.general.loadingFreez.next({status:true})
 
-    let url = this.host + '/downloadOfflineDevice';
+    let url = this.host + '/downloadOfflineDeviceData';
     return new Promise((resolve, reject) => {
       this.http
         .get(url, { observe: 'response', responseType: 'blob' as 'json' })
