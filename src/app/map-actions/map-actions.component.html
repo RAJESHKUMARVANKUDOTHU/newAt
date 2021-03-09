@@ -45,9 +45,7 @@
               <mat-form-field>
                 <mat-label> Select Gateway </mat-label>
                 <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
-                  <mat-option *ngFor="let list of layoutData.gateways" [value]="list.gatewayId">{{list.gatewayId}}
-
-                  </mat-option>
+                  <mat-option *ngFor="let list of gatewayList;let i=index" [value]="list.gateways[0].gatewayId">{{list.gateways[0].gatewayId}}</mat-option>
                 </mat-select>
               </mat-form-field> <br>
               <mat-form-field>
