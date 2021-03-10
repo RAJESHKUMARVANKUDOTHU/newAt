@@ -123,11 +123,17 @@ export class MapActionsComponent implements OnInit {
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
-
+      console.log("layout==",layout);
+      
       if(layout.length>0){
+        layout[0].gateways.filter((obj)=>{
+          console.log("gateways==",obj.gatewayId)
+          return this.gateways.push(obj)
+        })
+        console.log("gateways==",this.gateways)
         this.api.getLayoutImage(layout[0]._id).then((res: any) => {
           // console.log("image layout==", res);
-  
+        
           this.layoutData = layout[0];
           this.configCoinForm.reset()
           this.updateSelected();
@@ -357,9 +363,9 @@ export class MapActionsComponent implements OnInit {
             this.getLayout()
             this.newLayoutForm.reset()
             this.clearFile()
-            this.general.openSnackBar(res.message, '');
+            this.general.openSnackBar(res.success, '');
           } else {
-            this.general.openSnackBar(res.message, '');
+            this.general.openSnackBar(res.success, '');
           }
         })
         .catch((err: any) => {
