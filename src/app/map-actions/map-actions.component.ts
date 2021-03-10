@@ -213,7 +213,9 @@ export class MapActionsComponent implements OnInit {
         coinId: this.configCoinForm.get('coinId').value,
         coinName: this.configCoinForm.get('coinName').value,
       };
-      this.addCoinMarker(data);
+      if(data.bounds.length){
+        this.addCoinMarker(data);
+      }
     } else {
       for (let i = 0; i < this.layoutData.gateways.length; i++) {
         if (this.layoutData.gateways[i].selected) {
@@ -359,6 +361,8 @@ export class MapActionsComponent implements OnInit {
         .createLayout(data)
         .then((res: any) => {
           console.log('create layout res===', res);
+          this.refreshGateway();
+          this.getLayout();
           if (res.status) {
             this.getLayout()
             this.newLayoutForm.reset()
@@ -480,7 +484,13 @@ export class MapActionsComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
         this.mapDisable = true
+<<<<<<< HEAD
         this.getLayout()
+=======
+        this.selectLayoutForm.reset()
+        this.refreshGateway();
+        this.getLayout();
+>>>>>>> 4b7c57ba2d84af29636e3e041be5b262ac95089a
       }
       else {
         if(!res.success){

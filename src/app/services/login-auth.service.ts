@@ -114,6 +114,5 @@ export class LoginAuthService {
     this.loginCheckData.next(a)
     localStorage.clear()
     this.router.navigate(['/login'])
-
   }
 }
