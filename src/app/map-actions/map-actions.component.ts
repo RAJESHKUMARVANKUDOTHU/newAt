@@ -484,13 +484,9 @@ export class MapActionsComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
         this.mapDisable = true
-<<<<<<< HEAD
-        this.getLayout()
-=======
         this.selectLayoutForm.reset()
         this.refreshGateway();
         this.getLayout();
->>>>>>> 4b7c57ba2d84af29636e3e041be5b262ac95089a
       }
       else {
         if(!res.success){
