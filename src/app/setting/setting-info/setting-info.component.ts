@@ -89,10 +89,10 @@ export class SettingInfoComponent implements OnInit {
   }
 
   refreshCoin() {
+    this.coinData = []
+    this.coinDataTemp = []
     this.api.getCoinData().then((res: any) => {
       console.log("coin submit====", res);
-      this.coinData = []
-      this.coinDataTemp = []
       if (res.status) {
         this.coinData = res.success
         if (this.type == 'coinGrp') {
@@ -170,10 +170,10 @@ export class SettingInfoComponent implements OnInit {
   }
 
   refreshDevice() {
+    this.deviceData = [];
     this.api
       .getDeviceData()
       .then((res: any) => {
-        this.deviceData = [];
         const control = <FormArray>this.form2.controls.items;
         control.controls = [];
         console.log('find submit====', res);
@@ -203,9 +203,9 @@ export class SettingInfoComponent implements OnInit {
   }
 
   getZoneDetails() {
+    this.zoneData = [];
     this.api.getZone().then((res: any) => {
       console.log('zone details response==', res);
-      this.zoneData = [];
       const control = <FormArray>this.form3.controls.items;
       control.controls = [];
       if (res.status) {
@@ -227,13 +227,13 @@ export class SettingInfoComponent implements OnInit {
   }
 
   getGroups() {
+    this.groupData = []
     this.api.getGroup().then((res: any) => {
       console.log("group details response==", res)
-      this.groupData = []
-      const control = <FormArray>this.form5.controls.items;
-      control.controls = [];
       if (res.status) {
         this.groupData = res.success
+        const control = <FormArray>this.form5.controls.items;
+        control.controls = [];
         for (let i = 0; i < this.groupData.length; i++) {
           control.push(this.fb.group(
             {
@@ -248,13 +248,13 @@ export class SettingInfoComponent implements OnInit {
   }
 
   getServiceDetails() {
+    this.serviceData = []
     this.api.getServiceType().then((res: any) => {
       console.log("service details response==", res)
-      this.serviceData = []
-      const control = <FormArray>this.form4.controls.items;
-      control.controls = [];
       if (res.status) {
         this.serviceData = res.success
+        const control = <FormArray>this.form4.controls.items;
+        control.controls = [];
         for (let i = 0; i < this.serviceData.length; i++) {
           control.push(this.fb.group(
             {

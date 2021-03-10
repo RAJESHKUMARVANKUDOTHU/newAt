@@ -2,7 +2,7 @@
     <mat-icon>clear</mat-icon>
 </button>
 <div *ngIf="type=='timeDelay'">
-    <h1 mat-dialog-title>Time Delay </h1>
+    <h1 mat-dialog-title *ngIf="deviceData?.length">Time Delay </h1>
     <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form2">
             <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
@@ -44,7 +44,7 @@
 </div>
 
 <div *ngIf="type=='find-inactive'">
-    <h1 mat-dialog-title>Find Inactivity time </h1>
+    <h1 mat-dialog-title *ngIf="deviceData?.length">Find Inactivity time </h1>
     <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper text-center">
 
         <form [formGroup]="form2">
@@ -103,7 +103,7 @@
 </div>
 
 <div *ngIf="type=='coin'">
-    <h1 mat-dialog-title>Coin Inactivity time </h1>
+    <h1 mat-dialog-title *ngIf="coinData?.length">Coin Inactivity time </h1>
     <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form1">
             <table formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
@@ -158,7 +158,7 @@
 </div>
 
 <div *ngIf="type=='max-find'">
-    <h1 mat-dialog-title>Maximum Find to assign for Coin</h1>
+    <h1 mat-dialog-title *ngIf="coinData?.length">Maximum Find to assign for Coin</h1>
     <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form1">
             <table formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
@@ -203,7 +203,7 @@
 </div>
 
 <div *ngIf="type=='groupName'">
-    <h1>Available Group Names</h1>
+    <h1 mat-dialog-title *ngIf="groupData?.length"> Available Group Names</h1>
     <div mat-dialog-content *ngIf="groupData" class="d-flex justify-content-around diagWrapper">
         <form [formGroup]="form5">
             <table formArrayName="items" *ngIf="form5.get('items')['controls']?.length>0">
@@ -239,7 +239,7 @@
 </div>
 
 <div *ngIf="type=='zone'">
-    <h1 mat-dialog-title>Create Zone</h1>
+    <h1 mat-dialog-title *ngIf="zoneData?.length">Create Zone</h1>
     <div mat-dialog-content *ngIf="zoneData" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form3">
             <table formArrayName="items" *ngIf="form3.get('items')['controls']?.length>0">
@@ -256,8 +256,8 @@
                                 <mat-error *ngIf="a.get('zoneName').value !='' || general.mismatch">
                                     No special characters are allowed. And zone name cannot start/end with space(s).
                                 </mat-error>
-                            </mat-form-field> <br><br>
-                        </td>
+                            </mat-form-field>
+                        </td><br>
                         <td>
                             <mat-form-field>
                                 <mat-label> Standard Time</mat-label>
@@ -276,15 +276,15 @@
                                 [disabled]="a.get('standardTime').value == 0 || a.get('zoneName').value == ''"
                                 (click)="onSubmitZoneForm(a.value)">Submit</button>
                         </td>
-                    </ng-container>
-                </tr>
+                    </ng-container> 
+                </tr> 
             </table>
         </form>
     </div>
 </div>
 
 <div *ngIf="type=='coinGrp'">
-    <h1 mat-dialog-title>Group coin setting</h1>
+    <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Group coin setting</h1>
     <div mat-dialog-content *ngIf="coinDataTemp" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="groupForm">
             <table formArrayName="items" *ngIf="groupForm.get('items')['controls']?.length>0">
@@ -342,7 +342,7 @@
 
 
 <div *ngIf="type=='coin-cat'">
-    <h1 mat-dialog-title>Coin configuration</h1>
+    <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Coin configuration</h1>
     <div mat-dialog-content *ngIf="coinDataTemp" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="zoneForm">
             <table formArrayName="items" *ngIf="zoneForm.get('items')['controls']?.length>0">
@@ -401,7 +401,7 @@
 </div>
 
 <div *ngIf="type=='serviceType'">
-    <h1 mat-dialog-title>Service Type setting</h1>
+    <h1 mat-dialog-title *ngIf="serviceData?.length">Service Type setting</h1>
     <div mat-dialog-content *ngIf="serviceData" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form4">
             <table formArrayName="items" *ngIf="form4.get('items')['controls']?.length>0">
