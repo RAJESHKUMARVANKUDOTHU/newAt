@@ -123,10 +123,17 @@ export class MapActionsComponent implements OnInit {
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
-      this.gatewayList=this.gatewayList
-      console.log("check==",this.gatewayList)
+      console.log("layout==",layout);
+      
       if(layout.length>0){
+        layout[0].gateways.filter((obj)=>{
+          console.log("gateways==",obj.gatewayId)
+          return this.gateways.push(obj)
+        })
+        console.log("gateways==",this.gateways)
         this.api.getLayoutImage(layout[0]._id).then((res: any) => {
+          // console.log("image layout==", res);
+        
           this.layoutData = layout[0];
           this.configCoinForm.reset()
           this.updateSelected();
@@ -144,7 +151,7 @@ export class MapActionsComponent implements OnInit {
     let gatewayData = this.layoutData.gateways.filter(obj => {
       return obj.gatewayId == data
     });
-    this.coinData = gatewayData[0].coinIds;
+    this.coinData = gatewayData.length?gatewayData[0].coinIds:[];
     this.updateSelected(data);
     this.createMarker();
   }
@@ -360,9 +367,9 @@ export class MapActionsComponent implements OnInit {
             this.getLayout()
             this.newLayoutForm.reset()
             this.clearFile()
-            this.general.openSnackBar(res.message, '');
+            this.general.openSnackBar(res.success, '');
           } else {
-            this.general.openSnackBar(res.message, '');
+            this.general.openSnackBar(res.success, '');
           }
         })
         .catch((err: any) => {
@@ -477,7 +484,13 @@ export class MapActionsComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
         this.mapDisable = true
+<<<<<<< HEAD
         this.getLayout()
+=======
+        this.selectLayoutForm.reset()
+        this.refreshGateway();
+        this.getLayout();
+>>>>>>> c579df7d572ba3014cb6186944c4b3280079fcfe
       }
       else {
         if(!res.success){

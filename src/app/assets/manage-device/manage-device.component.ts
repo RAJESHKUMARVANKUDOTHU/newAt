@@ -103,6 +103,7 @@ export class ManageDeviceComponent implements OnInit {
     this.api.updateServiceId(data).then((res: any) => {
       console.log("update Services===", res)
       if (res.status) {
+        this.refreshDevice()
         this.general.openSnackBar(res.success, '')
       }
       else {
