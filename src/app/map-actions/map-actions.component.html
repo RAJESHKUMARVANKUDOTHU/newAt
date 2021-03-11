@@ -36,7 +36,7 @@
 
 
   <br>
-  <mat-card>
+  <mat-card class="text-center">
     <mat-card-title>Coin Configuration</mat-card-title> <br>
     <div class="row d-flex">
       <div class="col-md-4">
@@ -46,7 +46,7 @@
               <mat-form-field>
                 <mat-label> Select Gateway </mat-label>
                 <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
-                  <mat-option *ngFor="let list of gateways;let i=index" [value]="list.gatewayId">{{list.gatewayId}}</mat-option>
+                  <mat-option *ngFor="let list of gateway;let i=index" [value]="list.gatewayId">{{list.gatewayId}}</mat-option>
                 </mat-select>
               </mat-form-field> <br>
               <mat-form-field>
