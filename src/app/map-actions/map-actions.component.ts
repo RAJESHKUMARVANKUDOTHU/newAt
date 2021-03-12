@@ -12,7 +12,8 @@ import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
 import { MatOption } from '@angular/material/core';
 import * as L from 'leaflet';
-import "leaflet.heat";
+import "leaflet.heat/dist/leaflet-heat.js";
+
 @Component({
   selector: 'app-map-actions',
   templateUrl: './map-actions.component.html',
@@ -36,6 +37,7 @@ export class MapActionsComponent implements OnInit {
   coinData: any = [];
   gatewayList: any = [];
   gateway:any = []
+  heat:any
   
   constructor(
     private fb: FormBuilder,
@@ -78,6 +80,7 @@ export class MapActionsComponent implements OnInit {
         titleCancel: 'Exit fullscreen mode',
         position: 'topleft',
       },
+    
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
     });
@@ -87,6 +90,7 @@ export class MapActionsComponent implements OnInit {
     this.map.dragging.disable();
     this.map.on('click', (data) => {
       let latlng = [data.latlng.lat, data.latlng.lng];
+  
       let coin = this.configCoinForm.get('coinId').value;
       if (coin) {
         this.configCoinForm.patchValue({
@@ -139,6 +143,7 @@ export class MapActionsComponent implements OnInit {
           this.updateSelected();
           this.clearMapImage();
           L.imageOverlay(res, this.bound).addTo(this.map);
+          this.heatMap(this.gateway)
           this.createMarker();
         });
       }
@@ -195,7 +200,7 @@ export class MapActionsComponent implements OnInit {
             }
           }
         });
-        this.heatMap()
+        // this.heatMap(this.layoutData.gateway)
         return obj;
       });
       console.log('layout data===', this.layoutData);
@@ -358,13 +363,15 @@ export class MapActionsComponent implements OnInit {
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
+      this.general.loadingFreez.next({status:true,msg:'Uploading layout..!'})
       this.api
-        .createLayout(data)
-        .then((res: any) => {
-          console.log('create layout res===', res);
-          this.refreshGateway();
-          this.getLayout();
-          if (res.status) {
+      .createLayout(data)
+      .then((res: any) => {
+        console.log('create layout res===', res);
+        this.refreshGateway();
+        this.getLayout();
+        if (res.status) {
+            this.general.loadingFreez.next({status:false,msg:''})
             this.getLayout()
             this.newLayoutForm.reset()
             this.clearFile()
@@ -501,14 +508,31 @@ export class MapActionsComponent implements OnInit {
     })
   }
 
-  heatMap(){
-     console.log("heatmap")
-     var heat = L.heatLayer([
-       [50.5, 30.5], // lat, lng, intensity
-       [50.6, 30.4],
-       
-      ]).addTo(this.map);
-      console.log("heatmap==",heat)
+  heatMap(latlng :any){
+    //  console.log("heatmap",latlng)
+     let arr=[]
+     latlng.filter((obj)=>{
+       if(obj.coinData.length>0){
+         obj.coinData.filter((ele)=>{
+            if(ele.coinBounds.length>0){
+              arr.push({
+               lat: ele.coinBounds[0],
+               lng: ele.coinBounds[1],
+               intensity:"1"
+              })
+            }else{}
+          })
+        }
+     })
+  var data=[];
+    for(let i = 0; i < arr.length; i++){
+      data[i]=[arr[i].lat,arr[i].lng,arr[i].intensity]
+    }
+     console.log("data==",data)
+     this.heat= new L.heatLayer(data)
+     this.heat.addTo(this.map)
+     
+      console.log("heatmap==",this.map)
   }
 }
 

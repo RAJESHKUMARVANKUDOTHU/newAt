@@ -260,7 +260,8 @@ export class SettingInfoComponent implements OnInit {
               serviceName: [this.serviceData[i].serviceName, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
               zoneId: [this.serviceData[i].zoneId],
               zoneName: this.setZone(this.serviceData[i].zoneId),
-              _id: [this.serviceData[i]._id]
+              _id: [this.serviceData[i]._id],
+              deviceId:[this.serviceData[i].deviceId]
             }
           ));
         }
