@@ -92,7 +92,7 @@
                         </td>
                         <td>
                             <button type="button" mat-raised-button color="primary"
-                                [disabled]="a.get('inactivityAlert').value == '' && a.get('inActivityTime').value == 0"
+                                [disabled]="(a.get('inactivityAlert').value == '') || a.get('inActivityTime').value == 0"
                                 (click)="onSubmitInactivityFind(a.value)">Submit</button>
                         </td>
                     </ng-container>
@@ -147,7 +147,7 @@
                         </td>
                         <td>
                             <button type="button" mat-raised-button color="primary"
-                                [disabled]="a.get('inactivityAlert').value == ''  && a.get('inActivityTime').value == 0"
+                                [disabled]="a.get('inactivityAlert').value == ''  || a.get('inActivityTime').value == 0"
                                 (click)="onSubmitInactivityCoin(a.value)">Submit</button>
                         </td>
                     </ng-container>

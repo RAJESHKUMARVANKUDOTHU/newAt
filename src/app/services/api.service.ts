@@ -1220,12 +1220,12 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' }).subscribe(
         (res: any) => {
+          console.log(res)
           // observer.next(res);
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = function () {
-            // console.log("reader");
-
+            
             resolve(reader.result);
           };
         },

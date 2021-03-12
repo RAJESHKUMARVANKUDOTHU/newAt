@@ -12,6 +12,7 @@ import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
 import { MatOption } from '@angular/material/core';
 import * as L from 'leaflet';
+import "leaflet.heat";
 @Component({
   selector: 'app-map-actions',
   templateUrl: './map-actions.component.html',
@@ -34,7 +35,8 @@ export class MapActionsComponent implements OnInit {
   selectedLayout: any = '';
   coinData: any = [];
   gatewayList: any = [];
-  gateways:any = []
+  gateway:any = []
+  
   constructor(
     private fb: FormBuilder,
     public mapService: MapService,
@@ -117,20 +119,18 @@ export class MapActionsComponent implements OnInit {
 
   layoutSelect(data) {
     this.mapDisable = false;
+    this.gateway=[]
     console.log('data layout===', data);
     if (data) {
       this.selectedLayout = data
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
-      console.log("layout==",layout);
       
       if(layout.length>0){
-        layout[0].gateways.filter((obj)=>{
-          console.log("gateways==",obj.gatewayId)
-          return this.gateways.push(obj)
+        layout[0].gateway.filter((obj)=>{
+          return this.gateway.push(obj)
         })
-        console.log("gateways==",this.gateways)
         this.api.getLayoutImage(layout[0]._id).then((res: any) => {
           // console.log("image layout==", res);
         
@@ -148,10 +148,10 @@ export class MapActionsComponent implements OnInit {
   gatewaySelect(data) {
     console.log('data==', data);
     this.coinData = [];
-    let gatewayData = this.layoutData.gateways.filter(obj => {
+    let gatewayData = this.layoutData.gateway.filter(obj => {
       return obj.gatewayId == data
     });
-    this.coinData = gatewayData.length?gatewayData[0].coinIds:[];
+    this.coinData = gatewayData.length?gatewayData[0].coinData:[];
     this.updateSelected(data);
     this.createMarker();
   }
@@ -174,7 +174,7 @@ export class MapActionsComponent implements OnInit {
 
   updateSelected(gatewayId = 0, coinId = 0) {
     if (this.layoutData != '') {
-      this.layoutData.gateways = this.layoutData.gateways.map((obj) => {
+      this.layoutData.gateway = this.layoutData.gateway.map((obj) => {
         if (gatewayId == 0) {
           obj.selected = true;
         } else {
@@ -184,7 +184,7 @@ export class MapActionsComponent implements OnInit {
             obj.selected = false;
           }
         }
-        obj.coinIds.map((coin) => {
+        obj.coinData.map((coin) => {
           if (coinId == 0) {
             coin.selected = true;
           } else {
@@ -195,7 +195,6 @@ export class MapActionsComponent implements OnInit {
             }
           }
         });
-        return obj;
       });
       console.log('layout data===', this.layoutData);
     }
@@ -217,21 +216,21 @@ export class MapActionsComponent implements OnInit {
         this.addCoinMarker(data);
       }
     } else {
-      for (let i = 0; i < this.layoutData.gateways.length; i++) {
-        if (this.layoutData.gateways[i].selected) {
-          for (let j = 0; j < this.layoutData.gateways[i].coinIds.length; j++) {
-            if (this.layoutData.gateways[i].coinIds[j].selected) {
-              this.layoutData.gateways[i].coinIds[j].coinBounds =
-                this.layoutData.gateways[i].coinIds[j].coinBounds != null
-                  ? this.layoutData.gateways[i].coinIds[j].coinBounds
+      for (let i = 0; i < this.layoutData.gateway.length; i++) {
+        if (this.layoutData.gateway[i].selected) {
+          for (let j = 0; j < this.layoutData.gateway[i].coinData.length; j++) {
+            if (this.layoutData.gateway[i].coinData[j].selected) {
+              this.layoutData.gateway[i].coinData[j].coinBounds =
+                this.layoutData.gateway[i].coinData[j].coinBounds != null
+                  ? this.layoutData.gateway[i].coinData[j].coinBounds
                   : [];
 
-              if (this.layoutData.gateways[i].coinIds[j].coinBounds.length) {
+              if (this.layoutData.gateway[i].coinData[j].coinBounds.length) {
                 let data = {
-                  gatewayId: this.layoutData.gateways[i].coinIds[j].gatewayId,
-                  bounds: this.layoutData.gateways[i].coinIds[j].coinBounds,
-                  coinId: this.layoutData.gateways[i].coinIds[j].coinId,
-                  coinName: this.layoutData.gateways[i].coinIds[j].coinName,
+                  gatewayId: this.layoutData.gateway[i].coinData[j].gatewayId,
+                  bounds: this.layoutData.gateway[i].coinData[j].coinBounds,
+                  coinId: this.layoutData.gateway[i].coinData[j].coinId,
+                  coinName: this.layoutData.gateway[i].coinData[j].coinName,
                 };
                 this.addCoinMarker(data);
               }
@@ -296,8 +295,8 @@ export class MapActionsComponent implements OnInit {
     if (this.layoutData != '') {
       if (
         this.layoutData.layoutName != '' &&
-        this.layoutData.gateways[0].gatewayId != '' &&
-        this.layoutData.gateways[0].coinIds.length
+        this.layoutData.gateway[0].gatewayId != '' &&
+        this.layoutData.gateway[0].coinData.length
       ) {
         return 'visible';
       } else {
@@ -469,12 +468,13 @@ export class MapActionsComponent implements OnInit {
   }
 
   deleteLayout(value) {
+    console.log("delete layout ==", value)
     let layout = this.gatewayList.filter(obj => {
       return obj.layoutName == value.layout
     })
     var data = {
       gatewayObjectId: layout[0]._id,
-      layoutName: value.layout
+      fileName: this.gateway[0].fileName
     }
     console.log("delete layout ==", data)
 
@@ -484,13 +484,9 @@ export class MapActionsComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
         this.mapDisable = true
-<<<<<<< HEAD
-        this.getLayout()
-=======
         this.selectLayoutForm.reset()
         this.refreshGateway();
         this.getLayout();
->>>>>>> c579df7d572ba3014cb6186944c4b3280079fcfe
       }
       else {
         if(!res.success){
@@ -503,7 +499,15 @@ export class MapActionsComponent implements OnInit {
     })
   }
 
-
+  heatMap(){
+     console.log("heatmap")
+     var heat = L.heatLayer([
+       [50.5, 30.5], // lat, lng, intensity
+       [50.6, 30.4],
+       
+      ]).addTo(this.map);
+      console.log("heatmap==",heat)
+  }
 }
 
 // selectedLayoutCoin: any = {
@@ -515,11 +519,11 @@ export class MapActionsComponent implements OnInit {
 // gatewayList: any = [
 //   {
 //     layoutName: 'layout.jpg',
-//     gateways: [
+//     gateway: [
 //       {
 //         gatewayId: '123456789878',
 //         gatewayName: 'gateway1',
-//         coinIds: [
+//         coinData: [
 //           {
 //             _id: 1,
 //             coinId: 1,
@@ -543,7 +547,7 @@ export class MapActionsComponent implements OnInit {
 //       {
 //         gatewayId: 'AB3456789878',
 //         gatewayName: 'gateway2',
-//         coinIds: [
+//         coinData: [
 //           {
 //             _id: 4,
 //             coinId: 4,
@@ -568,11 +572,11 @@ export class MapActionsComponent implements OnInit {
 //   },
 //   {
 //     layoutName: 'layout.jpg',
-//     gateways: [
+//     gateway: [
 //       {
 //         gatewayId: '123456789878',
 //         gatewayName: 'gateway1',
-//         coinIds: [
+//         coinData: [
 //           {
 //             _id: 1,
 //             coinId: 1,
@@ -596,7 +600,7 @@ export class MapActionsComponent implements OnInit {
 //       {
 //         gatewayId: 'CD3456789878',
 //         gatewayName: 'gateway3',
-//         coinIds: [
+//         coinData: [
 //           {
 //             _id: 7,
 //             coinId: 7,
@@ -622,7 +626,7 @@ export class MapActionsComponent implements OnInit {
 
 //   {
 //     layoutName: 'office-layout.png',
-//     gateways: [],
+//     gateway: [],
 //   },
 // ];
 // coinList: any = [];
