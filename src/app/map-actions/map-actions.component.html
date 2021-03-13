@@ -4,26 +4,23 @@
             <mat-form-field>
                 <mat-label>Layout</mat-label>
                 <mat-select formControlName="layout" (selectionChange)="layoutSelect($event.value)">
-                    <mat-option *ngFor="let list of gatewayList" [value]="list.layoutName">{{list.layoutName}}</mat-option>
+                    <mat-option *ngFor="let list of gatewayList" [value]="list.layoutName">{{list.layoutName}}
+                    </mat-option>
                 </mat-select>
                 <mat-error>
                     Select the layout
                 </mat-error>
             </mat-form-field>&nbsp;
-
             <button mat-flat-button (click)="deleteLayout(selectLayoutForm.value)" [disabled]="!selectLayoutForm.valid">
-        <mat-icon>delete</mat-icon>
-      </button>
+                <mat-icon>delete</mat-icon>
+            </button>
         </form>
-
         <div>
             <button mat-flat-button color="primary" routerLink="/zone-configuration">Zone Configuration</button>
         </div>
     </div>
 
-
     <div [ngClass]="getValidation()">
-
         <div class="map-alternative" *ngIf="mapDisable">
             Please select the layout..!
         </div>
@@ -34,7 +31,6 @@
             </div>
         </div>
     </div>
-
 
     <br>
     <mat-card class="text-center">
@@ -47,198 +43,93 @@
                             <mat-form-field>
                                 <mat-label> Select Gateway </mat-label>
                                 <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
-                                    <mat-option *ngFor="let list of gateway;let i=index" [value]="list.gatewayId">{{list.gatewayId}}</mat-option>
+                                    <mat-option *ngFor="let list of gateway;let i=index" [value]="list.gatewayId">
+                                        {{list.gatewayId}}</mat-option>
                                 </mat-select>
                             </mat-form-field> <br>
                             <mat-form-field>
                                 <mat-label>Select Coin</mat-label>
                                 <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-                                    <mat-option *ngFor="let a of coinData" [value]="a.coinId">{{a.coinName}}</mat-option>
+                                    <mat-option *ngFor="let a of coinData" [value]="a.coinId">{{a.coinName}}
+                                    </mat-option>
                                 </mat-select>
-                                <mat-error>
-                                    Select the layout
-                                </mat-error>
-                            </mat-form-field>&nbsp;
-
-                            <button mat-flat-button (click)="deleteLayout(selectLayoutForm.value)" [disabled]="!selectLayoutForm.valid">
-                <mat-icon>delete</mat-icon>
-            </button>
+                            </mat-form-field> <br>
+                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Add</button>
                         </form>
-
-                        <div>
-                            <button mat-flat-button color="primary" routerLink="/zone-configuration">Zone Configuration</button>
-                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
-
-
-            <div [ngClass]="getValidation()">
-                <div class="map-alternative" *ngIf="mapDisable">
-                    Please select the layout..!
-                </div>
-                <div class="map-container">
-                    <div class="map-frame">
-                        <div id="map" #mapElement></div>
-                        <canvas id="map1"></canvas>
-                    </div>
-                </div>
+            <div class="col-md-8">
+                <table class="table bordered">
+                    <thead>
+                        <th>Coin ID</th>
+                        <th>Coin Name</th>
+                        <th>Zone Name</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let a of coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
+                            <td>{{i+1}}</td>
+                            <td>{{a.coinId}}</td>
+                            <td>{{a.coinName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
-
-            <br>
-            <mat-card class="text-center">
-                <mat-card-title>Coin Configuration</mat-card-title> <br>
-                <div class="row d-flex">
-                    <div class="col-md-4">
-                        <mat-card>
-                            <mat-card-content>
-                                <form [formGroup]="configCoinForm" (ngSubmit)="updateCoinBound(configCoinForm.value)">
-                                    <mat-form-field>
-                                        <mat-label> Select Gateway </mat-label>
-                                        <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
-                                            <mat-option *ngFor="let list of gateway;let i=index" [value]="list.gatewayId">
-                                                {{list.gatewayId}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field> <br>
-                                    <mat-form-field>
-                                        <mat-label>Select Coin</mat-label>
-                                        <mat-select formControlName="coinId" (selectionChange)="coinSelect($event.value)">
-                                            <mat-option *ngFor="let a of coinData" [value]="a.coinId">{{a.coinName}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field> <br>
-
-                                    <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Add</button>
-                                    <!-- <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Reallocate</button>
-    <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Delete</button> -->
-                                </form>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-8">
-                        <table class="table bordered">
-                            <thead>
-                                <th>Coin ID</th>
-                                <th>Coin Name</th>
-                                <th>Zone Name</th>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let a of coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
-                                    <td>{{i+1}}</td>
-                                    <td>{{a.coinId}}</td>
-                                    <td>{{a.coinName}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </mat-card>
-            <br>
-
-            <!-- <mat-card>
-    <mat-card-content>
-    <mat-card>
-    <mat-grid-list cols="2" rowHeight="2:1" class="list">
-    <mat-grid-tile>
-    
-    </mat-grid-tile>
-    
-    <mat-grid-tile>
-    
-    </mat-grid-tile>
-    </mat-grid-list>
-    </mat-card>
-    </mat-card-content>
-    </mat-card> <br> -->
-
-            <mat-card class="border-card">
-                <mat-card-title>
-                    <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
-                </mat-card-title> <br>
-                <mat-card-content>
-                    <!-- <mat-card> -->
-                    <form [formGroup]="newLayoutForm" class="d-flex justify-content-around">
-                        <mat-form-field appearance="outline" class="example-form">
-                            <mat-label>Gateway list</mat-label>
-                            <mat-select formControlName="gatewayId" multiple>
-                                <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All
-                                </mat-option>
-                                <ng-container *ngFor="let list of newGatewayLayout">
-                                    <mat-option [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
-                                </ng-container>
-                            </mat-select>
-                            <mat-error>
-                                Select the gateway
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline" class="example-form">
-                            <mat-label>Layout name</mat-label>
-                            <input type="text" matInput formControlName="layoutName" (change)="general.validate($event.target.value)" required>
-                            <mat-error *ngIf="newLayoutForm.get('layoutName').value ==''">
-                                Location name is required
-                            </mat-error>
-                            <mat-error *ngIf="newLayoutForm.get('layoutName').value !='' || general.mismatch">
-                                No special characters are allowed. And layout name cannot start/end with space(s).
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline" class="example-form1">
-                            <mat-label>Height in feet</mat-label>
-                            <input type="number" min="0" matInput formControlName="height" required>
-                            <mat-error>
-                                Field required.
-                            </mat-error>
-                        </mat-form-field>
-                        <span class="py-3"><b>X</b></span>
-
-
-                        <mat-form-field appearance="outline" class="example-form1">
-                            <mat-label>Width in feet</mat-label>
-                            <input type="number" min="0" matInput formControlName="width" required>
-                            <mat-error>
-                                Field required.
-                            </mat-error>
-                        </mat-form-field>
-                        <!-- <mat-error *ngIf="newLayoutForm.get('height').touched || newLayoutForm.get('width').touched" class="w-2">
-    Height and width are required.
-    </mat-error> -->
-
-
-                        <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true" class="example-form py-3">
-                        <br><br>
-
-                    </form>
-                    <div class="btn">
-                        <button mat-raised-button [disabled]="!newLayoutForm.valid" (click)="createNewLayout(newLayoutForm.value)" color="primary">Create Layout</button>
-                    </div>
-                    <!-- </mat-card> -->
-                </mat-card-content>
-            </mat-card>
         </div>
+    </mat-card>
+    <br>
 
-        <!-- <form [formGroup]="configCoinForm1" (ngSubmit)="addCoin1(configCoinForm1.value)">
-    <mat-form-field>
-    <mat-label> Select Gateway </mat-label>
-    <input type="text" matInput name="" id="" formControlName="name">
-    </mat-form-field> <br>
-    <mat-form-field>
-    <mat-label> Select Gateway </mat-label>
-    <mat-select fromControlName="gname" required>
-    <span *ngFor="let a of gatewayName">
-    <mat-option [value]="a.gatewayId">{{a.gatewayId}}
-    
-    </mat-option>
-    </span>
-    
-    </mat-select>
-    </mat-form-field> <br>
-    <mat-form-field >
-    
-    <mat-label>Minutes</mat-label>
-    <mat-select formControlName="gname">
-    <mat-option *ngFor="let a of gatewayName" [value]="a">{{a.gatewayId}}</mat-option>
-    </mat-select>
-    
-    </mat-form-field>
-    <button>submit</button>
-    </form> -->
+
+    <mat-card class="border-card">
+        <mat-card-title>
+            <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
+        </mat-card-title> <br>
+        <mat-card-content>
+            <form [formGroup]="newLayoutForm" class="d-flex justify-content-around">
+                <mat-form-field appearance="outline" class="example-form">
+                    <mat-label>Gateway list</mat-label>
+                    <mat-select formControlName="gatewayId" multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionGateway(newLayoutForm)" [value]="0">All
+                        </mat-option>
+                        <ng-container *ngFor="let list of newGatewayLayout">
+                            <mat-option *ngIf='list.layoutName == null' [value]="list.gatewayId">{{list.gatewayName}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error>
+                        Select the gateway
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="example-form">
+                    <mat-label>Layout name</mat-label>
+                    <input type="text" matInput formControlName="layoutName" (change)="general.validate($event.target.value)" required>
+                    <mat-error *ngIf="newLayoutForm.get('layoutName').value ==''">
+                        Location name is required
+                    </mat-error>
+                    <mat-error *ngIf="newLayoutForm.get('layoutName').value !='' || general.mismatch">
+                        No special characters are allowed. And layout name cannot start/end with space(s).
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="example-form1">
+                    <mat-label>Height in feet</mat-label>
+                    <input type="number" min="0" matInput formControlName="height" required>
+                    <mat-error>
+                        Field required.
+                    </mat-error>
+                </mat-form-field>
+                <span class="py-3"><b>X</b></span>
+                <mat-form-field appearance="outline" class="example-form1">
+                    <mat-label>Width in feet</mat-label>
+                    <input type="number" min="0" matInput formControlName="width" required>
+                    <mat-error>
+                        Field required.
+                    </mat-error>
+                </mat-form-field>
+                <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true" class="example-form py-3">
+                <br><br>
+            </form>
+            <div class="btn">
+                <button mat-raised-button [disabled]="!newLayoutForm.valid" (click)="createNewLayout(newLayoutForm.value)" color="primary">Create Layout</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
