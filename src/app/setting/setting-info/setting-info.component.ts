@@ -560,6 +560,7 @@ export class SettingInfoComponent implements OnInit {
       console.log("error==", error)
     }
   }
+  
   deleteTimeDelay(value) {
     var data = {
       _id: value._id
@@ -574,6 +575,7 @@ export class SettingInfoComponent implements OnInit {
 
     })
   }
+
   deleteInactivityFind(data) {
     console.log("delete InactivityFind data==", data)
     this.api.deleteFindInactivity(data).then((res: any) => {
@@ -596,6 +598,7 @@ export class SettingInfoComponent implements OnInit {
       }
     })
   }
+
   deleteInactivityCoin(data) {
     console.log("delete InactivityCoin data==", data)
     this.api.deleteCoinInactivity(data).then((res: any) => {
@@ -607,6 +610,7 @@ export class SettingInfoComponent implements OnInit {
 
     })
   }
+
   deleteMaxFindForm(data) {
 
     console.log("delete max find data==", data)
@@ -619,6 +623,7 @@ export class SettingInfoComponent implements OnInit {
 
     })
   }
+
   deleteGroup(value) {
     var data = {
       _id: value._id
@@ -634,6 +639,7 @@ export class SettingInfoComponent implements OnInit {
 
     })
   }
+
   deleteZoneForm(data) {
     console.log("delete zone data==", data)
     this.api.deleteZoneName(data).then((res: any) => {
@@ -648,9 +654,9 @@ export class SettingInfoComponent implements OnInit {
     })
   }
   deleteGroupCoinForm(data) {
-
+    data.coinId=this.general.filterIds(data.coinId)
     console.log("delete GroupCoinForm data==", data)
-    this.api.updateGroup(data).then((res: any) => {
+    this.api.deleteCoinGroupDetails(data).then((res: any) => {
       console.log("delte group coin==", res)
       if (res.status) {
         this.general.openSnackBar(res.success, '')
@@ -661,10 +667,11 @@ export class SettingInfoComponent implements OnInit {
 
     })
   }
-  deleteCoinCategory(data) {
 
+  deleteCoinCategory(data) {
+    data.coinId=this.general.filterIds(data.coinId)
     console.log("delete CoinCategory data==", data)
-    this.api.zoneConfiguration(data).then((res: any) => {
+    this.api.deleteCoinZone(data).then((res: any) => {
       console.log("delte zone==", res)
       if (res.status) {
         this.general.openSnackBar(res.success, '')
