@@ -38,8 +38,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if (error.status === 403 || error.status === 401) {
           this.general.loadingFreez.next({status:true,msg:'Your session has logged out..! please try again later'})
           setTimeout(() => {
-            this.login.logout() ;
             this.general.loadingFreez.next({status:false,msg:''})       
+            this.login.logout() ;
           }, 3000);
         }
         return throwError(error);
