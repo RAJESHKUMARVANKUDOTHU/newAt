@@ -1,7 +1,13 @@
 <br>
-<div class="text-center">
-    <h1>Zone</h1>
-    <hr>
+<div class="d-flex justify-content-between">
+    <div class="text-center" style="margin-left: 26rem;">
+        <h1>Zone Data</h1>
+        <hr>
+    </div>
+    <mat-form-field>
+        <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 </div>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">

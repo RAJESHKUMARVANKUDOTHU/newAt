@@ -133,6 +133,12 @@ export class GeofenceComponent implements OnInit {
   }
 
   search(a) {
-
+    console.log(a)
+    this.dataSource = new MatTableDataSource(this.geoFenceData);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filter =a.trim().toLowerCase()
+    })
   }
 }

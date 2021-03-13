@@ -44,4 +44,13 @@ export class ZoneDashboardComponent implements OnInit {
       }
     })
   }
+
+  search(a) {
+    this.dataSource = new MatTableDataSource(this.zoneData);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filter =a.trim().toLowerCase()
+    })
+  }
 }
