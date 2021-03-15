@@ -84,6 +84,12 @@ export class ActiveDeviceComponent implements OnInit {
       this.fileName = "Online Asset"
       this.api.downloadOnlineDevice(this.fileName).then((res: any) => {
         console.log("online device download==", res)
+        if (res) {
+          this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
+        }
+        else {
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error==", err)
       })
@@ -92,6 +98,12 @@ export class ActiveDeviceComponent implements OnInit {
       this.fileName = "Online Gateway"
       this.api.downloadOnlineGateways(this.fileName).then((res: any) => {
         console.log("Online gateway download==", res)
+        if (res) {
+          this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
+        }
+        else {
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error==", err)
       })
@@ -100,6 +112,12 @@ export class ActiveDeviceComponent implements OnInit {
       this.fileName = "Online coins"
       this.api.downloadOnlineCoin(this.fileName).then((res: any) => {
         console.log("Online coins download==", res)
+        if (res) {
+          this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
+        }
+        else {
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error==", err)
       })

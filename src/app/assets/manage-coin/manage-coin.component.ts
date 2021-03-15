@@ -31,7 +31,11 @@ export class ManageCoinComponent implements OnInit {
   ngOnInit(): void {
     this.refreshCoin()
     this.role=this.login.getLoginDetails().success.role
-
+    this.general.deviceChanges.subscribe((res) => {
+      if (res) {
+        this.refreshCoin()
+      }
+    })
   }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
@@ -162,6 +166,12 @@ export class ManageCoinComponent implements OnInit {
     this.fileName = "Registered coins"
     this.api.downloadRegisteredCoins(this.fileName).then((res: any) => {
       console.log("Registerd coins download==", res)
+      if(res){
+        this.general.loadingFreez.next({status:false,msg:"Downloaded Successfully!!"})
+      }
+      else{
+       this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+      }
     }).catch((err: any) => {
       console.log("error==", err)
     })

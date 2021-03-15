@@ -85,6 +85,12 @@ export class OfflineDeviceComponent implements OnInit {
       this.fileName = "Offline Asset"
       this.api.downloadOfflineDevice(this.fileName).then((res: any) => {
         console.log("online device download==", res)
+        if (res) {
+          this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
+        }
+        else {
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error==", err)
       })
@@ -93,6 +99,12 @@ export class OfflineDeviceComponent implements OnInit {
       this.fileName = "Offline Gateway"
       this.api.downloadOfflineGateways(this.fileName).then((res: any) => {
         console.log("Online gateway download==", res)
+        if (res) {
+          this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
+        }
+        else {
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error==", err)
       })
@@ -101,6 +113,12 @@ export class OfflineDeviceComponent implements OnInit {
       this.fileName = "Offline coins"
       this.api.downloadOfflineCoin(this.fileName).then((res: any) => {
         console.log("Online coins download==", res)
+        if (res) {
+          this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
+        }
+        else {
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error==", err)
       })

@@ -124,6 +124,8 @@ export class MapActionsComponent implements OnInit {
   layoutSelect(data) {
     this.mapDisable = false;
     this.gateway=[]
+    this.selectedLayout=[]
+    this.layoutData=[]
     console.log('data layout===', data);
     if (data) {
       this.selectedLayout = data
@@ -135,16 +137,17 @@ export class MapActionsComponent implements OnInit {
         layout[0].gateway.filter((obj)=>{
           return this.gateway.push(obj)
         })
-        this.api.getLayoutImage(layout[0]._id).then((res: any) => {
-          // console.log("image layout==", res);
         
+        this.api.getLayoutImage(layout[0]._id).then((res: any) => {
+          
+          // console.log("image layout==", res);
           this.layoutData = layout[0];
           this.configCoinForm.reset()
           this.updateSelected();
           this.clearMapImage();
           L.imageOverlay(res, this.bound).addTo(this.map);
           this.heatMap(this.gateway)
-          this.createMarker();
+          this.createMarker()
         });
       }
     }
@@ -436,6 +439,7 @@ export class MapActionsComponent implements OnInit {
   }
 
   getLayout() {
+    this.gatewayList=[]
     this.api
       .getLayouts()
       .then((res: any) => {
@@ -445,7 +449,7 @@ export class MapActionsComponent implements OnInit {
           this.selectLayoutForm.patchValue({
             layout: this.selectedLayout
           })
-          this.layoutSelect(this.selectedLayout);
+          // this.layoutSelect(this.selectedLayout);
           if (!this.map) {
             this.createMap();
           }
@@ -492,10 +496,16 @@ export class MapActionsComponent implements OnInit {
       if (res.status) {
         this.general.openSnackBar(res.success, '')
         this.resetMap()
-        this.mapDisable = true
-        this.selectLayoutForm.reset()
-        this.refreshGateway();
         this.getLayout();
+        this.mapDisable = true
+        this.coinData=[]
+        this.selectedLayout=[]
+        this.layoutData=''
+        this.gateway=[]
+        this.marker=[]
+        this.selectLayoutForm.reset()
+        this.configCoinForm.reset()
+        this.refreshGateway();
       }
       else {
         if(!res.success){
@@ -518,7 +528,7 @@ export class MapActionsComponent implements OnInit {
               arr.push({
                lat: ele.coinBounds[0],
                lng: ele.coinBounds[1],
-               intensity:"1"
+               intensity:1
               })
             }else{}
           })
@@ -529,10 +539,11 @@ export class MapActionsComponent implements OnInit {
       data[i]=[arr[i].lat,arr[i].lng,arr[i].intensity]
     }
      console.log("data==",data)
-     this.heat= new L.heatLayer(data)
-     this.heat.addTo(this.map)
-     
-      console.log("heatmap==",this.map)
+     this.heat= new L.heatLayer([
+     data
+      
+    ], {radius: 25}).addTo(this.map)   
+          console.log("heatmap==",this.heat.addTo(this.map) )
   }
 }
 

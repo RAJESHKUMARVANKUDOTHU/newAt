@@ -26,23 +26,23 @@ export class AddAssetsComponent implements OnInit {
     public general: GeneralService,
     private login: LoginAuthService,
     private api: ApiService,
-    
+
   ) {
     this.type = data.type
   }
 
   ngOnInit(): void {
     this.addFind = this.fb.group({
-      deviceName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
-      deviceId: ['', [Validators.required, Validators.min(1),Validators.max(255)]]
+      deviceName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
+      deviceId: ['', [Validators.required, Validators.min(1), Validators.max(255)]]
     });
     this.addGateway = this.fb.group({
-      gatewayName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
+      gatewayName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
       gatewayId: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12), Validators.pattern('^[a-zA-z0-9]{12}$')]],
     })
     this.addCoin = this.fb.group({
-      coinName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
-      coinId: ['', [Validators.required, Validators.min(1),Validators.max(255)]],
+      coinName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
+      coinId: ['', [Validators.required, Validators.min(1), Validators.max(255)]],
       gatewayId: ['', Validators.required]
     })
 
@@ -59,12 +59,13 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
+            this.addFind.reset()
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
             this.general.deviceChanges.next(false)
-            this.general.openSnackBar(res.message, '')
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           }
         }).catch((err: any) => {
           console.log("error===", err)
@@ -85,13 +86,14 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
+            this.addGateway.reset()
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
             this.general.deviceChanges.next(false)
 
-            this.general.openSnackBar(res.message, '')
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           }
           // else if((res.status || !res.status) && res.success.toLowerCase()!="gateway registered successfully"){
           //   var msg = 'Gateway Name Already exists, try different Name'
@@ -116,12 +118,13 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
+            this.addCoin.reset()
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
           else {
             this.general.deviceChanges.next(false)
-            this.general.openSnackBar(res.message, '')
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           }
 
         }).catch((err: any) => {

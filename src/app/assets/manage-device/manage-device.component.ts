@@ -107,7 +107,7 @@ export class ManageDeviceComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
       }
       else {
-        this.general.openSnackBar(res.message, '')
+        this.general.openSnackBar(res.success == false ? res.message : res.success, '')
       }
     })
 
@@ -174,6 +174,8 @@ export class ManageDeviceComponent implements OnInit {
         }
         else {
           this.general.deviceChanges.next(false)
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+
         }
       }).catch((err: any) => {
         console.log("error===", err)
@@ -198,7 +200,9 @@ export class ManageDeviceComponent implements OnInit {
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
-        else { }
+        else { 
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+        }
       }).catch((err: any) => {
         console.log("error===", err)
       })
@@ -211,6 +215,13 @@ export class ManageDeviceComponent implements OnInit {
     this.fileName = "Registered Asset"
     this.api.downloadRegisteredDevice(this.fileName).then((res: any) => {
       console.log("Registerd asset download==", res)
+      this.general.loadingFreez.next({status:true,msg:"Downloading"})
+      if(res){
+        this.general.loadingFreez.next({status:false,msg:"Downloaded Successfully!!"})
+      }
+      else{
+       this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+      }
     }).catch((err: any) => {
       console.log("error==", err)
     })

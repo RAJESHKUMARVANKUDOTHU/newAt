@@ -112,7 +112,6 @@ export class ManageAssetComponent implements OnInit {
           console.log('this.doughnutChartData2', this.doughnutChartData2);
         }
         else {
-
         }
       })
       .catch((err: any) => {
@@ -180,7 +179,7 @@ export class ManageAssetComponent implements OnInit {
             this.general.deviceChanges.next(true)
           }
           else {
-            this.general.openSnackBar(res.message, '');
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '')
             this.general.deviceChanges.next(false)
           }
         })
@@ -208,7 +207,7 @@ export class ManageAssetComponent implements OnInit {
             this.general.openSnackBar(res.success, '');
           }
           else {
-            this.general.openSnackBar(res.message, '');
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '')
             this.general.deviceChanges.next(false)
           }
         })

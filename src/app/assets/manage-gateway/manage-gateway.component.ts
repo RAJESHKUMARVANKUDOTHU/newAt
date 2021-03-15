@@ -31,6 +31,11 @@ export class ManageGatewayComponent implements OnInit {
   ngOnInit(): void {
     this.refreshGateway()
     this.role=this.login.getLoginDetails().success.role
+    this.general.deviceChanges.subscribe((res) => {
+      if (res) {
+        this.refreshGateway()
+      }
+    })
   }
 
   openDailog() {
@@ -134,6 +139,12 @@ export class ManageGatewayComponent implements OnInit {
     this.fileName = "Registered gateways"
     this.api.downloadRegisteredGateways(this.fileName).then((res: any) => {
       console.log("Registerd gateway download==", res)
+      if(res){
+        this.general.loadingFreez.next({status:false,msg:"Downloaded Successfully!!"})
+      }
+      else{
+       this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+      }
     }).catch((err: any) => {
       console.log("error==", err)
     })

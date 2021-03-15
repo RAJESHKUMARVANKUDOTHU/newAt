@@ -22,8 +22,8 @@
                     <mat-label> Device Id</mat-label>
                     <input type="number" matInput min="1" formControlName="deviceId" disabled>
                 </mat-form-field> <br>
-                <button mat-raised-button [disabled]="!editFind.valid" color="primary">Submit</button>
             </form>
+            <button mat-raised-button [disabled]="!editFind.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -46,8 +46,8 @@
                     <mat-label> Gateway Id</mat-label>
                     <input type="text" matInput formControlName="gatewayId" disabled>
                     </mat-form-field> <br>
+                </form>
                 <button mat-raised-button [disabled]="!editGateway.valid" color="primary">Submit</button>
-            </form>
         </div>
     </div>
 
@@ -82,8 +82,8 @@
                         Please select gateway Id.
                     </mat-error>
                 </mat-form-field> <br>
-                <button mat-raised-button [disabled]="!editCoin.valid" color="primary">Submit</button>
             </form>
+            <button mat-raised-button [disabled]="!editCoin.valid" color="primary">Submit</button>
         </div>
     </div>
 </mat-card>
