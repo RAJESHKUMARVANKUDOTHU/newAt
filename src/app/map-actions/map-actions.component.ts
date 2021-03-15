@@ -498,14 +498,25 @@ export class MapActionsComponent implements OnInit {
         this.resetMap()
         this.getLayout();
         this.mapDisable = true
+<<<<<<< HEAD
         this.coinData=[]
         this.selectedLayout=[]
         this.layoutData=''
         this.gateway=[]
         this.marker=[]
+=======
+<<<<<<< HEAD
+        this.getLayout()
+=======
+>>>>>>> 57c3d7d05f4450b338ca00ee9c013a48a01b0a5a
         this.selectLayoutForm.reset()
         this.configCoinForm.reset()
         this.refreshGateway();
+<<<<<<< HEAD
+=======
+        this.getLayout();
+>>>>>>> c579df7d572ba3014cb6186944c4b3280079fcfe
+>>>>>>> 57c3d7d05f4450b338ca00ee9c013a48a01b0a5a
       }
       else {
         if(!res.success){
