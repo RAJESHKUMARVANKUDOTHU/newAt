@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="d-flex justify-content-between">
     <div>
         <mat-accordion>
             <!-- ----------------------------Devices----------------------------------- -->
@@ -8,7 +8,7 @@
                         Geofence Setting
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-card class="location">
+                <mat-card class="text-center">
                     <mat-card-content>
                         <form [formGroup]="geofenceForm" (ngSubmit)="submit(geofenceForm.value)">
 
@@ -44,7 +44,7 @@
     </div>
 
 
-    <div class="map">
+    <div class="text-center mr-5">
         <h1>Geofence Setting Info</h1>
         <hr>
     </div>

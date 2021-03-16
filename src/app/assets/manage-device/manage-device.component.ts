@@ -162,8 +162,6 @@ export class ManageDeviceComponent implements OnInit {
     console.log("data==", data)
     data.deviceObjectId = data.id
     if (confirm('Are you sure you want to delete device?')) {
-
-
       this.api.deleteDevice(data).then((res: any) => {
 
         console.log("device delete====", res);
@@ -213,7 +211,10 @@ export class ManageDeviceComponent implements OnInit {
   }
   download() {
     this.fileName = "Registered Asset"
-    this.api.downloadRegisteredDevice(this.fileName).then((res: any) => {
+    var data={
+      timeZoneOffset:this.general.getZone()
+    }
+    this.api.downloadRegisteredDevice(data,this.fileName).then((res: any) => {
       console.log("Registerd asset download==", res)
       this.general.loadingFreez.next({status:true,msg:"Downloading"})
       if(res){

@@ -81,9 +81,12 @@ export class OfflineDeviceComponent implements OnInit {
 
   download(type) {
     this.fileName = ''
+    var data={
+      timeZoneOffset:this.general.getZone()
+    }
     if (type == 'device') {
       this.fileName = "Offline Asset"
-      this.api.downloadOfflineDevice(this.fileName).then((res: any) => {
+      this.api.downloadOfflineDevice(data,this.fileName).then((res: any) => {
         console.log("online device download==", res)
         if (res) {
           this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
@@ -97,7 +100,7 @@ export class OfflineDeviceComponent implements OnInit {
     }
     else if (type == 'gateway') {
       this.fileName = "Offline Gateway"
-      this.api.downloadOfflineGateways(this.fileName).then((res: any) => {
+      this.api.downloadOfflineGateways(data,this.fileName).then((res: any) => {
         console.log("Online gateway download==", res)
         if (res) {
           this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
@@ -111,7 +114,7 @@ export class OfflineDeviceComponent implements OnInit {
     }
     else if (type == 'coin') {
       this.fileName = "Offline coins"
-      this.api.downloadOfflineCoin(this.fileName).then((res: any) => {
+      this.api.downloadOfflineCoin(data,this.fileName).then((res: any) => {
         console.log("Online coins download==", res)
         if (res) {
           this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })

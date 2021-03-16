@@ -6,7 +6,7 @@
     <div *ngIf="type=='find'">
         <h1 mat-dialog-title class="text-center">Add Find</h1>
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="addFind" (ngSubmit)="findSubmit(addFind.value)">
+            <form [formGroup]="addFind" >
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Device Name</mat-label>
                     <input type="text" matInput formControlName="deviceName"
@@ -26,7 +26,7 @@
                     </mat-error>
                 </mat-form-field><br>
             </form>
-            <button mat-raised-button [disabled]="!addFind.valid" color="primary">Submit</button>
+            <button mat-raised-button [disabled]="!addFind.valid"  (click)="findSubmit(addFind.value)" color="primary">Submit</button>
         </div>
 
     </div>
@@ -34,7 +34,7 @@
     <div *ngIf="type=='gateway'">
         <h1 mat-dialog-title class="text-center">Add Gateway</h1>
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="addGateway" (ngSubmit)="gatewaySubmit(addGateway.value)">
+            <form [formGroup]="addGateway" >
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
                     <input type="text" matInput formControlName="gatewayName"
@@ -55,14 +55,14 @@
                 </mat-form-field> <br>
 
             </form>
-            <button mat-raised-button [disabled]="!addGateway.valid" color="primary">Submit</button>
+            <button mat-raised-button (click)="gatewaySubmit(addGateway.value)" [disabled]="!addGateway.valid" color="primary">Submit</button>
         </div>
     </div>
 
     <div *ngIf="type=='coin'">
         <h1 mat-dialog-title class="text-center">Add Coin</h1>
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="addCoin" (ngSubmit)="coinSubmit(addCoin.value)">
+            <form [formGroup]="addCoin" >
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Name</mat-label>
                     <input type="text" matInput formControlName="coinName"
@@ -92,7 +92,7 @@
                 </mat-form-field> <br>
 
             </form>
-            <button mat-raised-button [disabled]="!addCoin.valid" color="primary">Submit</button>
+            <button mat-raised-button [disabled]="!addCoin.valid" (click)="coinSubmit(addCoin.value)" color="primary">Submit</button>
         </div>
     </div>
 </mat-card>

@@ -125,7 +125,7 @@ export class ManageGatewayComponent implements OnInit {
           this.general.openSnackBar(res.success, '')
         }
         else {
-          this.general.openSnackBar(res.message, '')
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           this.general.deviceChanges.next(false)
         }
       }).catch((err: any) => {
@@ -137,7 +137,10 @@ export class ManageGatewayComponent implements OnInit {
 
   download() {
     this.fileName = "Registered gateways"
-    this.api.downloadRegisteredGateways(this.fileName).then((res: any) => {
+    var data={
+      timeZoneOffset:this.general.getZone()
+    }
+    this.api.downloadRegisteredGateways(data,this.fileName).then((res: any) => {
       console.log("Registerd gateway download==", res)
       if(res){
         this.general.loadingFreez.next({status:false,msg:"Downloaded Successfully!!"})

@@ -150,7 +150,7 @@
                     <mat-select formControlName="coinId" multiple>
                         <mat-option #allSelected4 (click)="toggleAllSelectionCoin1(coinCategory)" [value]="0">All
                         </mat-option>
-                        <mat-option *ngFor="let coin of coinDataZone" [value]="coin.coinId" [disabled]="coin.valid">
+                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId" [disabled]="coin.zoneId != null">
                             {{coin.coinName}}
                         </mat-option>
                     </mat-select>
@@ -243,7 +243,7 @@
                     <mat-select formControlName="coinId" multiple>
                         <mat-option #allSelected5 (click)="toggleAllSelectionCoin2(groupCoinForm)" [value]="0">All
                         </mat-option>
-                        <mat-option *ngFor="let coin of coinDataTemp" [value]="coin.coinId" [disabled]="coin.valid">
+                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId" [disabled]="coin.groupId != null">
                             {{coin.coinName}}
                         </mat-option>
                     </mat-select>

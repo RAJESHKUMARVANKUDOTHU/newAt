@@ -657,11 +657,11 @@ export class ApiService {
     });
   }
 
-  getDeviceGeofence(){
+  getDeviceGeofence() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-  
+
     let url = this.host + '/getDeviceGeofence';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
@@ -1153,7 +1153,7 @@ export class ApiService {
     });
   }
 
-  deleteCoinGroupDetails(data){
+  deleteCoinGroupDetails(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -1174,8 +1174,8 @@ export class ApiService {
       );
     });
   }
-  deleteCoinZone(data){
-        const httpOptions = {
+  deleteCoinZone(data) {
+    const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
@@ -1268,7 +1268,7 @@ export class ApiService {
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = function () {
-            
+
             resolve(reader.result);
           };
         },
@@ -1363,11 +1363,11 @@ export class ApiService {
     });
   }
 
-  getZoneDashBoard(){
+  getZoneDashBoard() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-  
+
     let url = this.host + '/getZoneDashBoard';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
@@ -1394,12 +1394,12 @@ export class ApiService {
     downloadLink.click();
   }
 
-  downloadRegisteredCoins(fileName) {
+  downloadRegisteredCoins(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadRegisteredCoins';
     return new Promise((resolve, reject) => {
-      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         // console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1413,12 +1413,12 @@ export class ApiService {
 
   }
 
-  downloadRegisteredGateways(fileName) {
+  downloadRegisteredGateways(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadRegisteredGateways';
     return new Promise((resolve, reject) => {
-      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         // console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1431,11 +1431,11 @@ export class ApiService {
     });
   }
 
-  downloadRegisteredDevice(fileName) {
+  downloadRegisteredDevice(data, fileName) {
     // this.general.loadingFreez.next({status:true})
     let url = this.host + '/downloadRegisteredDeviceData';
     return new Promise((resolve, reject) => {
-      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1449,12 +1449,12 @@ export class ApiService {
 
   }
 
-  downloadOnlineCoin(fileName) {
+  downloadOnlineCoin(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadOnlineCoin';
     return new Promise((resolve, reject) => {
-      this.http.get(url, { observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1468,103 +1468,88 @@ export class ApiService {
 
   }
 
-  downloadOfflineCoin(fileName) {
+  downloadOfflineCoin(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadOfflineCoin';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' as 'json' })
-        .subscribe(
-          (res: any) => {
-            if (res.status == 200) this.downloadFile(res.data, fileName);
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        if (res.status == 200) this.downloadFile(res, fileName);
 
-            resolve(true);
-          },
-          (err) => {
-            // console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        (err) => {
+          // console.log('err==', err);
+        }
+      );
     });
   }
 
-  downloadOnlineGateways(fileName) {
+  downloadOnlineGateways(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadOnlineGateways';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' as 'json' })
-        .subscribe(
-          (res: any) => {
-            if (res.status == 200) this.downloadFile(res.data, fileName);
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        if (res.status == 200) this.downloadFile(res, fileName);
 
-            resolve(true);
-          },
-          (err) => {
-            // console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        (err) => {
+          // console.log('err==', err);
+        }
+      );
     });
   }
 
-  downloadOfflineGateways(fileName) {
+  downloadOfflineGateways(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadOfflineGateways';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' as 'json' })
-        .subscribe(
-          (res: any) => {
-            if (res.status == 200) this.downloadFile(res.data, fileName);
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        if (res.status == 200) this.downloadFile(res, fileName);
 
-            resolve(true);
-          },
-          (err) => {
-            // console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        (err) => {
+          // console.log('err==', err);
+        }
+      );
     });
   }
 
-  downloadOnlineDevice(fileName) {
+  downloadOnlineDevice(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadOnlineDeviceData';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' as 'json' })
-        .subscribe(
-          (res: any) => {
-            if (res.status == 200) this.downloadFile(res.data, fileName);
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        if (res.status == 200) this.downloadFile(res, fileName);
 
-            resolve(true);
-          },
-          (err) => {
-            // console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        (err) => {
+          // console.log('err==', err);
+        }
+      );
     });
   }
 
-  downloadOfflineDevice(fileName) {
+  downloadOfflineDevice(data, fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadOfflineDeviceData';
     return new Promise((resolve, reject) => {
-      this.http
-        .get(url, { observe: 'response', responseType: 'blob' as 'json' })
-        .subscribe(
-          (res: any) => {
-            if (res.status == 200) this.downloadFile(res.data, fileName);
+      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        if (res.status == 200) this.downloadFile(res, fileName);
 
-            resolve(true);
-          },
-          (err) => {
-            // console.log('err==', err);
-          }
-        );
+        resolve(true);
+      },
+        (err) => {
+          // console.log('err==', err);
+        }
+      );
     });
   }
 }

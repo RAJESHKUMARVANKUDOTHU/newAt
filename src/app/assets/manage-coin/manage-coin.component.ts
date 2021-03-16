@@ -149,10 +149,10 @@ export class ManageCoinComponent implements OnInit {
           this.refreshCoin()
 
           this.general.deviceChanges.next(true)
-          this.general.openSnackBar(res.sucess, '')
+          this.general.openSnackBar(res.success, '')
         }
         else {
-          this.general.openSnackBar(res.message, '')
+          this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           this.general.deviceChanges.next(false)
         }
       }).catch((err: any) => {
@@ -164,7 +164,10 @@ export class ManageCoinComponent implements OnInit {
 
   download() {
     this.fileName = "Registered coins"
-    this.api.downloadRegisteredCoins(this.fileName).then((res: any) => {
+    var data={
+      timeZoneOffset:this.general.getZone()
+    }
+    this.api.downloadRegisteredCoins(data,this.fileName).then((res: any) => {
       console.log("Registerd coins download==", res)
       if(res){
         this.general.loadingFreez.next({status:false,msg:"Downloaded Successfully!!"})

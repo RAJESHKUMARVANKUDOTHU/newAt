@@ -7,7 +7,7 @@
         <h1 mat-dialog-title class="text-center">Edit Find</h1>
 
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="editFind" (ngSubmit)="updateFind(editFind.value)">
+            <form [formGroup]="editFind">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Device Name</mat-label>
                     <input type="text" matInput formControlName="deviceName" required>
@@ -23,7 +23,7 @@
                     <input type="number" matInput min="1" formControlName="deviceId" disabled>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button [disabled]="!editFind.valid" color="primary">Submit</button>
+            <button mat-raised-button   (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -31,7 +31,7 @@
         <h1 mat-dialog-title class="text-center">Edit Gateway</h1>
 
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="editGateway" (ngSubmit)="updateGateway(editGateway.value)">
+            <form [formGroup]="editGateway" >
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
                     <input type="text" matInput formControlName="gatewayName" required>
@@ -47,7 +47,7 @@
                     <input type="text" matInput formControlName="gatewayId" disabled>
                     </mat-form-field> <br>
                 </form>
-                <button mat-raised-button [disabled]="!editGateway.valid" color="primary">Submit</button>
+                <button mat-raised-button  (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
         <h1 mat-dialog-title class="text-center">Edit Coin</h1>
 
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="editCoin" (ngSubmit)="updateCoin(editCoin.value)">
+            <form [formGroup]="editCoin" >
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Name</mat-label>
                     <input type="text" matInput formControlName="coinName" required>
@@ -83,7 +83,7 @@
                     </mat-error>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button [disabled]="!editCoin.valid" color="primary">Submit</button>
+            <button mat-raised-button  (click)="updateCoin(editCoin.value)" [disabled]="!editCoin.valid" color="primary">Submit</button>
         </div>
     </div>
 </mat-card>

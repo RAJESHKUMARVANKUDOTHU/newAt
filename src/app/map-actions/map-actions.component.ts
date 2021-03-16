@@ -13,6 +13,8 @@ import { GeneralService } from '../services/general.service';
 import { MatOption } from '@angular/material/core';
 import * as L from 'leaflet';
 import "leaflet.heat/dist/leaflet-heat.js";
+import { SELECT_PANEL_INDENT_PADDING_X } from '@angular/material/select';
+import { BoundAttribute } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-map-actions',
@@ -36,9 +38,9 @@ export class MapActionsComponent implements OnInit {
   selectedLayout: any = '';
   coinData: any = [];
   gatewayList: any = [];
-  gateway:any = []
-  heat:any
-  
+  gateway: any = []
+  heat: any
+
   constructor(
     private fb: FormBuilder,
     public mapService: MapService,
@@ -52,6 +54,7 @@ export class MapActionsComponent implements OnInit {
     this.createForm();
     this.refreshGateway();
     this.getLayout();
+    this.general.getZone()
   }
   ngOnDestroy() {
     this.resetMap();
@@ -80,7 +83,7 @@ export class MapActionsComponent implements OnInit {
         titleCancel: 'Exit fullscreen mode',
         position: 'topleft',
       },
-    
+
       crs: L.CRS.Simple,
       maxBoundsViscosity: 1.0,
     });
@@ -90,7 +93,7 @@ export class MapActionsComponent implements OnInit {
     this.map.dragging.disable();
     this.map.on('click', (data) => {
       let latlng = [data.latlng.lat, data.latlng.lng];
-  
+
       let coin = this.configCoinForm.get('coinId').value;
       if (coin) {
         this.configCoinForm.patchValue({
@@ -123,18 +126,16 @@ export class MapActionsComponent implements OnInit {
 
   layoutSelect(data) {
     this.mapDisable = false;
-    this.gateway=[]
-    this.selectedLayout=[]
-    this.layoutData=[]
+    this.gateway = []
     console.log('data layout===', data);
     if (data) {
       this.selectedLayout = data
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })
-      
-      if(layout.length>0){
-        layout[0].gateway.filter((obj)=>{
+
+      if (layout.length > 0) {
+        layout[0].gateway.filter((obj) => {
           return this.gateway.push(obj)
         })
         
@@ -146,8 +147,7 @@ export class MapActionsComponent implements OnInit {
           this.updateSelected();
           this.clearMapImage();
           L.imageOverlay(res, this.bound).addTo(this.map);
-          this.heatMap(this.gateway)
-          this.createMarker()
+          this.createMarker();
         });
       }
     }
@@ -159,7 +159,7 @@ export class MapActionsComponent implements OnInit {
     let gatewayData = this.layoutData.gateway.filter(obj => {
       return obj.gatewayId == data
     });
-    this.coinData = gatewayData.length?gatewayData[0].coinData:[];
+    this.coinData = gatewayData.length ? gatewayData[0].coinData : [];
     this.updateSelected(data);
     this.createMarker();
   }
@@ -212,6 +212,8 @@ export class MapActionsComponent implements OnInit {
 
   createMarker() {
     this.clearMap();
+    this.heatMap(this.gateway)
+
     let coin = this.configCoinForm.get('coinBounds').value;
     console.log("coin===", coin);
 
@@ -222,7 +224,7 @@ export class MapActionsComponent implements OnInit {
         coinId: this.configCoinForm.get('coinId').value,
         coinName: this.configCoinForm.get('coinName').value,
       };
-      if(data.bounds.length){
+      if (data.bounds.length) {
         this.addCoinMarker(data);
       }
     } else {
@@ -366,15 +368,15 @@ export class MapActionsComponent implements OnInit {
       data.fileData.filetype == 'image/jpeg' ||
       data.fileData.filetype == 'image/png'
     ) {
-      this.general.loadingFreez.next({status:true,msg:'Uploading layout..!'})
+      this.general.loadingFreez.next({ status: true, msg: 'Uploading layout..!' })
       this.api
-      .createLayout(data)
-      .then((res: any) => {
-        console.log('create layout res===', res);
-        this.refreshGateway();
-        this.getLayout();
-        if (res.status) {
-            this.general.loadingFreez.next({status:false,msg:''})
+        .createLayout(data)
+        .then((res: any) => {
+          console.log('create layout res===', res);
+          this.refreshGateway();
+          this.getLayout();
+          if (res.status) {
+            this.general.loadingFreez.next({ status: false, msg: '' })
             this.getLayout()
             this.newLayoutForm.reset()
             this.clearFile()
@@ -480,14 +482,10 @@ export class MapActionsComponent implements OnInit {
       });
   }
 
-  deleteLayout(value) {
-    console.log("delete layout ==", value)
-    let layout = this.gatewayList.filter(obj => {
-      return obj.layoutName == value.layout
-    })
+  deleteLayout() {
+ 
     var data = {
-      gatewayObjectId: layout[0]._id,
-      fileName: this.gateway[0].fileName
+         fileName: this.gateway[0].fileName
     }
     console.log("delete layout ==", data)
 
@@ -495,66 +493,56 @@ export class MapActionsComponent implements OnInit {
       console.log("delete layout res ==", res)
       if (res.status) {
         this.general.openSnackBar(res.success, '')
-        this.resetMap()
-        this.getLayout();
         this.mapDisable = true
-<<<<<<< HEAD
+        this.resetMap()
+        this.map=null
         this.coinData=[]
         this.selectedLayout=[]
-        this.layoutData=''
+        this.layoutData=[]
         this.gateway=[]
         this.marker=[]
-=======
-<<<<<<< HEAD
-        this.getLayout()
-=======
->>>>>>> 57c3d7d05f4450b338ca00ee9c013a48a01b0a5a
-        this.selectLayoutForm.reset()
-        this.configCoinForm.reset()
-        this.refreshGateway();
-<<<<<<< HEAD
-=======
         this.getLayout();
->>>>>>> c579df7d572ba3014cb6186944c4b3280079fcfe
->>>>>>> 57c3d7d05f4450b338ca00ee9c013a48a01b0a5a
-      }
+        this.refreshGateway()
+           }
       else {
-        if(!res.success){
-          this.general.openSnackBar(res.message, '')
-        }
-        else{
-          this.general.openSnackBar(res.success, '')
-        }
+          this.general.openSnackBar(!res.success?res.message:res.success, '')
+       
       }
     })
   }
 
-  heatMap(latlng :any){
-    //  console.log("heatmap",latlng)
-     let arr=[]
-     latlng.filter((obj)=>{
-       if(obj.coinData.length>0){
-         obj.coinData.filter((ele)=>{
-            if(ele.coinBounds.length>0){
-              arr.push({
-               lat: ele.coinBounds[0],
-               lng: ele.coinBounds[1],
-               intensity:1
-              })
-            }else{}
-          })
-        }
-     })
-  var data=[];
-    for(let i = 0; i < arr.length; i++){
-      data[i]=[arr[i].lat,arr[i].lng,arr[i].intensity]
+
+
+  heatMap(latlng: any) {
+    console.log("heatmap", latlng)
+    let arr = [];
+    const conf = {
+      radius: 20,
+      max: 1.0,
+      blur: 15,
+      gradient: {
+        0.0: 'green',
+        0.5: 'red',
+        1.0: 'yellow'
+      },
+      minOpacity: 1,
     }
-     console.log("data==",data)
-     this.heat= new L.heatLayer([
-     data
-      
-    ], {radius: 25}).addTo(this.map)   
-          console.log("heatmap==",this.heat.addTo(this.map) )
+    latlng.filter((obj) => {
+      if (obj.coinData.length > 0) {
+        obj.coinData.filter((ele) => {
+          if (ele.coinBounds.length > 0) {
+            arr.push({
+              lat: ele.coinBounds[0],
+              lng: ele.coinBounds[1],
+              intensity: 1.0
+            })
+          } else { }
+        })
+      }
+    })
+    console.log("data==", arr)
+    var heat = new L.heatLayer(arr,conf).addTo(this.map)
+    console.log("heatmap==", this.map)
   }
 }
 

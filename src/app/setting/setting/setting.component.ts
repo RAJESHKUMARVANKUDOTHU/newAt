@@ -142,9 +142,7 @@ export class SettingComponent implements OnInit {
       this.coinData = []
       if (res.status) {
         this.coinData = res.success
-        this.coinDataTemp = this.filter(this.coinData, 'group')
-        this.coinDataZone = this.filter(this.coinData, 'zone')
-        console.log(" this.coinDataTemp==", this.coinDataTemp)
+         console.log(" this.coinDataTemp==", this.coinDataTemp)
       }
       else {
         this.coinData = []
@@ -618,49 +616,4 @@ export class SettingComponent implements OnInit {
     })
   }
 
-  filter(data, type) {
-    let arr = []
-    data.filter((data) => {
-      if (type == 'group') {
-        if (data.groupId == null) {
-          arr.push({
-            coinId: data.coinId,
-            coinName: data.coinName,
-            groupId: data.groupId,
-            valid: false
-          })
-        }
-        else {
-          arr.push({
-            coinId: data.coinId,
-            coinName: data.coinName,
-            groupId: data.groupId,
-            valid: true
-          })
-        }
-      }
-      else if (type == 'zone') {
-        if (data.zoneId == null) {
-          arr.push({
-            coinId: data.coinId,
-            coinName: data.coinName,
-            groupId: data.graoupId,
-            zoneId: data.zoneId,
-            valid: false
-          })
-        }
-        else {
-          arr.push({
-            coinId: data.coinId,
-            coinName: data.coinName,
-            groupId: data.graoupId,
-            zoneId: data.zoneId,
-            valid: true
-          })
-        }
-      }
-
-    })
-    return arr
-  }
 }

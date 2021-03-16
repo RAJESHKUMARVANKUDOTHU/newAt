@@ -87,7 +87,6 @@ export class AppComponent {
   }
 
   startTimer() {
-    clearInterval(this.countDownTimer);
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
       var diff = Math.abs(this.duration - start);
@@ -104,9 +103,22 @@ export class AppComponent {
       if (minutes == 0 && seconds == 0) {
         console.log("timer==", this.countDownTimer);
         this.general.loadingFreez.next({ status: false, msg: '' })
-        clearTimeout(this.countDownTimer)
-        this.login.logout();
-        return;
+        setTimeout(() => {
+          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })        
+          clearInterval(this.countDownTimer);
+          this.login.logout();
+          return;
+        }, 2000);
+      }
+      if (minutes > 59) {
+        console.log("timer 22==", this.countDownTimer);
+        this.general.loadingFreez.next({ status: false, msg: '' })
+        setTimeout(() => {
+          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+          clearInterval(this.countDownTimer);
+          this.login.logout();
+          return;
+        }, 2000);
       }
     }, 1000);
   }
