@@ -194,11 +194,13 @@ export class ManageDeviceComponent implements OnInit {
       this.api.deviceOnOff(data).then((res: any) => {
         console.log("toggle====", res);
         if (res.status) {
+          this.general.deviceChanges.next(true)
           this.refreshDevice()
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
         else { 
+          this.general.deviceChanges.next(false)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
         }
       }).catch((err: any) => {
