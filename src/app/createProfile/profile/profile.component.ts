@@ -85,6 +85,7 @@ export class ProfileComponent implements OnInit {
           console.log("created sub user res===", res)
           if (res.status) {
             this.getUsers()
+            this.addSubUserForm.reset()
             this.general.openSnackBar(res.success, '')
           }
         })
