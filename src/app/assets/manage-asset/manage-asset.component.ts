@@ -174,6 +174,7 @@ export class ManageAssetComponent implements OnInit {
           if (res.status) {
             this.assignAssetForm.reset()
             this.general.openSnackBar(res.message, '');
+            this.assignAssetForm.reset()
             this.getAssignAssetList();
             this.getDeAssignAssetList();
             this.general.deviceChanges.next(true)

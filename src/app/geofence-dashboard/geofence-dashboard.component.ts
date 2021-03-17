@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
+import { LoginAuthService } from '../services/login-auth.service';
 @Component({
   selector: 'app-geofence-dashboard',
   templateUrl: './geofence-dashboard.component.html',
@@ -16,8 +17,9 @@ export class GeofenceDashboardComponent implements OnInit {
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime','totalTime'];
   constructor(
-    private general: GeneralService,
+    public general: GeneralService,
     private api: ApiService,
+    public login:LoginAuthService
   ) { }
 
   ngOnInit(): void {

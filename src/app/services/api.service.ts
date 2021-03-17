@@ -1387,6 +1387,7 @@ export class ApiService {
     let dataType = body.type;
     let binaryData = [];
     binaryData.push(body);
+   
     let downloadLink = document.createElement('a');
     downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
     downloadLink.setAttribute('download', fileName);
@@ -1394,13 +1395,13 @@ export class ApiService {
     downloadLink.click();
   }
 
-  downloadRegisteredCoins(data, fileName) {
+  downloadRegisteredCoins(data,  fileName) {
     // this.general.loadingFreez.next({status:true})
 
     let url = this.host + '/downloadRegisteredCoins';
     return new Promise((resolve, reject) => {
       this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        // console.log("res==", res)
+        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 

@@ -28,7 +28,7 @@
             </span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <form [formGroup]="assignAssetForm" (ngSubmit)="assignAsset(assignAssetForm.value)">
+        <form [formGroup]="assignAssetForm" >
           <mat-form-field>
             <mat-label>Device Id</mat-label>
             <mat-select formControlName="deviceId">
@@ -42,13 +42,12 @@
           <mat-form-field>
             <mat-label>Device Name</mat-label>
             <input type="text" matInput formControlName="deviceName" required>
-
             <mat-error>
               Device name is required
             </mat-error>
           </mat-form-field> <br>
-          <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary">Submit</button>
         </form>
+        <button mat-raised-button [disabled]="!assignAssetForm.valid" color="primary" (click)="assignAsset(assignAssetForm.value)">Submit</button>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -58,7 +57,7 @@
             </span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <form [formGroup]="deassignAssetForm" (ngSubmit)="deassignAsset(deassignAssetForm.value)">
+        <form [formGroup]="deassignAssetForm">
           <mat-form-field>
             <mat-label>Device Id</mat-label>
 
@@ -73,8 +72,8 @@
             </mat-error>
           </mat-form-field> <br>
 
-          <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary">Submit</button>
         </form>
+        <button mat-raised-button [disabled]="!deassignAssetForm.valid" color="primary"  (click)="deassignAsset(deassignAssetForm.value)">Submit</button>
       </mat-expansion-panel>
     </mat-accordion>
 

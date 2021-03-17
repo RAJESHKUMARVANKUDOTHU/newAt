@@ -1,10 +1,9 @@
 <br>
-<div class="d-flex justify-content-between">
-    <div class="text-center" style="margin-left: 26rem;">
-        <h1>Zone Data</h1>
-        <hr>
+<div class="d-md-flex justify-content-md-between">
+    <div class="text-center" [ngStyle]="{'margin-left':general.isDesktopDevice? '26rem':'0rem'}">
+        <h1>Zone Data</h1><hr>
     </div>
-    <mat-form-field>
+    <mat-form-field [ngStyle]="{'margin-left':general.isDesktopDevice? '0rem':'5.5rem'}">
         <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>

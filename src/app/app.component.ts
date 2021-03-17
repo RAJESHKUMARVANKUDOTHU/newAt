@@ -46,6 +46,8 @@ export class AppComponent {
       if (res) {
         this.logged = res.other;
         this.menu = res.menu;
+        console.log(this.logged,this.menu);
+        
         if (this.logged == true) {
           this.loginDetails = this.login.getLoginDetails().success;
           this.duration = this.loginDetails.timer;
@@ -96,6 +98,7 @@ export class AppComponent {
         (minutes < 10 ? '0' + minutes : minutes) +
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
+        // console.log("this.time==",this.time)
       if (minutes == 0 && seconds == 2) {
         this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
       }
@@ -103,22 +106,25 @@ export class AppComponent {
       if (minutes == 0 && seconds == 0) {
         console.log("timer==", this.countDownTimer);
         this.general.loadingFreez.next({ status: false, msg: '' })
-        setTimeout(() => {
-          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-          clearInterval(this.countDownTimer);
-          this.login.logout();
-          return;
-        }, 2000);
+        clearInterval(this.countDownTimer);
+        this.login.logout();
+        return;
+        // setTimeout(() => {
+        //   this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+        //   clearInterval(this.countDownTimer);
+        //   this.login.logout();
+        //   return;
+        // }, 2000);
       }
       if (minutes > 59) {
         console.log("timer 22==", this.countDownTimer);
         this.general.loadingFreez.next({ status: false, msg: '' })
-        setTimeout(() => {
-          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-          clearInterval(this.countDownTimer);
-          this.login.logout();
-          return;
-        }, 2000);
+        clearInterval(this.countDownTimer);
+        this.login.logout();
+        return;
+        // this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })        
+        // setTimeout(() => {
+        // }, 2000);
       }
     }, 1000);
   }

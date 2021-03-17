@@ -27,7 +27,7 @@ export class GeofenceComponent implements OnInit {
   constructor(
     private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
     private fb: FormBuilder
   ) { }
 
@@ -100,6 +100,7 @@ export class GeofenceComponent implements OnInit {
       if (res.status) {
         console.log("geofence setting res==", res);
         this.general.openSnackBar(res.message, '')
+        this.geofenceForm.reset()
         this.getGeofence();
       }
       else {
