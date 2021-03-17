@@ -27,7 +27,7 @@ export class GeofenceComponent implements OnInit {
   constructor(
     private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
     private fb: FormBuilder
   ) { }
 

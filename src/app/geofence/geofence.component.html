@@ -1,8 +1,12 @@
-<div class="d-flex justify-content-between">
-    <div>
+<div class="d-md-flex justify-content-md-between">
+    <div class="text-center ml-4" *ngIf="!general.isDesktopDevice">
+        <h1>Geofence Setting Info</h1>
+        <hr>
+    </div>
+    <div [ngStyle]="{'margin-left': !general.isDesktopDevice?'5rem':'0rem'}">
         <mat-accordion>
             <!-- ----------------------------Devices----------------------------------- -->
-            <mat-expansion-panel>
+            <mat-expansion-panel [ngStyle]="{'width': !general.isDesktopDevice?'75%':''}">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Geofence Setting
@@ -11,7 +15,6 @@
                 <mat-card class="text-center">
                     <mat-card-content>
                         <form [formGroup]="geofenceForm" (ngSubmit)="submit(geofenceForm.value)">
-
                             <mat-radio-group color="primary" formControlName="alert">
                                 <mat-label>Alert through :</mat-label> &nbsp;
                                 <mat-radio-button class="example-radio-button" value="sms">SMS</mat-radio-button> &nbsp;
@@ -44,11 +47,11 @@
     </div>
 
 
-    <div class="text-center mr-5">
+    <div class="text-center mr-5" *ngIf="general.isDesktopDevice">
         <h1>Geofence Setting Info</h1>
         <hr>
     </div>
-    <mat-form-field>
+    <mat-form-field [ngStyle]="{'margin-left': !general.isDesktopDevice?'6rem':'0rem'}" class="mt-2">
         <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>

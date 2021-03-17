@@ -69,8 +69,7 @@
                         <th>Zone Name</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let a of coinData;let i=index"
-                            [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
+                        <tr *ngFor="let a of coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
                             <td>{{i+1}}</td>
                             <td>{{a.coinId}}</td>
                             <td>{{a.coinName}}</td>
@@ -83,7 +82,7 @@
     <br>
 
 
-    <mat-card class="border-card">
+    <mat-card class="border-card" *ngIf="!gatewayList.length">
         <mat-card-title>
             <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
         </mat-card-title> <br>
@@ -105,8 +104,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="example-form">
                     <mat-label>Layout name</mat-label>
-                    <input type="text" matInput formControlName="layoutName"
-                        (change)="general.validate($event.target.value)" required>
+                    <input type="text" matInput formControlName="layoutName" (change)="general.validate($event.target.value)" required>
                     <mat-error *ngIf="newLayoutForm.get('layoutName').value ==''">
                         Location name is required
                     </mat-error>
@@ -129,13 +127,11 @@
                         Field required.
                     </mat-error>
                 </mat-form-field>
-                <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true"
-                    class="example-form py-3">
+                <input type="file" #fileInput (change)="fileChange($event.target.files)" [required]="true" class="example-form py-3">
                 <br><br>
             </form>
             <div class="btn">
-                <button mat-raised-button [disabled]="!newLayoutForm.valid"
-                    (click)="createNewLayout(newLayoutForm.value)" color="primary">Create Layout</button>
+                <button mat-raised-button [disabled]="!newLayoutForm.valid" (click)="createNewLayout(newLayoutForm.value)" color="primary">Create Layout</button>
             </div>
         </mat-card-content>
     </mat-card>

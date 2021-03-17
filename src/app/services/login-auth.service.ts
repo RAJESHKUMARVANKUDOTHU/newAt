@@ -9,11 +9,12 @@ import { Location } from '@angular/common';
 export class LoginAuthService {
   public loginCred = new Subject<any>()
   public loginCheckData = new Subject<any>()
-  constructor(private location: Location, private router: Router) {
+ 
+  constructor(private location: Location, private router: Router, ) {
     this.popState()
   }
   ngOnInit(): void {
-
+   
   }
 
   loginData() {

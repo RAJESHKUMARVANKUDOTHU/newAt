@@ -120,7 +120,7 @@
                         <span mat-line>Home</span>
                     </button>
                     <button mat-menu-item routerLink="/manage-asset">
-                        <mat-icon mat-list-icon>home</mat-icon>
+                        <mat-icon mat-list-icon>dashboard</mat-icon>
                         <span mat-line>Manage Assets</span>
                     </button>
                     <button mat-menu-item routerLink="/geofence-dashboard">
@@ -131,20 +131,20 @@
                         <mat-icon mat-list-icon>view_list</mat-icon>
                         <span mat-line> Zone Dashboard</span>
                     </button>
-                    <button mat-menu-item routerLink="/map-actions">
-                        <mat-icon mat-list-icon>home</mat-icon>
+                    <button mat-menu-item routerLink="/map-actions" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                        <mat-icon mat-list-icon>map</mat-icon>
                         <span mat-line>Map center</span>
                     </button>
                     <button mat-menu-item routerLink="/report">
-                        <mat-icon mat-list-icon> home</mat-icon>
+                        <mat-icon mat-list-icon> rate_review</mat-icon>
                         <span mat-line>Report</span>
                     </button>
-                    <button mat-menu-item routerLink="/profile">
-                        <mat-icon mat-list-icon>home</mat-icon>
+                    <button mat-menu-item routerLink="/profile" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                        <mat-icon mat-list-icon>perm_identity</mat-icon>
                         <span mat-line>Create Profile</span>
                     </button>
                     <span></span>
-                    <button mat-menu-item [matMenuTriggerFor]="settings">
+                    <button mat-menu-item [matMenuTriggerFor]="settings" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                         <mat-icon>settings</mat-icon>
                         <span mat-line>Settings</span>
                     </button>
@@ -152,7 +152,7 @@
                         <button mat-menu-item routerLink="/setting">General settings</button>
                         <button mat-menu-item routerLink="/geofence">Geofence settings</button>
                     </mat-menu>
-                    <button mat-menu-item (click)="logout()" class="logout">
+                    <button mat-menu-item (click)="login.logout()" class="logout">
                         <mat-icon>exit_to_app</mat-icon>Logout
                     </button>
                 </mat-menu>
@@ -160,16 +160,15 @@
             <div class="flex-shrink-1">
                 <p>{{loginDetails.userName}} </p>
             </div>
-
-
         </mat-toolbar>
     </div>
-    <router-outlet></router-outlet>
+    <div *ngIf="logged && menu">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 
 <div *ngIf="logged && !menu">
     <router-outlet></router-outlet>
-
 </div>
 
 <div *ngIf="!logged && !menu">

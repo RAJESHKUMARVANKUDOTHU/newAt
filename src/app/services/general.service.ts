@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs'
 import { LoginAuthService } from './login-auth.service';
 import * as CryptoJS from 'crypto-js';
 import { HttpResponse } from '@angular/common/http';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +18,16 @@ export class GeneralService {
   public date2:any
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([])
   public deviceChanges = new Subject<any>();
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktopDevice: boolean;
   constructor(
     private _snackBar: MatSnackBar,
-    private login: LoginAuthService) {
+    private login: LoginAuthService,
+    private deviceService: DeviceDetectorService) {
+      this.isMobile = this.deviceService.isMobile();
+      this.isTablet = this.deviceService.isTablet();
+      this.isDesktopDevice = this.deviceService.isDesktop();
     // this.token = this.login.getLoginDetails().token
   }
 

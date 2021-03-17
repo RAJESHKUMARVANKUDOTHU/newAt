@@ -16,7 +16,7 @@ export class ZoneDashboardComponent implements OnInit {
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'zoneName', 'inTime', 'outTime', 'totalTime'];
   constructor(
-    private general: GeneralService,
+    public general: GeneralService,
     private api: ApiService,
   ) { }
 

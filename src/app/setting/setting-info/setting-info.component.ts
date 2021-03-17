@@ -453,7 +453,7 @@ export class SettingInfoComponent implements OnInit {
           }
           else {
             this.general.openSnackBar(res.success == false ? res.message : res.success, '')
-
+            this.getZoneDetails()
           }
         }).catch((err) => {
           console.log("err=", err)
