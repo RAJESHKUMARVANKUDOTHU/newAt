@@ -121,6 +121,28 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  createMap() {
+    this.map = L.map('map', {
+      attributionControl: false,
+      minZoom: 1,
+      maxZoom: 5,
+      center: [0, 0],
+      zoom: 0,
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        title: 'Show me the fullscreen !',
+        titleCancel: 'Exit fullscreen mode',
+        position: 'topleft',
+      },
+      crs: L.CRS.Simple,
+      maxBoundsViscosity: 1.0,
+    });
+    var bounds = this.map.getBounds();
+    this.map.setMaxBounds(bounds);
+    this.map.dragging.disable();
+    this.getLayout();
+  }
+
   getLayout() {
     this.api
       .getLayouts()
@@ -150,28 +172,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  createMap() {
-    this.map = L.map('map', {
-      attributionControl: false,
-      minZoom: 1,
-      maxZoom: 5,
-      center: [0, 0],
-      zoom: 0,
-      fullscreenControl: true,
-      fullscreenControlOptions: {
-        title: 'Show me the fullscreen !',
-        titleCancel: 'Exit fullscreen mode',
-        position: 'topleft',
-      },
-      crs: L.CRS.Simple,
-      maxBoundsViscosity: 1.0,
-    });
-    var bounds = this.map.getBounds();
-    this.map.setMaxBounds(bounds);
-    this.map.dragging.disable();
-    this.getLayout();
-  }
-
   // , {color: "white", weight: 1}
   getZones() {
     console.log('here zones');
@@ -182,6 +182,7 @@ export class DashboardComponent implements OnInit {
         this.zoneList = res.success.map((obj) => {
           obj.highlight = false;
           obj.selected = true;
+          obj.color = this.getRandomColor();
           return obj;
         });
         this.tempZoneList = this.zoneList;
@@ -193,6 +194,17 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
 
   zoneClick(data) {
     console.log('zone click data===', data);
@@ -221,7 +233,7 @@ export class DashboardComponent implements OnInit {
 
     for (let i = 0; i < this.zoneList.length; i++) {
       if (this.zoneList[i].selected) {
-        new L.polygon(this.zoneList[i].bounds)
+        new L.polygon(this.zoneList[i].bounds,{color : this.zoneList[i].color})
           .addTo(this.map)
           .on('click', () => {
             this.zoneClick(this.zoneList[i]);
