@@ -1397,10 +1397,12 @@ export class ApiService {
 
   downloadRegisteredCoins(data,  fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadRegisteredCoins';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1416,10 +1418,12 @@ export class ApiService {
 
   downloadRegisteredGateways(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadRegisteredGateways';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         // console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1434,9 +1438,12 @@ export class ApiService {
 
   downloadRegisteredDevice(data, fileName) {
     // this.general.loadingFreez.next({status:true})
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadRegisteredDeviceData';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1452,10 +1459,12 @@ export class ApiService {
 
   downloadOnlineCoin(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadOnlineCoin';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
 
         if (res.status == 200)
           this.downloadFile(res, fileName)
@@ -1471,10 +1480,12 @@ export class ApiService {
 
   downloadOfflineCoin(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadOfflineCoin';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
 
         resolve(true);
@@ -1488,10 +1499,12 @@ export class ApiService {
 
   downloadOnlineGateways(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadOnlineGateways';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
 
         resolve(true);
@@ -1505,10 +1518,12 @@ export class ApiService {
 
   downloadOfflineGateways(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadOfflineGateways';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
 
         resolve(true);
@@ -1522,10 +1537,12 @@ export class ApiService {
 
   downloadOnlineDevice(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadOnlineDeviceData';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
 
         resolve(true);
@@ -1539,10 +1556,12 @@ export class ApiService {
 
   downloadOfflineDevice(data, fileName) {
     // this.general.loadingFreez.next({status:true})
-
+    let body = {
+      data: data,
+    };
     let url = this.host + '/downloadOfflineDeviceData';
     return new Promise((resolve, reject) => {
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
 
         resolve(true);
