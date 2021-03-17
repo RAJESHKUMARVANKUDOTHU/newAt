@@ -25,9 +25,9 @@ export class OfflineDeviceComponent implements OnInit {
   dataSource0: any = [];
   dataSource1: any = [];
   dataSource2: any = [];
-  displayedColumns1 = ['i', 'deviceId', 'deviceName', 'updatedOn'];
-  displayedColumns2 = ['i', 'gatewayName', 'gatewayId', 'updatedOn'];
-  displayedColumns3 = ['i', 'coinId', 'coinName', 'gatewayId', 'updatedOn'];
+  displayedColumns1 = ['i', 'deviceId', 'deviceName', 'updatedAt'];
+  displayedColumns2 = ['i', 'gatewayName', 'gatewayId', 'updatedAt'];
+  displayedColumns3 = ['i', 'coinId', 'coinName', 'gatewayId', 'updatedAt'];
   constructor(
     private login: LoginAuthService,
     private api: ApiService,
@@ -35,6 +35,7 @@ export class OfflineDeviceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.refreshOfflineDeviceList()
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
         this.refreshOfflineDeviceList()

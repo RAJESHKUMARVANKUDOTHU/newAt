@@ -41,7 +41,7 @@
             <div class="col-md-4">
                 <mat-card>
                     <mat-card-content>
-                        <form [formGroup]="configCoinForm" (ngSubmit)="updateCoinBound(configCoinForm.value)">
+                        <form [formGroup]="configCoinForm" >
                             <mat-form-field>
                                 <mat-label> Select Gateway </mat-label>
                                 <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
@@ -56,8 +56,8 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field> <br>
-                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid">Add</button>
                         </form>
+                        <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="updateCoinBound(configCoinForm.value)">Add</button>
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -82,7 +82,7 @@
     <br>
 
 
-    <mat-card class="border-card" *ngIf="!gatewayList.length">
+    <mat-card class="border-card" >
         <mat-card-title>
             <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
         </mat-card-title> <br>

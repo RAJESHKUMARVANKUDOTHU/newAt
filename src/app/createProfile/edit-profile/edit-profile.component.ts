@@ -23,7 +23,9 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.editProfile = this.fb.group({
-      userName: [this.profileData.userName, [Validators.email, Validators.required]]
+      userName: [this.profileData.userName, [Validators.email, Validators.required]],
+      role:[this.profileData.role,Validators.required],
+      department:[this.profileData.department,Validators.required]
     })
   }
 

@@ -14,6 +14,30 @@
                         Please provide valid Email Id.
                     </mat-error>
                 </mat-form-field> <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>User type</mat-label>
+                    <mat-select formControlName="role" required>
+                        <mat-option value="coAdminRole">
+                            <span>Co. Admin</span>
+                        </mat-option>
+                        <mat-option value="subAdminRole">
+                            <span>Sub admin</span>
+                        </mat-option>
+                        <mat-option value="userRole">
+                            <span>Normal user</span>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        Please provide valid Email Id.
+                    </mat-error>
+                </mat-form-field> <br>
+                <mat-form-field appearance="fill" *ngIf="editProfile.get('role').value == 'subAdminRole'">
+                    <mat-label>Department</mat-label>
+                    <input matInput type="department" formControlName="department" required>
+                    <mat-error>
+                        Please provide valid Email Id.
+                    </mat-error>
+                </mat-form-field> <br>
                 <button mat-flat-button [disabled]="!editProfile.valid" color="primary">Submit</button>
             </form>
         </mat-card-content>
