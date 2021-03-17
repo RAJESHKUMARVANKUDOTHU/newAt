@@ -11,7 +11,7 @@ import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
-@Component({ 
+@Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
       zoneName: 'job card',
       inTime: '2021-02-01T10:15:51.108Z',
       outTime: '2021-02-01T10:15:51.108Z',
-      latlng: [{ lat: 35.3125, lng: -61.5 },{ lat: -18.1875, lng: 147 },{ lat: 35.3125, lng: -61.5 },{ lat: 66.8125, lng: 88 }],
+      latlng: [{ lat: 35.3125, lng: -61.5 }, { lat: -18.1875, lng: 147 }, { lat: 35.3125, lng: -61.5 }, { lat: 66.8125, lng: 88 }],
     },
     {
       _id: '45678',
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
     searchMessage: 'Vehicle not found',
   };
 
-  constructor(private cd: ChangeDetectorRef, private api: ApiService) {}
+  constructor(private cd: ChangeDetectorRef, private api: ApiService) { }
 
   ngOnInit(): void {
     this.congestionGraph();
@@ -119,6 +119,35 @@ export class DashboardComponent implements OnInit {
     if (this.map) {
       this.map.remove();
     }
+  }
+
+  getLayout() {
+    this.api
+      .getLayouts()
+      .then((res: any) => {
+        console.log('get layout res===', res);
+        if (res.status) {
+          let data = res.success
+          for(let i = 0 ; i<data.length ; i++){
+            if(data[i].layoutName != null){
+              this.api.getLayoutImage(data[i]._id).then((resImg: any) => {
+                this.clearMapImage();
+                var bounds = this.map.getBounds();
+                L.imageOverlay(resImg, bounds).addTo(this.map);
+                this.map.on('load', this.getZones());
+              });
+              break;
+            }
+          }
+        }
+        else{
+          this.clearMapImage();
+          this.clearMap();
+        }
+      })
+      .catch((err: any) => {
+        console.log('error==', err);
+      });
   }
 
   createMap() {
@@ -140,14 +169,7 @@ export class DashboardComponent implements OnInit {
     var bounds = this.map.getBounds();
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
-    let data = {
-      _id: '600693933a4d5fc813ff5041',
-    };
-    this.api.getLayoutImage(data._id).then((res: any) => {
-      this.clearMapImage();
-      L.imageOverlay(res, bounds).addTo(this.map);
-      this.map.on('load', this.getZones());
-    });
+    this.getLayout();
   }
 
   // , {color: "white", weight: 1}
@@ -214,7 +236,7 @@ export class DashboardComponent implements OnInit {
               ]);
             }
             this.marker.push(
-              new L.animatedMarker(latlng, { icon: icon , interval: 3000})
+              new L.animatedMarker(latlng, { icon: icon, interval: 3000 })
                 .addTo(this.map)
                 .bindPopup(this.getPopUpForm(this.deviceList[j]))
                 .openPopup()

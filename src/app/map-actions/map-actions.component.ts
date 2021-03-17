@@ -203,7 +203,6 @@ export class MapActionsComponent implements OnInit {
             }
           }
         });
-        // this.heatMap(this.layoutData.gateway)
         return obj;
       });
       console.log('layout data===', this.layoutData);
@@ -212,7 +211,7 @@ export class MapActionsComponent implements OnInit {
 
   createMarker() {
     this.clearMap();
-    this.heatMap(this.gateway)
+    // this.heatMap(this.gateway)
 
     let coin = this.configCoinForm.get('coinBounds').value;
     console.log("coin===", coin);

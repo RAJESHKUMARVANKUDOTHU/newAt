@@ -62,7 +62,7 @@ export class AppComponent {
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.startTimer()
   }
   openDailog() {
@@ -99,12 +99,12 @@ export class AppComponent {
       if (minutes == 0 && seconds == 2) {
         this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
       }
- 
+
       if (minutes == 0 && seconds == 0) {
         console.log("timer==", this.countDownTimer);
         this.general.loadingFreez.next({ status: false, msg: '' })
         setTimeout(() => {
-          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })        
+          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
           clearInterval(this.countDownTimer);
           this.login.logout();
           return;
