@@ -100,6 +100,7 @@ export class GeofenceComponent implements OnInit {
       if (res.status) {
         console.log("geofence setting res==", res);
         this.general.openSnackBar(res.message, '')
+        this.geofenceForm.reset()
         this.getGeofence();
       }
       else {

@@ -11,14 +11,17 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
                 <td mat-cell *matCellDef="let i=index" > {{i+1}} </td>
             </ng-container> 
+
             <ng-container matColumnDef="coinId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin ID </th>
                 <td mat-cell *matCellDef="let coin" > {{coin.coinId}} </td>
-            </ng-container>  
+            </ng-container> 
+
             <ng-container matColumnDef="coinName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
                 <td mat-cell *matCellDef="let coin" > {{coin.coinName}} </td>
             </ng-container>  
+            
             <ng-container matColumnDef="gatewayId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Gateway Id </th>
                 <td mat-cell *matCellDef="let coin" >
