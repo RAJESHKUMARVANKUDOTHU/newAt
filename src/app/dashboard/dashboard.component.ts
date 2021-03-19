@@ -186,8 +186,8 @@ export class DashboardComponent implements OnInit {
             lng: obj.deviceData.deviceBound.longitude
           }]
           this.deviceList[index].latlng = latlng;
-        })
-        console.log("this.deviceList==", this.deviceList);
+        });
+        this.tempDeviceList = this.deviceList;
         this.calculateZoneActions();
       } else {
         this.deviceList = [];
@@ -211,7 +211,6 @@ export class DashboardComponent implements OnInit {
           return obj;
         });
         this.tempZoneList = this.zoneList;
-        this.tempDeviceList = this.deviceList;
       } else {
         this.zoneList = [];
       }
@@ -253,6 +252,7 @@ export class DashboardComponent implements OnInit {
       iconUrl: '../../assets/marker.png',
       iconSize: [25, 25],
     });
+    console.log("this.deviceList==", this.deviceList,"this.zoneList==",this.zoneList);
 
     for (let i = 0; i < this.zoneList.length; i++) {
       if (this.zoneList[i].selected) {
