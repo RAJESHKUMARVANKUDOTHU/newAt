@@ -64,9 +64,7 @@ export class AppComponent {
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
-  ngOnDestroy() {
-    this.startTimer()
-  }
+
   openDailog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -89,6 +87,7 @@ export class AppComponent {
   }
 
   startTimer() {
+    clearInterval(this.countDownTimer);
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
       var diff = Math.abs(this.duration - start);

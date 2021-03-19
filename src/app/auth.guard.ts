@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
             this.login.loginCheckData.next(a)
           }
           else if (role[0] == "adminRole" || role[0] == "userRole"
-           || role[0] == 'coAminRole' || role[0]== 'subAdminRole') {
+           || role[0] == 'coAdminRole' || role[0]== 'subAdminRole') {
             var a ={
               menu : true,
               other : true

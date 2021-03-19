@@ -15,7 +15,8 @@ export class GeofenceDashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   deviceData: any = []
   dataSource: any = [];
-  displayedColumns = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime','totalTime'];
+  displayedColumns = ['i', 'deviceId', 'deviceName', 'coinId', 'updatedOnLoc', 'geofenceStatus'];
+  status:boolean=false
   constructor(
     public general: GeneralService,
     private api: ApiService,
@@ -31,9 +32,9 @@ export class GeofenceDashboardComponent implements OnInit {
       console.log("getDeviceGeofence res==",res)
       if(res.status){
         this.deviceData=res.success
-        for(let i=0; i<res.success.length;i++){
-          res.success[i].totalTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
-        }
+        // for(let i=0; i<res.success.length;i++){
+        //   res.success[i].totalTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
+        // }
         this.dataSource = new MatTableDataSource(this.deviceData);
     
         setTimeout(() => {

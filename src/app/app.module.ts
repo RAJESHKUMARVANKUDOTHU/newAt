@@ -9,7 +9,6 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { AuthGuard } from './auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationInterceptor } from './authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -17,7 +16,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { ManageAssetComponent } from './assets/manage-asset/manage-asset.component';
 import { GeofenceComponent } from './geofence/geofence.component';
 import { ContactComponent } from './contact/contact.component';
-import { ReportComponent } from './report/report.component';
+import { ReportComponent } from './report/report/report.component';
 import { MapCenterComponent } from './map-center/map-center.component';
 import { ManageDeviceComponent } from './assets/manage-device/manage-device.component';
 import { ManageGatewayComponent } from './assets/manage-gateway/manage-gateway.component';
@@ -40,6 +39,7 @@ import { ZoneConfigurationComponent } from './zone-configuration/zone-configurat
 import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.component';
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.component';
+import { ReportViewComponent } from './report/report-view/report-view.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +71,7 @@ import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.componen
     EditProfileComponent,
     VehicleStatusComponent,
     ZoneDashboardComponent,
+    ReportViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +87,7 @@ import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.componen
 
   ],
   providers: [
-    AuthGuard,BnNgIdleService,
+    // AuthGuard,BnNgIdleService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor,multi:true},
   ],
     bootstrap: [AppComponent]

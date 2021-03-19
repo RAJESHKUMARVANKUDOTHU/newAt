@@ -662,7 +662,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/getDeviceGeofence';
+    let url = this.host + '/viewUserLocationDevice';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
         (res: any) => {

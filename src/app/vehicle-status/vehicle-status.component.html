@@ -1,19 +1,19 @@
 <!-- <div class="container-fluid"> --><br>
 <div class="d-flex justify-content-around">
-    <div style="font-size:xxx-large">
+    <div [ngStyle]="{'font-size':general.isDesktopDevice? 'xxx-large':'large'}">
         <span><strong>DL 25 GY 1234</strong></span>
     </div>
 
     <div>
-        <span style="font-size:xx-large"> <span>Estimated Delivery Time </span>: 14:00:00</span>
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'xx-large':'small'}"> <span>Estimated Delivery Time </span>: 14:00:00</span>
     </div>
 </div> <br> <br>
 <div class="d-flex justify-content-around">
     <div>
-        <span style="font-size:x-large;margin-right:5rem"><span>Service Type :</span> Service 1</span>
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}" ><span>Service Type :</span> Service 1</span>
     </div>
     <div>
-        <span style="font-size:x-large;margin-right:8rem"><span>Delayed Time :</span> 5 min </span>
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'0rem':'-8rem'}"><span>Delayed Time :</span> 5 min </span>
     </div>
 </div>
 <br>
