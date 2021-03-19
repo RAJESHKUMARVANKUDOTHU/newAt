@@ -807,12 +807,33 @@ export class ApiService {
       );
     });
   }
+
+
   getZone() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     let url = this.host + '/getZonesDetails';
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+
+  getZoneVehicleData() {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getZoneVehicleData';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
         (res: any) => {

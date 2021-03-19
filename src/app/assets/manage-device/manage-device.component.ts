@@ -72,7 +72,7 @@ export class ManageDeviceComponent implements OnInit {
               userId: res.success[i].userId,
               deviceName: res.success[i].deviceName,
               deviceId: res.success[i].deviceId,
-              updatedOn: res.success[i].updatedAt,
+              updatedOn: res.success[i].updatedOnLoc,
               serviceCategoryId: res.success[i].serviceCategoryId,
               deviceAssignedStatus: res.success[i].deviceAssignedStatus,
               deviceToggleStatus: res.success[i].deviceToggleStatus,

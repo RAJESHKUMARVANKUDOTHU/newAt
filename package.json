@@ -34,6 +34,7 @@
     "leaflet-moving-marker": "^0.3.0",
     "leaflet.animatedmarker": "^1.0.0",
     "leaflet.heat": "^0.2.0",
+    "moment": "^2.29.1",
     "ng-circle-progress": "^1.6.0",
     "ng2-charts": "^2.4.2",
     "ngx-bootstrap": "^6.2.0",

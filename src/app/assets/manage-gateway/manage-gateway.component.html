@@ -27,19 +27,19 @@
             </ng-container>
             <ng-container matColumnDef="updatedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-                <td mat-cell *matCellDef="let gateway"> {{gateway.updatedOn | date : 'medium'}} </td>
+                <td mat-cell *matCellDef="let gateway"> {{gateway?.updatedOn | date : 'medium'}} </td>
             </ng-container>
-            <ng-container matColumnDef="edit" >
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>
-                    <td mat-cell *matCellDef="let gateway" (click)="edit(gateway)" class="cursor" [hidden]="role=='userRole'">
-                        <mat-icon>{{gateway.edit}} </mat-icon>
-                    </td>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>
+                <td mat-cell *matCellDef="let gateway" (click)="edit(gateway)" class="cursor" [hidden]="role=='userRole'">
+                    <mat-icon>{{gateway.edit}} </mat-icon>
+                </td>
             </ng-container>
-            <ng-container matColumnDef="delete" >
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Delete </th>
-                    <td mat-cell *matCellDef="let gateway" (click)="delete(gateway)" class="cursor" [hidden]="role=='userRole'">
-                        <mat-icon>{{gateway.delete}}</mat-icon>
-                    </td>
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Delete </th>
+                <td mat-cell *matCellDef="let gateway" (click)="delete(gateway)" class="cursor" [hidden]="role=='userRole'">
+                    <mat-icon>{{gateway.delete}}</mat-icon>
+                </td>
             </ng-container>
         </div>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

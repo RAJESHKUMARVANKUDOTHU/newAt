@@ -4,7 +4,9 @@
 <div *ngIf="isDesktopDevice">
     <mat-toolbar *ngIf="logged">
         <span style="flex: 1 1 auto;"></span>
-        <span>{{loginDetails.userName}} </span> &nbsp;
+        <span>
+            <mat-icon>person_pin</mat-icon><mat-icon>person</mat-icon> &nbsp;{{loginDetails.userName}}
+        </span> &nbsp;
         <span (click)="login.logout()" class="cursor" *ngIf="loginDetails.role == 'superAdminRole'">
             <mat-icon>exit_to_app</mat-icon>
         </span>
@@ -39,8 +41,7 @@
                     <mat-icon mat-list-icon>view_list</mat-icon>
                 </mat-list-item>
 
-                <mat-list-item routerLink="/map-actions"
-                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                <mat-list-item routerLink="/map-actions" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                     <span mat-line> Map Center</span>
                     <mat-icon mat-list-icon>map</mat-icon>
                 </mat-list-item>
@@ -55,14 +56,12 @@
         <span *ngIf="isExpanded"mat-line> Contact</span>     
       </mat-list-item> -->
 
-                <mat-list-item routerLink="/profile"
-                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                <mat-list-item routerLink="/profile" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                     <mat-icon mat-list-icon>perm_identity</mat-icon>
                     <span mat-line>Create Profile</span>
                 </mat-list-item>
 
-                <mat-list-item (click)="showLabel = !showLabel"
-                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                <mat-list-item (click)="showLabel = !showLabel" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                     <mat-icon mat-list-icon>settings</mat-icon>
                     <span mat-line> Settings </span>
                     <mat-icon>keyboard_arrow_down</mat-icon>
@@ -87,7 +86,9 @@
         <mat-sidenav-content>
             <mat-toolbar>
                 <span style="flex: 1 1 auto;"></span>
-                <span *ngIf="logged">{{loginDetails.userName}} </span>
+                <span *ngIf="logged">
+                    <mat-icon>person</mat-icon> &nbsp;{{loginDetails.userName}}
+                </span>
             </mat-toolbar>
             <div *ngIf="logged && menu" class="example-sidenav-content">
                 <router-outlet></router-outlet>
@@ -127,7 +128,7 @@
                         <mat-icon mat-list-icon>vpn_lock</mat-icon>
                         <span mat-line>Geofence Dashboard</span>
                     </button>
-                    <button mat-menu-item  routerLink="/zone-dashboard">
+                    <button mat-menu-item routerLink="/zone-dashboard">
                         <mat-icon mat-list-icon>view_list</mat-icon>
                         <span mat-line> Zone Dashboard</span>
                     </button>
@@ -158,7 +159,9 @@
                 </mat-menu>
             </div>
             <div class="flex-shrink-1">
-                <p>{{loginDetails.userName}} </p>
+                <p>
+                    <mat-icon>person</mat-icon> &nbsp;{{loginDetails.userName}}
+                </p>
             </div>
         </mat-toolbar>
     </div>
