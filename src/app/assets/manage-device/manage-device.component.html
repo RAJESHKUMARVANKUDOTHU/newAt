@@ -6,7 +6,7 @@
     <button mat-flat-button color="primary"  [disabled]="!this.findData?.length" (click)="download()">Download <mat-icon>download</mat-icon></button><br>
 </span>
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort  class="table-md-responsive">
+    <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
         <div>
             <ng-container matColumnDef="i">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -34,12 +34,12 @@
                 <td mat-cell *matCellDef="let find">
                     <mat-form-field>
                         <mat-label>Service Type</mat-label>
-                        <mat-select  [(value)]="find.serviceCategoryId" [disabled]="find.deviceAssignedStatus == false || find.deviceToggleStatus == false">
-                            <mat-option *ngFor=" let a of serviceData" [value]="a._id" (click)="onServiceSelection(find,a)" >
-                            {{a.serviceName}}
+                        <mat-select [(value)]="find.serviceCategoryId" [disabled]="find.deviceAssignedStatus == false || find.deviceToggleStatus == false">
+                            <mat-option *ngFor=" let a of serviceData" [value]="a._id" (click)="onServiceSelection(find,a)">
+                                {{a.serviceName}}
                             </mat-option>
-                     </mat-select>
-                   </mat-form-field>
+                        </mat-select>
+                    </mat-form-field>
                 </td>
             </ng-container>
 
@@ -63,19 +63,19 @@
 </ng-container>  -->
             <ng-container matColumnDef="updatedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Time </th>
-                <td mat-cell *matCellDef="let find"> {{find.updatedOn | date : 'medium'}} </td>
+                <td mat-cell *matCellDef="let find"> {{find?.updatedOn | date : 'medium'}} </td>
             </ng-container>
             <ng-container matColumnDef="edit">
-                       <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>
-                    <td mat-cell *matCellDef="let find" (click)="edit(find)" class="cursor" [hidden]="role=='userRole'">
-                        <mat-icon>{{find.edit}} </mat-icon>
-                    </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>
+                <td mat-cell *matCellDef="let find" (click)="edit(find)" class="cursor" [hidden]="role=='userRole'">
+                    <mat-icon>{{find.edit}} </mat-icon>
+                </td>
             </ng-container>
             <ng-container matColumnDef="delete">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Delete </th>
-                    <td mat-cell *matCellDef="let find" (click)="delete(find)" class="cursor" [hidden]="role=='userRole'">
-                        <mat-icon> {{find.delete}}</mat-icon>
-                    </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Delete </th>
+                <td mat-cell *matCellDef="let find" (click)="delete(find)" class="cursor" [hidden]="role=='userRole'">
+                    <mat-icon> {{find.delete}}</mat-icon>
+                </td>
             </ng-container>
         </div>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

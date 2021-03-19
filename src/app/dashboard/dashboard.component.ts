@@ -11,6 +11,7 @@ import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
+import * as moment from 'moment';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -150,19 +151,20 @@ export class DashboardComponent implements OnInit {
         console.log('get layout res===', res);
         if (res.status) {
           let data = res.success
-          for(let i = 0 ; i<data.length ; i++){
-            if(data[i].layoutName != null){
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].layoutName != null) {
               this.api.getLayoutImage(data[i]._id).then((resImg: any) => {
                 this.clearMapImage();
                 var bounds = this.map.getBounds();
                 L.imageOverlay(resImg, bounds).addTo(this.map);
                 this.map.on('load', this.getZones());
+                this.map.on('load', this.getZongetZoneVehicleDataes());
               });
               break;
             }
           }
         }
-        else{
+        else {
           this.clearMapImage();
           this.clearMap();
         }
@@ -172,7 +174,30 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  getZongetZoneVehicleDataes() {
+    this.api.getZoneVehicleData().then((res: any) => {
+      console.log('zone vehicle response==', res);
+      if (res.status) {
+        this.deviceList = res.success;
+        let data = res.success;
+        data.map((obj, index) => {
+          let latlng = [{
+            lat: obj.deviceData.deviceBound.latitude,
+            lng: obj.deviceData.deviceBound.longitude
+          }]
+          this.deviceList[index].latlng = latlng;
+        });
+        this.tempDeviceList = this.deviceList;
+        this.calculateZoneActions();
+      } else {
+        this.deviceList = [];
+      }
+      this.createDevice();
+    });
+  }
+
   // , {color: "white", weight: 1}
+
   getZones() {
     console.log('here zones');
     this.api.getZone().then((res: any) => {
@@ -186,11 +211,8 @@ export class DashboardComponent implements OnInit {
           return obj;
         });
         this.tempZoneList = this.zoneList;
-        this.tempDeviceList = this.deviceList;
-        this.createDevice();
       } else {
         this.zoneList = [];
-        this.createDevice();
       }
     });
   }
@@ -230,10 +252,11 @@ export class DashboardComponent implements OnInit {
       iconUrl: '../../assets/marker.png',
       iconSize: [25, 25],
     });
+    console.log("this.deviceList==", this.deviceList,"this.zoneList==",this.zoneList);
 
     for (let i = 0; i < this.zoneList.length; i++) {
       if (this.zoneList[i].selected) {
-        new L.polygon(this.zoneList[i].bounds,{color : this.zoneList[i].color})
+        new L.polygon(this.zoneList[i].bounds, { color: this.zoneList[i].color })
           .addTo(this.map)
           .on('click', () => {
             this.zoneClick(this.zoneList[i]);
@@ -311,13 +334,56 @@ export class DashboardComponent implements OnInit {
   }
 
   getPopUpForm(data) {
+    let edt = moment(data.inTime).add(data.totalDelay, 'milliseconds').format('YYYY-MM-DD hh:mm:ss')
     let a = '<table>';
-    a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceId + '</td></tr>';
-    a += '<tr><td><b>Location Name</b></td><td>' + data.coinId + '</td></tr>';
-    a += '<tr><td><b>SDT</b></td><td>11.15am</td></tr>';
-    a += '<tr><td><b>EDT</b></td><td>11.30am</td></tr>';
+    a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceName + '</td></tr>';
+    a += '<tr><td><b>Location Name</b></td><td>' + data.coinName + '</td></tr>';
+    a += '<tr><td><b>Zone Name</b></td><td>' + data.zoneName + '</td></tr>';
+    a += '<tr><td><b>In time</b></td><td>' + moment(data.inTime).format('YYYY-MM-DD hh:mm:ss') + '</td></tr>';
+    a += '<tr><td><b>SDT</b></td><td>' + data.standardDeliveryTime + ' minutes</td></tr>';
+    a += '<tr><td><b>EDT</b></td><td>' + edt + '</td></tr>';
     a += '</table>';
     return a;
+  }
+
+
+  calculateZoneActions() {
+    let groupByzone = this.groupByZone();
+    let data = Object.keys(groupByzone).map((obj) => {
+      return {
+        data: groupByzone[obj],
+        zoneName: obj
+      }
+    })
+    var sum = 0;
+    var prevdate = null ;
+
+
+
+    
+    data.forEach(element => {
+      element.data.forEach((obj,index) => {
+        var thedate = moment(obj[index], "YYYY-MM-DD hh:mm:ss");
+        if (prevdate) {
+          sum += prevdate.diff(thedate, 'milliseconds');
+        }
+        prevdate = thedate;
+      });
+      var avg = (sum / (element.data.length));
+      console.log("avg==",avg);
+      
+    });
+
+    console.log("data calculate zone actions===", groupByzone, "data1===", data);
+  }
+
+
+  groupByZone() {
+    return this.deviceList.reduce(function (r, a) {
+      r[a.zoneName] = r[a.zoneName] || [];
+      r[a.zoneName].push(a);
+      return r;
+    }, Object.create(null));
   }
 
   clearMap() {

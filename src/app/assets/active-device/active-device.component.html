@@ -29,7 +29,7 @@
                     </ng-container>
                     <ng-container matColumnDef="updatedAt">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Time </th>
-                        <td mat-cell *matCellDef="let find"> {{find.updatedAt | date : 'medium'}} </td>
+                        <td mat-cell *matCellDef="let find"> {{find?.updatedOnLoc | date : 'medium'}} </td>
                     </ng-container>
                 </div>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
@@ -70,7 +70,7 @@
                     </ng-container>
                     <ng-container matColumnDef="updatedAt">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-                        <td mat-cell *matCellDef="let gateway"> {{gateway.updatedAt | date : 'medium'}} </td>
+                        <td mat-cell *matCellDef="let gateway"> {{gateway?.pingAlertTime | date : 'medium'}} </td>
                     </ng-container>
                 </div>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
@@ -119,7 +119,7 @@
                     </ng-container>
                     <ng-container matColumnDef="updatedAt">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
-                        <td mat-cell *matCellDef="let coin"> {{coin.updatedAt | date : 'medium'}} </td>
+                        <td mat-cell *matCellDef="let coin"> {{coin?.updatedOn | date : 'medium'}} </td>
                     </ng-container>
 
                 </div>
