@@ -12,6 +12,8 @@ import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
 import * as moment from 'moment';
+import { LoginAuthService } from '../services/login-auth.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +23,7 @@ export class DashboardComponent implements OnInit {
   date: any = new Date();
   map;
   zoneList: any = [];
+  zoneAction: any = [];
   deviceList: any = [
     {
       _id: '123456',
@@ -102,24 +105,35 @@ export class DashboardComponent implements OnInit {
   tempDeviceList: any = [];
   tempZoneList: any = [];
   marker: any = [];
+  interval : any;
   errStatus: any = {
     searchError: false,
     searchMessage: 'Vehicle not found',
   };
 
-  constructor(private cd: ChangeDetectorRef, private api: ApiService) { }
+  constructor(private cd: ChangeDetectorRef, private api: ApiService, private login : LoginAuthService) { }
 
   ngOnInit(): void {
     this.congestionGraph();
     setTimeout(() => {
       this.createMap();
     }, 1);
+    this.login.loginCheckData.subscribe(res=>{
+      if(!res.other){
+        this.clearTimeInterval()
+      }
+    })
   }
 
   ngOnDestroy() {
     if (this.map) {
       this.map.remove();
     }
+    this.clearTimeInterval()
+  }
+
+  clearTimeInterval(){
+    clearInterval(this.interval);
   }
 
   createMap() {
@@ -142,6 +156,9 @@ export class DashboardComponent implements OnInit {
     this.map.setMaxBounds(bounds);
     this.map.dragging.disable();
     this.getLayout();
+    this.map.on('click', (data) => {
+      console.log("data latlng===",data.latlng);
+    });
   }
 
   getLayout() {
@@ -158,7 +175,7 @@ export class DashboardComponent implements OnInit {
                 var bounds = this.map.getBounds();
                 L.imageOverlay(resImg, bounds).addTo(this.map);
                 this.map.on('load', this.getZones());
-                this.map.on('load', this.getZongetZoneVehicleDataes());
+                // this.map.on('load', this.getZongetZoneVehicleDataes());
               });
               break;
             }
@@ -204,6 +221,10 @@ export class DashboardComponent implements OnInit {
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
+        this.getZongetZoneVehicleDataes();
+        this.interval = setInterval(()=>{
+          this.getZongetZoneVehicleDataes();
+        },10000)
         this.zoneList = res.success.map((obj) => {
           obj.highlight = false;
           obj.selected = true;
@@ -357,24 +378,27 @@ export class DashboardComponent implements OnInit {
     })
     var sum = 0;
     var prevdate = null ;
-
-
-
-    
     data.forEach(element => {
       element.data.forEach((obj,index) => {
-        var thedate = moment(obj[index], "YYYY-MM-DD hh:mm:ss");
+        var thedate = moment(obj.inTime, "YYYY-MM-DD hh:mm:ss");
         if (prevdate) {
           sum += prevdate.diff(thedate, 'milliseconds');
         }
         prevdate = thedate;
       });
       var avg = (sum / (element.data.length));
-      console.log("avg==",avg);
-      
+      this.zoneList.forEach(zone => {
+        if(zone.zoneName == element.zoneName){
+          zone.vehicleCount = element.data.length;
+          zone.avgTime = avg;
+        }
+        else{
+          zone.vehicleCount = 0;
+          zone.avgTime = 0;
+        }
+      });
     });
-
-    console.log("data calculate zone actions===", groupByzone, "data1===", data);
+    console.log("data calculate zone actions===", groupByzone, "data1===", data,"this.zoneAction==",this.zoneList);
   }
 
 
