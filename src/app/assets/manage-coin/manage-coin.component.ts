@@ -70,7 +70,7 @@ export class ManageCoinComponent implements OnInit {
               coinName: res.success[i].coinName,
               coinBattery: res.success[i].coinBattery,
               gatewayId: res.success[i].gatewayId,
-              updatedOn: res.success[i].updatedAt,
+              updatedOn: res.success[i].updatedOn,
               edit: 'edit',
               delete: 'delete_forever'
             })

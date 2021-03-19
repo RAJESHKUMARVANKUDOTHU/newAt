@@ -72,7 +72,7 @@ export class ManageGatewayComponent implements OnInit {
               gatewayName: res.success[i].gatewayName,
               gatewayId: res.success[i].gatewayId,
               macId: '',
-              updatedOn: res.success[i].updatedAt,
+              updatedOn: res.success[i].pingAlertTime,
               edit: 'edit',
               delete: 'delete_forever'
             })
