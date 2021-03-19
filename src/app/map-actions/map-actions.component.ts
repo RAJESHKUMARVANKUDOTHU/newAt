@@ -401,6 +401,7 @@ export class MapActionsComponent implements OnInit {
         if (res.status) {
           this.general.openSnackBar(res.message, '');
           this.getLayout();
+          this.configCoinForm.reset()
         } else {
           this.general.openSnackBar(res.message, '');
         }
