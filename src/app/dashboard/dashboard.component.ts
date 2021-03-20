@@ -106,6 +106,11 @@ export class DashboardComponent implements OnInit {
   tempZoneList: any = [];
   marker: any = [];
   interval : any;
+  zoneClickStatus : any = {
+    status : false,
+    zone : null
+  };
+  deviceGroupList : any = [];
   errStatus: any = {
     searchError: false,
     searchMessage: 'Vehicle not found',
@@ -175,7 +180,7 @@ export class DashboardComponent implements OnInit {
                 var bounds = this.map.getBounds();
                 L.imageOverlay(resImg, bounds).addTo(this.map);
                 this.map.on('load', this.getZones());
-                // this.map.on('load', this.getZongetZoneVehicleDataes());
+                // this.map.on('load', this.getZoneVehicleData());
               });
               break;
             }
@@ -191,7 +196,11 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  getZongetZoneVehicleDataes() {
+  getZoneVehicleData() {
+    this.zoneClickStatus = {
+      status : false,
+      zone : null
+    };;
     this.api.getZoneVehicleData().then((res: any) => {
       console.log('zone vehicle response==', res);
       if (res.status) {
@@ -221,13 +230,17 @@ export class DashboardComponent implements OnInit {
       console.log('zone details response==', res);
       this.zoneList = [];
       if (res.status) {
-        this.getZongetZoneVehicleDataes();
+        this.getZoneVehicleData();
         this.interval = setInterval(()=>{
-          this.getZongetZoneVehicleDataes();
+          if(!this.zoneClickStatus.status){
+            this.getZoneVehicleData();
+          }
         },10000)
         this.zoneList = res.success.map((obj) => {
           obj.highlight = false;
           obj.selected = true;
+          obj.vehicleCount = 0;
+          obj.avgTime = 0;
           obj.color = this.getRandomColor();
           return obj;
         });
@@ -253,6 +266,10 @@ export class DashboardComponent implements OnInit {
     console.log('zone click data===', data);
     this.clearMap();
     // this.zoneList = [];
+    this.zoneClickStatus = {
+      status : true,
+      zone : data.zoneName
+    };;
     this.zoneList = this.zoneList.map((obj) => {
       if (obj._id == data._id) {
         obj.selected = true;
@@ -265,6 +282,14 @@ export class DashboardComponent implements OnInit {
     });
     console.log('this.zoneList===', this.zoneList);
     this.createDevice();
+    this.GroupDevices(data);
+  }
+
+
+  GroupDevices(data){
+    console.log("group device data===",data);
+    this.deviceGroupList = this.deviceList.filter(obj=>obj.zoneId == data._id);
+    console.log("this.deviceGroupList==",this.deviceGroupList);
   }
 
   createDevice() {
@@ -355,7 +380,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPopUpForm(data) {
-    let edt = moment(data.inTime).add(data.totalDelay, 'milliseconds').format('YYYY-MM-DD hh:mm:ss')
+    let edt = moment(data.inTime).add(data.totalDelay, 'milliseconds').format('YYYY-MM-DD hh:mm:ss');
     let a = '<table>';
     a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceName + '</td></tr>';
     a += '<tr><td><b>Location Name</b></td><td>' + data.coinName + '</td></tr>';
@@ -365,6 +390,14 @@ export class DashboardComponent implements OnInit {
     a += '<tr><td><b>EDT</b></td><td>' + edt + '</td></tr>';
     a += '</table>';
     return a;
+  }
+
+  getSDT(data){
+    return moment(data.inTime).add(data.standardDeliveryTime, 'milliseconds');
+  }
+
+  getEDT(data){
+    return moment(data.inTime).add(data.totalDelay, 'milliseconds');
   }
 
 

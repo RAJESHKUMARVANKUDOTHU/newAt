@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
+import { LoginAuthService } from '../services/login-auth.service';
+
 @Component({
   selector: 'app-zone-dashboard',
   templateUrl: './zone-dashboard.component.html',
@@ -15,14 +17,34 @@ export class ZoneDashboardComponent implements OnInit {
   zoneData: any = []
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'zoneName', 'inTime', 'outTime', 'totalTime'];
+  interval : any;
+
   constructor(
     public general: GeneralService,
     private api: ApiService,
+    private login: LoginAuthService,
   ) { }
 
   ngOnInit(): void {
-    this.refreshZoneData()
+    this.refreshZoneData();
+    this.login.loginCheckData.subscribe(res => {
+      if (!res.other) {
+        this.clearTimeInterval()
+      }
+    });
+    this.interval = setInterval(()=>{
+      this.refreshZoneData();
+    },10000)
   }
+
+  ngOnDestroy() {
+    this.clearTimeInterval()
+  }
+
+  clearTimeInterval() {
+    clearInterval(this.interval);
+  }
+
   refreshZoneData() {
     this.api.getZoneDashBoard().then((res: any) => {
       console.log("getZoneDashBoard res==", res)
@@ -50,7 +72,7 @@ export class ZoneDashboardComponent implements OnInit {
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.dataSource.filter =a.trim().toLowerCase()
+      this.dataSource.filter = a.trim().toLowerCase()
     })
   }
 }

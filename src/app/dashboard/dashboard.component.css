@@ -1,13 +1,12 @@
-
 ::ng-deep svg.circle {
     height: 120px !important;
     width: 120px !important;
-
 }
-#line{
-  height: 300px;
-   width: 450px;
-   border: 1px solid beige;
+
+#line {
+    height: 300px;
+    width: 450px;
+    border: 1px solid beige;
 }
 
 .map-container {
@@ -16,36 +15,63 @@
       left: 0;
       right: 0;
       bottom: 0; */
-    margin: 30px;
+    margin: 2rem auto;
     height: 36rem;
     width: 60rem;
-  }
-  
-  .map-frame {
+}
+
+.map-frame {
     border: 2px solid black;
     height: 100%;
-  }
-  
-  #map {
+}
+
+#map {
     height: 100%;
-  }
-  .leaflet-control-container {
+}
+
+.leaflet-control-container {
     display: none;
-  }
-  .selected{
+}
+
+.selected {
     color: white;
     background-color: #002060 !important;
-  }
-  .error{
+}
+
+.error {
     font-size: 13px;
     font-weight: 600;
     color: red;
-  }
-  @media only screen and (max-width: 768px){
-    #line{
-      height: 300px;
-       width: 350px;
-       border: 1px solid beige;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 1rem;
+    align-items: center;
+}
+
+mat-card-title.mat-card-title {
+    text-align: center;
+    padding: 15px;
+    background: #002060;
+    color: white;
+}
+
+.nodata.ng-star-inserted {
+    text-align: center;
+    margin: 1rem 0 0 0;
+    font-weight: 500;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    #line {
+        height: 300px;
+        width: 350px;
+        border: 1px solid beige;
     }
-   
-  }
+}

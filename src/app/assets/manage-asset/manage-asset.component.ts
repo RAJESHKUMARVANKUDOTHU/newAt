@@ -31,7 +31,7 @@ export class ManageAssetComponent implements OnInit {
   chartOptions = {
     responsive: true,
   };
-
+  interval : any;
   public colors: Array<any> = [
     {
       backgroundColor: ['rgb(21,157,7)', 'rgb(255,165,7)', 'rgb(5,120,200)'],
@@ -81,7 +81,22 @@ export class ManageAssetComponent implements OnInit {
     // this.refreshDevice();
     this.getAssignAssetList();
     this.getDeAssignAssetList();
- 
+    this.login.loginCheckData.subscribe(res=>{
+      if(!res.other){
+        this.clearTimeInterval()
+      }
+    })
+    this.interval = setInterval(()=>{
+      this.devicesCount();
+    },10000)
+  }
+
+  ngOnDestroy() {
+    this.clearTimeInterval()
+  }
+
+  clearTimeInterval(){
+    clearInterval(this.interval);
   }
 
   devicesCount() {

@@ -37,16 +37,22 @@
     </div>
 
     <br>
-    <div class="ml-4">
-        <form>
-            <mat-form-field>
-                <mat-label>Vehicle number</mat-label>
-                <input matInput type='search' (keyup)="searchVehicle($event.target.value)">
-                <mat-hint class="align-items-start"><strong>Search using vehicle number</strong> </mat-hint>
-            </mat-form-field>
-        </form>
-        <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
-
+    <div>
+        <div class="flex">
+            <div>
+                <form>
+                    <mat-form-field>
+                        <mat-label>Vehicle number</mat-label>
+                        <input matInput type='search' (keyup)="searchVehicle($event.target.value)">
+                        <mat-hint class="align-items-start"><strong>Search using vehicle number</strong> </mat-hint>
+                    </mat-form-field>
+                </form>
+                <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
+            </div>
+            <div>
+                <mat-icon class="pointer" (click)="getZones()">autorenew</mat-icon>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="map-container">
@@ -58,7 +64,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <mat-card>
+                <mat-card *ngIf="!zoneClickStatus.status">
                     <mat-card-content>
                         <table class="table bordered table-striped table-md-responsive text-center ">
                             <thead class="thead-dark font-weight-bold">
@@ -69,13 +75,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                                <tr class="pointer" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
                                     <td>{{a.avgTime}}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card *ngIf="zoneClickStatus.status">
+                    <mat-card-title>
+                        {{zoneClickStatus.zone}}
+                    </mat-card-title>
+                    <mat-card-content>
+                        <table *ngIf="deviceGroupList.length" class="table bordered table-striped table-md-responsive text-center ">
+                            <thead class="thead-dark font-weight-bold">
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Location</th>
+                                    <th>SDT</th>
+                                    <th>EDT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let a of deviceGroupList; let i = index">
+                                    <td>{{a.deviceName}}</td>
+                                    <td>{{a.coinName}}</td>
+                                    <td>{{getSDT(a) | date : 'medium'}}</td>
+                                    <td>{{getEDT(a) | date : 'medium'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="!deviceGroupList.length" class="nodata">
+                            No data found
+                        </div>
                     </mat-card-content>
                 </mat-card>
             </div>

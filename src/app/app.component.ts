@@ -51,6 +51,7 @@ export class AppComponent {
         if (this.logged == true) {
           this.loginDetails = this.login.getLoginDetails().success;
           this.duration = this.loginDetails.timer;
+          this.startTimer()
         }
       }
     });
