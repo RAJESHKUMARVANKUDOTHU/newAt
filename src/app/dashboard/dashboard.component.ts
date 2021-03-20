@@ -358,9 +358,6 @@ export class DashboardComponent implements OnInit {
     var sum = 0;
     var prevdate = null ;
 
-
-
-    
     data.forEach(element => {
       element.data.forEach((obj,index) => {
         var thedate = moment(obj[index], "YYYY-MM-DD hh:mm:ss");
@@ -380,6 +377,7 @@ export class DashboardComponent implements OnInit {
 
   groupByZone() {
     return this.deviceList.reduce(function (r, a) {
+ 
       r[a.zoneName] = r[a.zoneName] || [];
       r[a.zoneName].push(a);
       return r;

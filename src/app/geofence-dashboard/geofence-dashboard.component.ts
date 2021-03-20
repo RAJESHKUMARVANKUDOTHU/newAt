@@ -16,7 +16,7 @@ export class GeofenceDashboardComponent implements OnInit {
   deviceData: any = []
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'coinId', 'updatedOnLoc', 'geofenceStatus'];
-  status:boolean=false
+  geoFencestatus:boolean=false
   constructor(
     public general: GeneralService,
     private api: ApiService,
@@ -26,7 +26,17 @@ export class GeofenceDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.refreshGeofence()
   }
-
+  status(data){
+    this.deviceData.forEach((element,index) => {
+      if(element.deviceId == data.deviceId){
+        this.deviceData[index].geoFencestatus=true
+      }
+      else{
+        this.deviceData[index].geoFencestatus= false
+      }
+    });
+    
+  }
   refreshGeofence() {
     this.api.getDeviceGeofence().then((res:any)=>{
       console.log("getDeviceGeofence res==",res)

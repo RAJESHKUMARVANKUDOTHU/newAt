@@ -9,7 +9,17 @@ button.mat-focus-indicator.btn-set.mat-raised-button.mat-button-base {
 mat-form-field {
     width: -webkit-fill-available;
 }
-
+.otp{
+    max-width: 2.6rem !important;
+    height: 2.6rem !important;
+    border:1px solid darkgray !important;
+    border-radius:0.2rem;
+}
+.enter-otp{
+    text-align: center;
+    font-size: small;
+    color: blue;
+  }
 .login {
     background: black;
     color: white;
@@ -24,6 +34,7 @@ mat-form-field {
     border: 1px solid beige;
     box-shadow: 0px 0px 1px 1px beige;
     width: 25rem;
+    height: fit-content;
     position: absolute;
     left: 0;
     right: 0;
@@ -31,7 +42,10 @@ mat-form-field {
     bottom: 25%;
     margin: 0 auto;
 }
-
+.line{
+    text-decoration: underline;
+    color: #2d92c8;
+}
 .log {
     padding: 1rem;
 }

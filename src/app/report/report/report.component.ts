@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../services/api.service';
-import { LoginAuthService } from '../services/login-auth.service';
-import { GeneralService } from '../services/general.service'
+import { ApiService } from '../../services/api.service';
+import { LoginAuthService } from '../../services/login-auth.service';
+import { GeneralService } from '../../services/general.service'
+import { ReportViewComponent } from '../../report/report-view/report-view.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -18,7 +21,8 @@ export class ReportComponent implements OnInit {
     private fb: FormBuilder,
     private login: LoginAuthService,
     private api: ApiService,
-    private general: GeneralService
+    private general: GeneralService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -187,7 +191,17 @@ export class ReportComponent implements OnInit {
   }
   onsubmitGenericReport(data) {
     console.log("generic data==", data)
-    data = this.general.encrypt(data)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = 'fit-content';
+    dialogConfig.width = 'fit-content';
+    dialogConfig.data = {
+      data: data
+    }
+    const dialogRef = this.dialog.open(ReportViewComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {})
 
   }
   onsubmitCustomReport(data) {
