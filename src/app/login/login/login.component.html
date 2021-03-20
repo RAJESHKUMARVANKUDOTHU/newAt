@@ -42,11 +42,11 @@
             </mat-form-field>
             </div>
           </div>
-          <span  >
-            <p (click)=openOTP(this.loginForm.value) class="float-right line">Verify</p>
+          <span *ngIf="verifyOtp">
+            <p (click)=openOTP(this.loginForm.value) class="float-right line cursor">Verify</p>
           </span> <br>
     
         <button mat-raised-button class="btn-set" [disabled]="!loginForm.valid">Login</button> <br>
-        <span (click)="forgetPassword()" class="line float-right">Forget password</span> <br>
+        <span (click)="forgetPassword()" class="line float-right cursor">Forget password</span> <br>
         </form>
 </div>
