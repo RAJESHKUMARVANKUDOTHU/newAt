@@ -38,6 +38,7 @@ export class SettingComponent implements OnInit {
   coinDataZone: any = []
   deviceData: any = []
   groupData: any = []
+  twoStepAuthStatus:any=[]
   name: any
   zoneData: any
   constructor(
@@ -125,16 +126,31 @@ export class SettingComponent implements OnInit {
         this.distanceForm.patchValue({
           range: res.success.range
         })
+      if(res.success.isTwoStepAuth== false){
+          this.twoStepAuthStatus={
+            value:'Enable',
+            status:false
+          }
+        }
+      else{
+          this.twoStepAuthStatus={
+            value:'Disable',
+            status:true
+          }
+        }
         console.log("this.distanceForm==", this.distanceForm)
       }
       else {
         this.general.openSnackBar(res.success, '')
       }
 
+ 
+
     }).catch((err: any) => {
       console.log("error===", err)
     })
   }
+
   refreshCoin() {
     this.api.getCoinData().then((res: any) => {
 
@@ -489,6 +505,40 @@ export class SettingComponent implements OnInit {
       console.log("error==", error)
     }
   }
+
+  twoStepAuthchange(event){
+    console.log(event)
+    if(event.checked==true){
+      this.twoStepAuthStatus={
+        value:'Disable',
+        status:true
+      }
+    }
+    else{
+     this.twoStepAuthStatus={
+       value:'Enable',
+       status:false
+     }
+    }
+   }
+
+   onSubmitTwoAuth(value){
+     var data={
+      twoStepAuth :value
+      }
+      console.log(" data===",data)
+    
+      this.api.twoStepAuth(data).then((res:any)=>{
+
+        if(res.status){
+          this.refreshSetting()    
+          this.general.openSnackBar(res.success,'')
+          
+        }else{
+          this.general.openSnackBar(res.success == false?res.message:res.success,'')
+        }
+      })
+ }
 
   toggleAllSelectionDevice(formData) {
     if (this.allSelected.selected) {

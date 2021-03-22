@@ -10,7 +10,7 @@ export class VehicleStatusComponent implements OnInit {
   zoneData: any = []
   constructor(
     private api: ApiService,
-    private general: GeneralService,
+    public general: GeneralService,
   ) { }
 
   ngOnInit(): void {

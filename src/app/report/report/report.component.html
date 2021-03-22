@@ -10,8 +10,8 @@
         <mat-card-content>
 
             <form [formGroup]="genericReport" (ngSubmit)="onsubmitGenericReport(genericReport.value)">
-                <div class="d-flex justify-content-around">
-                    <mat-radio-group color="primary" formControlName="days">
+                <div>
+                    <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
                         <mat-radio-button class="example-radio-button" [value]="14">Last two weeks</mat-radio-button>
                     </mat-radio-group>
@@ -28,7 +28,40 @@
                         <mat-option value="7">Average Zone wise Efficiency </mat-option>
                         <mat-option value="8">Average Zone wise Efficiency per day </mat-option>
                     </mat-select>
+                </mat-form-field> 
+
+                <mat-form-field *ngIf="genericReport.get('type').value == '1'">
+                    <mat-label> Asset Name</mat-label>
+                    <mat-select formControlName="deviceName">
+                        <mat-option *ngFor="let find of deviceData" [value]="find.deviceName">
+                            {{find.deviceName}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field> <br>
+                <mat-form-field *ngIf="genericReport.get('type').value == '2'">
+                    <mat-label> Asset Id</mat-label>
+                    <mat-select formControlName="deviceId">
+                        <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">
+                            {{find.deviceId}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+                <mat-form-field *ngIf="genericReport.get('type').value == '3'">
+                    <mat-label> Loaction Name</mat-label>
+                    <mat-select formControlName="coinId">
+                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">
+                            {{coin.coinName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="genericReport.get('type').value == '4'">
+                    <mat-label> Zone Name</mat-label>
+                    <mat-select formControlName="zoneId">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone.zoneId">
+                            {{zone.zoneName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> 
                 <mat-form-field>
                     <mat-label>From date</mat-label>
                     <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" required>
@@ -67,8 +100,8 @@
         <mat-card-content>
 
             <form [formGroup]="customReport" (ngSubmit)="onsubmitCustomReport(customReport.value)">
-                <div class="d-flex justify-content-around">
-                    <mat-radio-group color="primary" formControlName="days">
+                <div>
+                    <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
                         <mat-radio-button class="example-radio-button" [value]="14">Last two weeks</mat-radio-button>
                     </mat-radio-group>

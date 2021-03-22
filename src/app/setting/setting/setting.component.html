@@ -21,6 +21,18 @@
 </mat-card-content>
 </mat-card> -->
 
+<mat-card class="text-center">
+    <mat-card-title>
+    Two Step Authentication
+    </mat-card-title> <br>
+     <mat-card-content>
+      <mat-slide-toggle class="toggle" color="primary" [checked]= "twoStepAuthStatus.status" (change)="twoStepAuthchange($event)">
+        {{twoStepAuthStatus.value}}
+      </mat-slide-toggle>
+      <br><br> 
+      <button class="btn" mat-raised-button (click)="onSubmitTwoAuth(twoStepAuthStatus.status)" color="primary">Submit</button>
+    </mat-card-content>
+</mat-card>
 
     <mat-card class="text-center">
         <mat-card-title> Set Range</mat-card-title>
@@ -37,13 +49,70 @@
                     <mat-error>
                         Please select range.
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> <br><br> 
             </form>
             <button class="btn" mat-raised-button [disabled]="!distanceForm.valid" color="primary"
                 (click)="onSubmitDistanceForm(distanceForm.value)">submit</button>
         </mat-card-content>
     </mat-card>
+    <mat-card class="text-center">
+        <mat-card-title>Set Group name</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="groupRegister">
+                <mat-form-field>
+                    <mat-label>Enter group name</mat-label>
+                    <input type="text" matInput formControlName="groupName" required>
+                    <mat-error *ngIf="groupRegister.get('groupName').value ==''">
+                        Service name is required
+                    </mat-error>
+                    <mat-error *ngIf="groupRegister.get('groupName').value !='' || general.mismatch">
+                        No special characters are allowed. And service name cannot start/end with space(s).
+                    </mat-error>
+                </mat-form-field> <br><br> 
+            </form>
+            <div class="d-flex justify-content-around">
+                <button mat-raised-button [disabled]="!groupRegister.valid" color="primary"
+                    (click)="onSubmitGroup(groupRegister.value)">submit</button>
+                <button mat-raised-button (click)="openInfo('groupName')" color="primary">Info</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
+    <mat-card class="text-center">
+        <mat-card-title>Set Group for Coins</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="groupCoinForm">
+                <mat-form-field>
+                    <mat-label>Select Coin</mat-label>
+                    <mat-select formControlName="coinId" multiple>
+                        <mat-option #allSelected5 (click)="toggleAllSelectionCoin2(groupCoinForm)" [value]="0">All
+                        </mat-option>
+                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId" [disabled]="coin.groupId != null">
+                            {{coin.coinName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        Please select coin(s).
+                    </mat-error>
+                </mat-form-field> <br>
+                <mat-form-field>
+                    <mat-label>Select group name</mat-label>
+                    <mat-select formControlName="groupId" required>
+                        <mat-option *ngFor="let group of groupData" [value]="group._id">{{group.groupName}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        Please select group.
+                    </mat-error>
+                </mat-form-field> 
+            </form>
+            <div class="d-flex justify-content-around">
+                <button mat-raised-button [disabled]="!groupCoinForm.valid" color="primary"
+                    (click)="onSubmitGroupCoinForm(groupCoinForm.value)">submit</button>
+                <button mat-raised-button (click)="openInfo('coinGrp')" color="primary">Info</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 
     <mat-card class="text-center">
         <mat-card-title> Set Time Delay for assets</mat-card-title> <br>
@@ -210,65 +279,6 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="text-center">
-        <mat-card-title>Set Group name</mat-card-title>
-        <mat-card-content>
-            <form [formGroup]="groupRegister">
-                <mat-form-field>
-                    <mat-label>Enter group name</mat-label>
-                    <input type="text" matInput formControlName="groupName" required>
-                    <mat-error *ngIf="groupRegister.get('groupName').value ==''">
-                        Service name is required
-                    </mat-error>
-                    <mat-error *ngIf="groupRegister.get('groupName').value !='' || general.mismatch">
-                        No special characters are allowed. And service name cannot start/end with space(s).
-                    </mat-error>
-                </mat-form-field> <br> <br><br><br><br><br> <br> <br>
-            </form>
-            <div class="d-flex justify-content-around">
-                <button mat-raised-button [disabled]="!groupRegister.valid" color="primary"
-                    (click)="onSubmitGroup(groupRegister.value)">submit</button>
-                <button mat-raised-button (click)="openInfo('groupName')" color="primary">Info</button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card class="text-center">
-        <mat-card-title>Set Group for Coins</mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-        <mat-card-content>
-            <form [formGroup]="groupCoinForm">
-                <mat-form-field>
-                    <mat-label>Select Coin</mat-label>
-                    <mat-select formControlName="coinId" multiple>
-                        <mat-option #allSelected5 (click)="toggleAllSelectionCoin2(groupCoinForm)" [value]="0">All
-                        </mat-option>
-                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId" [disabled]="coin.groupId != null">
-                            {{coin.coinName}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>
-                        Please select coin(s).
-                    </mat-error>
-                </mat-form-field> <br>
-                <mat-form-field>
-                    <mat-label>Select group name</mat-label>
-                    <mat-select formControlName="groupId" required>
-                        <mat-option *ngFor="let group of groupData" [value]="group._id">{{group.groupName}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                        Please select group.
-                    </mat-error>
-                </mat-form-field> <br><br><br><br><br>
-            </form>
-            <div class="d-flex justify-content-around">
-                <button mat-raised-button [disabled]="!groupCoinForm.valid" color="primary"
-                    (click)="onSubmitGroupCoinForm(groupCoinForm.value)">submit</button>
-                <button mat-raised-button (click)="openInfo('coinGrp')" color="primary">Info</button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-
 
     <mat-card class="text-center">
         <mat-card-title> Set Inactivity Time for Finds</mat-card-title> <br>
@@ -335,7 +345,7 @@
                     <mat-error>
                         Please enter inactivty time.
                     </mat-error>
-                </mat-form-field> <br>
+                </mat-form-field> <br> <br>
             </form>
             <div class="d-flex justify-content-around">
                 <button mat-raised-button [disabled]="!inactivityCoin.valid" color="primary"

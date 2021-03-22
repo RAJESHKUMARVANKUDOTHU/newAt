@@ -437,6 +437,7 @@ export class DashboardComponent implements OnInit {
 
   groupByZone() {
     return this.deviceList.reduce(function (r, a) {
+ 
       r[a.zoneName] = r[a.zoneName] || [];
       r[a.zoneName].push(a);
       return r;

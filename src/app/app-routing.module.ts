@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/login/login.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ManageAssetComponent } from './assets/manage-asset/manage-asset.component';
 import { GeofenceComponent } from './geofence/geofence.component';
 import { ContactComponent } from './contact/contact.component';
-import { ReportComponent } from './report/report.component';
+import { ReportComponent } from './report/report/report.component';
 import { MapCenterComponent } from './map-center/map-center.component';
 import { ManageDeviceComponent } from './assets/manage-device/manage-device.component';
 import { ManageGatewayComponent } from './assets/manage-gateway/manage-gateway.component';
@@ -24,10 +24,12 @@ import { MapActionsComponent } from './map-actions/map-actions.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.component';
+import { SetPasswordComponent } from './login/set-password/set-password.component';
 
 const routes: Routes = [
   // {path : '', component:LoginComponent},
   {path:'login' , component:LoginComponent},
+  { path: 'set-password', component:SetPasswordComponent},
   { path: '', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'dashboard', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'manage-asset', component:ManageAssetComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},

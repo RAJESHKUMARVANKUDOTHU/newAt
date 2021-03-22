@@ -17,10 +17,12 @@ export class ApiService {
     };
 
     let url = this.host + '/loginUser';
-
+    let body = {
+      data: data,
+    };
     return new Promise((resolve, reject) => {
       this.http.post(url, data, httpOptions).subscribe(
-        (res) => {
+        (res:any) => {
           resolve(res);
         },
         (err) => {
@@ -30,7 +32,71 @@ export class ApiService {
       );
     });
   }
+  verifyTwoStepOtp(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/verify2StepOtp';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data, httpOptions).subscribe(
+        (res: any) => {
+
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  forgetPassword(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/forgetPassword';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data, httpOptions).subscribe(
+        (res: any) => {
+
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  forgetPasswordVerify(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/forgetPasswordVerify';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data, httpOptions).subscribe(
+        (res: any) => {
+
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   createSubUsers(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -662,7 +728,7 @@ export class ApiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/getDeviceGeofence';
+    let url = this.host + '/viewUserLocationDevice';
     return new Promise((resolve, reject) => {
       this.http.get(url).subscribe(
         (res: any) => {
@@ -1216,6 +1282,30 @@ export class ApiService {
       );
     });
   }
+
+  twoStepAuth(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/setTwoStepAuth';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          console.log(res.data)
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+
   refreshSettings() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
