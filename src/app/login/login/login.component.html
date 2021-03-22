@@ -2,7 +2,7 @@
     <div class="login">
         <h1>Log in</h1>
     </div>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="log">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="p-3">
         <mat-error *ngIf="loginInvalid">
             Invalid User Name or Password
         </mat-error>
@@ -21,7 +21,7 @@
         </mat-form-field> <br>
         <div *ngIf="verifyOtp">
             <span class="enter-otp">OTP has sent to Email ID. Please enter OTP.</span> <br><br>
-            <div  class="d-flex justify-content-around">
+            <div  class="d-flex justify-content-center">
                <mat-form-field class="otp text-center">
                   <input matInput id="codeBox1" class="codebox" type="text" maxlength="1" formControlName="otp1" (keyup)="onKeyUpEvent(1, $event)" autocomplete="off">
               </mat-form-field> &nbsp;&nbsp;
@@ -40,11 +40,11 @@
             <mat-form-field class="otp text-center">
                 <input matInput id="codeBox6" class="codebox" type="text" maxlength="1" formControlName="otp6" (keyup)="onKeyUpEvent(6, $event)" autocomplete="off" >
             </mat-form-field>
-            </div>
-          </div>
-          <span *ngIf="verifyOtp">
-            <p (click)=openOTP(this.loginForm.value) class="float-right line cursor">Verify</p>
-          </span> <br>
+            </div> 
+            <span *ngIf="verifyOtp" (click)=openOTP(this.loginForm.value)>
+                <p  class="line cursor"  id="blink">Verify</p>
+            </span>
+          </div> <br>
     
         <button mat-raised-button class="btn-set" [disabled]="!loginForm.valid">Login</button> <br>
         <span (click)="forgetPassword()" class="line float-right cursor">Forget password</span> <br>

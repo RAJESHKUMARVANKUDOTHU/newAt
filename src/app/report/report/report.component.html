@@ -57,7 +57,7 @@
                 <mat-form-field *ngIf="genericReport.get('type').value == '4'">
                     <mat-label> Zone Name</mat-label>
                     <mat-select formControlName="zoneId">
-                        <mat-option *ngFor="let zone of zoneData" [value]="zone.zoneId">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone">
                             {{zone.zoneName}}
                         </mat-option>
                     </mat-select>

@@ -194,8 +194,8 @@ export class ReportComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = 'fit-content';
-    dialogConfig.width = 'fit-content';
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '90vw';
     dialogConfig.data = {
       data: data
     }

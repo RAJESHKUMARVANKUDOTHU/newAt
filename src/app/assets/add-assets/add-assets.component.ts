@@ -34,7 +34,7 @@ export class AddAssetsComponent implements OnInit {
   ngOnInit(): void {
     this.addFind = this.fb.group({
       deviceName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
-      deviceId: ['', [Validators.required, Validators.min(1), Validators.max(255)]]
+      deviceId: ['', [Validators.required, Validators.min(1), Validators.max(65535)]]
     });
     this.addGateway = this.fb.group({
       gatewayName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
@@ -42,7 +42,7 @@ export class AddAssetsComponent implements OnInit {
     })
     this.addCoin = this.fb.group({
       coinName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]],
-      coinId: ['', [Validators.required, Validators.min(1), Validators.max(255)]],
+      coinId: ['', [Validators.required, Validators.min(1), Validators.max(65535)]],
       gatewayId: ['', Validators.required]
     })
 
