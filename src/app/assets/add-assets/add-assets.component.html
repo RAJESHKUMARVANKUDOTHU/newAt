@@ -20,9 +20,9 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Device Id</mat-label>
-                    <input type="number" min="1" max="255" matInput formControlName="deviceId" required>
+                    <input type="number" min="1" max="65535" matInput formControlName="deviceId" required>
                     <mat-error>
-                        Device Id should be between 1-255.
+                        Device Id should be between 1-65535.
                     </mat-error>
                 </mat-form-field><br>
             </form>
@@ -76,9 +76,9 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Id</mat-label>
-                    <input type="number" min='1' max="255" matInput formControlName="coinId" required>
+                    <input type="number" min='1' max="65535" matInput formControlName="coinId" required>
                     <mat-error>
-                        Device Id should be between 1-255.
+                        Device Id should be between 1-65535.
                     </mat-error>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">

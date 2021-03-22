@@ -5,7 +5,7 @@
     <mat-toolbar *ngIf="logged">
         <span style="flex: 1 1 auto;"></span>
         <span>
-            <mat-icon>person_pin</mat-icon><mat-icon>person</mat-icon> &nbsp;{{loginDetails.userName}}
+            <mat-icon>person_pin</mat-icon> &nbsp;{{loginDetails.userName}}
         </span> &nbsp;
         <span (click)="login.logout()" class="cursor" *ngIf="loginDetails.role == 'superAdminRole'">
             <mat-icon>exit_to_app</mat-icon>

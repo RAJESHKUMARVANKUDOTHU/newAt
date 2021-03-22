@@ -57,12 +57,17 @@ export class LoginComponent implements OnInit {
      this.getCodeBoxElement(index - 1).focus();
     }
   }
-  onSubmit(data) {
+  onSubmit(value) {
     console.log("data===", data)
     this.loginInvalid = false
+    this.verifyOtp=false
       if (this.loginForm.valid) {
       try {
         console.log("data===", data)
+        var data={
+          userName:value.userName,
+          password:value.password
+        }
         this.api.login(data).then((res: any) => {
           console.log("login res===", res)
           this.loginData=res.success

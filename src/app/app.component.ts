@@ -88,7 +88,7 @@ export class AppComponent {
   }
 
   startTimer() {
-    clearInterval(this.countDownTimer);
+
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
       var diff = Math.abs(this.duration - start);

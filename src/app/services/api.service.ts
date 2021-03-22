@@ -1491,6 +1491,87 @@ export class ApiService {
       );
     });
   }
+// -----------------report page APIs--------------------
+
+deviceNameReport(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getDeviceNameReport';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+}
+deviceIdReport(data){
+      const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getDeviceIdReport';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+}
+  // ----------------report download-------------------------------
+  downloadDeviceNameReport(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadDeviceNameReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          // console.log("err==", err)
+        })
+    });
+  }
+  downloadDeviceIdReport(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadDeviceIdReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          // console.log("err==", err)
+        })
+    });
+  }
   //---------------------manage asset download -------------------------------
 
   downloadFile(response, fileName) {
