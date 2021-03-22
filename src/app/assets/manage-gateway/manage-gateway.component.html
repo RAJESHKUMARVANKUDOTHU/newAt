@@ -23,7 +23,7 @@
             </ng-container>
             <ng-container matColumnDef="macId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Mac Id </th>
-                <td mat-cell *matCellDef="let gateway"> - </td>
+                <td mat-cell *matCellDef="let gateway"> {{gateway.macId}} </td>
             </ng-container>
             <ng-container matColumnDef="updatedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>

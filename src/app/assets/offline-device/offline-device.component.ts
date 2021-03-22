@@ -28,6 +28,8 @@ export class OfflineDeviceComponent implements OnInit {
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'updatedAt'];
   displayedColumns2 = ['i', 'gatewayName', 'gatewayId', 'updatedAt'];
   displayedColumns3 = ['i', 'coinId', 'coinName', 'gatewayId', 'updatedAt'];
+  interval : any;
+  
   constructor(
     private login: LoginAuthService,
     private api: ApiService,
@@ -40,9 +42,24 @@ export class OfflineDeviceComponent implements OnInit {
       if (res) {
         this.refreshOfflineDeviceList()
       }
+    });
+    this.login.loginCheckData.subscribe(res=>{
+      if(!res.other){
+        this.clearTimeInterval()
+      }
     })
+    this.interval = setInterval(()=>{
+      this.refreshOfflineDeviceList();
+    },10000)
   }
 
+  ngOnDestroy() {
+    this.clearTimeInterval()
+  }
+
+  clearTimeInterval(){
+    clearInterval(this.interval);
+  }
 
   refreshOfflineDeviceList() {
     this.api.getOfflineDevice().then((res: any) => {

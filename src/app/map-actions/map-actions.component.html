@@ -41,7 +41,7 @@
             <div class="col-md-4">
                 <mat-card>
                     <mat-card-content>
-                        <form [formGroup]="configCoinForm" >
+                        <form [formGroup]="configCoinForm">
                             <mat-form-field>
                                 <mat-label> Select Gateway </mat-label>
                                 <mat-select formControlName="gatewayId" (selectionChange)="gatewaySelect($event.value)">
@@ -82,7 +82,7 @@
     <br>
 
 
-    <mat-card class="border-card" >
+    <mat-card class="border-card" *ngIf="!gatewayList.length">
         <mat-card-title>
             <mat-icon style="vertical-align: bottom;">add</mat-icon>&nbsp;Add New Layout
         </mat-card-title> <br>

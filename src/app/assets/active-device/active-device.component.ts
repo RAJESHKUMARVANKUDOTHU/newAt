@@ -29,6 +29,8 @@ export class ActiveDeviceComponent implements OnInit {
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'updatedAt'];
   displayedColumns2 = ['i', 'gatewayId', 'gatewayName', 'updatedAt'];
   displayedColumns3 = ['i', 'coinId', 'coinName', 'gatewayId', 'updatedAt'];
+  interval : any;
+
   constructor(
     private login: LoginAuthService,
     private api: ApiService,
@@ -42,7 +44,25 @@ export class ActiveDeviceComponent implements OnInit {
         this.refreshActiveDeviceList()
       }
     })
+    this.login.loginCheckData.subscribe(res=>{
+      if(!res.other){
+        this.clearTimeInterval()
+      }
+    })
+    this.interval = setInterval(()=>{
+      this.refreshActiveDeviceList();
+    },10000)
   }
+
+  ngOnDestroy() {
+    this.clearTimeInterval()
+  }
+
+  clearTimeInterval(){
+    clearInterval(this.interval);
+  }
+
+
   refreshActiveDeviceList() {
     this.api.getOnlineDevice().then((res: any) => {
       console.log("getOnlineDevice res====", res);
