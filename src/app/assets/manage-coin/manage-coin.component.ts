@@ -19,7 +19,7 @@ export class ManageCoinComponent implements OnInit {
   dataSource: any = [];
   coinData: any = []
   fileName: String = ''
-  role:any
+  role: any
   displayedColumns = ['i', 'coinId', 'coinName', 'gatewayId', 'coinBattery', 'updatedOn', 'edit', 'delete'];
   constructor(
     public dialog: MatDialog,
@@ -30,7 +30,7 @@ export class ManageCoinComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshCoin()
-    this.role=this.login.getLoginDetails().success.role
+    this.role = this.login.getLoginDetails().success.role
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
         this.refreshCoin()
@@ -57,7 +57,7 @@ export class ManageCoinComponent implements OnInit {
   refreshCoin() {
     this.api.getCoinData().then((res: any) => {
 
-      console.log("coin submit====", res);
+      console.log("coin refresh====", res);
       this.coinData = []
       if (res.status) {
         for (let i = 0; i < res.success.length; i++) {
@@ -94,31 +94,29 @@ export class ManageCoinComponent implements OnInit {
   getBatteryStatus(data) {
 
     if (data.coinBattery == "H") {
-
-      var a = {
+      return {
         'background-color': 'green',
         'width': '31px'
       }
-      return a
     }
-    // else if(value == 2){
-    //   var a = {
-    //     'background-color':'#ffc107',
-    //     'width':'18px'
-    //   }
-    //   return a
-    // }
+    else if (data.coinBattery == 'M') {
+      return {
+        'background-color': 'yellow',
+        'width': '20px'
+      }
+    }
     else if (data.coinBattery == "L") {
-      var a = {
+      return {
         'background-color': 'red',
         'width': '10px'
       }
-      return a
     }
     else {
       return {}
     }
   }
+
+
   edit(data) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -164,16 +162,16 @@ export class ManageCoinComponent implements OnInit {
 
   download() {
     this.fileName = "Registered coins"
-    var data={
-      timeZoneOffset:this.general.getZone()
+    var data = {
+      timeZoneOffset: this.general.getZone()
     }
-    this.api.downloadRegisteredCoins(data,this.fileName).then((res: any) => {
+    this.api.downloadRegisteredCoins(data, this.fileName).then((res: any) => {
       console.log("Registerd coins download==", res)
-      if(res){
-        this.general.loadingFreez.next({status:false,msg:"Downloaded Successfully!!"})
+      if (res) {
+        this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
       }
-      else{
-       this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+      else {
+        this.general.openSnackBar(res.success == false ? res.message : res.success, '')
       }
     }).catch((err: any) => {
       console.log("error==", err)
