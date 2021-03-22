@@ -1305,7 +1305,43 @@ export class ApiService {
     });
   }
 
+  uploadLogo(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+  
+    let url = this.host+'/uploadLogo';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+  getLogoImage(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/getLogoImage/' + data;
+    return new Promise((resolve, reject) => {
+      this.http.get(url, { responseType: 'blob' }).subscribe(
+        (res: any) => {
+          console.log(res)
+          // observer.next(res);
+          const reader = new FileReader();
+          reader.readAsDataURL(res);
+          reader.onloadend = function () {
+
+            resolve(reader.result);
+          };
+        },
+        (err) => {
+          // console.log(err);
+          reject(err)
+        }
+      );
+    });
+  }
   refreshSettings() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
