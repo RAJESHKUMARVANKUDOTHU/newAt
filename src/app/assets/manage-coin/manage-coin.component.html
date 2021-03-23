@@ -37,8 +37,8 @@
                 <td mat-cell *matCellDef="let coin">
 
                     <!-- <span > -->
-                    <!-- *ngIf="getBatteryUpdatedOn(live.batteryUpdatedOn)!='0000-00-00 00:00:00' &&  live.batteryStatus!='0'" matTooltip="last synced time : {{getBatteryUpdatedOn(live.batteryUpdatedOn) | date: 'medium'}}" -->
-                    <div class="batteryContainer">
+                    <div class="batteryContainer"*ngIf="coin.batteryRecvTime!= null &&  coin.coinBattery!=null"
+                     matTooltip="last synced time : {{coin.batteryRecvTime | date: 'medium'}}">
                         <div class="batteryOuter">
                             <div id="batteryLevel" [ngStyle]="getBatteryStatus(coin)"> </div>
                         </div>
@@ -46,17 +46,24 @@
                     </div>
                     <!-- </span> -->
 
-                    <!-- <span  *ngIf="getBatteryUpdatedOn(live.batteryUpdatedOn)=='0000-00-00 00:00:00' || live.batteryStatus=='0'" >
+                    <span  *ngIf="coin.batteryRecvTime==null || coin.coinBattery==null" >
                         <div class="batteryContainer">
-                            <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(live.coinBattery)" > </div></div>
+                            <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(coin)" > </div></div>
                             <div class="batteryBump"></div>
                         </div>
-                    </span> -->
+                    </span>
                 </td>
             </ng-container>
             <ng-container matColumnDef="updatedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
-                <td mat-cell *matCellDef="let coin"> {{coin?.updatedOn | date : 'medium'}} </td>
+                <td mat-cell *matCellDef="let coin">
+                    <span *ngIf="coin?.updatedOn !=null;else noData">
+                        {{coin.updatedOn | date : 'medium'}} 
+                    </span>
+                    <ng-template #noData>
+                        <span>-</span>
+                    </ng-template>
+                </td>
             </ng-container>
             <ng-container matColumnDef="edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>

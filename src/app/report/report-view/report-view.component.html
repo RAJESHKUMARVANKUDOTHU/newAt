@@ -3,6 +3,74 @@
 </button>
 
 <br> <br>
+<div *ngIf="generalReportData.type == '0'">
+    <div class="d-md-flex justify-content-md-center color">
+        <div class="text-center">
+            <h1>REPORT</h1>      
+        </div>
+    </div>
+    <p mat-dialog-title class="text-center">
+        <!-- Based on Asset Name- <b>{{generalReportData.deviceName }} </b> <br> -->
+        From <b>{{generalReportData.fromDate | date : 'dd-MM-yyyy'}}</b>
+        to <b>{{generalReportData.toDate | date : 'dd-MM-yyyy'}}</b>
+    </p>  <hr> <br>
+    <div class="d-flex justify-content-between">
+        <span>
+            <button mat-raised-button (click)="download()" color="primary">
+                <span> Download</span>&nbsp;&nbsp;
+                <mat-icon>download </mat-icon>
+            </button>
+        </span>
+        <mat-form-field>
+            <input matInput placeholder="Search device" autocomplete="off" matInput
+                (input)="search($event.target.value, deviceName)">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <br>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
+            <div>
+                <ng-container matColumnDef="i">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+                    <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="deviceId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset ID </th>
+                    <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
+                </ng-container>
+                <ng-container matColumnDef="deviceName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset ID </th>
+                    <td mat-cell *matCellDef="let find"> {{find.deviceName}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="coinName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Location </th>
+                    <td mat-cell *matCellDef="let find"> {{find.coinName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="inTime">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>In Time</th>
+                    <td mat-cell *matCellDef="let find"> {{find.inTime | date : 'medium'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="outTime">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Out Time </th>
+                    <td mat-cell *matCellDef="let find">
+                        <span *ngIf="find.outTime != null"> {{find.outTime | date : 'medium'}}</span>
+                        <span *ngIf="find.outTime == null"> -</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="totTime">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Time</th>
+                    <td mat-cell *matCellDef="let find"> {{find.totTime}} </td>
+                </ng-container>
+            </div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns0"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns0;"></tr>
+        </table>
+        <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
 <div *ngIf="generalReportData.type == '1'">
     <div class="d-md-flex justify-content-md-center color">
         <div class="text-center">
@@ -18,7 +86,7 @@
         <span>
             <button mat-raised-button (click)="download()" color="primary">
                 <span> Download</span>&nbsp;&nbsp;
-                <mat-icon> cloud_download </mat-icon>
+                <mat-icon>download </mat-icon>
             </button>
         </span>
         <mat-form-field>
@@ -83,7 +151,7 @@
             <span>
                 <button mat-raised-button (click)="download()" color="primary">
                     <span> Download</span>&nbsp;&nbsp;
-                    <mat-icon> cloud_download </mat-icon>
+                    <mat-icon>download </mat-icon>
                 </button>
             </span>
             <mat-form-field>
@@ -147,7 +215,7 @@
                 <span>
                     <button mat-raised-button (click)="download()" color="primary">
                         <span> Download</span>&nbsp;&nbsp;
-                        <mat-icon> cloud_download </mat-icon>
+                        <mat-icon>download </mat-icon>
                     </button>
                 </span>
                 <mat-form-field>
@@ -213,7 +281,7 @@
                     <span>
                         <button mat-raised-button (click)="download()" color="primary">
                             <span> Download</span>&nbsp;&nbsp;
-                            <mat-icon> cloud_download </mat-icon>
+                            <mat-icon>download </mat-icon>
                         </button>
                     </span>
                     <mat-form-field>

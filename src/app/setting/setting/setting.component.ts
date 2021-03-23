@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginAuthService } from '../../services/login-auth.service';
@@ -21,7 +21,7 @@ export class SettingComponent implements OnInit {
   @ViewChild('allSelected4') private allSelected4: MatOption
   @ViewChild('allSelected5') private allSelected5: MatOption
   @ViewChild('allSelected6') private allSelected6: MatOption
-
+  @ViewChild('fileInput') fileInput: ElementRef;
   dateTimeForm: FormGroup
   distanceForm: FormGroup
   timeDelay: FormGroup
@@ -38,9 +38,13 @@ export class SettingComponent implements OnInit {
   coinDataZone: any = []
   deviceData: any = []
   groupData: any = []
-  twoStepAuthStatus:any=[]
+  twoStepAuthStatus: any = []
   name: any
   zoneData: any
+  tempImagePath: any
+  uploadForm: FormGroup;
+  loginData: any
+  loading: boolean = false
   constructor(
     private fb: FormBuilder,
     private login: LoginAuthService,
@@ -50,12 +54,14 @@ export class SettingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loginData = this.login.getLoginDetails().success
     this.createForm()
     this.refreshDevice()
     this.refreshCoin()
     this.refreshSetting()
     this.getZoneDetails()
     this.getGroups()
+
   }
   createForm() {
     // this.dateTimeForm=this.fb.group({
@@ -116,6 +122,11 @@ export class SettingComponent implements OnInit {
       zoneId: ['', Validators.required],
       serviceName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')]]
     })
+
+    this.uploadForm = this.fb.group({
+      fileData: null,
+      type: 'logo',
+    });
   }
 
   refreshSetting() {
@@ -126,16 +137,16 @@ export class SettingComponent implements OnInit {
         this.distanceForm.patchValue({
           range: res.success.range
         })
-      if(res.success.isTwoStepAuth== false){
-          this.twoStepAuthStatus={
-            value:'Enable',
-            status:false
+        if (res.success.isTwoStepAuth == false) {
+          this.twoStepAuthStatus = {
+            value: 'Enable',
+            status: false
           }
         }
-      else{
-          this.twoStepAuthStatus={
-            value:'Disable',
-            status:true
+        else {
+          this.twoStepAuthStatus = {
+            value: 'Disable',
+            status: true
           }
         }
         console.log("this.distanceForm==", this.distanceForm)
@@ -144,7 +155,7 @@ export class SettingComponent implements OnInit {
         this.general.openSnackBar(res.success, '')
       }
 
- 
+
 
     }).catch((err: any) => {
       console.log("error===", err)
@@ -158,7 +169,7 @@ export class SettingComponent implements OnInit {
       this.coinData = []
       if (res.status) {
         this.coinData = res.success
-         console.log(" this.coinDataTemp==", this.coinDataTemp)
+        console.log(" this.coinDataTemp==", this.coinDataTemp)
       }
       else {
         this.coinData = []
@@ -506,39 +517,91 @@ export class SettingComponent implements OnInit {
     }
   }
 
-  twoStepAuthchange(event){
+  twoStepAuthchange(event) {
     console.log(event)
-    if(event.checked==true){
-      this.twoStepAuthStatus={
-        value:'Disable',
-        status:true
+    if (event.checked == true) {
+      this.twoStepAuthStatus = {
+        value: 'Disable',
+        status: true
       }
     }
-    else{
-     this.twoStepAuthStatus={
-       value:'Enable',
-       status:false
-     }
-    }
-   }
-
-   onSubmitTwoAuth(value){
-     var data={
-      twoStepAuth :value
+    else {
+      this.twoStepAuthStatus = {
+        value: 'Enable',
+        status: false
       }
-      console.log(" data===",data)
-    
-      this.api.twoStepAuth(data).then((res:any)=>{
+    }
+  }
 
-        if(res.status){
-          this.refreshSetting()    
-          this.general.openSnackBar(res.success,'')
-          
-        }else{
-          this.general.openSnackBar(res.success == false?res.message:res.success,'')
-        }
+  onSubmitTwoAuth(value) {
+    var data = {
+      twoStepAuth: value
+    }
+    console.log(" data===", data)
+
+    this.api.twoStepAuth(data).then((res: any) => {
+
+      if (res.status) {
+        this.refreshSetting()
+        this.general.openSnackBar(res.success, '')
+
+      } else {
+        this.general.openSnackBar(res.success == false ? res.message : res.success, '')
+      }
+    })
+  }
+
+  fileChange(files) {
+
+    // console.log("File Change event",files);
+    let reader = new FileReader();
+    if (files && files.length > 0) {
+
+      let file = files[0];
+      reader.readAsDataURL(file);
+      console.log("file===", file)
+      reader.onload = () => {
+        this.tempImagePath = reader.result;
+        console.log("\nReader result", reader.result);
+
+        this.uploadForm.get('fileData').setValue({
+          filename: file.name,
+          filetype: file.type,
+          value: this.tempImagePath.split(',')[1],
+        });
+      }
+    }
+  }
+
+  clearFile() {
+    this.uploadForm.get('fileData').setValue(null);
+    this.tempImagePath = '';
+    this.fileInput.nativeElement.value = '';
+  }
+
+
+  randomNumber(min = 1, max = 20) {
+    return Math.random() * (max - min) + min;
+  }
+
+  formSubmit(data) {
+    console.log("this.loginData", this.loginData)
+    data.fileData.filename = this.loginData._id.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
+    console.log("file===", data)
+    this.loading = false
+    if (data.fileData.filetype == 'image/jpg' || data.fileData.filetype == 'image/jpeg' || data.fileData.filetype == 'image/png') {
+      this.api.uploadLogo(data).then((res: any) => {
+        console.log("res img===", res)
+        this.general.updateItem('sensegiz', 'logo', data.fileData.filename)
+        this.clearFile()
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
       })
- }
+    } else {
+      this.loading = true
+    }
+  }
 
   toggleAllSelectionDevice(formData) {
     if (this.allSelected.selected) {

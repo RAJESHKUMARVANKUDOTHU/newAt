@@ -1309,24 +1309,26 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-  
+    let body = {
+      data: data,
+    };
     let url = this.host+'/uploadLogo';
     return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
+      this.http.post(url,body,httpOptions).subscribe(res=>{
         resolve(res);
       })
     });
   }
-  getLogoImage(data){
+  getLogoImage(){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host + '/getLogoImage/' + data;
+    let url = this.host + '/getLogoImage';
     return new Promise((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' }).subscribe(
         (res: any) => {
-          console.log(res)
+          // console.log(res)
           // observer.next(res);
           const reader = new FileReader();
           reader.readAsDataURL(res);
@@ -1528,7 +1530,26 @@ export class ApiService {
     });
   }
 // -----------------report page APIs--------------------
+genericReport(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
+  let url = this.host + '/getDeviceIdReport';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
 deviceNameReport(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -1570,6 +1591,26 @@ deviceIdReport(data){
     });
 }
   // ----------------report download-------------------------------
+
+  downloadGenericReport(data,fileName){
+    // this.general.loadingFreez.next({status:true})
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadDeviceIdReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          console.log("err==", err)
+        })
+    });
+  }
   downloadDeviceNameReport(data,fileName){
     // this.general.loadingFreez.next({status:true})
     let body = {
