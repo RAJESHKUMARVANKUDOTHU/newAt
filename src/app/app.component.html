@@ -3,6 +3,9 @@
 </div>
 <div *ngIf="isDesktopDevice">
     <mat-toolbar *ngIf="logged">
+        <span *ngIf="loginDetails.role == 'superAdminRole'">
+            <img src="../assets/logo.png" alt="" class="image">
+        </span>
         <span style="flex: 1 1 auto;"></span>
         <span>
             <mat-icon>person_pin</mat-icon> &nbsp;{{loginDetails.userName}}
@@ -11,12 +14,16 @@
             <mat-icon>exit_to_app</mat-icon>
         </span>
     </mat-toolbar>
+    <mat-toolbar *ngIf="!logged && !menu">
+        <img src="../assets/logo.png" alt="" class="float-left">
+    </mat-toolbar>
 
     <mat-sidenav-container class="example-container" *ngIf="logged && menu" autosize="true">
         <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
 
             <div class="bg-white">
-                <img src="../assets/logo.png" alt="" class="image">
+                <img *ngIf="loginDetails.status && loginDetails.logo != null" src="{{image}}" alt="Sensegiz" class="image">
+                <img *ngIf="loginDetails.status && loginDetails.logo == null" src="./assets/logo.png" alt="Sensegiz" class="image">
             </div>
 
 
@@ -41,7 +48,8 @@
                     <mat-icon mat-list-icon>view_list</mat-icon>
                 </mat-list-item>
 
-                <mat-list-item routerLink="/map-actions" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                <mat-list-item routerLink="/map-actions"
+                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                     <span mat-line> Map Center</span>
                     <mat-icon mat-list-icon>map</mat-icon>
                 </mat-list-item>
@@ -56,12 +64,14 @@
         <span *ngIf="isExpanded"mat-line> Contact</span>     
       </mat-list-item> -->
 
-                <mat-list-item routerLink="/profile" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                <mat-list-item routerLink="/profile"
+                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                     <mat-icon mat-list-icon>perm_identity</mat-icon>
                     <span mat-line>Create Profile</span>
                 </mat-list-item>
 
-                <mat-list-item (click)="showLabel = !showLabel" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                <mat-list-item (click)="showLabel = !showLabel"
+                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                     <mat-icon mat-list-icon>settings</mat-icon>
                     <span mat-line> Settings </span>
                     <mat-icon>keyboard_arrow_down</mat-icon>
@@ -132,7 +142,8 @@
                         <mat-icon mat-list-icon>view_list</mat-icon>
                         <span mat-line> Zone Dashboard</span>
                     </button>
-                    <button mat-menu-item routerLink="/map-actions" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                    <button mat-menu-item routerLink="/map-actions"
+                        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                         <mat-icon mat-list-icon>map</mat-icon>
                         <span mat-line>Map center</span>
                     </button>
@@ -140,12 +151,14 @@
                         <mat-icon mat-list-icon> rate_review</mat-icon>
                         <span mat-line>Report</span>
                     </button>
-                    <button mat-menu-item routerLink="/profile" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                    <button mat-menu-item routerLink="/profile"
+                        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                         <mat-icon mat-list-icon>perm_identity</mat-icon>
                         <span mat-line>Create Profile</span>
                     </button>
                     <span></span>
-                    <button mat-menu-item [matMenuTriggerFor]="settings" [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
+                    <button mat-menu-item [matMenuTriggerFor]="settings"
+                        [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                         <mat-icon>settings</mat-icon>
                         <span mat-line>Settings</span>
                     </button>

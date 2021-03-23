@@ -7,6 +7,8 @@ import { ContactComponent } from './contact/contact.component';
 import * as moment from 'moment';
 import { timer } from 'rxjs';
 import { GeneralService } from './services/general.service';
+import { ApiService } from './services/api.service'
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +33,9 @@ export class AppComponent {
   countDownTimer: any;
   duration: any;
   time: any;
-  private timer = timer(1000, 1000);
+  image: any = ''
+  host: any = environment.apiHost
+
 
   constructor(
     private login: LoginAuthService,
@@ -39,23 +43,26 @@ export class AppComponent {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private deviceService: DeviceDetectorService,
-    private general: GeneralService,
+    public general: GeneralService,
+    private api: ApiService,
   ) {
+
     this.logged = this.login.loginData();
     this.login.loginCheckData.subscribe((res) => {
       if (res) {
         this.logged = res.other;
         this.menu = res.menu;
-        console.log(this.logged,this.menu);
-        
+        console.log(this.logged, this.menu);
+
         if (this.logged == true) {
           this.loginDetails = this.login.getLoginDetails().success;
           this.duration = this.loginDetails.timer;
           this.startTimer()
+          this.getImage()
         }
       }
     });
-    this.startTimer();
+
     this.freezeSubscribe();
   }
   ngOnInit(): void {
@@ -64,8 +71,13 @@ export class AppComponent {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-  }
 
+  }
+  ngOnDestroy() {
+    if(this.loginDetails.role == null){
+      clearInterval(this.countDownTimer);
+    }
+  }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -91,6 +103,7 @@ export class AppComponent {
 
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
+      var count = 0
       var diff = Math.abs(this.duration - start);
       var minutes = Math.floor((diff / 1000 / 60) << 0);
       var seconds = Math.floor((diff / 1000) % 60);
@@ -98,9 +111,14 @@ export class AppComponent {
         (minutes < 10 ? '0' + minutes : minutes) +
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
-        // console.log("this.time==",this.time)
+      // console.log("this.time==",this.time)
       if (minutes == 0 && seconds == 2) {
         this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+        count++;
+      }
+      if (count > 1) {
+        this.general.loadingFreez.next({ status: false, msg: '' })
+        clearInterval(this.countDownTimer);
       }
 
       if (minutes == 0 && seconds == 0) {
@@ -128,4 +146,13 @@ export class AppComponent {
       }
     }, 1000);
   }
+
+  getImage() {
+    this.api.getLogoImage().then((res: any) => {
+      this.image = res     
+    }).catch((err: any) => {
+      console.log("err==", err)
+    })
+  }
+
 }
