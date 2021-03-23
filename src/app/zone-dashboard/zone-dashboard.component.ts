@@ -34,7 +34,7 @@ export class ZoneDashboardComponent implements OnInit {
     });
     this.interval = setInterval(()=>{
       this.refreshZoneData();
-    },10000)
+    },10000);
   }
 
   ngOnDestroy() {

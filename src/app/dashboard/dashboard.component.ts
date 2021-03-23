@@ -381,12 +381,13 @@ export class DashboardComponent implements OnInit {
 
   getPopUpForm(data) {
     let edt = moment(data.inTime).add(data.totalDelay, 'milliseconds').format('YYYY-MM-DD hh:mm:ss');
+    let sdt = moment(data.inTime).add(data.standardDeliveryTime, 'milliseconds').format('YYYY-MM-DD hh:mm:ss');
     let a = '<table>';
     a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceName + '</td></tr>';
     a += '<tr><td><b>Location Name</b></td><td>' + data.coinName + '</td></tr>';
     a += '<tr><td><b>Zone Name</b></td><td>' + data.zoneName + '</td></tr>';
     a += '<tr><td><b>In time</b></td><td>' + moment(data.inTime).format('YYYY-MM-DD hh:mm:ss') + '</td></tr>';
-    a += '<tr><td><b>SDT</b></td><td>' + data.standardDeliveryTime + ' minutes</td></tr>';
+    a += '<tr><td><b>SDT</b></td><td>' + sdt + '</td></tr>';
     a += '<tr><td><b>EDT</b></td><td>' + edt + '</td></tr>';
     a += '</table>';
     return a;

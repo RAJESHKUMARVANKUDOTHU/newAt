@@ -70,9 +70,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let a of coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
-                            <td>{{i+1}}</td>
                             <td>{{a.coinId}}</td>
                             <td>{{a.coinName}}</td>
+                            <td>{{a.zoneData != null ? a.zoneData.zoneName : '-'}}</td>
                         </tr>
                     </tbody>
                 </table>
