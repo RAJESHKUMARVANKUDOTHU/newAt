@@ -17,12 +17,13 @@ export class VehicleStatusComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //  this.route
-    // .queryParams
-    // .subscribe(params => {
-    //   this.vehicleData =  +params['params'] || [];
-    //   console.log("this.vehicleData==",this.vehicleData)
-    // });
+     this.route
+    .queryParams
+    .subscribe(params => {
+      console.log("params==",params)
+      this.vehicleData =  params|| {}
+      console.log("this.vehicleData==",this.vehicleData)
+    });
     this.getZoneDetails()
   }
   getZoneDetails() {

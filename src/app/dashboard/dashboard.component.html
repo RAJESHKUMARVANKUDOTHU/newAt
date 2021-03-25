@@ -99,7 +99,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let a of deviceGroupList; let i = index">
+                                <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)">
                                     <td>{{a.deviceName}}</td>
                                     <td>{{a.coinName}}</td>
                                     <td>{{getSDT(a) | date : 'medium'}}</td>
