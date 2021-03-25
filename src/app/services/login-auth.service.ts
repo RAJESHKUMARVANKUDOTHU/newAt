@@ -60,12 +60,13 @@ export class LoginAuthService {
           
         }
         else {
-          a ={
-            menu : true,
-            other : true
-          }
-          this.loginCheckData.next(a)
-          return a
+          // a ={
+          //   menu : true,
+          //   other : true
+          // }
+          // this.loginCheckData.next(a)
+          // return a
+          this.loginData()
         }
 
       }),

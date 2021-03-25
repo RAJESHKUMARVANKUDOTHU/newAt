@@ -50,7 +50,7 @@
                 <mat-form-field *ngIf="genericReport.get('type').value == '3'">
                     <mat-label> Loaction Name</mat-label>
                     <mat-select formControlName="coinId">
-                        <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">
+                        <mat-option *ngFor="let coin of coinData" [value]="coin">
                             {{coin.coinName}}
                         </mat-option>
                     </mat-select>

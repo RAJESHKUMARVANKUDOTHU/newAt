@@ -37,6 +37,7 @@ export class ReportViewComponent implements OnInit {
     public general: GeneralService,
   ) {
     this.generalReportData = data.data
+    console.log("this.generalReportData ===",this.generalReportData )
   }
 
   ngOnInit(): void {
@@ -46,6 +47,8 @@ export class ReportViewComponent implements OnInit {
     var data = {}
     let from = moment(this.generalReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.generalReportData.toDate).format("YYYY-MM-DD")
+    console.log(from,to);
+    
     if (this.generalReportData.type == '0') {
       data={
         fromDate:from,
@@ -107,8 +110,8 @@ export class ReportViewComponent implements OnInit {
     if (this.generalReportData.type == '2') {
       data={
         deviceId:this.generalReportData.deviceId,
-        fromDate:this.generalReportData.fromDate,
-        toDate:this.generalReportData.toDate,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
       console.log("data to send==", data)
@@ -135,13 +138,13 @@ export class ReportViewComponent implements OnInit {
 
     if (this.generalReportData.type == '3') {
       data={
-        coinId:this.generalReportData.coinId,
-        fromDate:this.generalReportData.fromDate,
-        toDate:this.generalReportData.toDate,
+        coinId:this.generalReportData.coinId.coinId,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
       console.log("data to send==", data)
-      this.api.setRange(data).then((res: any) => {
+      this.api.getLocationReport(data).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
           this.locationData = res.success
@@ -164,12 +167,12 @@ export class ReportViewComponent implements OnInit {
     if (this.generalReportData.type == '4') {
       data={
         zoneId:this.generalReportData.zoneId._id,
-        fromDate:this.generalReportData.fromDate,
-        toDate:this.generalReportData.toDate,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
       console.log("data to send==", data)
-      this.api.setRange(data).then((res: any) => {
+      this.api.getZoneWiseReport(data).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
           this.zoneData = res.success
@@ -189,16 +192,17 @@ export class ReportViewComponent implements OnInit {
       })
     }
   }
-  
+
   download(){
     var data = {}
     var fileName=''
-
+    let from = moment(this.generalReportData.fromDate).format("YYYY-MM-DD")
+    let to = moment(this.generalReportData.toDate).format("YYYY-MM-DD")
     if (this.generalReportData.type == '0') {
       data={
         deviceName:this.generalReportData.deviceName,
-        fromDate:this.generalReportData.fromDate,
-        toDate:this.generalReportData.toDate,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
       console.log("data to send==", data)
@@ -223,12 +227,12 @@ export class ReportViewComponent implements OnInit {
     if (this.generalReportData.type == '1') {
       data={
         deviceName:this.generalReportData.deviceName,
-        fromDate:this.generalReportData.from,
-        toDate:this.generalReportData.to,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
       console.log("download data to send==", data)
-      fileName="Report of -"+this.generalReportData.deviceName
+      fileName="Report of device name - "+this.generalReportData.deviceName
       this.api.downloadDeviceNameReport(data,fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
@@ -250,11 +254,11 @@ export class ReportViewComponent implements OnInit {
     if (this.generalReportData.type == '2') {
       data={
         deviceId:this.generalReportData.deviceId,
-        fromDate:this.generalReportData.from,
-        toDate:this.generalReportData.to,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
-      fileName="Report of -"+this.generalReportData.deviceId
+      fileName="Report of Asset Id - "+this.generalReportData.deviceId
       console.log("download data to send==", data)
       this.api.downloadDeviceIdReport(data,fileName).then((res: any) => {
         console.log("res 2==", res)
@@ -276,12 +280,13 @@ export class ReportViewComponent implements OnInit {
 
     if (this.generalReportData.type == '3') {
       data={
-        coinId:this.generalReportData.coinId,
-        fromDate:this.generalReportData.from,
-        toDate:this.generalReportData.to,
+        coinId:this.generalReportData.coinId.coinId,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
-      this.api.setRange(data).then((res: any) => {
+      fileName="Report of location - "+this.generalReportData.coinId.coinName
+      this.api.downloadLocationReport(data,fileName).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
           this.locationData = res.success
@@ -300,12 +305,13 @@ export class ReportViewComponent implements OnInit {
 
     if (this.generalReportData.type == '4') {
       data={
-        zoneId:this.generalReportData.zoneId[0].zoneId._id,
-        fromDate:this.generalReportData.from,
-        toDate:this.generalReportData.to,
+        zoneId:this.generalReportData.zoneId.zoneId._id,
+        fromDate:from,
+        toDate:to,
         timeZoneOffset:this.general.getZone()
       }
-      this.api.setRange(data).then((res: any) => {
+      fileName="Report of zone Name - "+this.generalReportData.zoneId.zoneId.zoneName
+      this.api.downloadzoneWiseReport(data,fileName).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
           this.zoneData = res.success

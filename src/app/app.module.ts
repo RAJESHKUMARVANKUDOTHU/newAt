@@ -42,6 +42,7 @@ import { ZoneConfigurationComponent } from './zone-configuration/zone-configurat
 import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.component';
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.component';
+import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.componen
     ZoneDashboardComponent,
     ReportViewComponent,
     SetPasswordComponent,
+    AdminSettingsComponent,
   ],
   imports: [
     BrowserModule,

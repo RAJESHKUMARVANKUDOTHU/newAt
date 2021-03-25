@@ -471,6 +471,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  vehicleStatus(data){
+    
+  }
+
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {
       animationEnabled: true,

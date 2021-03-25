@@ -70,9 +70,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let a of coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
-                            <td>{{i+1}}</td>
+                          
                             <td>{{a.coinId}}</td>
                             <td>{{a.coinName}}</td>
+                            <td>
+                                <span *ngIf="a.zoneId !=null;else noZone">
+                                    <span >{{a.zoneData.zoneName}}</span>
+                                </span>
+                                <ng-template #noZone>
+                                    <span>-</span>
+                                </ng-template>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -104,7 +112,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="example-form">
                     <mat-label>Layout name</mat-label>
-                    <input type="text" matInput formControlName="layoutName" (change)="general.validate($event.target.value)" required>
+                    <input type="text" matInput formControlName="layoutName" autocomplete="off" (change)="general.validate($event.target.value)" required>
                     <mat-error *ngIf="newLayoutForm.get('layoutName').value ==''">
                         Location name is required
                     </mat-error>
@@ -114,7 +122,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="example-form1">
                     <mat-label>Height in feet</mat-label>
-                    <input type="number" min="0" matInput formControlName="height" required>
+                    <input type="number" min="0" matInput formControlName="height" autocomplete="off" required>
                     <mat-error>
                         Field required.
                     </mat-error>
@@ -122,7 +130,7 @@
                 <span class="py-3"><b>X</b></span>
                 <mat-form-field appearance="outline" class="example-form1">
                     <mat-label>Width in feet</mat-label>
-                    <input type="number" min="0" matInput formControlName="width" required>
+                    <input type="number" min="0" matInput formControlName="width" autocomplete="off" required>
                     <mat-error>
                         Field required.
                     </mat-error>

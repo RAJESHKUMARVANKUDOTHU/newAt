@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralService } from '../services/general.service';
 import { ApiService } from '../services/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-vehicle-status',
   templateUrl: './vehicle-status.component.html',
@@ -8,12 +9,20 @@ import { ApiService } from '../services/api.service';
 })
 export class VehicleStatusComponent implements OnInit {
   zoneData: any = []
+  vehicleData:any=[]
   constructor(
     private api: ApiService,
     public general: GeneralService,
+    private route : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    //  this.route
+    // .queryParams
+    // .subscribe(params => {
+    //   this.vehicleData =  +params['params'] || [];
+    //   console.log("this.vehicleData==",this.vehicleData)
+    // });
     this.getZoneDetails()
   }
   getZoneDetails() {

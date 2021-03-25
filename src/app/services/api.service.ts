@@ -181,7 +181,7 @@ export class ApiService {
       );
     });
   }
-  // superadminlogin
+  // -------------superadmin login--------------------------
   adminLogin(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -200,7 +200,110 @@ export class ApiService {
       );
     });
   }
+// ----------------superadmin settings------------------------
+getUserSettings(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
+  let url = this.host + '/getUserSettings/'+data;
+  return new Promise((resolve, reject) => {
+    this.http.get(url).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+
+
+updateOnlineStatus(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateOnlineStatus';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+
+updateOfflineStatus(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateOfflineStatus';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+
+updateRssi(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateRssi';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+
+updateTxPower(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateTxPower';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+// ---------------------end----------------------------
   createUsers(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -1529,6 +1632,26 @@ export class ApiService {
       );
     });
   }
+  getVehicleStatus(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getVehicleStatus';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
 // -----------------report page APIs--------------------
 genericReport(data){
   const httpOptions = {
@@ -1590,6 +1713,46 @@ deviceIdReport(data){
       );
     });
 }
+getLocationReport(data){
+      const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getLocationReport';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+}
+getZoneWiseReport(data){
+      const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getZoneIdReport';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+}
   // ----------------report download-------------------------------
 
   downloadGenericReport(data,fileName){
@@ -1636,6 +1799,43 @@ deviceIdReport(data){
       data: data,
     };
     let url = this.host + '/downloadDeviceIdReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          // console.log("err==", err)
+        })
+    });
+  }
+  downloadLocationReport(data,fileName){
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadLocationReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          // console.log("err==", err)
+        })
+    });
+  }
+
+  downloadzoneWiseReport(data,fileName){
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadZoneIdReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         console.log("res==", res)

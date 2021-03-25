@@ -10,7 +10,7 @@
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Device Name</mat-label>
                     <input type="text" matInput formControlName="deviceName"
-                        (change)="general.validate($event.target.value)" required>
+                        (change)="general.validate($event.target.value)" autocomplete="off" required>
                     <mat-error *ngIf="addFind.get('deviceName').value ==''">
                         Device name is required.
                     </mat-error>
@@ -20,7 +20,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Device Id</mat-label>
-                    <input type="number" min="1" max="65535" matInput formControlName="deviceId" required>
+                    <input type="number" min="1" max="65535" matInput formControlName="deviceId" autocomplete="off" required>
                     <mat-error>
                         Device Id should be between 1-65535.
                     </mat-error>
@@ -37,7 +37,7 @@
             <form [formGroup]="addGateway" >
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
-                    <input type="text" matInput formControlName="gatewayName"
+                    <input type="text" matInput formControlName="gatewayName" autocomplete="off"
                         (change)="general.validate($event.target.value)" required>
                     <mat-error *ngIf="addGateway.get('gatewayName').value ==''">
                         Gateway name is required.
@@ -48,7 +48,7 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Id</mat-label>
-                    <input type="text" matInput formControlName="gatewayId" required>
+                    <input type="text" matInput formControlName="gatewayId" autocomplete="off" required>
                     <mat-error>
                         Gateway id should be of 12 Characters.
                     </mat-error>
@@ -66,7 +66,7 @@
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Name</mat-label>
                     <input type="text" matInput formControlName="coinName"
-                        (change)="general.validate($event.target.value)" required>
+                        (change)="general.validate($event.target.value)" autocomplete="off" required>
                     <mat-error *ngIf="addCoin.get('coinName').value ==''">
                         Coin Name is required.
                     </mat-error>
@@ -76,14 +76,14 @@
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Id</mat-label>
-                    <input type="number" min='1' max="65535" matInput formControlName="coinId" required>
+                    <input type="number" min='1' max="65535" matInput formControlName="coinId" autocomplete="off" required>
                     <mat-error>
                         Device Id should be between 1-65535.
                     </mat-error>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Select Gateway ID</mat-label>
-                    <mat-select formControlName="gatewayId">
+                    <mat-select formControlName="gatewayId" autocomplete="off">
                         <mat-option *ngFor="let b of gateway" [(value)]="b.gatewayId">
                             {{b.gatewayId}}
                         </mat-option>
