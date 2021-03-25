@@ -16,7 +16,8 @@ export class GeofenceDashboardComponent implements OnInit {
   deviceData: any = []
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'coinId', 'updatedOnLoc', 'geofenceStatus'];
-  geoFencestatus:boolean=false
+  geoFencestatus:boolean=false;
+  interval : any;
   constructor(
     public general: GeneralService,
     private api: ApiService,
@@ -24,8 +25,25 @@ export class GeofenceDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refreshGeofence()
+    this.refreshGeofence();
+    this.login.loginCheckData.subscribe(res => {
+      if (!res.other) {
+        this.clearTimeInterval()
+      }
+    });
+    this.interval = setInterval(()=>{
+      this.refreshGeofence();
+    },10000);
   }
+
+  ngOnDestroy() {
+    this.clearTimeInterval()
+  }
+
+  clearTimeInterval() {
+    clearInterval(this.interval);
+  }
+
   status(data){
     this.deviceData.forEach((element,index) => {
       if(element.deviceId == data.deviceId){

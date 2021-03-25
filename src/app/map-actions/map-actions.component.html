@@ -70,17 +70,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let a of coinData;let i=index" [ngClass]="configCoinForm.get('coinId').value == a.coinId ? 'selectCoinTrue' : 'selectCoinFalse'">
-                          
                             <td>{{a.coinId}}</td>
                             <td>{{a.coinName}}</td>
-                            <td>
-                                <span *ngIf="a.zoneId !=null;else noZone">
-                                    <span >{{a.zoneData.zoneName}}</span>
-                                </span>
-                                <ng-template #noZone>
-                                    <span>-</span>
-                                </ng-template>
-                            </td>
+                            <td>{{a.zoneData != null ? a.zoneData.zoneName : '-'}}</td>
                         </tr>
                     </tbody>
                 </table>
