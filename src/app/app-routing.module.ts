@@ -25,6 +25,7 @@ import { ZoneConfigurationComponent } from './zone-configuration/zone-configurat
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.component';
 import { SetPasswordComponent } from './login/set-password/set-password.component';
+import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.component';
 
 const routes: Routes = [
   // {path : '', component:LoginComponent},
@@ -54,6 +55,7 @@ const routes: Routes = [
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['superAdminRole']}},
+  {path:'admin-settings' , component:AdminSettingsComponent, canActivate: [AuthGuard], data:{role:['superAdminRole']}},
 ];
 
 @NgModule({

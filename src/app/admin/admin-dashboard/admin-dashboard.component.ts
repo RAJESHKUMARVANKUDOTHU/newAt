@@ -16,7 +16,7 @@ import { GeneralService } from '../../services/general.service';
 export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ["i", 'userName', 'updatedAt'];
+  displayedColumns: string[] = ["i", 'userName', 'updatedAt','settings'];
   dataSource: any = []
   addUserForm: FormGroup
   loginData: any
@@ -86,6 +86,11 @@ export class AdminDashboardComponent implements OnInit {
       console.log("err======", err)
     })
   }
+  setting(data){
+    console.log("data",data)
+    this.general.updateItem('sensegiz','userData',data)
+    this.router.navigate(['/admin-settings'])
+  }
 
   // isDeleted(data){
   //   if(data.isDeleted=='N'){
@@ -98,7 +103,6 @@ export class AdminDashboardComponent implements OnInit {
   //       console.log("err======",err)
   //     }) 
   //   }
-
   // }
 
 }

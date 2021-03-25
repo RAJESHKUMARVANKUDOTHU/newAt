@@ -33,8 +33,8 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Type</th>
                 <td mat-cell *matCellDef="let find">
                     <mat-form-field>
-                        <mat-label>Service Type</mat-label>
-                        <mat-select [(value)]="find.serviceCategoryId" [disabled]="find.deviceAssignedStatus == false || find.deviceToggleStatus == false">
+                        
+                        <mat-select [(value)]="find.serviceCategoryId"  [disabled]="find.deviceAssignedStatus == false || find.deviceToggleStatus == false">
                             <mat-option *ngFor=" let a of serviceData" [value]="a._id" (click)="onServiceSelection(find,a)">
                                 {{a.serviceName}}
                             </mat-option>

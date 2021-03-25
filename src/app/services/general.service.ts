@@ -18,6 +18,7 @@ export class GeneralService {
   public date2: any
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([])
   public deviceChanges = new Subject<any>();
+  public userData = new Subject<any>();
   isMobile: boolean;
   isTablet: boolean;
   isDesktopDevice: boolean;
@@ -56,7 +57,6 @@ export class GeneralService {
   }
   setObject(key, obj) {
     localStorage.setItem(key, JSON.stringify(obj));
-    console.log("get==", this.getObject('sensegizlogin'))
   }
 
   getObject(key) {
@@ -71,22 +71,13 @@ export class GeneralService {
     this.setObject(key, obj);
   }
   encrypt(data: any) {
-
     this.encryptInfo = CryptoJS.AES.encrypt(JSON.stringify(data), this.getToken()).toString();
-
-    // console.log("encryptInfo===", this.encryptInfo);
-
     return this.encryptInfo
   }
 
   decrypt(data: any) {
-
     var deData = CryptoJS.AES.decrypt(data, this.getToken());
-
     this.decryptedInfo = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
-
-    // console.log("decryptedInfo====", this.decryptedInfo);
-
     return this.decryptedInfo
   }
 
@@ -98,7 +89,6 @@ export class GeneralService {
     this.mismatch = true
     const expression = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
     var string = expression.test(String(data).toLowerCase());
-
     if (data) {
       if (data == data.match(string)) {
         this.mismatch = false
@@ -108,10 +98,7 @@ export class GeneralService {
     }
   }
   convertTime(a) {
-    // console.log(a)
-
     var timeArr = a.split(':')
-
     var date = ''
     if (timeArr[0] != '00') {
       date += timeArr[0] + ' hour '
@@ -130,14 +117,10 @@ export class GeneralService {
 
   getTotTime(inTime, outTime) {
     // console.log("time===",inTime,outTime)
-
     this.date1 = new Date(inTime)
     this.date2 = outTime == null ? new Date() : new Date(outTime)
-
     // console.log("time2===",this.date1, this.date2)
-
     if (this.date1 != "Invalid Date") {
-
       if (this.date2 != "Invalid Date") {
         var diff = Math.abs(this.date2 - this.date1)
       }

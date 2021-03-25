@@ -52,18 +52,20 @@ export class AppComponent {
       if (res) {
         this.logged = res.other;
         this.menu = res.menu;
-        console.log(this.logged, this.menu);
-
+        console.log("log meu==",this.logged,this.menu)
         if (this.logged == true) {
           this.loginDetails = this.login.getLoginDetails().success;
           this.duration = this.loginDetails.timer;
           this.startTimer()
-          this.getImage()
+          this.freezeSubscribe();
+          if(this.loginDetails.role !="superAdminRole"){
+            this.getImage()
+            console.log("this.loginDetails.logo",this.loginDetails.logo)
+          }
         }
       }
     });
 
-    this.freezeSubscribe();
   }
   ngOnInit(): void {
     this.duration = this.loginDetails.timer;
@@ -71,13 +73,8 @@ export class AppComponent {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
+  }
 
-  }
-  ngOnDestroy() {
-    if(this.loginDetails.role == null){
-      clearInterval(this.countDownTimer);
-    }
-  }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -103,7 +100,6 @@ export class AppComponent {
 
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
-      var count = 0
       var diff = Math.abs(this.duration - start);
       var minutes = Math.floor((diff / 1000 / 60) << 0);
       var seconds = Math.floor((diff / 1000) % 60);
@@ -114,15 +110,10 @@ export class AppComponent {
       // console.log("this.time==",this.time)
       if (minutes == 0 && seconds == 2) {
         this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-        count++;
-      }
-      if (count > 1) {
-        this.general.loadingFreez.next({ status: false, msg: '' })
-        clearInterval(this.countDownTimer);
       }
 
       if (minutes == 0 && seconds == 0) {
-        console.log("timer==", this.countDownTimer);
+
         this.general.loadingFreez.next({ status: false, msg: '' })
         clearInterval(this.countDownTimer);
         this.login.logout();

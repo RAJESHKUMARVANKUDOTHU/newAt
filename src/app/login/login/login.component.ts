@@ -14,9 +14,9 @@ export class LoginComponent implements OnInit {
   public loginInvalid: boolean;
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
-  loginData:any
-  verifyOtp:boolean
-  disable:boolean
+  loginData: any
+  verifyOtp: boolean
+  disable: boolean
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -28,14 +28,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.email,Validators.required]],
-      password: ['',Validators.required],
-      otp1:[''],
-      otp2:[''],
-      otp3:[''],
-      otp4:[''],
-      otp5:[''],
-      otp6:[''],
+      userName: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required],
+      otp1: [''],
+      otp2: [''],
+      otp3: [''],
+      otp4: [''],
+      otp5: [''],
+      otp6: [''],
     })
 
   }
@@ -47,38 +47,38 @@ export class LoginComponent implements OnInit {
   onKeyUpEvent(index, event) {
     const eventCode = event.which || event.keyCode;
 
-     if (index !== 6) {
-      this.getCodeBoxElement(index+ 1).focus();
-     } else {
+    if (index !== 6) {
+      this.getCodeBoxElement(index + 1).focus();
+    } else {
       this.getCodeBoxElement(index).blur();
-     }
+    }
 
     if (eventCode === 8 && index !== 1) {
-     this.getCodeBoxElement(index - 1).focus();
+      this.getCodeBoxElement(index - 1).focus();
     }
   }
   onSubmit(value) {
-    console.log("data===", data)
     this.loginInvalid = false
-    this.verifyOtp=false
-      if (this.loginForm.valid) {
+    this.verifyOtp = false
+    if (this.loginForm.valid) {
       try {
-        console.log("data===", data)
-        var data={
-          userName:value.userName,
-          password:value.password
+        var data = {
+          userName: value.userName,
+          password: value.password
         }
+        console.log("data===", data)
         this.api.login(data).then((res: any) => {
           console.log("login res===", res)
-          this.loginData=res.success
-          this.verifyOtp=res.success.isTwoStepAuth==true?true:false
+          this.loginData = res.success
+          this.verifyOtp = res.success.isTwoStepAuth == true ? true : false
 
+          if (res.status) {
             if (res.token) {
               var start = new Date() as any
               var end = new Date()
               var date = end.setHours(start.getHours() + 1);
               res.success.timer = date
-              this.loginData=this.login.login(JSON.stringify(res))
+              this.loginData = this.login.login(JSON.stringify(res))
               if (this.login.login(JSON.stringify(res))) {
                 console.log("i stepped")
                 this.router.navigate(['/dashboard'])
@@ -87,10 +87,16 @@ export class LoginComponent implements OnInit {
                 this.loginInvalid = true
               }
             }
-            else { }
- 
+            else{
+              this.loginInvalid = true
+            }
+          }
+          else {
+            this.loginInvalid = true
+          }
 
-          }).catch((err) => {
+
+        }).catch((err) => {
           console.log("err======", err)
         })
       }
@@ -100,41 +106,41 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  openOTP(value){
-console.log("otp===",value)
-   var data={
-    userId:this.loginData.userId,
-     userType:this.loginData.userType,
-     otp :value.otp1+value.otp2+value.otp3+value.otp4+value.otp5+value.otp6
-   }
-   console.log("otp sent===",data)
-      this.api.verifyTwoStepOtp(data).then((res:any)=>{
-        console.log("verifyTwoStepOtp res==",res)
-        if(res.status){
+  openOTP(value) {
+    console.log("otp===", value)
+    var data = {
+      userId: this.loginData.userId,
+      userType: this.loginData.userType,
+      otp: value.otp1 + value.otp2 + value.otp3 + value.otp4 + value.otp5 + value.otp6
+    }
+    console.log("otp sent===", data)
+    this.api.verifyTwoStepOtp(data).then((res: any) => {
+      console.log("verifyTwoStepOtp res==", res)
+      if (res.status) {
 
-         this.general.openSnackBar("OTP verified successfully..!!!",'')
-         if (res.token) {
+        this.general.openSnackBar("OTP verified successfully..!!!", '')
+        if (res.token) {
           var start = new Date() as any
           var end = new Date()
           var date = end.setHours(start.getHours() + 1);
           res.success.timer = date
-          this.loginData=this.login.login(JSON.stringify(res))
+          this.loginData = this.login.login(JSON.stringify(res))
           if (this.login.login(JSON.stringify(res))) {
             console.log("i stepped")
             this.router.navigate(['/dashboard'])
           }
         }
-        }
-        else{
+      }
+      else {
 
-          this.general.openSnackBar("Wrong OTP :-)",'')
-          this.loginForm.reset()
-        }
-      })
-    }
+        this.general.openSnackBar("Wrong OTP :-)", '')
+        this.loginForm.reset()
+      }
+    })
+  }
 
-  forgetPassword(){
-    this.router.navigate(['/set-password'])  
+  forgetPassword() {
+    this.router.navigate(['/set-password'])
 
   }
   hideShowPassword() {

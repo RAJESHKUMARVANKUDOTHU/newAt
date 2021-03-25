@@ -160,6 +160,7 @@ export class MapActionsComponent implements OnInit {
       return obj.gatewayId == data
     });
     this.coinData = gatewayData.length ? gatewayData[0].coinData : [];
+    console.log("coinData==",this.coinData)
     this.updateSelected(data);
     this.createMarker();
   }

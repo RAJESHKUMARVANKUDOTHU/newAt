@@ -75,7 +75,7 @@
             <form [formGroup]="groupRegister">
                 <mat-form-field>
                     <mat-label>Enter group name</mat-label>
-                    <input type="text" matInput formControlName="groupName" required>
+                    <input type="text" matInput formControlName="groupName"  autocomplete="off" required>
                     <mat-error *ngIf="groupRegister.get('groupName').value ==''">
                         Service name is required
                     </mat-error>
@@ -146,7 +146,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter time delay</mat-label>
-                    <input type="number" matInput formControlName="timeDelay" required>
+                    <input type="number" matInput formControlName="timeDelay" autocomplete="off" required>
                     <mat-error>
                         Please enter valid time delay.
                     </mat-error>
@@ -165,7 +165,7 @@
         <mat-card-content>
             <form [formGroup]="maxFindForm">
                 <mat-form-field>
-                    <mat-label>Select Asset</mat-label>
+                    <mat-label>Select Coin</mat-label>
                     <mat-select formControlName="coinId" multiple>
                         <mat-option #allSelected1 (click)="toggleAllSelectionCoins(maxFindForm)" [value]="0">All
                         </mat-option>
@@ -177,7 +177,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Set maximum number of finds to assign</mat-label>
-                    <input type="number" matInput formControlName="maxFindAsset" required>
+                    <input type="number" matInput formControlName="maxFindAsset" autocomplete="off" required>
                     <mat-error>
                         Please select maximum finds you want to assign.
                     </mat-error>
@@ -200,7 +200,7 @@
             <form [formGroup]="zoneForm">
                 <mat-form-field>
                     <mat-label>Enter name for Zone</mat-label>
-                    <input matInput type="text" formControlName="zoneName" required>
+                    <input matInput type="text" formControlName="zoneName" autocomplete="off" required>
                     <mat-error *ngIf="zoneForm.get('zoneName').value ==''">
                         Zone name is required.
                     </mat-error>
@@ -210,7 +210,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter Standard time for the zone</mat-label>
-                    <input type="number" matInput formControlName="standardTime" placeholder="in Minutes" required>
+                    <input type="number" matInput formControlName="standardTime" placeholder="in Minutes" autocomplete="off" required>
                     <mat-error>
                         Standard time is required.
                     </mat-error>
@@ -265,7 +265,7 @@
             <form [formGroup]="createServiceType">
                 <mat-form-field>
                     <mat-label>Enter service type name</mat-label>
-                    <input type="text" matInput formControlName="serviceName" required>
+                    <input type="text" matInput formControlName="serviceName" autocomplete="off" required>
                     <mat-error *ngIf="createServiceType.get('serviceName').value ==''">
                         Service name is required
                     </mat-error>
@@ -317,7 +317,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter inactivity Time</mat-label>
-                    <input type="number" matInput formControlName="inactivityTime" placeholder="in Minutes" required>
+                    <input type="number" matInput formControlName="inactivityTime" autocomplete="off" placeholder="in Minutes" required>
                     <mat-error>
                         Please enter inactivty time.
                     </mat-error>
@@ -355,7 +355,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>Enter inactivity Time</mat-label>
-                    <input type="number" matInput formControlName="inactivityTime" placeholder="in Minutes" required>
+                    <input type="number" matInput formControlName="inactivityTime" autocomplete="off" placeholder="in Minutes" required>
                     <mat-error>
                         Please enter inactivty time.
                     </mat-error>

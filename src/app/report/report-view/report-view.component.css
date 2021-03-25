@@ -1,5 +1,7 @@
 .color{
     color: blue;
+    font-weight: 500;
+    font-size: xx-large;
 }
 hr{
     width:20rem
