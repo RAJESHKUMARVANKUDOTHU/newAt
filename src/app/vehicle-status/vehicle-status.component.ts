@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { GeneralService } from '../services/general.service';
 import { ApiService } from '../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./vehicle-status.component.css']
 })
 export class VehicleStatusComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   zoneData: any = []
+  dataSource: any = [];
+  displayedColumns = [ 'coinName','inTime', 'outTime', 'totTime'];
   vehicleData:any=[]
   constructor(
     private api: ApiService,
@@ -17,14 +24,37 @@ export class VehicleStatusComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-     this.route
-    .queryParams
-    .subscribe(params => {
-      console.log("params==",params)
-      this.vehicleData =  params|| {}
-      console.log("this.vehicleData==",this.vehicleData)
-    });
+    this.route.queryParams.subscribe(params => {
+      let data= JSON.parse(params.record) ;
+       console.log("records=",this.vehicleData )
+      this.getVehicleStatus(data)
+  })
     this.getZoneDetails()
+  }
+
+  getVehicleStatus(device){
+    var data={
+      deviceId:device.deviceId,
+      deviceName:device.deviceName
+    }
+    this.api.getVehicleStatus(data).then((res:any)=>{
+      console.log("res==",res)
+      if(res.status){
+        this.vehicleData=res.success
+        for (let i = 0; i < this.vehicleData.locations.length; i++) {
+          this.vehicleData.locations[i].totTime = this.general.getTotTime(this.vehicleData.locations[i].inTime, this.vehicleData.locations[i].outTime)
+        }
+        this.dataSource = new MatTableDataSource(this.vehicleData.locations);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator
+        })
+      }else{
+        this.vehicleData=[]
+      }
+    }).catch((err)=>{
+      console.log("err===",err)
+    })
   }
   getZoneDetails() {
     this.api.getZone().then((res: any) => {

@@ -37,9 +37,16 @@
     height: 1px;
     padding: 5px 16px 5px 16px;
 }
-thead{
-    background: #7ea6e0;
+table.mat-table {
+    width: 100%;
+    margin-top: 0rem;
 }
-tbody{
-    background: #d4e1f5;
+td.mat-cell,.mat-paginator{
+    background-color:#d4e1f5
+}
+.mat-header-cell {
+    text-align: center;
+    background-color: #7ea6e0 !important;
+    font-size: 13px;
+    color: black;
 }

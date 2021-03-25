@@ -7,6 +7,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import * as L from 'leaflet';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
@@ -116,7 +117,11 @@ export class DashboardComponent implements OnInit {
     searchMessage: 'Vehicle not found',
   };
 
-  constructor(private cd: ChangeDetectorRef, private api: ApiService, private login : LoginAuthService) { }
+  constructor(
+    private cd: ChangeDetectorRef,
+     private api: ApiService,
+      private login : LoginAuthService,
+      private router :Router) { }
 
   ngOnInit(): void {
     this.congestionGraph();
@@ -381,13 +386,12 @@ export class DashboardComponent implements OnInit {
 
   getPopUpForm(data) {
     let edt = moment(data.inTime).add(data.totalDelay, 'milliseconds').format('YYYY-MM-DD hh:mm:ss');
-    let sdt = moment(data.inTime).add(data.standardDeliveryTime, 'milliseconds').format('YYYY-MM-DD hh:mm:ss');
     let a = '<table>';
     a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceName + '</td></tr>';
     a += '<tr><td><b>Location Name</b></td><td>' + data.coinName + '</td></tr>';
     a += '<tr><td><b>Zone Name</b></td><td>' + data.zoneName + '</td></tr>';
     a += '<tr><td><b>In time</b></td><td>' + moment(data.inTime).format('YYYY-MM-DD hh:mm:ss') + '</td></tr>';
-    a += '<tr><td><b>SDT</b></td><td>' + sdt + '</td></tr>';
+    a += '<tr><td><b>SDT</b></td><td>' + data.standardDeliveryTime + ' minutes</td></tr>';
     a += '<tr><td><b>EDT</b></td><td>' + edt + '</td></tr>';
     a += '</table>';
     return a;
@@ -472,7 +476,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
+  vehicleStatus(data){
+    console.log("a==",data);
+    this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) } });
+  }
 
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {

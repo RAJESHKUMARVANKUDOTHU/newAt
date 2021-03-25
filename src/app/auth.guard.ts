@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
             }
             if( role[0] == "userRole" || role[0]== 'subAdminRole'){
                 if(state.url == '/setting' || state.url == '/geofence' || state.url == '/profile' 
-                || state.url == '/map-actions' || state.url == '/zone-configuration' || state.url == '/zone-dashboard'){
+                || state.url == '/map-actions' || state.url == '/zone-configuration' ){
                     this.router.navigate(['/dashboard'])
                 }
                 else{

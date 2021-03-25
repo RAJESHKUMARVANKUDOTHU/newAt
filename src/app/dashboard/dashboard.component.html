@@ -100,10 +100,13 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)">
-                                    <td>{{a.deviceName}}</td>
-                                    <td>{{a.coinName}}</td>
-                                    <td>{{getSDT(a) | date : 'medium'}}</td>
-                                    <td>{{getEDT(a) | date : 'medium'}}</td>
+                                    <ng-container >
+
+                                        <td>{{a.deviceName}}</td>
+                                        <td>{{a.coinName}}</td>
+                                        <td>{{getSDT(a) | date : 'medium'}}</td>
+                                        <td>{{getEDT(a) | date : 'medium'}}</td>
+                                    </ng-container>
                                 </tr>
                             </tbody>
                         </table>

@@ -22,7 +22,6 @@ table.mat-table {
 
 .mat-sort-header-container {
     display: flex;
-    background-color: orange;
     color: white;
     justify-content: center;
     font-weight: 500;

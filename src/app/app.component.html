@@ -76,10 +76,12 @@
                 </mat-list-item>
 
                 <div class="list">
-                    <mat-list-item *ngIf="showLabel" routerLink="/setting">
+                    <mat-list-item *ngIf="showLabel" routerLink="/setting"
+                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                         <span mat-line> General Settings</span>
                     </mat-list-item>
-                    <mat-list-item *ngIf="showLabel" routerLink="/geofence">
+                    <mat-list-item *ngIf="showLabel" routerLink="/geofence"
+                    [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">
                         <span> Geofence Settings</span>
                     </mat-list-item>
                 </div>
