@@ -20,8 +20,8 @@
                     <mat-label>Choose Report Type</mat-label>
                     <mat-select disableRipple formControlName="type">
                         <mat-option value="0">Generic Report </mat-option>
-                        <mat-option value="1">Asset Name wise report </mat-option>
-                        <mat-option value="2">Asset ID wise report </mat-option>
+                        <mat-option value="1">Device Name wise report </mat-option>
+                        <mat-option value="2">Device ID wise report </mat-option>
                         <mat-option value="3">Location wise report</mat-option>
                         <mat-option value="4">Zone wise report</mat-option>
                         <mat-option value="5"> Average Zone wise performance </mat-option>
@@ -32,7 +32,7 @@
                 </mat-form-field> 
 
                 <mat-form-field *ngIf="genericReport.get('type').value == '1'">
-                    <mat-label> Asset Name</mat-label>
+                    <mat-label> Device Name</mat-label>
                     <mat-select formControlName="deviceName">
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceName">
                             {{find.deviceName}}
@@ -40,7 +40,7 @@
                     </mat-select>
                 </mat-form-field> <br>
                 <mat-form-field *ngIf="genericReport.get('type').value == '2'">
-                    <mat-label> Asset Id</mat-label>
+                    <mat-label> Device Id</mat-label>
                     <mat-select formControlName="deviceId">
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceId">
                             {{find.deviceId}}
