@@ -6,3 +6,23 @@
 hr{
     width:20rem
 }
+
+table.mat-table {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.mat-sort-header-container {
+    display: flex;
+    color: white;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.mat-header-cell {
+    text-align: center;
+    background-color: orange;
+    font-size: 13px;
+    color: white;
+}
