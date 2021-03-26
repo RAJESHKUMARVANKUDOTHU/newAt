@@ -75,7 +75,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="pointer" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
                                     <td>{{a.avgTime}}</td>
@@ -99,7 +99,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)">
+                                <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)" class="cursor">
                                     <ng-container >
 
                                         <td>{{a.deviceName}}</td>

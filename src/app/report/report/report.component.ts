@@ -170,10 +170,12 @@ export class ReportComponent implements OnInit {
       }
       if (type.value == "3") {
         if (formGroup.get('coinId').value != '') {
-          formGroup.get('deviceName').setErrors(null)
-          formGroup.get('deviceId').setErrors(null)
-          formGroup.get('zoneId').setErrors(null)
-          formGroup.get('coinId').setErrors(null)
+          formGroup.setErrors(null)
+
+          // formGroup.get('deviceName').setErrors(null)
+          // formGroup.get('deviceId').setErrors(null)
+          // formGroup.get('zoneId').setErrors(null)
+          // formGroup.get('coinId').setErrors(null)
           return
         }
         else {
@@ -187,10 +189,10 @@ export class ReportComponent implements OnInit {
 
       if (type.value == "4") {
         if (formGroup.get('zoneId').value != '') {
-          
-        formGroup.get('coinId').setErrors(null)
-        formGroup.get('deviceId').setErrors(null)
-        formGroup.get('deviceName').setErrors(null)
+          formGroup.setErrors(null)
+        // formGroup.get('coinId').setErrors(null)
+        // formGroup.get('deviceId').setErrors(null)
+        // formGroup.get('deviceName').setErrors(null)
           formGroup.get('zoneId').setErrors(null)
           return
         }

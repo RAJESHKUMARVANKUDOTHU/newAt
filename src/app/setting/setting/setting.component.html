@@ -80,7 +80,7 @@
                         Service name is required
                     </mat-error>
                     <mat-error *ngIf="groupRegister.get('groupName').value !='' || general.mismatch">
-                        No special characters are allowed. And service name cannot start/end with space(s).
+                        No special characters are allowed. And service name cannot start/end with space(s). 
                     </mat-error>
                 </mat-form-field> <br><br> <br><br>
             </form>
@@ -129,11 +129,11 @@
     </mat-card>
 
     <mat-card class="text-center">
-        <mat-card-title> Set Time Delay for assets</mat-card-title> 
+        <mat-card-title> Set Time Delay for Devices</mat-card-title> 
         <mat-card-content>
             <form [formGroup]="timeDelay" id="time">
                 <mat-form-field>
-                    <mat-label>Select Asset</mat-label>
+                    <mat-label>Select Device</mat-label>
                     <mat-select formControlName="deviceId" multiple>
                         <mat-option #allSelected (click)="toggleAllSelectionDevice(timeDelay)" [value]="0">All
                         </mat-option>
@@ -205,7 +205,7 @@
                         Zone name is required.
                     </mat-error>
                     <mat-error *ngIf="zoneForm.get('zoneName').value !='' || general.mismatch">
-                        No special characters are allowed. And zone name cannot start/end with space(s).
+                        No special characters are allowed. And zone name cannot start/end with space(s). <br><br>
                     </mat-error>
                 </mat-form-field> <br>
                 <mat-form-field>
@@ -270,7 +270,7 @@
                         Service name is required
                     </mat-error>
                     <mat-error *ngIf="createServiceType.get('serviceName').value !='' || general.mismatch">
-                        No special characters are allowed. And service name cannot start/end with space(s).
+                        No special characters are allowed. And service name cannot start/end with space(s). <br><br>
                     </mat-error>
                 </mat-form-field> <br>
                 <mat-form-field>
@@ -304,7 +304,7 @@
                     <mat-radio-button class="example-radio-button" value="email">Email</mat-radio-button>
                 </mat-radio-group><br>
                 <mat-form-field>
-                    <mat-label>Select Asset</mat-label>
+                    <mat-label>Select Device</mat-label>
                     <mat-select formControlName="deviceId" multiple>
                         <mat-option #allSelected2 (click)="toggleAllSelectionDevice2(inactivityFind)" [value]="0">All
                         </mat-option>
