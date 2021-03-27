@@ -100,7 +100,7 @@ export class GeneralService {
   convertTime(a) {
     var timeArr = a.split(':')
     var date = ''
-    if (timeArr[0] <= 24) {
+    if (timeArr[0] < 24) {
       if (timeArr[0] != '00') {
         date += timeArr[0] + ' hour '
       }
