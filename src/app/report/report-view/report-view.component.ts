@@ -258,7 +258,7 @@ export class ReportViewComponent implements OnInit {
         toDate:to,
         timeZoneOffset:this.general.getZone()
       }
-      fileName="Report of Asset Id - "+this.generalReportData.deviceId
+      fileName="Report of device Id - "+this.generalReportData.deviceId
       console.log("download data to send==", data)
       this.api.downloadDeviceIdReport(data,fileName).then((res: any) => {
         console.log("res 2==", res)
@@ -305,12 +305,12 @@ export class ReportViewComponent implements OnInit {
 
     if (this.generalReportData.type == '4') {
       data={
-        zoneId:this.generalReportData.zoneId.zoneId._id,
+        zoneId:this.generalReportData.zoneId._id,
         fromDate:from,
         toDate:to,
         timeZoneOffset:this.general.getZone()
       }
-      fileName="Report of zone Name - "+this.generalReportData.zoneId.zoneId.zoneName
+      fileName="Report of zone Name - "+this.generalReportData.zoneId.zoneName
       this.api.downloadzoneWiseReport(data,fileName).then((res: any) => {
         console.log("res==", res)
         if (res.status) {

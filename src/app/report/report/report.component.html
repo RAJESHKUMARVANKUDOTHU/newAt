@@ -65,7 +65,7 @@
                 </mat-form-field> 
                 <mat-form-field>
                     <mat-label>From date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" required>
+                    <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" required autocomplete="off">
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker1></mat-datepicker>
                     <mat-error>
@@ -75,7 +75,7 @@
 
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" required>
+                    <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" required autocomplete="off">
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker2></mat-datepicker>
                     <mat-error>
@@ -117,7 +117,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>From date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker3" formControlName="fromDate" required>
+                    <input matInput [matDatepicker]="myDatepicker3" formControlName="fromDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker3></mat-datepicker>
                     <mat-error>
@@ -127,7 +127,7 @@
 
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" required>
+                    <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker4></mat-datepicker>
                     <mat-error>
@@ -136,7 +136,6 @@
                 </mat-form-field> <br>
                 <button class="btn-set" mat-raised-button [disabled]="!customReport.valid"
                     color="primary">Submit</button>
-
             </form>
         </mat-card-content>
     </mat-card>
