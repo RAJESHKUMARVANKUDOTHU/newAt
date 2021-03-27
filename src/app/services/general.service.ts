@@ -100,17 +100,39 @@ export class GeneralService {
   convertTime(a) {
     var timeArr = a.split(':')
     var date = ''
-    if (timeArr[0] != '00') {
-      date += timeArr[0] + ' hour '
+    if (timeArr[0] < 24) {
+      if (timeArr[0] != '00') {
+        date += timeArr[0] + ' hour '
+      }
+      if (timeArr[1] != '00') {
+        date += timeArr[1] + ' minute '
+      }
+      if (timeArr[2] != '00') {
+        date += timeArr[2] + ' second '
+      }
+      if (date == '' || date == '-') {
+        date = '05 second'
+      }
     }
-    if (timeArr[1] != '00') {
-      date += timeArr[1] + ' minute '
-    }
-    if (timeArr[2] != '00') {
-      date += timeArr[2] + ' second '
-    }
-    if (date == '' || date == '-') {
-      date = '05 second'
+    else if (timeArr[0] >= 24) {
+      let day = Math.floor(timeArr[0] / 24)
+      var rem = timeArr[0] % 24
+      var hour = Math.floor(rem)
+      if (day != 0) {
+        date += day + ' days '
+      }
+      if (hour != 0) {
+        date += hour + ' hour '
+      }
+      if (timeArr[1] != '00') {
+        date += timeArr[1] + ' minute '
+      }
+      if (timeArr[2] != '00') {
+        date += timeArr[2] + ' second '
+      }
+      if (date == '' || date == '-') {
+        date = '05 second'
+      }
     }
     return date
   }

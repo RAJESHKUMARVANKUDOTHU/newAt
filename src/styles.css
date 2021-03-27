@@ -24,6 +24,7 @@ table.mat-table {
     display: flex;
     color: white;
     justify-content: center;
+    padding-left: 0.5rem;
     font-weight: 500;
     font-size: 0.9rem;
 }

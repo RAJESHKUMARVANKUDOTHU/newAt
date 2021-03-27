@@ -210,7 +210,7 @@
                 <tr *ngFor="let a of form5.get('items')['controls']; let i=index;">
                     <ng-container [formGroupName]="i">
                         <td> {{i+1}}.&nbsp;&nbsp;</td>
-                        <td>
+                        <td><br>
                             <mat-form-field>
                                 <mat-label>Group Name</mat-label>
                                 <input type="text" formControlName="groupName" matInput required>
@@ -246,7 +246,7 @@
                 <tr *ngFor="let a of form3.get('items')['controls']; let i=index;">
                     <ng-container [formGroupName]="i">
                         <td> {{i+1}}.&nbsp;&nbsp;</td>
-                        <td>
+                        <td> <br>
                             <mat-form-field>
                                 <mat-label>Zone Name</mat-label>
                                 <input type="text" formControlName="zoneName" matInput required>
@@ -256,7 +256,7 @@
                                 <mat-error *ngIf="a.get('zoneName').value !='' || general.mismatch">
                                     No special characters are allowed. And zone name cannot start/end with space(s).
                                 </mat-error>
-                            </mat-form-field>
+                            </mat-form-field><br><br>
                         </td><br>
                         <td>
                             <mat-form-field>
@@ -408,7 +408,7 @@
                 <tr *ngFor="let a of form4.get('items')['controls']; let i=index;">
                     <ng-container [formGroupName]="i">
                         <td> {{i+1}}.&nbsp;&nbsp;</td>
-                        <td>
+                        <td><br>
                             <mat-form-field>
                                 <mat-label>Service Name</mat-label>
                                 <input type="text" matInput formControlName="serviceName" required>

@@ -134,9 +134,12 @@ export class ReportComponent implements OnInit {
 
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
-
+      if(formGroup.get('type').value != ''){
       if (type.value == "1") {
         if (formGroup.get('deviceName').value != '') {
+          formGroup.get('coinId').setErrors(null)
+          formGroup.get('deviceId').setErrors(null)
+          formGroup.get('zoneId').setErrors(null)
           formGroup.get('deviceName').setErrors(null)
           return
         }
@@ -148,8 +151,12 @@ export class ReportComponent implements OnInit {
           return
         }
       }
+
       if (type.value == "2") {
         if (formGroup.get('deviceId').value != '') {
+          formGroup.get('coinId').setErrors(null)
+          formGroup.get('deviceName').setErrors(null)
+          formGroup.get('zoneId').setErrors(null)
           formGroup.get('deviceId').setErrors(null)
           return
         }
@@ -163,7 +170,12 @@ export class ReportComponent implements OnInit {
       }
       if (type.value == "3") {
         if (formGroup.get('coinId').value != '') {
-          formGroup.get('coinId').setErrors(null)
+          formGroup.setErrors(null)
+
+          // formGroup.get('deviceName').setErrors(null)
+          // formGroup.get('deviceId').setErrors(null)
+          // formGroup.get('zoneId').setErrors(null)
+          // formGroup.get('coinId').setErrors(null)
           return
         }
         else {
@@ -174,8 +186,13 @@ export class ReportComponent implements OnInit {
           return
         }
       }
+
       if (type.value == "4") {
         if (formGroup.get('zoneId').value != '') {
+          formGroup.setErrors(null)
+        // formGroup.get('coinId').setErrors(null)
+        // formGroup.get('deviceId').setErrors(null)
+        // formGroup.get('deviceName').setErrors(null)
           formGroup.get('zoneId').setErrors(null)
           return
         }
@@ -187,8 +204,11 @@ export class ReportComponent implements OnInit {
           return
         }
       }
-    }
+     }
+
   }
+}
+
   onsubmitGenericReport(data) {
     console.log("generic data==", data)
     const dialogConfig = new MatDialogConfig();

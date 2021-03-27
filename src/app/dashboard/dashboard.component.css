@@ -64,9 +64,6 @@ mat-card-title.mat-card-title {
     font-weight: 500;
 }
 
-.pointer {
-    cursor: pointer;
-}
 
 @media only screen and (max-width: 768px) {
     #line {
