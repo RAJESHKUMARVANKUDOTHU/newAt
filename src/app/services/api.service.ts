@@ -1679,7 +1679,7 @@ genericReport(data){
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  let url = this.host + '/getDeviceIdReport';
+  let url = this.host + '/getGenericReport';
   let body = {
     data: data,
   };
@@ -1781,7 +1781,7 @@ getZoneWiseReport(data){
     let body = {
       data: data,
     };
-    let url = this.host + '/downloadDeviceIdReport';
+    let url = this.host + '/downloadGenericReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         console.log("res==", res)
@@ -1870,6 +1870,8 @@ getZoneWiseReport(data){
         })
     });
   }
+
+
   //---------------------manage asset download -------------------------------
 
   downloadFile(response, fileName) {

@@ -206,7 +206,7 @@ export class ReportViewComponent implements OnInit {
         timeZoneOffset:this.general.getZone()
       }
       console.log("data to send==", data)
-      fileName="Genric Repot"
+      fileName="Generic Repot"
       this.api.downloadGenericReport(data,fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
