@@ -176,7 +176,7 @@ export class MapActionsComponent implements OnInit {
         coinName: coins[0].coinName,
         coinBounds: coins[0].coinBounds != null ? coins[0].coinBounds : [],
       });
-      this.updateSelected(coins.gatewayId, coins.coinId);
+      this.updateSelected(coins[0].gatewayId, coins[0].coinId);
       this.createMarker();
     }
   }
