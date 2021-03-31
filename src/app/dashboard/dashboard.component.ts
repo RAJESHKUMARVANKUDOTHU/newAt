@@ -317,9 +317,8 @@ export class DashboardComponent implements OnInit {
             let latlng = [];
             for (let k = 0; k < this.deviceList[j].latlng.length; k++) {
               latlng.push([
-                -99.5546875,  85.5
-                // this.deviceList[j].latlng[k].lat,
-                // this.deviceList[j].latlng[k].lng,
+                this.deviceList[j].latlng[k].lat,
+                this.deviceList[j].latlng[k].lng,
               ]);
             }
             this.marker.push(
