@@ -140,7 +140,7 @@ export class GeneralService {
   getTotTime(inTime, outTime) {
     // console.log("time===",inTime,outTime)
     this.date1 = new Date(inTime)
-    this.date2 = outTime == null ? new Date() : new Date(outTime)
+    this.date2 = outTime == null || outTime == '-' ? new Date() : new Date(outTime)
     // console.log("time2===",this.date1, this.date2)
     if (this.date1 != "Invalid Date") {
       if (this.date2 != "Invalid Date") {

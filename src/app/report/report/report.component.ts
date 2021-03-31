@@ -135,6 +135,12 @@ export class ReportComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
       if(formGroup.get('type').value != ''){
+        if(type.value == "0"){
+          formGroup.get('coinId').setErrors(null)
+          formGroup.get('deviceId').setErrors(null)
+          formGroup.get('zoneId').setErrors(null)
+          formGroup.get('deviceName').setErrors(null)
+        }
       if (type.value == "1") {
         if (formGroup.get('deviceName').value != '') {
           formGroup.get('coinId').setErrors(null)

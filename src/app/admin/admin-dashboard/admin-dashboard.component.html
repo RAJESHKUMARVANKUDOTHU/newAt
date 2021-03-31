@@ -4,7 +4,7 @@
             <mat-card>
                 <mat-card-title>User Registration</mat-card-title>
                 <mat-card-content>
-                    <form class="example-form" [formGroup]="addUserForm" (ngSubmit)="addUser(addUserForm.value)">
+                    <form class="example-form" [formGroup]="addUserForm">
                         <mat-form-field class="w-100">
                             <mat-label>UserName</mat-label>
                             <input matInput type="email" formControlName="userName" required>
@@ -20,8 +20,8 @@
                                 Please provide a valid password
                             </mat-error>
                         </mat-form-field> <br>
-                        <button mat-raised-button [disabled]="!addUserForm.valid">Add User</button>
                     </form>
+                    <button mat-raised-button [disabled]="!addUserForm.valid" (click)="addUser(addUserForm.value)">Add User</button>
                 </mat-card-content>
             </mat-card>
         </div>
@@ -74,4 +74,5 @@
         </div>
 
     </div>
+    
 </div>

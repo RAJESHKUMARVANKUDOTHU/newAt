@@ -110,6 +110,12 @@ export class AppComponent {
       // console.log("this.time==",this.time)
       if (minutes == 0 && seconds == 2) {
         this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+              // setTimeout(() => {
+        //   this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+        //   clearInterval(this.countDownTimer);
+        //   this.login.logout();
+        //   return;
+        // }, 2000);
       }
 
       if (minutes == 0 && seconds == 0) {

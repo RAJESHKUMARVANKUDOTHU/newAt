@@ -53,9 +53,14 @@ export class AdminDashboardComponent implements OnInit {
         this.api.createUsers(data).then((res: any) => {
           console.log("created user res===", res)
           if (res.status) {
+            this.addUserForm.reset()
+            this.general.openSnackBar(res.success,'')
             this.getAdmins()
           }
-          else { }
+          else { 
+            this.general.openSnackBar(!res.success?res.message:res.success,'')
+
+          }
         })
           .catch((err) => {
             console.log("err======", err)

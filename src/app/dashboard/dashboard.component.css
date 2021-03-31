@@ -64,6 +64,21 @@ mat-card-title.mat-card-title {
     font-weight: 500;
 }
 
+.leaflet-popup-content-wrapper {
+    position: absolute !important;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+    position: absolute !important;
+}
+
+.popup {
+    /* position: absolute !important; */
+    z-index: 999 !important;
+    top:-20px;
+    left:64px;
+    transform: rotate(180deg);
+}
 
 @media only screen and (max-width: 768px) {
     #line {
