@@ -529,17 +529,18 @@ export class DashboardComponent implements OnInit {
     var prevdate = null;
     data.forEach(element => {
       element.data.forEach((obj, index) => {
-        var thedate = moment(obj.inTime, "YYYY-MM-DD hh:mm:ss");
-        if (prevdate) {
-          sum += prevdate.diff(thedate, 'milliseconds');
-        }
-        prevdate = thedate;
+        var thedate = moment(obj.inTime).local().diff(moment(),'milliseconds');
+        // if (prevdate) {
+        //   sum += prevdate.diff(thedate, 'milliseconds');
+        // }
+        // prevdate = thedate;
+        sum += thedate;
       });
       var avg = (sum / (element.data.length));
       this.zoneList.forEach(zone => {
         if (zone.zoneName == element.zoneName) {
           zone.vehicleCount = element.data.length;
-          zone.avgTime = avg;
+          zone.avgTime = Math.ceil((avg * -1) / (60 * 1000));
         }
         else {
           zone.vehicleCount = 0;

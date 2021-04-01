@@ -6,17 +6,17 @@
             <div class="row pl-md-4 pr-md-4 text-center">
                 <div class="col-md-2">
                     <h2>Vehicle for Service Today</h2>
-                    <circle-progress class="circle" [percent]="vehicleForServiceTodayCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
+                    <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
                         [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                 </div>
                 <div class="col-md-2">
                     <h2>Vehicle Under Service</h2>
-                    <circle-progress class="circle" [percent]="vehicleUnderServiceCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
+                    <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
                         [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                 </div>
                 <div class="col-md-2">
                     <h2>Serviced Vehicle</h2>
-                    <circle-progress class="circle" [percent]="servicedVehicleCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
+                    <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
                         [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                 </div>
                 <div class="col-md-3">
@@ -50,7 +50,7 @@
                 <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
             </div>
             <div>
-                <mat-icon class="cursor" (click)="getZones()">autorenew</mat-icon>
+                <mat-icon class="pointer" (click)="getZones()">autorenew</mat-icon>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
                                 <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
-                                    <td>{{(a.avgTime * -1 )/(60 * 1000)}} minutes</td>
+                                    <td>{{a.avgTime}} minutes</td>
                                 </tr>
                             </tbody>
                         </table>
