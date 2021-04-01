@@ -25,6 +25,9 @@ export class DashboardComponent implements OnInit {
   map;
   zoneList: any = [];
   zoneAction: any = [];
+  servicedVehicleCount: any = 0
+  vehicleForServiceTodayCount: any = 0
+  vehicleUnderServiceCount: any = 0
   deviceList: any = [
     {
       _id: '123456',
@@ -125,6 +128,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.congestionGraph();
+    this.getVehicleServiceCount()
     setTimeout(() => {
       this.createMap();
     }, 1);
@@ -456,9 +460,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-   getPopUpForm(data) {
-     console.log("data pop ===",data);
-     
+  getPopUpForm(data) {
+    console.log("data pop ===", data);
+
     let sdt = this.getSDT(data).format('YYYY-MM-DD hh:mm:ss a');
     let edt = this.getEDT(data).format('YYYY-MM-DD hh:mm:ss a');
     let a = '<table class="popup">';
@@ -477,15 +481,15 @@ export class DashboardComponent implements OnInit {
     return a;
   }
 
-  getDelay(data){
+  getDelay(data) {
     return Math.ceil(data.delay / (60 * 1000));
   }
 
-  getTotalDelay(data){
+  getTotalDelay(data) {
     return Math.ceil(data.totalDelay / (60 * 1000));
   }
 
-  getTotalST(data){
+  getTotalST(data) {
     let ST = 0;
     data.zoneData.forEach(obj => {
       ST += obj.standardTime;
@@ -585,9 +589,18 @@ export class DashboardComponent implements OnInit {
 
   vehicleStatus(data) {
     console.log("a==", data);
-    this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) } , skipLocationChange: true});
+    this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
-
+  getVehicleServiceCount() {
+    this.api.getVehicleServiceCount().then((res: any) => {
+      console.log("res 0f vehicle service count==", res)
+      if (res.status) {
+        this.servicedVehicleCount = res.success.servicedVehicleCount
+        this.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount
+        this.vehicleUnderServiceCount = res.success.vehicleUnderServiceCount
+      }
+    })
+  }
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {
       animationEnabled: true,

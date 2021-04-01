@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -19,10 +19,10 @@ export class LocationReportComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   locationReportData: any
-  locationData:any=[]
+  locationData: any = []
   dataSource: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
-  
+
   constructor(
     public dialogRef: MatDialogRef<LocationReportComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -30,7 +30,7 @@ export class LocationReportComponent implements OnInit {
     public general: GeneralService,
   ) {
     this.locationReportData = data.data
-    console.log("this.locationReportData ===",this.locationReportData )
+    console.log("this.locationReportData ===", this.locationReportData)
   }
 
   ngOnInit(): void {
@@ -39,53 +39,53 @@ export class LocationReportComponent implements OnInit {
   getData() {
     var data = {}
     let from = moment(this.locationReportData.fromDate).format("YYYY-MM-DD")
-    let to = moment(this.locationReportData.toDate).format("YYYY-MM-DD")  
+    let to = moment(this.locationReportData.toDate).format("YYYY-MM-DD")
 
     if (this.locationReportData.type == '1') {
-      data={
-        coinId:this.locationReportData.coinId.coinId,
-        fromDate:from,
-        toDate:to,
-        timeZoneOffset:this.general.getZone()
+      data = {
+        coinId: this.locationReportData.coinId.coinId,
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone()
       }
       console.log("data to send==", data)
       this.api.getLocationReport(data).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
           this.locationData = res.success
-          for(let i =0;i<res.success.length;i++){
-            res.success[i].totTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
+          for (let i = 0; i < res.success.length; i++) {
+            res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
           }
           this.dataSource = new MatTableDataSource(this.locationData);
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator
-  
+
           })
         }
-      }).catch(err=>{
-        console.log("err===",err)
+      }).catch(err => {
+        console.log("err===", err)
       })
     }
 
   }
 
-  download(){
+  download() {
     var data = {}
-    var fileName=''
+    var fileName = ''
     let from = moment(this.locationReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.locationReportData.toDate).format("YYYY-MM-DD")
 
     if (this.locationReportData.type == '1') {
-      data={
-        coinId:this.locationReportData.coinId.coinId,
-        fromDate:from,
-        toDate:to,
-        timeZoneOffset:this.general.getZone()
+      data = {
+        coinId: this.locationReportData.coinId.coinId,
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone()
       }
-      fileName="Report of location - "+this.locationReportData.coinId.coinName
-      this.api.downloadLocationReport(data,fileName).then((res: any) => {
+      fileName = "Report of location - " + this.locationReportData.coinId.coinName
+      this.api.downloadLocationReport(data, fileName).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
           this.locationData = res.success
@@ -94,21 +94,21 @@ export class LocationReportComponent implements OnInit {
           setTimeout(() => {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator
-  
+
           })
         }
-      }).catch(err=>{
-        console.log("err===",err)
+      }).catch(err => {
+        console.log("err===", err)
       })
     }
 
   }
-  search(a,data) {
+  search(a, data) {
     this.dataSource = new MatTableDataSource(data);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.dataSource.filter =a.trim().toLowerCase()
+      this.dataSource.filter = a.trim().toLowerCase()
     })
   }
 

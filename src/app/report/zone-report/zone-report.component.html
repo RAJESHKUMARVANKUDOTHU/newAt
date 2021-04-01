@@ -9,7 +9,7 @@
         <p mat-dialog-title>
             Based on zone <br>Zone Name - <b> {{zoneReportData.zoneId.zoneName}} </b>
         </p>
-        <hr> 
+        <hr>
     </div>
     <div class="d-flex justify-content-between">
         <span>
@@ -40,15 +40,25 @@
                     <td mat-cell *matCellDef="let zone"> {{zone.deviceName}} </td>
                 </ng-container>
 
+
                 <ng-container matColumnDef="inTime">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>In Time</th>
-                    <td mat-cell *matCellDef="let zone"> {{zone.inTime | date : 'medium'}} </td>
+                    <td mat-cell *matCellDef="let zone">
+                        <span *ngIf="zone.inTime != null && zone.inTime != '-';else temp"> {{zone.inTime | date :
+                            'medium'}}</span>
+                        <ng-template #temp>
+                            <span>-</span>
+                        </ng-template>
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="outTime">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Out Time </th>
                     <td mat-cell *matCellDef="let zone">
-                        <span *ngIf="zone.outTime != null"> {{zone.outTime | date : 'medium'}}</span>
-                        <span *ngIf="zone.outTime == null"> -</span>
+                        <span *ngIf="zone.outTime != null && zone.outTime != '-' ;else temp"> {{zone.outTime | date :
+                            'medium'}}</span>
+                        <ng-template #temp>
+                            <span>-</span>
+                        </ng-template>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="totTime">
@@ -64,4 +74,3 @@
     </div>
 
 </div>
-

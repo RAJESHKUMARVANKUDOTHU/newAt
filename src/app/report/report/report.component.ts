@@ -66,7 +66,9 @@ export class ReportComponent implements OnInit {
       type: ['', Validators.required],
       days: [''],
       fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
+      toDate: ['', Validators.required],
+      zoneId: [''],
+      coinId: [''],
     },
       {
         validators: this.formValidate1()
@@ -75,7 +77,9 @@ export class ReportComponent implements OnInit {
       type: ['', Validators.required],
       days: [''],
       fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
+      toDate: ['', Validators.required],
+      zoneId: [''],
+      coinId: [''],
     },
       {
         validators: this.formValidate2()
