@@ -21,7 +21,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     private login: LoginAuthService,
     private general: GeneralService,
     private router: Router
-  ) {}
+  ) { }
 
   intercept(
     request: HttpRequest<unknown>,
@@ -33,24 +33,24 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       (take(1),
-      catchError((error: any) => {
-        console.log("erooorr=", error)
-        if (error.status === 403 || error.status === 401) {
-          this.general.loadingFreez.next({status:true,msg:'Your session has logged out..! please try again later'})
-          setTimeout(() => {
-            this.general.loadingFreez.next({status:false,msg:''})       
-            this.login.logout() ;
-          }, 3000);
-        }
-        return throwError(error);
-      })), tap((res: any) => {
-        if (res instanceof HttpResponse) {
-          if (res.body.hasOwnProperty('data')) {
-            res.body.data = this.general.decrypt(res.body.data);
+        catchError((error: any) => {
+          console.log("erooorr=", error)
+          if (error.status === 403 || error.status === 401) {
+            this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+            setTimeout(() => {
+              this.general.loadingFreez.next({ status: false, msg: '' })
+              this.login.logout()
+            }, 3000);
           }
-        }
-        return res;
-      })
+          return throwError(error);
+        })), tap((res: any) => {
+          if (res instanceof HttpResponse) {
+            if (res.body.hasOwnProperty('data')) {
+              res.body.data = this.general.decrypt(res.body.data);
+            }
+          }
+          return res;
+        })
     ) as any;
   }
 

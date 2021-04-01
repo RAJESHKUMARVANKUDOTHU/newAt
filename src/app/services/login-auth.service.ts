@@ -49,23 +49,10 @@ export class LoginAuthService {
     this.location.subscribe(
       ((value: PopStateEvent) => {
 
-        if (window.location.pathname == '/login' || window.location.pathname == '/admin-login' && status.success.role == undefined) {
-          var a ={
-            menu : false,
-            other : false
-          }
-          this.loginCheckData.next(a)
-          localStorage.clear()
-          return a
-          
+        if (window.location.pathname == '/login' || window.location.pathname == '/admin-login' && (status.success==null ||status.success.role == undefined|| status.success.role == null )) {  
+          this.logout()    
         }
         else {
-          // a ={
-          //   menu : true,
-          //   other : true
-          // }
-          // this.loginCheckData.next(a)
-          // return a
           this.loginData()
         }
 

@@ -38,13 +38,13 @@
 
 <br>
 
-<div style="font-size:x-large" class="text-center">
+<div style="font-size:x-large" class="text-center" >
     <span><strong>Current Location : </strong> {{vehicleData.currentLocation?.coinName}}</span>
 </div> <br>
 
 
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8"  *ngIf="vehicleData.locations?.length">
     <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
         <div>
 

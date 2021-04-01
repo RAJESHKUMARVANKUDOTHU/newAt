@@ -22,6 +22,7 @@ export class GeneralService {
   isMobile: boolean;
   isTablet: boolean;
   isDesktopDevice: boolean;
+  _vehicleData:any
   constructor(
     private _snackBar: MatSnackBar,
     private login: LoginAuthService,
@@ -32,7 +33,12 @@ export class GeneralService {
     // this.token = this.login.getLoginDetails().token
   }
 
-
+set vehicleData(value){
+  this._vehicleData = value;
+}
+get vehicleData(){
+  return this._vehicleData
+}
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,

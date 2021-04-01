@@ -1673,6 +1673,23 @@ createdDeviceShift(data){
       );
     });
   }
+  getVehicleServiceCount(){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    let url = this.host + '/getVehicleServiceCount';
+    return new Promise((resolve, reject) => {
+      this.http.get(url).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
 // -----------------report page APIs--------------------
 genericReport(data){
   const httpOptions = {
@@ -1694,7 +1711,7 @@ genericReport(data){
     );
   });
 }
-deviceNameReport(data){
+vehicleNameReport(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -1795,7 +1812,7 @@ getZoneWiseReport(data){
         })
     });
   }
-  downloadDeviceNameReport(data,fileName){
+  downloadvehicleNameReport(data,fileName){
     // this.general.loadingFreez.next({status:true})
     let body = {
       data: data,

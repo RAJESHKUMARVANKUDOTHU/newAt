@@ -21,7 +21,7 @@
                                 <mat-radio-button class="example-radio-button" value="email">Email</mat-radio-button>
                             </mat-radio-group> <br>
                             <mat-form-field>
-                                <mat-label>Select Asset</mat-label>
+                                <mat-label>Select vehicle</mat-label>
                                 <mat-select formControlName="deviceId" multiple>
                                     <mat-option #allSelected (click)="toggleAllSelectionDevice(geofenceForm)"
                                         [value]="0">All</mat-option>
@@ -71,7 +71,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="deviceName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device Name </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehilce Name </th>
                     <td mat-cell *matCellDef="let find"> {{find.deviceName}} </td>
                 </ng-container>
 

@@ -550,7 +550,7 @@ export class DashboardComponent implements OnInit {
 
   vehicleStatus(data) {
     console.log("a==", data);
-    this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) } });
+    this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) } , skipLocationChange: true});
   }
 
   congestionGraph() {

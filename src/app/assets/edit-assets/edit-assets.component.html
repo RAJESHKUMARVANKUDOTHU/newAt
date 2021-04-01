@@ -9,13 +9,13 @@
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="editFind">
                 <mat-form-field class="w-75" appearance="fill">
-                    <mat-label> Device Name</mat-label>
+                    <mat-label> Vehicle Name</mat-label>
                     <input type="text" matInput formControlName="deviceName" autocomplete="off" required>
                     <mat-error *ngIf="editFind.get('deviceName').value ==''">
-                        Device name is required.
+                        Vehicle name is required.
                     </mat-error>
                     <mat-error *ngIf="general.mismatch">
-                        No special characters are allowed. And device name cannot start/end with space(s).
+                        No special characters are allowed. And Vehicle name cannot start/end with space(s).
                     </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
@@ -23,7 +23,7 @@
                     <input type="number" matInput min="1" formControlName="deviceId" autocomplete="off" disabled>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button   (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
+            <button mat-raised-button mat-dialog-close  (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
                     <input type="text" matInput formControlName="gatewayId" autocomplete="off" disabled>
                     </mat-form-field> <br>
                 </form>
-                <button mat-raised-button  (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
+                <button mat-raised-button mat-dialog-close (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
                     </mat-error>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button  (click)="updateCoin(editCoin.value)" [disabled]="!editCoin.valid" color="primary">Submit</button>
+            <button mat-raised-button mat-dialog-close (click)="updateCoin(editCoin.value)" [disabled]="!editCoin.valid" color="primary">Submit</button>
         </div>
     </div>
 </mat-card>

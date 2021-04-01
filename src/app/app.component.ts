@@ -63,6 +63,9 @@ export class AppComponent {
             console.log("this.loginDetails.logo",this.loginDetails.logo)
           }
         }
+        else{
+          this.loginDetails= ''
+        }
       }
     });
 

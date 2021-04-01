@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { GeneralService } from '../../services/general.service'
-import { ReportViewComponent } from '../../report/report-view/report-view.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { VehiclewisereportComponent } from '../../report/vehiclewisereport/vehiclewisereport.component';
+import { LocationReportComponent } from '../../report/location-report/location-report.component';
+import { ZoneReportComponent } from '../../report/zone-report/zone-report.component';
 
 @Component({
   selector: 'app-report',
@@ -14,6 +16,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class ReportComponent implements OnInit {
   genericReport: FormGroup
   customReport: FormGroup
+  vehicleReport: FormGroup
+  zoneReport: FormGroup
+  locationReport: FormGroup
   deviceData: any = []
   coinData: any = []
   zoneData: any = []
@@ -27,56 +32,127 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.genericReport = this.fb.group({
+    // this.genericReport = this.fb.group({
+    //   type: ['', Validators.required],
+    //   days: [''],
+    //   deviceId: [''],
+    //   deviceName: [''],
+    //   zoneId: [''],
+    //   coinId: [''],
+    //   fromDate: ['', Validators.required],
+    //   toDate: ['', Validators.required]
+    // },
+    //   {
+    //     validators: this.formValidate()
+    //   })
+    // this.customReport = this.fb.group({
+    //   type: ['', Validators.required],
+    //   days: [''],
+    //   fromDate: ['', Validators.required],
+    //   toDate: ['', Validators.required]
+    // })
+    this.vehicleReport = this.fb.group({
       type: ['', Validators.required],
       days: [''],
       deviceId: [''],
       deviceName: [''],
-      zoneId: [''],
-      coinId: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     },
       {
         validators: this.formValidate()
       })
-    this.customReport = this.fb.group({
+    this.locationReport = this.fb.group({
       type: ['', Validators.required],
       days: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
-    })
-    this.patchGenricDate()
-    this.patchCustomDate()
+    },
+      {
+        validators: this.formValidate1()
+      })
+    this.zoneReport = this.fb.group({
+      type: ['', Validators.required],
+      days: [''],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    },
+      {
+        validators: this.formValidate2()
+      })
+    // this.patchGenricDate()
+    // this.patchCustomDate()
+    this.patchLocationDate()
+    this.patchVehicleDate()
+    this.patchZoneDate()
     this.refreshCoin()
     this.refreshDevice()
     this.getZoneDetails()
   }
 
-  patchGenricDate() {
-    this.genericReport.get('days').valueChanges.subscribe((value) => {
+  // patchGenricDate() {
+  //   this.genericReport.get('days').valueChanges.subscribe((value) => {
+  //     var date = new Date()
+  //     date.setDate(date.getDate() - parseInt(value));
+  //     this.genericReport.controls['fromDate'].patchValue((date));
+  //   });
+  //   this.genericReport.get('days').valueChanges.subscribe(() => {
+  //     var date = new Date()
+  //     date.setDate(date.getDate());
+  //     this.genericReport.controls['toDate'].patchValue((date));
+  //   });
+  // }
+
+  // patchCustomDate() {
+
+  //   this.customReport.get('days').valueChanges.subscribe((value) => {
+  //     var date = new Date()
+  //     date.setDate(date.getDate() - parseInt(value));
+  //     this.customReport.controls['fromDate'].patchValue((date));
+  //   });
+  //   this.customReport.get('days').valueChanges.subscribe(() => {
+  //     var date = new Date()
+  //     date.setDate(date.getDate());
+  //     this.customReport.controls['toDate'].patchValue((date));
+  //   });
+  // }
+  patchVehicleDate() {
+
+    this.vehicleReport.get('days').valueChanges.subscribe((value) => {
       var date = new Date()
       date.setDate(date.getDate() - parseInt(value));
-      this.genericReport.controls['fromDate'].patchValue((date));
+      this.vehicleReport.controls['fromDate'].patchValue((date));
     });
-    this.genericReport.get('days').valueChanges.subscribe(() => {
+    this.vehicleReport.get('days').valueChanges.subscribe(() => {
       var date = new Date()
       date.setDate(date.getDate());
-      this.genericReport.controls['toDate'].patchValue((date));
+      this.vehicleReport.controls['toDate'].patchValue((date));
     });
   }
+  patchLocationDate() {
 
-  patchCustomDate() {
-
-    this.customReport.get('days').valueChanges.subscribe((value) => {
+    this.locationReport.get('days').valueChanges.subscribe((value) => {
       var date = new Date()
       date.setDate(date.getDate() - parseInt(value));
-      this.customReport.controls['fromDate'].patchValue((date));
+      this.locationReport.controls['fromDate'].patchValue((date));
     });
-    this.customReport.get('days').valueChanges.subscribe(() => {
+    this.locationReport.get('days').valueChanges.subscribe(() => {
       var date = new Date()
       date.setDate(date.getDate());
-      this.customReport.controls['toDate'].patchValue((date));
+      this.locationReport.controls['toDate'].patchValue((date));
+    });
+  }
+  patchZoneDate() {
+
+    this.zoneReport.get('days').valueChanges.subscribe((value) => {
+      var date = new Date()
+      date.setDate(date.getDate() - parseInt(value));
+      this.zoneReport.controls['fromDate'].patchValue((date));
+    });
+    this.zoneReport.get('days').valueChanges.subscribe(() => {
+      var date = new Date()
+      date.setDate(date.getDate());
+      this.zoneReport.controls['toDate'].patchValue((date));
     });
   }
 
@@ -134,89 +210,113 @@ export class ReportComponent implements OnInit {
 
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
-      if(formGroup.get('type').value != ''){
-        if(type.value == "0"){
-          formGroup.get('coinId').setErrors(null)
-          formGroup.get('deviceId').setErrors(null)
-          formGroup.get('zoneId').setErrors(null)
-          formGroup.get('deviceName').setErrors(null)
-        }
-      if (type.value == "1") {
-        if (formGroup.get('deviceName').value != '') {
-          formGroup.get('coinId').setErrors(null)
-          formGroup.get('deviceId').setErrors(null)
-          formGroup.get('zoneId').setErrors(null)
-          formGroup.get('deviceName').setErrors(null)
-          return
-        }
-        else {
-          formGroup.get('deviceName').setErrors(
-            {
-              required: true
-            })
-          return
-        }
-      }
-
-      if (type.value == "2") {
-        if (formGroup.get('deviceId').value != '') {
-          formGroup.get('coinId').setErrors(null)
-          formGroup.get('deviceName').setErrors(null)
-          formGroup.get('zoneId').setErrors(null)
-          formGroup.get('deviceId').setErrors(null)
-          return
-        }
-        else {
-          formGroup.get('deviceId').setErrors(
-            {
-              required: true
-            })
-          return
-        }
-      }
-      if (type.value == "3") {
-        if (formGroup.get('coinId').value != '') {
-          formGroup.setErrors(null)
-
-          // formGroup.get('deviceName').setErrors(null)
-          // formGroup.get('deviceId').setErrors(null)
-          // formGroup.get('zoneId').setErrors(null)
+      if (formGroup.get('type').value != '') {
+        if (type.value == "1") {
           // formGroup.get('coinId').setErrors(null)
-          return
+          formGroup.get('deviceId').setErrors(null)
+          // formGroup.get('zoneId').setErrors(null)
+          formGroup.get('deviceName').setErrors(null)
         }
-        else {
-          formGroup.get('coinId').setErrors(
-            {
-              required: true
-            })
-          return
+        if (type.value == "2") {
+          if (formGroup.get('deviceId').value != '') {
+            // formGroup.get('coinId').setErrors(null)
+            formGroup.get('deviceName').setErrors(null)
+            // formGroup.get('zoneId').setErrors(null)
+            formGroup.get('deviceId').setErrors(null)
+            return
+          }
+          else {
+            formGroup.get('deviceId').setErrors(
+              {
+                required: true
+              })
+            return
+          }
         }
+        if (type.value == "3") {
+          if (formGroup.get('deviceName').value != '') {
+            // formGroup.get('coinId').setErrors(null)
+            formGroup.get('deviceId').setErrors(null)
+            // formGroup.get('zoneId').setErrors(null)
+            formGroup.get('deviceName').setErrors(null)
+            return
+          }
+          else {
+            formGroup.get('deviceName').setErrors(
+              {
+                required: true
+              })
+            return
+          }
+        }
+
       }
 
-      if (type.value == "4") {
-        if (formGroup.get('zoneId').value != '') {
-          formGroup.setErrors(null)
-        // formGroup.get('coinId').setErrors(null)
-        // formGroup.get('deviceId').setErrors(null)
-        // formGroup.get('deviceName').setErrors(null)
-          formGroup.get('zoneId').setErrors(null)
-          return
-        }
-        else {
-          formGroup.get('zoneId').setErrors(
-            {
-              required: true
-            })
-          return
-        }
-      }
-     }
-
+    }
   }
-}
 
-  onsubmitGenericReport(data) {
-    console.log("generic data==", data)
+  formValidate1() {
+
+    return (formGroup: FormGroup) => {
+      const type = formGroup.get('type');
+      if (formGroup.get('type').value != '') {
+        if (type.value == "1") {
+          if (formGroup.get('coinId').value != '') {
+            formGroup.get('coinId').setErrors(null)
+            formGroup.get('zoneId').setErrors(null)
+            return
+          }
+          else {
+            formGroup.get('coinId').setErrors(
+              {
+                required: true
+              })
+            return
+          }
+        }
+        if (type.value == "2") {
+          if (formGroup.get('zoneId').value != '') {
+            formGroup.get('coinId').setErrors(null)
+            formGroup.get('zoneId').setErrors(null)
+            return
+          }
+          else {
+            formGroup.get('zoneId').setErrors(
+              {
+                required: true
+              })
+            return
+          }
+        }
+      }
+    }
+  }
+
+  formValidate2() {
+
+    return (formGroup: FormGroup) => {
+      const type = formGroup.get('type');
+      if (formGroup.get('type').value != '') {
+        if (type.value == "1") {
+          if (formGroup.get('zoneId').value != '') {
+            formGroup.get('coinId').setErrors(null)
+            formGroup.get('zoneId').setErrors(null)
+            return
+          }
+          else {
+            formGroup.get('zoneId').setErrors(
+              {
+                required: true
+              })
+            return
+          }
+        }
+      }
+    }
+  }
+
+  onsubmitVehicleReport(data) {
+    console.log("vehicle data==", data)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -225,15 +325,39 @@ export class ReportComponent implements OnInit {
     dialogConfig.data = {
       data: data
     }
-    const dialogRef = this.dialog.open(ReportViewComponent, dialogConfig);
+    const dialogRef = this.dialog.open(VehiclewisereportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {})
-
+    dialogRef.afterClosed().subscribe(result => { })
   }
-  onsubmitCustomReport(data) {
-    console.log("custom data==", data)
-    data = this.general.encrypt(data)
 
+  onsubmitLocationReport(data) {
+    console.log("vehicle data==", data)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '90vw';
+    dialogConfig.data = {
+      data: data
+    }
+    const dialogRef = this.dialog.open(LocationReportComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => { })
+  }
+
+  onsubmitZoneReport(data) {
+    console.log("vehicle data==", data)
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '90vw';
+    dialogConfig.data = {
+      data: data
+    }
+    const dialogRef = this.dialog.open(ZoneReportComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => { })
   }
 
 }

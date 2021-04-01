@@ -59,7 +59,9 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
-            this.addFind.reset()
+            if(res.success=="Device registered successfully"){
+              this.addFind.reset()
+            }
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
@@ -86,7 +88,9 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
-            this.addGateway.reset()
+            if(res.success=="Gateway registered successfully"){
+              this.addGateway.reset()
+            }
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
@@ -118,7 +122,9 @@ export class AddAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
-            this.addCoin.reset()
+            if(res.success=="Coin registered successfully"){
+              this.addCoin.reset()
+            }
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }

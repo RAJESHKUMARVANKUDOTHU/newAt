@@ -25,9 +25,11 @@ export class VehicleStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      let data= JSON.parse(params.record) ;
+      let data= params.record?JSON.parse(params.record):'' ;
        console.log("records=",this.vehicleData )
-      this.getVehicleStatus(data)
+      if(data != ''){
+        this.getVehicleStatus(data)
+      }
   })
     this.getZoneDetails()
   }
@@ -37,6 +39,7 @@ export class VehicleStatusComponent implements OnInit {
       deviceId:device.deviceId,
       deviceName:device.deviceName
     }
+    console.log("data===",data)
     this.api.getVehicleStatus(data).then((res:any)=>{
       console.log("res==",res)
       if(res.status){

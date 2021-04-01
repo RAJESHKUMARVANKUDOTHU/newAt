@@ -8,14 +8,14 @@
         <div mat-dialog-content class="h-100 text-center">
             <form [formGroup]="addFind" >
                 <mat-form-field class="w-75" appearance="fill">
-                    <mat-label> Device Name</mat-label>
+                    <mat-label> Vehicle Name</mat-label>
                     <input type="text" matInput formControlName="deviceName"
                         (change)="general.validate($event.target.value)" autocomplete="off" required>
                     <mat-error *ngIf="addFind.get('deviceName').value ==''">
-                        Device name is required.
+                        Vehicle name is required.
                     </mat-error>
                     <mat-error *ngIf="general.mismatch">
-                        No special characters are allowed. And device name cannot start/end with space(s).
+                        No special characters are allowed. And vehicle name cannot start/end with space(s).
                     </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">

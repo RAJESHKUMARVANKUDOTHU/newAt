@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
     if (this.loginData && this.loginData.token) {
       // console.log("in",route.data.role[0].toString() == 'superAdminRole')
       let role = route.data.role.filter((obj)=>{
+     
         return obj == this.loginData.success.role 
     })
       console.log("role ===",role)

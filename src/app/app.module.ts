@@ -43,6 +43,9 @@ import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
 import { ZoneDashboardComponent } from './zone-dashboard/zone-dashboard.component';
 import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.component';
+import { LocationReportComponent } from './report/location-report/location-report.component';
+import { ZoneReportComponent } from './report/zone-report/zone-report.component';
+import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewisereport.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,9 @@ import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.co
     ReportViewComponent,
     SetPasswordComponent,
     AdminSettingsComponent,
+    LocationReportComponent,
+    ZoneReportComponent,
+    VehiclewisereportComponent,
   ],
   imports: [
     BrowserModule,

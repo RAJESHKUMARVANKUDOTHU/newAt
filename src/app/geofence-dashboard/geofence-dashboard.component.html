@@ -21,7 +21,7 @@
                 <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
             </ng-container>
             <ng-container matColumnDef="deviceName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Device Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Name </th>
                 <td mat-cell *matCellDef="let find"> {{find.deviceName}} </td>
             </ng-container>
             <ng-container matColumnDef="geofenceStatus">
@@ -39,7 +39,9 @@
             <br>
             </span>
             <ng-template #data>
-                <span>No Geofence</span>
+                <div class="pt-4">
+                    <span>No Geofence</span>
+                </div>
             </ng-template>
 
             <button mat-flat-button *ngIf="find.geoFenceSetting?.length" (click)="status(find)" color="primary">Selected Geofence</button>

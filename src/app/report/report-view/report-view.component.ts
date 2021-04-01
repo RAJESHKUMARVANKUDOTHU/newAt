@@ -77,35 +77,35 @@ export class ReportViewComponent implements OnInit {
         console.log("err===",err)
       })
     }
-    if (this.generalReportData.type == '1') {
-      data={
-        deviceName:this.generalReportData.deviceName,
-        fromDate:from,
-        toDate:to,
-        timeZoneOffset:this.general.getZone()
-      }
-      console.log("data to send==", data)
+    // if (this.generalReportData.type == '1') {
+    //   data={
+    //     deviceName:this.generalReportData.deviceName,
+    //     fromDate:from,
+    //     toDate:to,
+    //     timeZoneOffset:this.general.getZone()
+    //   }
+    //   console.log("data to send==", data)
 
-      this.api.deviceNameReport(data).then((res: any) => {
-        console.log("res 1==", res)
-        if (res.status) {
-          this.deviceName = res.success
-          for(let i =0;i<res.success.length;i++){
-            res.success[i].totTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
-          }
-          this.dataSource = new MatTableDataSource(this.deviceName);
+    //   this.api.deviceNameReport(data).then((res: any) => {
+    //     console.log("res 1==", res)
+    //     if (res.status) {
+    //       this.deviceName = res.success
+    //       for(let i =0;i<res.success.length;i++){
+    //         res.success[i].totTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
+    //       }
+    //       this.dataSource = new MatTableDataSource(this.deviceName);
           
-          setTimeout(() => {
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+    //       setTimeout(() => {
+    //         this.dataSource.sort = this.sort;
+    //         this.dataSource.paginator = this.paginator
   
-          })
-        }
+    //       })
+    //     }
         
-      }).catch(err=>{
-        console.log("err===",err)
-      })
-    }
+    //   }).catch(err=>{
+    //     console.log("err===",err)
+    //   })
+    // }
     
     if (this.generalReportData.type == '2') {
       data={
@@ -224,32 +224,32 @@ export class ReportViewComponent implements OnInit {
         console.log("err===",err)
       })
     }
-    if (this.generalReportData.type == '1') {
-      data={
-        deviceName:this.generalReportData.deviceName,
-        fromDate:from,
-        toDate:to,
-        timeZoneOffset:this.general.getZone()
-      }
-      console.log("download data to send==", data)
-      fileName="Report of device name - "+this.generalReportData.deviceName
-      this.api.downloadDeviceNameReport(data,fileName).then((res: any) => {
-        console.log("res 1==", res)
-        if (res.status) {
-          this.deviceId = res.success
-          this.dataSource = new MatTableDataSource(this.deviceId);
+    // if (this.generalReportData.type == '1') {
+    //   data={
+    //     deviceName:this.generalReportData.deviceName,
+    //     fromDate:from,
+    //     toDate:to,
+    //     timeZoneOffset:this.general.getZone()
+    //   }
+    //   console.log("download data to send==", data)
+    //   fileName="Report of device name - "+this.generalReportData.deviceName
+    //   this.api.downloadDeviceNameReport(data,fileName).then((res: any) => {
+    //     console.log("res 1==", res)
+    //     if (res.status) {
+    //       this.deviceId = res.success
+    //       this.dataSource = new MatTableDataSource(this.deviceId);
 
-          setTimeout(() => {
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+    //       setTimeout(() => {
+    //         this.dataSource.sort = this.sort;
+    //         this.dataSource.paginator = this.paginator
   
-          })
-        }
+    //       })
+    //     }
 
-      }).catch(err=>{
-        console.log("err===",err)
-      })
-    }
+    //   }).catch(err=>{
+    //     console.log("err===",err)
+    //   })
+    // }
 
     if (this.generalReportData.type == '2') {
       data={
@@ -337,4 +337,3 @@ export class ReportViewComponent implements OnInit {
     })
   }
 }
-
