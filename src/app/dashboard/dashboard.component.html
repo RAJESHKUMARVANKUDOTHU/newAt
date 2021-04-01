@@ -78,7 +78,7 @@
                                 <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
-                                    <td>{{a.avgTime}}</td>
+                                    <td>{{(a.avgTime * -1 )/(60 * 1000)}} minutes</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -100,7 +100,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)" class="cursor">
-                                    <ng-container >
+                                    <ng-container>
 
                                         <td>{{a.deviceName}}</td>
                                         <td>{{a.coinName}}</td>

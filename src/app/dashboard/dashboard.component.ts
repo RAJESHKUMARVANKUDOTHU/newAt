@@ -326,7 +326,7 @@ export class DashboardComponent implements OnInit {
                 .addTo(this.map)
                 .bindTooltip(this.getPopUpForm(this.deviceList[j]), {
                   direction: this.getDirection(latlng),
-                  permanent: true
+                  permanent: false
                 })
 
             );
@@ -456,25 +456,60 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getPopUpForm(data) {
-    let edt = moment(data.inTime).add(data.totalDelay, 'milliseconds').format('YYYY-MM-DD hh:mm:ss');
+   getPopUpForm(data) {
+     console.log("data pop ===",data);
+     
+    let sdt = this.getSDT(data).format('YYYY-MM-DD hh:mm:ss a');
+    let edt = this.getEDT(data).format('YYYY-MM-DD hh:mm:ss a');
     let a = '<table class="popup">';
-    a += '<tr><td><b>Vehicle Name</b></td><td>' + data.deviceName + '</td></tr>';
-    a += '<tr><td><b>Location Name</b></td><td>' + data.coinName + '</td></tr>';
-    a += '<tr><td><b>Zone Name</b></td><td>' + data.zoneName + '</td></tr>';
-    a += '<tr><td><b>In time</b></td><td>' + moment(data.inTime).format('YYYY-MM-DD hh:mm:ss') + '</td></tr>';
-    a += '<tr><td><b>SDT</b></td><td>' + data.standardDeliveryTime + ' minutes</td></tr>';
+    a += '<tr><td><b>Vehicle name</b></td><td>' + data.deviceName + '</td></tr>';
+    a += '<tr><td><b>Location name</b></td><td>' + data.coinName + '</td></tr>';
+    a += '<tr><td><b>Service type</b></td><td>' + data.serviceCategory?.serviceName + '</td></tr>';
+    a += '<tr><td><b>Zone name</b></td><td>' + data.zoneName + '</td></tr>';
+    a += '<tr><td><b>Zone standard time</b></td><td>' + data.standardDeliveryTime + ' minutes</td></tr>';
+    a += '<tr><td><b>Total standard time</b></td><td>' + this.getTotalST(data) + ' minutes</td></tr>';
+    a += '<tr><td><b>Zone delay</b></td><td>' + this.getDelay(data) + ' minutes</td></tr>';
+    a += '<tr><td><b>Total delay</b></td><td>' + this.getTotalDelay(data) + ' minutes</td></tr>';
+    a += '<tr><td><b>In time</b></td><td>' + moment(data.inTime).format('YYYY-MM-DD hh:mm:ss a') + '</td></tr>';
+    a += '<tr><td><b>SDT</b></td><td>' + sdt + '</td></tr>';
     a += '<tr><td><b>EDT</b></td><td>' + edt + '</td></tr>';
     a += '</table>';
     return a;
   }
 
+  getDelay(data){
+    return Math.ceil(data.delay / (60 * 1000));
+  }
+
+  getTotalDelay(data){
+    return Math.ceil(data.totalDelay / (60 * 1000));
+  }
+
+  getTotalST(data){
+    let ST = 0;
+    data.zoneData.forEach(obj => {
+      ST += obj.standardTime;
+    });
+    return ST;
+  }
+
+
   getSDT(data) {
-    return moment(data.inTime).add(data.standardDeliveryTime, 'milliseconds');
+    let ST = 0;
+    data.zoneData.forEach(obj => {
+      ST += obj.standardTime;
+    });
+    return moment(data.inTime).add(ST, 'minutes');
   }
 
   getEDT(data) {
-    return moment(data.inTime).add(data.totalDelay, 'milliseconds');
+    let ST = 0;
+    data.zoneData.forEach(obj => {
+      ST += obj.standardTime;
+    });
+    ST = ST * 60 * 1000;
+    let ET = ST + data.totalDelay;
+    return moment(data.inTime).add(ET, 'milliseconds');
   }
 
 

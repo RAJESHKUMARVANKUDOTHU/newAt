@@ -11,84 +11,92 @@
     width: 60px !important;
     overflow: hidden;
   } */
-  .example-container {
+
+.example-container {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    
-  }
-.image{
+}
+
+.image {
     width: 150px;
     margin-top: 3px;
     margin-left: 26px;
-  }
+}
 
-
-  mat-icon  {
+mat-icon {
     vertical-align: sub;
-  }
-  .example-sidenav-content {
+}
+
+.example-sidenav-content {
     height: auto;
     margin: 10px 10px;
     align-items: center;
     justify-content: center;
-  }
-  .example-sidenav {
-     user-select: none;
-     border: none;
-     background-color: #002060;
-     display: block;
-     color: white;
-     width: fit-content;
-     min-width: fit-content;
-  }
+}
 
-  .mat-list-item{
+.example-sidenav {
+    user-select: none;
+    border: none;
+    background-color: #002060;
+    display: block;
+    color: white;
+    width: fit-content;
+    min-width: fit-content;
+}
+
+.mat-list-item {
     font-size: 18px;
     margin-top: 10px;
-  }
-  mat-list-item,.mat-list-item-content{
+}
+
+mat-list-item,
+.mat-list-item-content {
     color: white !important;
-    
-  }
-  mat-expansion-panel.mat-expansion-panel {
+}
+
+mat-expansion-panel.mat-expansion-panel {
     background-color: #002060;
     color: white;
     border: none;
-  }
-  mat-list-item:hover{
-    color: whitesmoke !important;
-    background-color:gray;   
-  }
-  mat-toolbar{
-    height: 10.5%;
-  }
-
-  .list{
-    margin-left: 3rem;
-  }
-.timer{
-  position: fixed;
-  right: 1rem;
-  bottom: 0;
-  z-index: 999;
-  background-color: #002060;
-  color: navajowhite;
-  height: 2rem;
-  text-align: center;
-  width: 14rem;
-  padding: 0.5rem;
-  border-radius: 1rem 0 0 1rem;
 }
-  @media only screen and (max-width: 768px) {
-   
-      .mat-mini-fab{
-        background:#002060 ;
-      }
-        button.mat-menu-item, .mat-icon{ 
-          color: white !important;
-          border: none;
-    }    
-  } 
+
+mat-list-item:hover {
+    color: whitesmoke !important;
+    background-color: gray;
+}
+
+mat-toolbar {
+    height: 10.5%;
+}
+
+.list {
+    margin-left: 3rem;
+}
+
+.timer {
+    position: fixed;
+    right: 1rem;
+    bottom: 0;
+    z-index: 999;
+    background-color: #002060;
+    color: navajowhite;
+    height: 2rem;
+    text-align: center;
+    width: 14rem;
+    padding: 0.5rem;
+    border-radius: 1rem 0 0 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+    .mat-mini-fab {
+        background: #002060;
+    }
+    button.mat-menu-item,
+    .mat-icon {
+        color: white !important;
+        border: none;
+    }
+}
