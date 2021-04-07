@@ -278,7 +278,7 @@ export class DashboardComponent implements OnInit {
     this.zoneClickStatus = {
       status: true,
       zone: data.zoneName
-    };;
+    };
     this.zoneList = this.zoneList.map((obj) => {
       if (obj._id == data._id) {
         obj.selected = true;
@@ -297,7 +297,31 @@ export class DashboardComponent implements OnInit {
 
   GroupDevices(data) {
     console.log("group device data===", data);
-    this.deviceGroupList = this.deviceList.filter(obj => obj.zoneId == data._id);
+    this.deviceGroupList = this.deviceList.filter(obj => {
+      if(obj.zoneId == data._id){
+        if(obj.outTime == null){
+          let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
+          obj.time = Math.ceil((diff * -1) / (60 * 1000));
+          obj.time = obj.time - obj.standardDeliveryTime;
+          if(obj.time > 0){
+            obj.isDelay = true;
+          }else{
+            obj.isDelay = false;
+            obj.time = obj.time * -1;
+          }
+        }
+        else{
+          obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
+          if(obj.time > 0){
+            obj.isDelay = true;
+          }else{
+            obj.isDelay = false;
+            obj.time = obj.time * -1;
+          }
+        }
+      }
+      return obj;
+    });
     console.log("this.deviceGroupList==", this.deviceGroupList);
   }
 
@@ -529,7 +553,7 @@ export class DashboardComponent implements OnInit {
     var prevdate = null;
     data.forEach(element => {
       element.data.forEach((obj, index) => {
-        var thedate = moment(obj.inTime).local().diff(moment(),'milliseconds');
+        var thedate = moment(obj.inTime).local().diff(moment(), 'milliseconds');
         // if (prevdate) {
         //   sum += prevdate.diff(thedate, 'milliseconds');
         // }
@@ -541,10 +565,20 @@ export class DashboardComponent implements OnInit {
         if (zone.zoneName == element.zoneName) {
           zone.vehicleCount = element.data.length;
           zone.avgTime = Math.ceil((avg * -1) / (60 * 1000));
+          zone.time = zone.standardTime - zone.avgTime;
+          if (zone.time > 0) {
+            zone.isDelay = false;
+          }
+          else {
+            zone.isDelay = true;
+            zone.time = zone.time * -1
+          }
         }
         else {
           zone.vehicleCount = 0;
           zone.avgTime = 0;
+          zone.time = 0;
+          zone.isDelay = false;
         }
       });
     });

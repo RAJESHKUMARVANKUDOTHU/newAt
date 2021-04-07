@@ -69,6 +69,8 @@ export class MapActionsComponent implements OnInit {
   }
 
   createMap() {
+    console.log("create map");
+    
     this.mapDisable = true;
     this.map = L.map('map', {
       attributionControl: false,
@@ -472,6 +474,7 @@ export class MapActionsComponent implements OnInit {
           if (!this.map) {
             this.createMap();
           }else{
+            this.updateSelected();
             this.createMarker()
           }
         } else {
@@ -479,6 +482,7 @@ export class MapActionsComponent implements OnInit {
           if (!this.map) {
             this.createMap();
           }else{
+            this.updateSelected();
             this.createMarker()
           }
         }
