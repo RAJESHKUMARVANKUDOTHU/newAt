@@ -32,7 +32,7 @@ export class ManageDeviceComponent implements OnInit {
   ngOnInit(): void {
     this.refreshDevice()
     this.getServiceDetails()
-    this.role=this.login.getLoginDetails().success.role
+    this.role=this.login.getLoginDetails().role
     console.log("this.role",this.role)
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
@@ -41,6 +41,7 @@ export class ManageDeviceComponent implements OnInit {
     })
   }
   openDailog() {
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -141,21 +142,23 @@ export class ManageDeviceComponent implements OnInit {
   }
 
   edit(data) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = '50vh';
-    dialogConfig.width = '30vw';
-    dialogConfig.data = {
-      type: 'find',
-      data: data
+    if(data.deviceAssignedStatus == false){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.height = '50vh';
+      dialogConfig.width = '30vw';
+      dialogConfig.data = {
+        type: 'find',
+        data: data
+      }
+  
+      const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.refreshDevice()
+      });
     }
-
-    const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.refreshDevice()
-    });
   }
 
   delete(data) {

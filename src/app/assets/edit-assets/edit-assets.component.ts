@@ -87,7 +87,11 @@ export class EditAssetsComponent implements OnInit {
 
           console.log("find submit====", res);
           if (res.status) {
-            this.editFind.reset()
+            if(res.success=='Device updated successfully'){
+              this.editFind.reset()
+              this.dialogRef.close()
+            }
+            
             this.general.deviceChanges.next(true)
             this.general.openSnackBar(res.success, '')
           }
@@ -117,7 +121,10 @@ export class EditAssetsComponent implements OnInit {
 
             console.log("gateway submit====", res);
             if (res.status) {
-              this.editGateway.reset()
+              if(res.success=='Gateway updated successfully'){
+                this.dialogRef.close()
+                this.editGateway.reset()
+              }
               this.general.deviceChanges.next(true)
               this.general.openSnackBar(res.success, '')
             }
@@ -146,7 +153,10 @@ export class EditAssetsComponent implements OnInit {
 
             console.log("coin submit====", res);
             if (res.status) {
-              this.editCoin.reset()
+              if(res.success=='Coin updated successfully'){
+                this.editCoin.reset()
+                this.dialogRef.close()
+              }
               this.general.deviceChanges.next(true)
               this.general.openSnackBar(res.success, '')
             }

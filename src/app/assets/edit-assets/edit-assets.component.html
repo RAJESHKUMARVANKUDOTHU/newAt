@@ -23,7 +23,7 @@
                     <input type="number" matInput min="1" formControlName="deviceId" autocomplete="off" disabled>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button mat-dialog-close  (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
+            <button mat-raised-button  (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
                     <input type="text" matInput formControlName="gatewayId" autocomplete="off" disabled>
                     </mat-form-field> <br>
                 </form>
-                <button mat-raised-button mat-dialog-close (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
+                <button mat-raised-button  (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
                     </mat-error>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button mat-dialog-close (click)="updateCoin(editCoin.value)" [disabled]="!editCoin.valid" color="primary">Submit</button>
+            <button mat-raised-button (click)="updateCoin(editCoin.value)" [disabled]="!editCoin.valid" color="primary">Submit</button>
         </div>
     </div>
 </mat-card>

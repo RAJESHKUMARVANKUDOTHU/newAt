@@ -366,10 +366,10 @@
                         <td class="w-25">
                             <span *ngFor="let b of  a.get('coinName')['controls'];let i=index;let last= last;">
                                 <span *ngIf="!last">
-                                    {{b.get('coinName').value}},
+                                    {{ b.get('coinName').value}},
                                 </span>
                                 <span *ngIf="last">
-                                    {{b.get('coinName').value}}.
+                                    {{ b.get('coinName').value}}.
                                 </span>
                             </span>
                         </td>

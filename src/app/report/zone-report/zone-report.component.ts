@@ -52,6 +52,7 @@ export class ZoneReportComponent implements OnInit {
       }
       console.log("data to send==", data)
       this.api.getZoneWiseReport(data).then((res: any) => {
+        this.zoneData =[]
         console.log("res==", res)
         if (res.status) {
           this.zoneData = res.success
@@ -89,14 +90,8 @@ export class ZoneReportComponent implements OnInit {
       this.api.downloadzoneWiseReport(data, fileName).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
-          this.zoneData = res.success
-          this.dataSource = new MatTableDataSource(this.zoneData);
+          this.general.openSnackBar("Downloading!!!",'')
 
-          setTimeout(() => {
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
-
-          })
         }
       }).catch(err => {
         console.log("err===", err)

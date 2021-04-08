@@ -74,12 +74,13 @@ export class LoginComponent implements OnInit {
 
           if (res.status) {
             if (res.token) {
+              localStorage.setItem('token',res.token)
               var start = new Date() as any
               var end = new Date()
               var date = end.setHours(start.getHours() + 1);
               res.success.timer = date
-              this.loginData = this.login.login(JSON.stringify(res))
-              if (this.login.login(JSON.stringify(res))) {
+            
+              if (this.login.login(res.success)){
                 console.log("i stepped")
                 this.router.navigate(['/dashboard'])
               }
@@ -115,7 +116,7 @@ export class LoginComponent implements OnInit {
     }
     console.log("otp sent===", data)
     this.api.verifyTwoStepOtp(data).then((res: any) => {
-      console.log("verifyTwoStepOtp res==", res)
+      console.log("verifyTwoStepOtp res==", res.success)
       if (res.status) {
 
         this.general.openSnackBar("OTP verified successfully..!!!", '')
@@ -124,8 +125,7 @@ export class LoginComponent implements OnInit {
           var end = new Date()
           var date = end.setHours(start.getHours() + 1);
           res.success.timer = date
-          this.loginData = this.login.login(JSON.stringify(res))
-          if (this.login.login(JSON.stringify(res))) {
+          if (this.login.login(res.success)) {
             console.log("i stepped")
             this.router.navigate(['/dashboard'])
           }

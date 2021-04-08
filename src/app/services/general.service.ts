@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, BehaviorSubject, Subject } from 'rxjs'
-import { LoginAuthService } from './login-auth.service';
+// import { LoginAuthService } from './login-auth.service';
 import * as CryptoJS from 'crypto-js';
 import { HttpResponse } from '@angular/common/http';
 import { DeviceDetectorService } from 'ngx-device-detector';
-
+import * as moment from 'moment'
 @Injectable({
   providedIn: 'root'
 })
@@ -22,23 +22,15 @@ export class GeneralService {
   isMobile: boolean;
   isTablet: boolean;
   isDesktopDevice: boolean;
-  _vehicleData:any
+
   constructor(
     private _snackBar: MatSnackBar,
-    private login: LoginAuthService,
     private deviceService: DeviceDetectorService) {
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
-    // this.token = this.login.getLoginDetails().token
   }
 
-set vehicleData(value){
-  this._vehicleData = value;
-}
-get vehicleData(){
-  return this._vehicleData
-}
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,
@@ -62,11 +54,11 @@ get vehicleData(){
     return arr
   }
   setObject(key, obj) {
-    localStorage.setItem(key, JSON.stringify(obj));
+    localStorage.setItem(key, this.encrypt(obj));
   }
 
   getObject(key) {
-    return JSON.parse(localStorage.getItem(key));
+    return this.decrypt(localStorage.getItem(key));
   }
 
   updateItem(key, property, value) {
@@ -88,7 +80,7 @@ get vehicleData(){
   }
 
   getToken() {
-    return this.login.getLoginDetails().token
+    return localStorage.getItem('token')
   }
   public validate(data) {
     console.log(data)
@@ -106,6 +98,7 @@ get vehicleData(){
   convertTime(a) {
     var timeArr = a.split(':')
     var date = ''
+  
     if (timeArr[0] < 24) {
       if (timeArr[0] != '00') {
         date += timeArr[0] + ' hour '
@@ -124,17 +117,76 @@ get vehicleData(){
       let day = Math.floor(timeArr[0] / 24)
       var rem = timeArr[0] % 24
       var hour = Math.floor(rem)
+
       if (day != 0) {
-        date += day + ' days '
+     if(day < 31){
+      days = day > 1 ? ' days ' : ' day '
+      date += day + days
+     }
+        else if (day > 30 && day < 366) {
+          var month = Math.floor(day / 30)
+          day = day % 30
+          days = day > 1 ? ' days ' : ' day '
+          date += day + days
+          if (month != 0) {
+            var months = month > 1 ? ' months ' : ' month '
+            date += month + months
+          }
+        }
+        else if (day > 365) {
+          var month = Math.floor(day / 30)
+          var months = ''
+          var year = ''
+          var days = ''
+          day = day % 30
+          if (day != 0) {
+            if (month != 0) {
+              if (month > 11) {
+                var years = Math.floor(month / 12)
+                month = Math.floor(month % 12)
+                if (years != 0) {
+                  year = years > 1 ? ' years ' : ' year '
+                  date += years + year
+                  if (month != 0) {
+                    months = month > 1 ? ' months ' : ' month '
+                    date += month + months
+                    days = day > 1 ? ' days ' : ' day '
+                    date += day + days
+                  }
+                }
+                else {
+                  months = month > 1 ? ' months ' : ' month '
+                  date += month + months
+                  days = day > 1 ? ' days ' : ' day '
+                  date += day + days
+                }
+              }
+              else {
+                months = month > 1 ? ' months ' : ' month '
+                date += month + months
+                days = day > 1 ? ' days ' : ' day '
+                date += day + days
+              }
+            }
+            else{
+              days = day > 1 ? ' days ' : ' day '
+              date += day + days
+            }
+          }
+        }
       }
       if (hour != 0) {
-        date += hour + ' hour '
+        var hours = hour > 1 ? ' hours ' : ' hour '
+        date += hour + hours
       }
       if (timeArr[1] != '00') {
-        date += timeArr[1] + ' minute '
+        var minute = timeArr[1] != '01' ? ' minutes ' : ' minute '
+        date += timeArr[1] + minute
       }
       if (timeArr[2] != '00') {
-        date += timeArr[2] + ' second '
+        var second = timeArr[2] != '01' ? ' seconds ' : ' second '
+
+        date += timeArr[2] + second
       }
       if (date == '' || date == '-') {
         date = '05 second'
@@ -173,6 +225,7 @@ get vehicleData(){
       return this.convertTime(time)
     }
   }
+
   getZone() {
     var date = new Date()
     var timezone = date.getTimezoneOffset()

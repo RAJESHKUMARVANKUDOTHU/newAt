@@ -93,6 +93,7 @@ export class AdminDashboardComponent implements OnInit {
   }
   setting(data){
     console.log("data",data)
+   
     this.general.updateItem('sensegiz','userData',data)
     this.router.navigate(['/admin-settings'])
   }

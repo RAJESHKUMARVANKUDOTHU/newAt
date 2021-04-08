@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginAuthService } from './services/login-auth.service';
+import { GeneralService } from './services/general.service';
 
 
 @Injectable({
@@ -9,17 +10,18 @@ import { LoginAuthService } from './services/login-auth.service';
 })
 export class AuthGuard implements CanActivate {
   loginData: any
-  constructor(private login: LoginAuthService, private router: Router) { }
+  constructor(private login: LoginAuthService, private router: Router,private general:GeneralService) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.loginData = this.login.getLoginDetails()
+    let token=this.general.getToken()
    
-    if (this.loginData && this.loginData.token) {
+    if (this.loginData && token) {
       // console.log("in",route.data.role[0].toString() == 'superAdminRole')
       let role = route.data.role.filter((obj)=>{
      
-        return obj == this.loginData.success.role 
+        return obj == this.loginData.role 
     })
       console.log("role ===",role)
         if(role.length){

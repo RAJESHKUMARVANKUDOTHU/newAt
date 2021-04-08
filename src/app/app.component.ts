@@ -25,8 +25,8 @@ export class AppComponent {
   // isShowing = false;
   showLabel: boolean;
   loginDetails: any = '';
-  logged: any;
-  menu: boolean;
+  logged: boolean=false;
+  menu: boolean=false;
   role: boolean = false;
   statusFreeze: boolean = false;
   freezeMessage: String = 'Loading';
@@ -47,20 +47,19 @@ export class AppComponent {
     private api: ApiService,
   ) {
 
-    this.logged = this.login.loginData();
+    
     this.login.loginCheckData.subscribe((res) => {
       if (res) {
         this.logged = res.other;
         this.menu = res.menu;
         console.log("log meu==",this.logged,this.menu)
         if (this.logged == true) {
-          this.loginDetails = this.login.getLoginDetails().success;
+          this.loginDetails = this.login.getLoginDetails();
           this.duration = this.loginDetails.timer;
           this.startTimer()
           this.freezeSubscribe();
           if(this.loginDetails.role !="superAdminRole"){
             this.getImage()
-            console.log("this.loginDetails.logo",this.loginDetails.logo)
           }
         }
         else{

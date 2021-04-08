@@ -45,11 +45,12 @@ export class AdminLoginComponent implements OnInit {
           console.log("admin res===", res)
           if (res.status) {
             if (res.token) {
+              localStorage.setItem('token',res.token)
               var start = new Date() as any
               var end = new Date()
               var date = end.setHours(start.getHours() + 1);
               res.success.timer = date
-              if (this.login.login(JSON.stringify(res))) {
+              if (this.login.login(res.success) ){
                 this.router.navigate(['/admin-dashboard'])
               }
               else { 

@@ -253,6 +253,15 @@ export class ReportComponent implements OnInit {
             return
           }
         }
+        if (type.value == "4") {
+    
+            // formGroup.get('coinId').setErrors(null)
+            formGroup.get('deviceId').setErrors(null)
+            // formGroup.get('zoneId').setErrors(null)
+            formGroup.get('deviceName').setErrors(null)
+            return
+  
+        }
 
       }
 
@@ -320,6 +329,7 @@ export class ReportComponent implements OnInit {
   }
 
   onsubmitVehicleReport(data) {
+
     console.log("vehicle data==", data)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -331,7 +341,9 @@ export class ReportComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(VehiclewisereportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => { })
+    dialogRef.afterClosed().subscribe(result => { 
+      this.vehicleReport.reset()
+    })
   }
 
   onsubmitLocationReport(data) {
@@ -346,7 +358,9 @@ export class ReportComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(LocationReportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => { })
+    dialogRef.afterClosed().subscribe(result => {
+      this.locationReport.reset()
+     })
   }
 
   onsubmitZoneReport(data) {
@@ -361,7 +375,9 @@ export class ReportComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(ZoneReportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => { })
+    dialogRef.afterClosed().subscribe(result => { 
+      this.zoneReport.reset()
+    })
   }
 
 }

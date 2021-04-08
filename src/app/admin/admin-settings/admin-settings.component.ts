@@ -32,6 +32,7 @@ loginData:any
 
   ngOnInit(): void {
     this.loginData=this.login.getLoginDetails()
+ 
     this.refreshSettings(this.loginData.userData)
   }
   refreshSettings(data){

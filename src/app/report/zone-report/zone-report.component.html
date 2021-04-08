@@ -13,7 +13,7 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary">
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!zoneData.length">
                 <span> Download</span>&nbsp;&nbsp;
                 <mat-icon>download </mat-icon>
             </button>
