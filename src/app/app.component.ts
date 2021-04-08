@@ -109,15 +109,10 @@ export class AppComponent {
         (minutes < 10 ? '0' + minutes : minutes) +
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
-      // console.log("this.time==",this.time)
+      console.log("this.time==",this.time)
       if (minutes == 0 && seconds == 2) {
         this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-              // setTimeout(() => {
-        //   this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-        //   clearInterval(this.countDownTimer);
-        //   this.login.logout();
-        //   return;
-        // }, 2000);
+
       }
 
       if (minutes == 0 && seconds == 0) {
@@ -126,12 +121,6 @@ export class AppComponent {
         clearInterval(this.countDownTimer);
         this.login.logout();
         return;
-        // setTimeout(() => {
-        //   this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-        //   clearInterval(this.countDownTimer);
-        //   this.login.logout();
-        //   return;
-        // }, 2000);
       }
       if (minutes > 59) {
         console.log("timer 22==", this.countDownTimer);
@@ -139,12 +128,9 @@ export class AppComponent {
         clearInterval(this.countDownTimer);
         this.login.logout();
         return;
-        // this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })        
-        // setTimeout(() => {
-        // }, 2000);
-      }
-    }, 1000);
+    }}, 1000);
   }
+
 
   getImage() {
     this.api.getLogoImage().then((res: any) => {

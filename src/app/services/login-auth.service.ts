@@ -66,7 +66,7 @@ export class LoginAuthService {
     )
   }
   getLoginDetails() {
-    var status = this.general.decrypt(localStorage.getItem('sensegiz'))
+    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):''
     if (this.checkRole() && this.checkRole() != null) {
       return status
     }
@@ -76,7 +76,7 @@ export class LoginAuthService {
   }
 
   checkRole() {
-    var status = this.general.decrypt(localStorage.getItem('sensegiz'))
+    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):''
     if (status && status != 'undefined' || status != null) {
       if (status.role == 'adminRole' ||
         status.role == 'userRole' ||
