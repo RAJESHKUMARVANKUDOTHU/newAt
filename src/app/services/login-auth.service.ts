@@ -21,8 +21,8 @@ export class LoginAuthService {
   }
 
   loginData() {
-    var status = this.general.decrypt(localStorage.getItem('sensegiz'))
-    if (this.checkRole() && this.checkRole() != null) {
+    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):''
+    if (this.checkRole()) {
       // console.log("true")
       if(status.role ==  'superAdminRole'){
         var a ={
