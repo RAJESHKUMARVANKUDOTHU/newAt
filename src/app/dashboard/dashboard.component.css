@@ -75,9 +75,19 @@ mat-card-title.mat-card-title {
 .popup {
     /* position: absolute !important; */
     z-index: 999 !important;
-    top:-20px;
-    left:64px;
+    top: -20px;
+    left: 64px;
     transform: rotate(180deg);
+}
+
+.delay {
+    background-color: #d10606eb;
+    color: white;
+}
+
+.not-delay {
+    background-color: #168616;
+    color: white;
 }
 
 @media only screen and (max-width: 768px) {

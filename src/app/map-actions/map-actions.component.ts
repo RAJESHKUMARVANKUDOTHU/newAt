@@ -69,6 +69,8 @@ export class MapActionsComponent implements OnInit {
   }
 
   createMap() {
+    console.log("create map");
+    
     this.mapDisable = true;
     this.map = L.map('map', {
       attributionControl: false,
@@ -243,6 +245,7 @@ export class MapActionsComponent implements OnInit {
                   bounds: this.layoutData.gateway[i].coinData[j].coinBounds,
                   coinId: this.layoutData.gateway[i].coinData[j].coinId,
                   coinName: this.layoutData.gateway[i].coinData[j].coinName,
+                  zoneName: this.layoutData.gateway[i].coinData[j].zoneData?.zoneName,
                 };
                 this.addCoinMarker(data);
               }
@@ -273,6 +276,9 @@ export class MapActionsComponent implements OnInit {
     marker.bounds = data.bounds;
     marker
       .addTo(this.map)
+      .bindTooltip(this.getPopUpForm(data), {
+        permanent: false
+      })
       .on('click', (obj) => {
         console.log('clicked data===', obj.target);
         this.gatewaySelect(obj.target.gatewayId);
@@ -301,6 +307,18 @@ export class MapActionsComponent implements OnInit {
       });
     this.marker.push(marker);
 
+  }
+
+
+  getPopUpForm(data){
+    let zone = data.zoneName == undefined ? 'Not assigned' : data.zoneName;
+    let a = '<table class="popup">';
+    a += '<tr><td><b>Gateway Id</b></td><td>' + data.gatewayId + '</td></tr>';
+    a += '<tr><td><b>Coin Id</b></td><td>' + data.coinId + '</td></tr>';
+    a += '<tr><td><b>Coin name</b></td><td>' + data.coinName + '</td></tr>';
+    a += '<tr><td><b>Zone name</b></td><td>' + zone + '</td></tr>';
+    a += '</table>';
+    return a;
   }
 
   getValidation() {
@@ -455,11 +473,17 @@ export class MapActionsComponent implements OnInit {
           // this.layoutSelect(this.selectedLayout);
           if (!this.map) {
             this.createMap();
+          }else{
+            this.updateSelected();
+            this.createMarker()
           }
         } else {
           this.gatewayList = [];
           if (!this.map) {
             this.createMap();
+          }else{
+            this.updateSelected();
+            this.createMarker()
           }
         }
       })
