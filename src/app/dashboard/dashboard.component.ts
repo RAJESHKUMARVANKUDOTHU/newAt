@@ -302,11 +302,11 @@ export class DashboardComponent implements OnInit {
         if(obj.outTime == null){
           let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
           obj.time = Math.ceil((diff * -1) / (60 * 1000));
-          obj.time = obj.time - obj.standardDeliveryTime;
+          obj.time = obj.standardDeliveryTime - obj.time;
           if(obj.time > 0){
-            obj.isDelay = true;
-          }else{
             obj.isDelay = false;
+          }else{
+            obj.isDelay = true;
             obj.time = obj.time * -1;
           }
         }
@@ -319,8 +319,8 @@ export class DashboardComponent implements OnInit {
             obj.time = obj.time * -1;
           }
         }
+        return obj;
       }
-      return obj;
     });
     console.log("this.deviceGroupList==", this.deviceGroupList);
   }

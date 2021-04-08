@@ -78,7 +78,7 @@
                                 <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
-                                    <td [ngClass]="a.isDelay ? 'delay' : '' ">{{a.avgTime}} minutes</td>
+                                    <td [ngClass]="a.isDelay ? 'delay' : '' ">{{a.time}} minutes</td>
                                 </tr>
                             </tbody>
                         </table>
