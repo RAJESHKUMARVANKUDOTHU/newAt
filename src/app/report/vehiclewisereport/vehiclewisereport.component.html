@@ -15,14 +15,14 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary">
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleName?.length">
                 <span> Download</span>&nbsp;&nbsp;
                 <mat-icon>download </mat-icon>
             </button>
         </span>
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput
-                (input)="search($event.target.value, deviceName)">
+                (input)="search($event.target.value, vehicleName)">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
@@ -88,7 +88,7 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary">
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!deviceId?.length">
                 <span> Download</span>&nbsp;&nbsp;
                 <mat-icon>download </mat-icon>
             </button>
@@ -157,14 +157,14 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary">
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleName?.length">
                 <span> Download</span>&nbsp;&nbsp;
                 <mat-icon>download </mat-icon>
             </button>
         </span>
         <mat-form-field>
-            <input matInput placeholder="Search location" autocomplete="off" matInput
-                (input)="search($event.target.value, deviceName)">
+            <input matInput placeholder="Search" autocomplete="off" matInput
+                (input)="search($event.target.value, vehicleName)">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
@@ -212,6 +212,58 @@
             </div>
             <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+        </table>
+        <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+
+<div *ngIf="vehicleReportData.type == '4'">
+    <div class="text-center">
+        <h1 class="color">REPORT</h1>
+        <p mat-dialog-title>
+           Number of vehicle Serviced.
+        </p>
+        <hr>
+    </div>
+    <div class="d-flex justify-content-between">
+        <span>
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!servicedVehicleData?.length">
+                <span> Download</span>&nbsp;&nbsp;
+                <mat-icon>download </mat-icon>
+            </button>
+        </span>
+        <mat-form-field>
+            <input matInput placeholder="Search" autocomplete="off" matInput
+                (input)="search($event.target.value, servicedVehicleData)">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
+            <div>
+                <ng-container matColumnDef="i">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+                    <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>    
+                </ng-container>
+
+                <ng-container matColumnDef="deviceName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Name </th>
+                    <td mat-cell *matCellDef="let find"> {{find.deviceName}} </td>
+                    <td mat-footer-cell *matFooterCellDef class="text-center"> <b> Total number of vehicles serviced.</b></td>             
+                </ng-container>
+
+                <ng-container matColumnDef="totalTime">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Time</th>
+                    <td mat-cell *matCellDef="let find"> {{find.totalTime}} </td>
+                    <td mat-footer-cell *matFooterCellDef class="text-center"> {{servicedVehicleData.length}} </td>
+                </ng-container>
+            </div>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns4"></tr>
         </table>
         <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
     </div>

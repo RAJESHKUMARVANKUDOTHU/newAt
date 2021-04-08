@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, EMPTY } from 'rxjs'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
+import { GeneralService } from './general.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginAuthService {
+
   public loginCred = new Subject<any>()
   public loginCheckData = new Subject<any>()
- 
-  constructor(private location: Location, private router: Router, ) {
+  constructor(private location: Location, private router: Router,private general:GeneralService,private dialog:MatDialog) {
     this.popState()
   }
   ngOnInit(): void {
@@ -18,10 +21,10 @@ export class LoginAuthService {
   }
 
   loginData() {
-    var status = JSON.parse(localStorage.getItem('sensegiz'))
+    var status = this.general.decrypt(localStorage.getItem('sensegiz'))
     if (this.checkRole() && this.checkRole() != null) {
       // console.log("true")
-      if(status.success.role ==  'superAdminRole'){
+      if(status.role ==  'superAdminRole'){
         var a ={
           menu : false,
           other : true
@@ -45,11 +48,10 @@ export class LoginAuthService {
   }
 
   popState() {
-    var status = JSON.parse(localStorage.getItem('sensegiz'))
     this.location.subscribe(
       ((value: PopStateEvent) => {
 
-        if (window.location.pathname == '/login' || window.location.pathname == '/admin-login' && (status.success==null ||status.success.role == undefined|| status.success.role == null )) {  
+        if (window.location.pathname == '/login' || window.location.pathname == '/admin-login'){  
           this.logout()    
         }
         else {
@@ -64,7 +66,7 @@ export class LoginAuthService {
     )
   }
   getLoginDetails() {
-    var status = JSON.parse(localStorage.getItem('sensegiz'))
+    var status = this.general.decrypt(localStorage.getItem('sensegiz'))
     if (this.checkRole() && this.checkRole() != null) {
       return status
     }
@@ -74,12 +76,12 @@ export class LoginAuthService {
   }
 
   checkRole() {
-    var status = JSON.parse(localStorage.getItem('sensegiz'))
+    var status = this.general.decrypt(localStorage.getItem('sensegiz'))
     if (status && status != 'undefined' || status != null) {
-      if (status.success.role == 'adminRole' ||
-        status.success.role == 'userRole' ||
-        status.success.role == 'coAdminRole' ||
-        status.success.role == 'subAdminRole' || status.success.role == 'superAdminRole') {
+      if (status.role == 'adminRole' ||
+        status.role == 'userRole' ||
+        status.role == 'coAdminRole' ||
+        status.role == 'subAdminRole' || status.role == 'superAdminRole') {
         return true
       }
       else {
@@ -90,8 +92,8 @@ export class LoginAuthService {
     }
   }
   login(data) {
-    // console.log("setting data",localStorage.setItem('sensegiz',data))
-    localStorage.setItem('sensegiz', data)
+    let storeData=this.general.encrypt(data)
+    localStorage.setItem('sensegiz', storeData)
     return true
   }
 
@@ -100,6 +102,7 @@ export class LoginAuthService {
       menu:false,
       other:false
     }
+    this.dialog.closeAll()
     this.loginCheckData.next(a)
     localStorage.clear()
     this.router.navigate(['/login'])

@@ -30,7 +30,7 @@ export class ManageGatewayComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshGateway()
-    this.role=this.login.getLoginDetails().success.role
+    this.role=this.login.getLoginDetails().role
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
         this.refreshGateway()

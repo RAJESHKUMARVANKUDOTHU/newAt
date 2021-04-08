@@ -32,7 +32,7 @@ export class ManageDeviceComponent implements OnInit {
   ngOnInit(): void {
     this.refreshDevice()
     this.getServiceDetails()
-    this.role=this.login.getLoginDetails().success.role
+    this.role=this.login.getLoginDetails().role
     console.log("this.role",this.role)
     this.general.deviceChanges.subscribe((res) => {
       if (res) {

@@ -17,9 +17,9 @@ export class ApiService {
     };
 
     let url = this.host + '/loginUser';
-    let body = {
-      data: data,
-    };
+    // let body = {
+    //   data: data,
+    // };
     return new Promise((resolve, reject) => {
       this.http.post(url, data, httpOptions).subscribe(
         (res:any) => {
@@ -1790,6 +1790,47 @@ getZoneWiseReport(data){
         }
       );
     });
+}
+
+getvehicleServicedReport(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/getVehicleReport';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+getAverageTimeOfBays(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/getAverageTimeOfBays';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
 }
   // ----------------report download-------------------------------
 

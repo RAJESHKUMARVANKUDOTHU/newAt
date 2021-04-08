@@ -16,7 +16,7 @@ import {
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
-  status: any;
+  token: any;
   constructor(
     private login: LoginAuthService,
     private general: GeneralService,
@@ -28,7 +28,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     // console.log("tok==",this.login.getLoginDetails())
-    this.status = this.login.getLoginDetails();
+    this.token = this.general.getToken()
     request = this.addAuthenticationToken(request)
 
     return next.handle(request).pipe(
@@ -55,11 +55,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   }
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
-    this.status = this.login.getLoginDetails();
+    this.token = this.general.getToken();
 
-    if (this.status.token && this.status.token != null) {
+    if (this.token && this.token != null) {
       request = request.clone({
-        setHeaders: { Authorization: `Bearer ${this.status.token}` },
+        setHeaders: { Authorization: `Bearer ${this.token}` },
       });
       if (request instanceof HttpRequest) {
         let authHeaders = request.headers.get('authorization');

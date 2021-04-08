@@ -54,7 +54,7 @@ export class SettingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loginData = this.login.getLoginDetails().success
+    this.loginData = this.login.getLoginDetails()
     this.createForm()
     this.refreshDevice()
     this.refreshCoin()
@@ -592,6 +592,7 @@ export class SettingComponent implements OnInit {
     if (data.fileData.filetype == 'image/jpg' || data.fileData.filetype == 'image/jpeg' || data.fileData.filetype == 'image/png') {
       this.api.uploadLogo(data).then((res: any) => {
         console.log("res img===", res)
+        // data.fileData.filename=this.general.encrypt(data.fileData.filename)
         this.general.updateItem('sensegiz', 'logo', data.fileData.filename)
         this.clearFile()
         setTimeout(() => {

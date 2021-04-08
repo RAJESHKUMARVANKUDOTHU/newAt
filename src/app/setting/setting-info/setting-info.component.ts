@@ -544,6 +544,8 @@ export class SettingInfoComponent implements OnInit {
 
           console.log("Group coin res===", res)
           if (res.status) {
+            this.getServiceDetails()
+            this.getZoneDetails()
             this.general.openSnackBar(res.success, '')
           }
           else {

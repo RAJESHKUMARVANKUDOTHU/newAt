@@ -30,7 +30,7 @@ export class ManageCoinComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshCoin()
-    this.role = this.login.getLoginDetails().success.role
+    this.role = this.login.getLoginDetails().role
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
         this.refreshCoin()
