@@ -252,6 +252,9 @@ export class DashboardComponent implements OnInit {
           obj.vehicleCount = 0;
           obj.avgTime = 0;
           obj.color = this.getRandomColor();
+          obj.vehicleCount = 0;
+          obj.time = 0;
+          obj.isDelay = false;
           return obj;
         });
         this.tempZoneList = this.zoneList;
@@ -550,9 +553,8 @@ export class DashboardComponent implements OnInit {
         zoneName: obj
       }
     })
-    var sum = 0;
-    var prevdate = null;
     data.forEach(element => {
+      let sum = 0;
       element.data.forEach((obj, index) => {
         var thedate = moment(obj.inTime).local().diff(moment(), 'milliseconds');
         // if (prevdate) {
@@ -574,12 +576,6 @@ export class DashboardComponent implements OnInit {
             zone.isDelay = true;
             zone.time = zone.time * -1
           }
-        }
-        else {
-          zone.vehicleCount = 0;
-          zone.avgTime = 0;
-          zone.time = 0;
-          zone.isDelay = false;
         }
       });
     });

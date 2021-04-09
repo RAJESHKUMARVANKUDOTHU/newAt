@@ -102,7 +102,8 @@ export class AppComponent {
   }
 
   startTimer() {
-
+    console.log("timer");
+    
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
       var diff = this.duration - start
@@ -139,6 +140,7 @@ export class AppComponent {
         this.general.loadingFreez.next({ status: false, msg: '' })
         clearInterval(this.countDownTimer);
         this.login.logout();
+        return;
       }
     }, 1000);
   }
