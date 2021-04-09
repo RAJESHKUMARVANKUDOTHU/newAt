@@ -1673,14 +1673,17 @@ createdDeviceShift(data){
       );
     });
   }
-  getVehicleServiceCount(){
+  getVehicleServiceCount(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     let url = this.host + '/getVehicleServiceCount';
+    let body = {
+      data: data,
+    };
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(
+      this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },
