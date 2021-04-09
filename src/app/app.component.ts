@@ -25,8 +25,8 @@ export class AppComponent {
   // isShowing = false;
   showLabel: boolean;
   loginDetails: any = '';
-  logged: boolean=false;
-  menu: boolean=false;
+  logged: boolean = false;
+  menu: boolean = false;
   role: boolean = false;
   statusFreeze: boolean = false;
   freezeMessage: String = 'Loading';
@@ -47,23 +47,24 @@ export class AppComponent {
     private api: ApiService,
   ) {
 
-    
+
     this.login.loginCheckData.subscribe((res) => {
       if (res) {
         this.logged = res.other;
         this.menu = res.menu;
-        console.log("log meu==",this.logged,this.menu)
+        console.log("log meu==", this.logged, this.menu)
         if (this.logged == true) {
           this.loginDetails = this.login.getLoginDetails();
           this.duration = this.loginDetails.timer;
           this.startTimer()
           this.freezeSubscribe();
-          if(this.loginDetails.role !="superAdminRole"){
+          if (this.loginDetails.role != "superAdminRole") {
             this.getImage()
           }
         }
-        else{
-          this.loginDetails= ''
+        else {
+          clearInterval(this.countDownTimer);
+          this.loginDetails = ''
         }
       }
     });
@@ -76,7 +77,9 @@ export class AppComponent {
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
-
+  ngOnDestroy() {
+    clearInterval(this.countDownTimer);
+  }
   openDailog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -102,39 +105,48 @@ export class AppComponent {
 
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
-      var diff = Math.abs(this.duration - start);
+      var diff = this.duration - start
       var minutes = Math.floor((diff / 1000 / 60) << 0);
       var seconds = Math.floor((diff / 1000) % 60);
       this.time =
         (minutes < 10 ? '0' + minutes : minutes) +
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
-      console.log("this.time==",this.time)
-      if (minutes == 0 && seconds == 2) {
-        this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
+      console.log("this.time==", this.time)
+      if (diff >= 0) {
+        if (minutes == 0 && seconds == 2) {
+          this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
 
+        }
+
+        if (minutes == 0 && seconds == 0) {
+
+          this.general.loadingFreez.next({ status: false, msg: '' })
+          clearInterval(this.countDownTimer);
+
+          this.login.logout();
+          return;
+        }
+        if (minutes > 59) {
+          console.log("timer 22==", this.countDownTimer);
+          this.general.loadingFreez.next({ status: false, msg: '' })
+          clearInterval(this.countDownTimer);
+          this.login.logout();
+          return;
+        }
       }
-
-      if (minutes == 0 && seconds == 0) {
-
+      else {
         this.general.loadingFreez.next({ status: false, msg: '' })
         clearInterval(this.countDownTimer);
         this.login.logout();
-        return;
       }
-      if (minutes > 59) {
-        console.log("timer 22==", this.countDownTimer);
-        this.general.loadingFreez.next({ status: false, msg: '' })
-        clearInterval(this.countDownTimer);
-        this.login.logout();
-        return;
-    }}, 1000);
+    }, 1000);
   }
 
 
   getImage() {
     this.api.getLogoImage().then((res: any) => {
-      this.image = res     
+      this.image = res
     }).catch((err: any) => {
       console.log("err==", err)
     })

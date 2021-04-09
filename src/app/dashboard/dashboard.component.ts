@@ -14,7 +14,7 @@ import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
 import * as moment from 'moment';
 import { LoginAuthService } from '../services/login-auth.service';
-
+import { GeneralService } from '../services/general.service'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -124,7 +124,8 @@ export class DashboardComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private api: ApiService,
     private login: LoginAuthService,
-    private router: Router) { }
+    private router: Router,
+    private general: GeneralService) { }
 
   ngOnInit(): void {
     this.congestionGraph();
@@ -627,7 +628,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
   getVehicleServiceCount() {
-    this.api.getVehicleServiceCount().then((res: any) => {
+    let currentDate = moment().format("YYYY-MM-DD")
+    var data={
+      currentDate: currentDate,
+      timeZoneOffset:this.general.getZone()
+    }
+    this.api.getVehicleServiceCount(data).then((res: any) => {
       console.log("res 0f vehicle service count==", res)
       if (res.status) {
         this.servicedVehicleCount = res.success.servicedVehicleCount
