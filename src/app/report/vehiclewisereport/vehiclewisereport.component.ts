@@ -65,7 +65,7 @@ export class VehiclewisereportComponent implements OnInit {
         this.vehicleName = []
         console.log("res 0==", res)
         if (res.status) {
-          this.currentPageLength = parseInt(res.count)
+          this.currentPageLength = parseInt(res.totalLength)
           this.vehicleName = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)

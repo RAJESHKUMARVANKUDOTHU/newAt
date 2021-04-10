@@ -119,17 +119,14 @@ export class ApiService {
     });
   }
 
-  viewUsers(data) {
+  viewUsers() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     let url = this.host + '/getAllUsers';
-    let body = {
-      data: data,
-    };
     return new Promise((resolve, reject) => {
-      this.http.post(url, body, httpOptions).subscribe(
+      this.http.get(url).subscribe(
         (res: any) => {
 
           resolve(res.data);

@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminSettingsComponent } from './admin-settings.component';
-import { AdminSettingsModule } from './admin-settings.module';
+// import { AdminSettingsComponent } from './admin-settings.component';
 
 const routes: Routes = [
-  {path:'',component:AdminSettingsComponent}
+  // {path:'',component:AdminSettingsComponent}
 ];
 
 @NgModule({

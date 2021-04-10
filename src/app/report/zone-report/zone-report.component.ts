@@ -60,6 +60,8 @@ export class ZoneReportComponent implements OnInit {
         this.zoneData =[]
         console.log("res==", res)
         if (res.status) {
+          this.currentPageLength = parseInt(res.totalLength)
+
           this.zoneData = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
@@ -68,7 +70,7 @@ export class ZoneReportComponent implements OnInit {
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+            // this.dataSource.paginator = this.paginator
 
           })
         }

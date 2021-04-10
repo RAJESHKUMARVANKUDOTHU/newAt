@@ -24,10 +24,6 @@ export class ProfileComponent implements OnInit {
   getUserList: any = []
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
-  limit:any=10
-  offset:any=0
-  currentPageLength:any=10
-  currentPageSize:any=10
   constructor(
     public dialog: MatDialog,
     private login: LoginAuthService,
@@ -103,13 +99,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  getUsers(limit=10,offset=0) {
+  getUsers() {
     this.getUserList = []
-    var data={
-      limit:limit,
-      offset:offset
-    }
-    this.api.viewUsers(data).then((res: any) => {
+    this.api.viewUsers().then((res: any) => {
       console.log("get user res===", res)
       if (res.status) {
         this.getUserList = res.success
@@ -134,7 +126,7 @@ export class ProfileComponent implements OnInit {
     this.api.deleteSubuser(data).then((res: any) => {
       console.log("delete sub user res===", res)
       if (res.status) {
-        this.getUsers(this.limit,this.offset)
+        this.getUsers()
         this.general.openSnackBar(res.success, '')
       }
       else {
@@ -158,14 +150,9 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getUsers(this.limit,this.offset)
+      this.getUsers()
     });
   }
-  getUpdate(event) {
- 
-    this.limit = event.pageSize
-    this.offset = event.pageIndex * event.pageSize
-    this.getUsers(this.limit, this.offset)
-  }
+
 
 }

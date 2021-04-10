@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {GeofenceComponent} from './geofence.component'
+// import {GeofenceComponent} from './geofence.component'
 const routes: Routes = [
-  {path:'',component:GeofenceComponent}
+  // {path:'',component:GeofenceComponent}
 ];
 
 @NgModule({

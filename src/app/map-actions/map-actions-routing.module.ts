@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MapActionsComponent } from './map-actions.component';
+// import { MapActionsComponent } from './map-actions.component';
 
 const routes: Routes = [
-  {path:'',component:MapActionsComponent}
+  // {path:'',component:MapActionsComponent}
 ];
 
 @NgModule({

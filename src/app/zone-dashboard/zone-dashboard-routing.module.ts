@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ZoneDashboardComponent } from './zone-dashboard.component';
+// import { ZoneDashboardComponent } from './zone-dashboard.component';
 
 const routes: Routes = [
-  {path:'',component:ZoneDashboardComponent}
+  // {path:'',component:ZoneDashboardComponent}
 ];
 
 @NgModule({

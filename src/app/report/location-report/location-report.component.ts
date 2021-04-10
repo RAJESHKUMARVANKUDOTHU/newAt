@@ -67,6 +67,8 @@ export class LocationReportComponent implements OnInit {
       }
       console.log("data to send==", data)
       this.api.getLocationReport(data).then((res: any) => {
+        this.currentPageLength = parseInt(res.totalLength)
+
         this.locationData = []
         console.log("res==", res)
         if (res.status) {
