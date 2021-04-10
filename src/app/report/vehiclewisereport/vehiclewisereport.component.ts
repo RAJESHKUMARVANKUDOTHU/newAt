@@ -21,16 +21,16 @@ export class VehiclewisereportComponent implements OnInit {
   vehicleReportData: any
   vehicleName: any = []
   deviceId: any = []
-  servicedVehicleData:any =[]
+  servicedVehicleData: any = []
   dataSource: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns2 = ['i', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns3 = ['i', 'deviceId', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns4 = ['i', 'deviceName', 'totalTime'];
-  limit:any=10
-offset:any=0
-currentPageLength:any=10
-currentPageSize:any=10
+  limit: any = 10
+  offset: any = 0
+  currentPageLength: any = 10
+  currentPageSize: any = 10
   constructor(
     public dialogRef: MatDialogRef<VehiclewisereportComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -42,11 +42,11 @@ currentPageSize:any=10
   }
 
   ngOnInit(): void {
-    this.getData(this.limit,this.offset,this.vehicleReportData.type)
+    this.getData(this.limit, this.offset, this.vehicleReportData.type)
   }
-  getData(limit=10,offset=0,type) {
+  getData(limit = 10, offset = 0, type) {
     var data = {}
-    this.vehicleReportData.type= type
+    this.vehicleReportData.type = type
     let from = moment(this.vehicleReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.vehicleReportData.toDate).format("YYYY-MM-DD")
     console.log(from, to);
@@ -62,10 +62,10 @@ currentPageSize:any=10
       console.log("data to send==", data)
 
       this.api.genericReport(data).then((res: any) => {
-        this.vehicleName=[]
+        this.vehicleName = []
         console.log("res 0==", res)
         if (res.status) {
-          this.currentPageLength=parseInt(res.count)
+          this.currentPageLength = parseInt(res.count)
           this.vehicleName = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
@@ -96,7 +96,7 @@ currentPageSize:any=10
       }
       console.log("data to send==", data)
       this.api.deviceIdReport(data).then((res: any) => {
-        this.deviceId =[]
+        this.deviceId = []
         console.log("res 2==", res)
         this.deviceId = res.success
         for (let i = 0; i < res.success.length; i++) {
@@ -128,7 +128,7 @@ currentPageSize:any=10
       console.log("data to send==", data)
 
       this.api.vehicleNameReport(data).then((res: any) => {
-        this.vehicleName=[]
+        this.vehicleName = []
         console.log("res 3==", res)
         if (res.status) {
           this.vehicleName = res.success
@@ -150,23 +150,23 @@ currentPageSize:any=10
     }
 
     if (this.vehicleReportData.type == '4') {
-      data={ 
-        fromDate:from,
-        toDate:to,
-        timeZoneOffset:this.general.getZone(),
+      data = {
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
         // limit:limit,
         // offset:offset
       }
       console.log("data to send==", data)
       this.api.getvehicleServicedReport(data).then((res: any) => {
-        this.servicedVehicleData=[]
+        this.servicedVehicleData = []
         console.log("res 4==", res)
         if (res.status) {
           this.servicedVehicleData = res.success
-          for(let i =0;i<res.success.length;i++){
-            res.success[i].totalTime=this.general.getTotTime(res.success[i].gateInTime,res.success[i].deRegTime)
-            console.log("res.success[i].totalTime==",res.success[i].totalTime);
-            
+          for (let i = 0; i < res.success.length; i++) {
+            res.success[i].totalTime = this.general.getTotTime(res.success[i].gateInTime, res.success[i].deRegTime)
+            console.log("res.success[i].totalTime==", res.success[i].totalTime);
+
           }
           this.dataSource = new MatTableDataSource(this.servicedVehicleData);
 
@@ -176,8 +176,8 @@ currentPageSize:any=10
 
           })
         }
-      }).catch(err=>{
-        console.log("err===",err)
+      }).catch(err => {
+        console.log("err===", err)
       })
     }
   }
@@ -198,7 +198,7 @@ currentPageSize:any=10
       this.api.downloadGenericReport(data, fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
-         this.general.openSnackBar("Downloading!!!",'')
+          this.general.openSnackBar("Downloading!!!", '')
         }
 
       }).catch(err => {
@@ -219,7 +219,7 @@ currentPageSize:any=10
       this.api.downloadDeviceIdReport(data, fileName).then((res: any) => {
         console.log("res 2==", res)
         if (res.status) {
-          this.general.openSnackBar("Downloading!!!",'')
+          this.general.openSnackBar("Downloading!!!", '')
 
         }
 
@@ -239,7 +239,7 @@ currentPageSize:any=10
       this.api.downloadvehicleNameReport(data, fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
-          this.general.openSnackBar("Downloading!!!",'')
+          this.general.openSnackBar("Downloading!!!", '')
 
         }
 
@@ -249,13 +249,11 @@ currentPageSize:any=10
     }
   }
 
-  getUpdate(event,type) {
-    // console.log("paginator event",event);
-    // console.log("paginator event length", this.currentPageLength);
+  getUpdate(event, type) {
+ 
     this.limit = event.pageSize
-   this.offset = event.pageIndex*event.pageSize
-    // console.log("limit==",limit,"offset==",offset)
-    this.getData(this.limit,this.offset,type)
+    this.offset = event.pageIndex * event.pageSize
+    this.getData(this.limit, this.offset, type)
   }
 
   search(a, data) {

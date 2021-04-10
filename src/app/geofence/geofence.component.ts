@@ -44,7 +44,8 @@ export class GeofenceComponent implements OnInit {
   }
 
   refreshCoin() {
-    this.api.getCoinData().then((res: any) => {
+    var data=''
+    this.api.getCoinData(data).then((res: any) => {
       this.coinData = []
       if (res.status) {
         this.coinData = res.success
@@ -58,8 +59,8 @@ export class GeofenceComponent implements OnInit {
   }
 
   refreshDevice() {
-
-    this.api.getDeviceData().then((res: any) => {
+    var data=''
+    this.api.getDeviceData(data).then((res: any) => {
       this.deviceData = []
       console.log("find submit====", res);
       if (res.status) {

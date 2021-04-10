@@ -28,7 +28,8 @@ export class MapCenterComponent implements OnInit {
     this.refreshGateway()
   }
   refreshGateway() {
-    this.api.getGatewayData().then((res: any) => {
+  var data=''
+    this.api.getGatewayData(data).then((res: any) => {
       console.log("gatway submit====", res);
       this.gateway = []
       if (res.status) {

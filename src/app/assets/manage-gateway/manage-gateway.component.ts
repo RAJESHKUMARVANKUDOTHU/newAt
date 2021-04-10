@@ -20,6 +20,10 @@ export class ManageGatewayComponent implements OnInit {
   dataSource: any = [];
   fileName: String = ''
   role:any
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   displayedColumns = ['i', 'gatewayId', 'gatewayName', 'macId', 'updatedOn', 'edit', 'delete'];
   constructor(
     public dialog: MatDialog,
@@ -55,13 +59,17 @@ export class ManageGatewayComponent implements OnInit {
     });
   }
 
-  refreshGateway() {
-    this.api.getGatewayData().then((res: any) => {
+  refreshGateway(limit=10,offset=0) {
+    var data={
+      limit:limit,
+      offset:offset
+    }
+    this.api.getGatewayData(data).then((res: any) => {
       this.gatewayData = []
       console.log("gateway submit====", res);
 
-      console.log("gateway submit====", res);
       if (res.status) {
+        this.currentPageLength = parseInt(res.totalLength)
         for (let i = 0; i < res.success.length; i++) {
           if (res.success[i] != null) {
 
@@ -83,7 +91,7 @@ export class ManageGatewayComponent implements OnInit {
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+          // this.dataSource.paginator = this.paginator
         })
       }
       else { }
@@ -152,5 +160,10 @@ export class ManageGatewayComponent implements OnInit {
       console.log("error==", err)
     })
   }
-
+  getUpdate(event) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.refreshGateway(this.limit, this.offset)
+  }
 }

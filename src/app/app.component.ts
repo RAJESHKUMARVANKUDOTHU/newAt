@@ -112,7 +112,7 @@ export class AppComponent {
         (minutes < 10 ? '0' + minutes : minutes) +
         ':' +
         (seconds < 10 ? '0' + seconds : seconds);
-      console.log("this.time==", this.time)
+      // console.log("this.time==", this.time)
       if (diff >= 0) {
         if (minutes == 0 && seconds == 2) {
           this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })

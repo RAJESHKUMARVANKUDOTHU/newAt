@@ -20,6 +20,10 @@ export class ManageCoinComponent implements OnInit {
   coinData: any = []
   fileName: String = ''
   role: any
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   displayedColumns = ['i', 'coinId', 'coinName', 'gatewayId', 'coinBattery', 'updatedOn', 'edit', 'delete'];
   constructor(
     public dialog: MatDialog,
@@ -54,12 +58,18 @@ export class ManageCoinComponent implements OnInit {
     });
   }
 
-  refreshCoin() {
-    this.api.getCoinData().then((res: any) => {
+  refreshCoin(limit=10,offset=0) {
+    var data={
+      limit:limit,
+      offset:offset
+    }
+    console.log("limit,offset==",limit,offset)
+    this.api.getCoinData(data).then((res: any) => {
 
       console.log("coin refresh====", res);
       this.coinData = []
       if (res.status) {
+        this.currentPageLength = parseInt(res.totalLength)
         for (let i = 0; i < res.success.length; i++) {
           if (res.success[i] != null) {
             this.coinData.push({
@@ -81,7 +91,7 @@ export class ManageCoinComponent implements OnInit {
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+          // this.dataSource.paginator = this.paginator
         })
       }
       else { }
@@ -151,6 +161,7 @@ export class ManageCoinComponent implements OnInit {
           this.general.openSnackBar(res.success, '')
         }
         else {
+          this.refreshCoin()
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           this.general.deviceChanges.next(false)
         }
@@ -177,5 +188,12 @@ export class ManageCoinComponent implements OnInit {
     }).catch((err: any) => {
       console.log("error==", err)
     })
+  }
+
+  getUpdate(event) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.refreshCoin(this.limit, this.offset)
   }
 }
