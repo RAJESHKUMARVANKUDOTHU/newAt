@@ -59,7 +59,7 @@ export class ManageDeviceComponent implements OnInit {
     const dialogRef = this.dialog.open(AddAssetsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshDevice()
+      this.refreshDevice(this.limit, this.offset)
     });
   }
 
@@ -114,7 +114,7 @@ export class ManageDeviceComponent implements OnInit {
     this.api.updateServiceId(data).then((res: any) => {
       console.log("update Services===", res)
       if (res.status) {
-        this.refreshDevice()
+        this.refreshDevice(this.limit, this.offset)
         this.general.openSnackBar(res.success, '')
       }
       else {
@@ -166,7 +166,7 @@ export class ManageDeviceComponent implements OnInit {
       const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
   
       dialogRef.afterClosed().subscribe(result => {
-        this.refreshDevice()
+        this.refreshDevice(this.limit, this.offset)
       });
     }
   }
@@ -179,13 +179,13 @@ export class ManageDeviceComponent implements OnInit {
 
         console.log("device delete====", res);
         if (res.status) {
-          this.refreshDevice()
+          this.refreshDevice(this.limit, this.offset)
           this.general.deviceChanges.next(true)
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
         else {
-          this.refreshDevice()
+          this.refreshDevice(this.limit, this.offset)
           this.general.deviceChanges.next(false)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
 
@@ -210,12 +210,12 @@ export class ManageDeviceComponent implements OnInit {
         console.log("toggle====", res);
         if (res.status) {
           this.general.deviceChanges.next(true)
-          this.refreshDevice()
+          this.refreshDevice(this.limit, this.offset)
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
         else { 
-          this.refreshDevice()
+          this.refreshDevice(this.limit, this.offset)
           this.general.deviceChanges.next(false)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
         }
@@ -224,7 +224,7 @@ export class ManageDeviceComponent implements OnInit {
       })
     }
     else {
-      this.refreshDevice()
+      this.refreshDevice(this.limit, this.offset)
     }
   }
   download() {
