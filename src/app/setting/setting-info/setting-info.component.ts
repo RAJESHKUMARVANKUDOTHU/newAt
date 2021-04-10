@@ -91,7 +91,8 @@ export class SettingInfoComponent implements OnInit {
   refreshCoin() {
     this.coinData = []
     this.coinDataTemp = []
-    this.api.getCoinData().then((res: any) => {
+    var data=''
+    this.api.getCoinData(data).then((res: any) => {
       console.log("coin submit====", res);
       if (res.status) {
         this.coinData = res.success
@@ -170,8 +171,9 @@ export class SettingInfoComponent implements OnInit {
 
   refreshDevice() {
     this.deviceData = [];
+    var data=''
     this.api
-      .getDeviceData()
+      .getDeviceData(data)
       .then((res: any) => {
         const control = <FormArray>this.form2.controls.items;
         control.controls = [];

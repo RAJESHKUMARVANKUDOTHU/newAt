@@ -176,7 +176,8 @@ export class EditAssetsComponent implements OnInit {
     }
 
     refreshGateway() {
-      this.api.getGatewayData().then((res: any) => {
+      var data=''
+      this.api.getGatewayData(data).then((res: any) => {
 
         console.log("coin submit====", res);
         this.gateway = []

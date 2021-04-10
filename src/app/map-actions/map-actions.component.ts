@@ -493,8 +493,9 @@ export class MapActionsComponent implements OnInit {
   }
 
   refreshGateway() {
+    var data=''
     this.api
-      .getGatewayData()
+      .getGatewayData(data)
       .then((res: any) => {
         this.newGatewayLayout = [];
         if (res.status) {

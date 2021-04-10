@@ -21,6 +21,10 @@ export class ManageDeviceComponent implements OnInit {
   serviceData: any = []
   fileName: String = ''
   role:any
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   displayedColumns = ['i', 'deviceId', 'deviceName', 'serviceCategoryId', 'deviceToggleStatus', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,
@@ -59,12 +63,18 @@ export class ManageDeviceComponent implements OnInit {
     });
   }
 
-  refreshDevice() {
-
-    this.api.getDeviceData().then((res: any) => {
+  refreshDevice(limit=10,offset=0) {
+    var data={
+      limit:limit,
+      offset:offset
+    }
+    console.log("data==",data)
+    this.api.getDeviceData(data).then((res: any) => {
       this.findData = []
       console.log("find submit====", res);
       if (res.status) {
+        this.currentPageLength = parseInt(res.totalLength)
+
         for (let i = 0; i < res.success.length; i++) {
           if (res.success[i] != null) {
             this.findData.push({
@@ -86,7 +96,7 @@ export class ManageDeviceComponent implements OnInit {
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+          // this.dataSource.paginator = this.paginator
         })
       }
       else { }
@@ -169,11 +179,13 @@ export class ManageDeviceComponent implements OnInit {
 
         console.log("device delete====", res);
         if (res.status) {
+          this.refreshDevice()
           this.general.deviceChanges.next(true)
           var msg = res.success
           this.general.openSnackBar(msg, '')
         }
         else {
+          this.refreshDevice()
           this.general.deviceChanges.next(false)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
 
@@ -203,6 +215,7 @@ export class ManageDeviceComponent implements OnInit {
           this.general.openSnackBar(msg, '')
         }
         else { 
+          this.refreshDevice()
           this.general.deviceChanges.next(false)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
         }
@@ -241,6 +254,14 @@ export class ManageDeviceComponent implements OnInit {
       }
       else { }
     })
+  }
+
+  
+  getUpdate(event) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.refreshDevice(this.limit, this.offset)
   }
 }
 

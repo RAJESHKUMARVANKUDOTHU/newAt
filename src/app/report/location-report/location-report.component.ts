@@ -26,8 +26,9 @@ export class LocationReportComponent implements OnInit {
   bayDataTemp: any = []
   dataSource: any = [];
   dataPoints: any = []
+  minutes:any=[]
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
-  displayedColumns2 = ['i', 'coinName', 'count', 'avgTime'];
+  displayedColumns2 = ['i', 'coinName','totalVehicle','avgTime', ];
 
   constructor(
     public dialogRef: MatDialogRef<LocationReportComponent>,
@@ -43,7 +44,7 @@ export class LocationReportComponent implements OnInit {
     this.getData()
     if(this.locationReportData.type == '2'){
 
-      this.averageTimeOfBayGraph()
+    
     }
   }
   getData() {
@@ -92,7 +93,15 @@ export class LocationReportComponent implements OnInit {
         this.bayData = []
         console.log("res 2==", res)
         if (res.status) {
-
+            for(let i=0;i<res.success.length;i++){
+              this.bayData.push({
+                coinName:res.success[i].coinName,
+                avgTime:this.getTime(res.success[i].avgTime).time,
+                totalVehicle:res.success[i].totalVehicle,
+                minutes:this.getTime(res.success[i].avgTime).m
+              })
+            }
+            this.averageTimeOfBayGraph(this.bayData)
         }
         this.dataSource = new MatTableDataSource(this.bayData);
 
@@ -106,19 +115,20 @@ export class LocationReportComponent implements OnInit {
       })
     }
   }
-
-  averageTimeOfBayGraph(){
-    var y=[100,200,300,400]
-    var x=[100,200,300,400]
+  
+  averageTimeOfBayGraph(data){
     var chart=null
-  for(let i=0;i<y.length;i++){
+    this.dataPoints=[]
+   for(let i=0;i<data.length;i++){
+
     this.dataPoints.push(
       {
-        label: x[i],
-        y: y[i]
+        label:data[i].coinName,
+        y: data[i].minutes
       }
     )
-  }
+   }
+   console.log(this.dataPoints,data )
      chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       exportEnabled: true,
@@ -127,7 +137,12 @@ export class LocationReportComponent implements OnInit {
         fontColor: "#002060",
       },
       axisY: {
-        gridThickness: 0
+        title: "Average time (in minutes)",
+        gridThickness: 0,
+        interval:500
+      },
+      axisX:{
+        title: "Bay"
       },
       dataPointWidth: 30,
       data: [{
@@ -147,7 +162,12 @@ export class LocationReportComponent implements OnInit {
         fontColor: "#002060",
       },
       axisY: {
-        gridThickness: 0
+        title: "Average time (in minutes)",
+        gridThickness: 0,
+        interval:500
+      },
+      axisX:{
+        title: "Bay"
       },
       dataPointWidth: 30,
       data: [{
@@ -185,59 +205,31 @@ export class LocationReportComponent implements OnInit {
     }
 
   }
-  groupData(data) {
-    return data.reduce((group, obj) => {
-      const name = obj.coinName
-      if (!group[name]) {
-        group[name] = []
-      }
-      group[name].push(obj)
-      return group
-    }, {})
 
+
+  
+  getTime(data){
+    data=Math.abs(data)
+    let min= Math.floor((data/1000/60)<<0)
+    let ms = data % 1000;
+    data = (data - ms) / 1000;
+    let s = data % 60;
+    data = (data - s) / 60;
+    let m = data % 60;
+    data = (data - m) / 60;
+    let h = data
+
+    let ss = s <= 9 && s >= 0 ? "0" + s : s;
+    let mm = m <= 9 && m >= 0 ? "0" + m : m;
+    let hh = h <= 9 && h >= 0 ? "0" + h : h;
+
+     var time = hh + ':' + mm + ':' + ss
+    var a={
+      m:min,
+      time:this.general.convertTime(time)
+    }
+     return a
   }
-
-
-  // avgTime(data){
-
-  //     let time=[]
-  //     let totTime=0
-  //     let a={}
-  //      data.filter((obj,index)=>{
-  //       var ms=this.getTotTime(obj.inTime,obj.outTime)       
-  //       time[index]= ms
-  //     })
-  //      totTime=time.reduce((a,b)=>{
-  //       return  a+b
-  //     },0)
-  //     return totTime!=0?Math.floor(totTime/data.length):0
-  // }
-  //   getTotTime(inTime,outTime){
-  //     // console.log("time===",inTime,outTime)
-  //     this.date1 = new Date(inTime)
-  //     this.date2 = outTime == null || outTime == '-' ? new Date() : new Date(outTime)
-  //     // console.log("time2===",this.date1, this.date2)
-  //     if (this.date1 != "Invalid Date") {
-  //       if (this.date2 != "Invalid Date") {
-  //         var diff = Math.abs(this.date2 - this.date1)
-  //         let ms = diff % 1000;
-  //         return ms
-  //       }
-
-  //   } 
-  // }  
-  // getTime(data){
-  //   let h= Math.floor(data/3600)
-  //   data%=3600
-  //   let m = Math.floor(data/60)
-  //    let s=data%60
-  //    let ss = s <= 9 && s >= 0 ? "0" + s : s;
-  //    let mm = m <= 9 && m >= 0 ? "0" + m : m;
-  //    let hh = h <= 9 && h >= 0 ? "0" + h : h;
-
-  //    var time = hh + ':' + mm + ':' + ss
-  //    return this.general.convertTime(time)
-  // }
   search(a, data) {
     this.dataSource = new MatTableDataSource(data);
     setTimeout(() => {

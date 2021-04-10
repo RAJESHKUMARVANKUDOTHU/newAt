@@ -451,14 +451,17 @@ createdDeviceShift(data){
   // ----------------------------registration ends--------------------------------------------
 
   //---------------------get data list of device,gateway,coin-------------------------------
-  getDeviceData() {
+  getDeviceData(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     let url = this.host + '/viewDevice';
+    let body = {
+      data: data,
+    };
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(
+      this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },
@@ -468,7 +471,7 @@ createdDeviceShift(data){
       );
     });
   }
-  getGatewayData() {
+  getGatewayData(data) {
     // console.log('gateway res check');
 
     const httpOptions = {
@@ -476,8 +479,11 @@ createdDeviceShift(data){
     };
 
     let url = this.host + '/viewGateway';
+    let body = {
+      data: data,
+    };
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(
+      this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },
@@ -487,14 +493,17 @@ createdDeviceShift(data){
       );
     });
   }
-  getCoinData() {
+  getCoinData(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     let url = this.host + '/viewCoin';
+    let body = {
+      data: data,
+    };
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(
+      this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },
@@ -754,14 +763,18 @@ createdDeviceShift(data){
 
   // -----------------------------------------------------------------------------------------
   // get Active data of device gateway and coin respectively
-  getOnlineDevice() {
+  getOnlineDevice(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     let url = this.host + '/getOnlineDevice';
+    let body = {
+      data: data,
+    };
+    
     return new Promise((resolve, reject) => {
-      this.http.get(url).subscribe(
+      this.http.post(url, body, httpOptions).subscribe(
         (res: any) => {
           resolve(res.data);
         },
