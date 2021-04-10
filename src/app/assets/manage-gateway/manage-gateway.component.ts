@@ -55,7 +55,7 @@ export class ManageGatewayComponent implements OnInit {
     const dialogRef = this.dialog.open(AddAssetsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshGateway()
+      this.refreshGateway(this.limit, this.offset)
     });
   }
 
@@ -114,7 +114,7 @@ export class ManageGatewayComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshGateway()
+      this.refreshGateway(this.limit, this.offset)
     });
   }
 
@@ -129,7 +129,7 @@ export class ManageGatewayComponent implements OnInit {
         if (res.status) {
 
           this.general.deviceChanges.next(true)
-          this.refreshGateway()
+          this.refreshGateway(this.limit, this.offset)
           this.general.openSnackBar(res.success, '')
         }
         else {

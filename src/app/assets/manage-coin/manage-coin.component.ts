@@ -54,7 +54,7 @@ export class ManageCoinComponent implements OnInit {
     const dialogRef = this.dialog.open(AddAssetsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshCoin()
+      this.refreshCoin(this.limit, this.offset)
     });
   }
 
@@ -142,7 +142,7 @@ export class ManageCoinComponent implements OnInit {
     const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshCoin()
+      this.refreshCoin(this.limit, this.offset)
     });
   }
 
@@ -155,13 +155,13 @@ export class ManageCoinComponent implements OnInit {
         console.log("coin delete====", res);
 
         if (res.status) {
-          this.refreshCoin()
+          this.refreshCoin(this.limit, this.offset)
 
           this.general.deviceChanges.next(true)
           this.general.openSnackBar(res.success, '')
         }
         else {
-          this.refreshCoin()
+          this.refreshCoin(this.limit, this.offset)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
           this.general.deviceChanges.next(false)
         }

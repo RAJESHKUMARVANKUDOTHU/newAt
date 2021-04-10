@@ -15,35 +15,34 @@ export class VehicleStatusComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   zoneData: any = []
   dataSource: any = [];
-  displayedColumns = [ 'coinName','inTime', 'outTime', 'totTime'];
-  vehicleData:any=[]
+  displayedColumns = ['coinName', 'inTime', 'outTime', 'totTime'];
+  vehicleData: any = []
   constructor(
     private api: ApiService,
     public general: GeneralService,
-    private route : ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      let data= params.record?JSON.parse(params.record):'' ;
-       console.log("records=",this.vehicleData )
-      if(data != ''){
+      let data = params.record ? JSON.parse(params.record) : '';
+      if (data != '') {
         this.getVehicleStatus(data)
       }
-  })
+    })
     this.getZoneDetails()
   }
 
-  getVehicleStatus(device){
-    var data={
-      deviceId:device.deviceId,
-      deviceName:device.deviceName
+  getVehicleStatus(device) {
+    var data = {
+      deviceId: device.deviceId,
+      deviceName: device.deviceName
     }
-    console.log("data===",data)
-    this.api.getVehicleStatus(data).then((res:any)=>{
-      console.log("res==",res)
-      if(res.status){
-        this.vehicleData=res.success
+    console.log("data===", data)
+    this.api.getVehicleStatus(data).then((res: any) => {
+      console.log("res==", res)
+      if (res.status) {
+        this.vehicleData = res.success
         for (let i = 0; i < this.vehicleData.locations.length; i++) {
           this.vehicleData.locations[i].totTime = this.general.getTotTime(this.vehicleData.locations[i].inTime, this.vehicleData.locations[i].outTime)
         }
@@ -52,11 +51,11 @@ export class VehicleStatusComponent implements OnInit {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator
         })
-      }else{
-        this.vehicleData=[]
+      } else {
+        this.vehicleData = []
       }
-    }).catch((err)=>{
-      console.log("err===",err)
+    }).catch((err) => {
+      console.log("err===", err)
     })
   }
   getZoneDetails() {
