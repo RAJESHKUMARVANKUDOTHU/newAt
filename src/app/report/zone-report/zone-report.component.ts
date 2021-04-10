@@ -24,7 +24,10 @@ export class ZoneReportComponent implements OnInit {
   zoneData: any = []
   dataSource: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
-
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   constructor(
     public dialogRef: MatDialogRef<ZoneReportComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -36,19 +39,21 @@ export class ZoneReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData(10,0,this.zoneReportData.type)
   }
-  getData() {
+  getData(limit,offset,type) {
     var data = {}
     let from = moment(this.zoneReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.zoneReportData.toDate).format("YYYY-MM-DD")
-
+    this.zoneReportData.type=type
     if (this.zoneReportData.type == '1') {
       data = {
         zoneId: this.zoneReportData.zoneId._id,
         fromDate: from,
         toDate: to,
-        timeZoneOffset: this.general.getZone()
+        timeZoneOffset: this.general.getZone(),
+        limit:limit,
+        offset:offset
       }
       console.log("data to send==", data)
       this.api.getZoneWiseReport(data).then((res: any) => {
@@ -106,6 +111,12 @@ export class ZoneReportComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
+  }
+  getUpdate(event, type) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.getData(this.limit, this.offset, type)
   }
 
 }

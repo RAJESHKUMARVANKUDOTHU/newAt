@@ -42,9 +42,9 @@ export class VehiclewisereportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(this.limit, this.offset, this.vehicleReportData.type)
+    this.getData(10,0, this.vehicleReportData.type)
   }
-  getData(limit = 10, offset = 0, type) {
+  getData(limit, offset, type) {
     var data = {}
     this.vehicleReportData.type = type
     let from = moment(this.vehicleReportData.fromDate).format("YYYY-MM-DD")
@@ -56,8 +56,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        // limit:limit,
-        // offset:offset
+        limit:limit,
+        offset:offset
       }
       console.log("data to send==", data)
 
@@ -74,7 +74,7 @@ export class VehiclewisereportComponent implements OnInit {
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+            // this.dataSource.paginator = this.paginator
 
           })
         }
@@ -91,23 +91,24 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        // limit:limit,
-        // offset:offset
+        limit:limit,
+        offset:offset
       }
       console.log("data to send==", data)
       this.api.deviceIdReport(data).then((res: any) => {
         this.deviceId = []
         console.log("res 2==", res)
-        this.deviceId = res.success
-        for (let i = 0; i < res.success.length; i++) {
-          res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
-        }
         if (res.status) {
+          this.currentPageLength = parseInt(res.totalLength)
+          this.deviceId = res.success
+          for (let i = 0; i < res.success.length; i++) {
+            res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
+          }
           this.dataSource = new MatTableDataSource(this.deviceId);
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+            // this.dataSource.paginator = this.paginator
 
           })
         }
@@ -122,8 +123,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        // limit:limit,
-        // offset:offset
+        limit:limit,
+        offset:offset
       }
       console.log("data to send==", data)
 
@@ -131,6 +132,7 @@ export class VehiclewisereportComponent implements OnInit {
         this.vehicleName = []
         console.log("res 3==", res)
         if (res.status) {
+          this.currentPageLength = parseInt(res.totalLength)
           this.vehicleName = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
@@ -139,7 +141,7 @@ export class VehiclewisereportComponent implements OnInit {
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+            // this.dataSource.paginator = this.paginator
 
           })
         }
@@ -162,6 +164,7 @@ export class VehiclewisereportComponent implements OnInit {
         this.servicedVehicleData = []
         console.log("res 4==", res)
         if (res.status) {
+          this.currentPageLength = parseInt(res.totalLength)
           this.servicedVehicleData = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totalTime = this.general.getTotTime(res.success[i].gateInTime, res.success[i].deRegTime)

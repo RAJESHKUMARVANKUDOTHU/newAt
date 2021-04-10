@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-const routes: Routes = [];
+import {GeofenceComponent} from './geofence.component'
+const routes: Routes = [
+  {path:'',component:GeofenceComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

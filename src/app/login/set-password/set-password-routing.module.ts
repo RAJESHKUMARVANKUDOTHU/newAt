@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SetPasswordComponent } from '../set-password/set-password.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path:'',component:SetPasswordComponent},
+
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

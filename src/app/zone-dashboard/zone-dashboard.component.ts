@@ -18,7 +18,10 @@ export class ZoneDashboardComponent implements OnInit {
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'zoneName', 'inTime', 'outTime', 'totalTime'];
   interval : any;
-
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   constructor(
     public general: GeneralService,
     private api: ApiService,
@@ -45,10 +48,16 @@ export class ZoneDashboardComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  refreshZoneData() {
-    this.api.getZoneDashBoard().then((res: any) => {
+  refreshZoneData(limit=10,offset=0) {
+    var data={
+      limit:limit,
+      offset:offset
+    }
+    this.api.getZoneDashBoard(data).then((res: any) => {
       console.log("getZoneDashBoard res==", res)
       if (res.status) {
+        this.currentPageLength = parseInt(res.totalLength)
+
         this.zoneData = res.success
         for (let i = 0; i < res.success.length; i++) {
           res.success[i].totalTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
@@ -57,7 +66,7 @@ export class ZoneDashboardComponent implements OnInit {
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+          // this.dataSource.paginator = this.paginator
 
         })
       }
@@ -74,5 +83,11 @@ export class ZoneDashboardComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
+  }
+  getUpdate(event) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.refreshZoneData(this.limit, this.offset)
   }
 }

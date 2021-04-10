@@ -27,6 +27,10 @@ export class LocationReportComponent implements OnInit {
   dataSource: any = [];
   dataPoints: any = []
   minutes:any=[]
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
   displayedColumns2 = ['i', 'coinName','totalVehicle','avgTime', ];
 
@@ -41,23 +45,25 @@ export class LocationReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData(10,0,this.locationReportData.type)
     if(this.locationReportData.type == '2'){
 
     
     }
   }
-  getData() {
+  getData(limit,offset,type) {
     var data = {}
     let from = moment(this.locationReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.locationReportData.toDate).format("YYYY-MM-DD")
-
+    this.locationReportData.type=type
     if (this.locationReportData.type == '1') {
       data = {
         coinId: this.locationReportData.coinId.coinId,
         fromDate: from,
         toDate: to,
-        timeZoneOffset: this.general.getZone()
+        timeZoneOffset: this.general.getZone(),
+        limit:limit,
+        offset:offset
       }
       console.log("data to send==", data)
       this.api.getLocationReport(data).then((res: any) => {
@@ -72,7 +78,7 @@ export class LocationReportComponent implements OnInit {
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+            // this.dataSource.paginator = this.paginator
 
           })
         }
@@ -237,6 +243,12 @@ export class LocationReportComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
+  }
+  getUpdate(event, type) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.getData(this.limit, this.offset, type)
   }
 
 }
