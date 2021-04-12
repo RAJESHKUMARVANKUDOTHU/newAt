@@ -29,8 +29,8 @@ import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.co
 
 const routes: Routes = [
   // {path : '', component:LoginComponent},
-  {path:'login' , loadChildren:()=> import('./login/login/login.module').then(m=>m.LoginModule)},
-  { path: 'set-password', loadChildren:()=> import('./login/set-password/set-password.module').then(m=>m.SetPasswordModule)},
+  {path:'login' , component:LoginComponent},
+  { path: 'set-password', component:SetPasswordComponent},
   { path: '', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'dashboard', component:DashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'manage-asset', component:ManageAssetComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},

@@ -6,8 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
-// import { LoginComponent } from './login/login/login.component';
-// import { SetPasswordComponent } from './login/set-password/set-password.component';
+import { LoginComponent } from './login/login/login.component';
+import { SetPasswordComponent } from './login/set-password/set-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,7 +51,7 @@ import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewi
   declarations: [
     AppComponent,
     AdminLoginComponent,
-    // LoginComponent,
+    LoginComponent,
     DashboardComponent,
     AdminDashboardComponent,
     ManageAssetComponent,
@@ -78,7 +78,7 @@ import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewi
     VehicleStatusComponent,
     ZoneDashboardComponent,
     ReportViewComponent,
-    // SetPasswordComponent,
+    SetPasswordComponent,
     AdminSettingsComponent,
     LocationReportComponent,
     ZoneReportComponent,
