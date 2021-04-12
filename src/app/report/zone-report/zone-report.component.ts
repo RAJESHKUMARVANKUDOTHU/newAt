@@ -10,6 +10,7 @@ import {
 } from '@angular/material/dialog';
 import { GeneralService } from '../../services/general.service';
 import { ApiService } from '../../services/api.service';
+import * as CanvasJS from '../../../assets/canvasjs-3.2.7/canvasjs.min';
 
 @Component({
   selector: 'app-zone-report',
@@ -23,11 +24,13 @@ export class ZoneReportComponent implements OnInit {
   zoneReportData: any
   zoneData: any = []
   dataSource: any = [];
+  dataPoints: any = [];
+  dataPoints1: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
-  limit:any=10
-  offset:any=0
-  currentPageLength:any=10
-  currentPageSize:any=10
+  limit: any = 10
+  offset: any = 0
+  currentPageLength: any = 10
+  currentPageSize: any = 10
   constructor(
     public dialogRef: MatDialogRef<ZoneReportComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -39,25 +42,25 @@ export class ZoneReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(10,0,this.zoneReportData.type)
+    this.getData(10, 0, this.zoneReportData.type)
   }
-  getData(limit,offset,type) {
+  getData(limit, offset, type) {
     var data = {}
     let from = moment(this.zoneReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.zoneReportData.toDate).format("YYYY-MM-DD")
-    this.zoneReportData.type=type
+    this.zoneReportData.type = type
     if (this.zoneReportData.type == '1') {
       data = {
         zoneId: this.zoneReportData.zoneId._id,
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
       this.api.getZoneWiseReport(data).then((res: any) => {
-        this.zoneData =[]
+        this.zoneData = []
         console.log("res==", res)
         if (res.status) {
           this.currentPageLength = parseInt(res.totalLength)
@@ -78,6 +81,125 @@ export class ZoneReportComponent implements OnInit {
         console.log("err===", err)
       })
     }
+
+    if (this.zoneReportData.type == '2') {
+      data = {
+
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+
+      }
+      console.log("data to send==", data)
+      this.api.getZonePerformance(data).then((res: any) => {
+        this.zoneData = []
+        console.log("res 2==", res)
+        if (res.status) {
+
+          this.zoneData = res.success
+          var chart = null
+          this.dataPoints = []
+          this.dataPoints1 = []
+          for (let i = 0; i < this.zoneData.length; i++) {
+
+            this.dataPoints.push(
+              {
+                label: this.zoneData[i].zoneName,
+                y: this.getTime(this.zoneData[i].totalAverageTime),
+
+              }
+            )
+            this.dataPoints1.push(
+              {
+                label: this.zoneData[i].zoneName,
+                y: this.zoneData[i].standardTime
+              }
+            )
+
+          }
+          console.log(this.dataPoints,)
+          chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            exportEnabled: true,
+            title: {
+              text: "Zone Performance",
+              fontSize: 25,
+            },
+            axisX: {
+              title: "Zone",
+              labelMaxWidth: 120,
+            },
+            axisY: {
+              title: "Avg. time (in minutes)",
+              titleFontColor: "#4F81BC",
+              lineColor: "#4F81BC",
+              labelFontColor: "#4F81BC",
+              tickColor: "#4F81BC",
+              gridThickness: 0,
+              includeZero: true
+            },
+            axisY2: {
+              title: "Zone Standard time (in minutes)",
+              titleFontColor: "#C0504E",
+              lineColor: "#C0504E",
+              labelFontColor: "#C0504E",
+              tickColor: "#C0504E",
+              gridThickness: 0,
+              includeZero: true
+            },
+            toolTip: {
+              shared: true
+            },
+            legend: {
+              cursor: "pointer",
+              itemclick: toggleDataSeries
+            },
+            dataPointWidth: 60,
+            data: [{
+              type: "column",
+              name: "Actual Avg. time",
+              indexLabelPlacement: "outside",
+              indexLabel: "{y}",
+              showInLegend: true,
+              yValueFormatString: "#,##0#\" min\"",
+              dataPoints: this.dataPoints
+            },
+            {
+              type: "column",
+              name: "Standard time",
+              indexLabelPlacement: "outside",
+              indexLabel: "{y}",
+              axisYType: "secondary",
+              showInLegend: true,
+              yValueFormatString: "#,##0#\" min\"",
+              dataPoints: this.dataPoints1
+            }]
+          });
+          chart.render();
+          chart.axisY2[0].set("minimum", chart.axisY[0].get("minimum"), false);
+          chart.axisY2[0].set("maximum", chart.axisY[0].get("maximum"));
+        }
+        function toggleDataSeries(e) {
+          if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+          }
+          else {
+            e.dataSeries.visible = true;
+          }
+          chart.render();
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
+  }
+
+  getTime(data) {
+    // data = Math.abs(data)
+    // let s = data / 1000
+    let min = Math.floor(data / (1000 * 60))
+
+    return min
   }
 
   download() {
@@ -97,7 +219,7 @@ export class ZoneReportComponent implements OnInit {
       this.api.downloadzoneWiseReport(data, fileName).then((res: any) => {
         console.log("res==", res)
         if (res.status) {
-          this.general.openSnackBar("Downloading!!!",'')
+          this.general.openSnackBar("Downloading!!!", '')
 
         }
       }).catch(err => {
@@ -115,7 +237,7 @@ export class ZoneReportComponent implements OnInit {
     })
   }
   getUpdate(event, type) {
- 
+
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
     this.getData(this.limit, this.offset, type)

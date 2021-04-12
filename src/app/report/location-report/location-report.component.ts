@@ -26,13 +26,13 @@ export class LocationReportComponent implements OnInit {
   bayDataTemp: any = []
   dataSource: any = [];
   dataPoints: any = []
-  minutes:any=[]
-  limit:any=10
-  offset:any=0
-  currentPageLength:any=10
-  currentPageSize:any=10
+  minutes: any = []
+  limit: any = 10
+  offset: any = 0
+  currentPageLength: any = 10
+  currentPageSize: any = 10
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
-  displayedColumns2 = ['i', 'coinName','totalVehicle','avgTime', ];
+  displayedColumns2 = ['i', 'coinName', 'totalVehicle', 'avgTime',];
 
   constructor(
     public dialogRef: MatDialogRef<LocationReportComponent>,
@@ -45,25 +45,25 @@ export class LocationReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(10,0,this.locationReportData.type)
-    if(this.locationReportData.type == '2'){
+    this.getData(10, 0, this.locationReportData.type)
+    if (this.locationReportData.type == '2') {
 
-    
+
     }
   }
-  getData(limit,offset,type) {
+  getData(limit, offset, type) {
     var data = {}
     let from = moment(this.locationReportData.fromDate).format("YYYY-MM-DD")
     let to = moment(this.locationReportData.toDate).format("YYYY-MM-DD")
-    this.locationReportData.type=type
+    this.locationReportData.type = type
     if (this.locationReportData.type == '1') {
       data = {
         coinId: this.locationReportData.coinId.coinId,
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
       this.api.getLocationReport(data).then((res: any) => {
@@ -101,15 +101,15 @@ export class LocationReportComponent implements OnInit {
         this.bayData = []
         console.log("res 2==", res)
         if (res.status) {
-            for(let i=0;i<res.success.length;i++){
-              this.bayData.push({
-                coinName:res.success[i].coinName,
-                avgTime:this.getTime(res.success[i].avgTime).time,
-                totalVehicle:res.success[i].totalVehicle,
-                minutes:this.getTime(res.success[i].avgTime).m
-              })
-            }
-            this.averageTimeOfBayGraph(this.bayData)
+          for (let i = 0; i < res.success.length; i++) {
+            this.bayData.push({
+              coinName: res.success[i].coinName,
+              avgTime: this.getTime(res.success[i].avgTime).time,
+              totalVehicle: res.success[i].totalVehicle,
+              minutes: this.getTime(res.success[i].avgTime).m
+            })
+          }
+          this.averageTimeOfBayGraph(this.bayData)
         }
         this.dataSource = new MatTableDataSource(this.bayData);
 
@@ -123,21 +123,21 @@ export class LocationReportComponent implements OnInit {
       })
     }
   }
-  
-  averageTimeOfBayGraph(data){
-    var chart=null
-    this.dataPoints=[]
-   for(let i=0;i<data.length;i++){
 
-    this.dataPoints.push(
-      {
-        label:data[i].coinName,
-        y: data[i].minutes
-      }
-    )
-   }
-   console.log(this.dataPoints,data )
-     chart = new CanvasJS.Chart("chartContainer", {
+  averageTimeOfBayGraph(data) {
+    var chart = null
+    this.dataPoints = []
+    for (let i = 0; i < data.length; i++) {
+
+      this.dataPoints.push(
+        {
+          label: data[i].coinName,
+          y: data[i].minutes
+        }
+      )
+    }
+    console.log(this.dataPoints, data)
+    chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       exportEnabled: true,
       title: {
@@ -147,15 +147,16 @@ export class LocationReportComponent implements OnInit {
       axisY: {
         title: "Average time (in minutes)",
         gridThickness: 0,
-        interval:500
+        interval: 500
       },
-      axisX:{
+      axisX: {
         title: "Bay"
       },
       dataPointWidth: 30,
       data: [{
         type: "column",
-        dataPoints: this.dataPoints
+        dataPoints: this.dataPoints,
+        yValueFormatString: "#,##0#\" min\"",
       }]
     });
 
@@ -172,15 +173,16 @@ export class LocationReportComponent implements OnInit {
       axisY: {
         title: "Average time (in minutes)",
         gridThickness: 0,
-        interval:500
+        interval: 500
       },
-      axisX:{
+      axisX: {
         title: "Bay"
       },
       dataPointWidth: 30,
       data: [{
         type: "column",
-        dataPoints: this.dataPoints
+        dataPoints: this.dataPoints,
+        yValueFormatString: "#,##0#\" min\"",
       }]
     });
     chart.render();
@@ -215,10 +217,10 @@ export class LocationReportComponent implements OnInit {
   }
 
 
-  
-  getTime(data){
-    data=Math.abs(data)
-    let min= Math.floor((data/1000/60)<<0)
+
+  getTime(data) {
+    data = Math.abs(data)
+    let min = Math.floor((data / 1000 / 60) << 0)
     let ms = data % 1000;
     data = (data - ms) / 1000;
     let s = data % 60;
@@ -231,12 +233,12 @@ export class LocationReportComponent implements OnInit {
     let mm = m <= 9 && m >= 0 ? "0" + m : m;
     let hh = h <= 9 && h >= 0 ? "0" + h : h;
 
-     var time = hh + ':' + mm + ':' + ss
-    var a={
-      m:min,
-      time:this.general.convertTime(time)
+    var time = hh + ':' + mm + ':' + ss
+    var a = {
+      m: min,
+      time: this.general.convertTime(time)
     }
-     return a
+    return a
   }
   search(a, data) {
     this.dataSource = new MatTableDataSource(data);
@@ -247,7 +249,7 @@ export class LocationReportComponent implements OnInit {
     })
   }
   getUpdate(event, type) {
- 
+
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
     this.getData(this.limit, this.offset, type)

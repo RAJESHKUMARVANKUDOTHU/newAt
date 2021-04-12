@@ -348,7 +348,7 @@ export class ReportComponent implements OnInit {
   }
 
   onsubmitLocationReport(data) {
-    console.log("vehicle data==", data)
+    console.log("location data==", data)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -365,7 +365,7 @@ export class ReportComponent implements OnInit {
   }
 
   onsubmitZoneReport(data) {
-    console.log("vehicle data==", data)
+    console.log("zone data==", data)
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

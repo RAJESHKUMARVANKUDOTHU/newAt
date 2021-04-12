@@ -17,11 +17,11 @@ export class ZoneDashboardComponent implements OnInit {
   zoneData: any = []
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'zoneName', 'inTime', 'outTime', 'totalTime'];
-  interval : any;
-  limit:any=10
-  offset:any=0
-  currentPageLength:any=10
-  currentPageSize:any=10
+  interval: any;
+  limit: any = 10
+  offset: any = 0
+  currentPageLength: any = 10
+  currentPageSize: any = 10
   constructor(
     public general: GeneralService,
     private api: ApiService,
@@ -35,9 +35,9 @@ export class ZoneDashboardComponent implements OnInit {
         this.clearTimeInterval()
       }
     });
-    this.interval = setInterval(()=>{
-      this.refreshZoneData();
-    },10000);
+    this.interval = setInterval(() => {
+      this.refreshZoneData(this.limit, this.offset);
+    }, 10000);
   }
 
   ngOnDestroy() {
@@ -48,10 +48,10 @@ export class ZoneDashboardComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  refreshZoneData(limit=10,offset=0) {
-    var data={
-      limit:limit,
-      offset:offset
+  refreshZoneData(limit = 10, offset = 0) {
+    var data = {
+      limit: limit,
+      offset: offset
     }
     this.api.getZoneDashBoard(data).then((res: any) => {
       console.log("getZoneDashBoard res==", res)
@@ -85,7 +85,7 @@ export class ZoneDashboardComponent implements OnInit {
     })
   }
   getUpdate(event) {
- 
+
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
     this.refreshZoneData(this.limit, this.offset)

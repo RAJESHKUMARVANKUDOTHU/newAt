@@ -57,10 +57,7 @@
                     <mat-icon mat-list-icon>rate_review</mat-icon>
                 </mat-list-item>
 
-                <!-- <mat-list-item (click)="openDailog()">
-        <mat-icon mat-list-icon>contact_phone</mat-icon>
-        <span *ngIf="isExpanded"mat-line> Contact</span>     
-      </mat-list-item> -->
+
 
                 <mat-list-item routerLink="/profile"
                     [hidden]="loginDetails.role == 'subAdminRole' || loginDetails.role == 'userRole'">

@@ -17,9 +17,7 @@ import { AuthGuard } from './auth.guard';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ManageAssetComponent } from './assets/manage-asset/manage-asset.component';
 import { GeofenceComponent } from './geofence/geofence.component';
-import { ContactComponent } from './contact/contact.component';
 import { ReportComponent } from './report/report/report.component';
-import { MapCenterComponent } from './map-center/map-center.component';
 import { ManageDeviceComponent } from './assets/manage-device/manage-device.component';
 import { ManageGatewayComponent } from './assets/manage-gateway/manage-gateway.component';
 import { ManageCoinComponent } from './assets/manage-coin/manage-coin.component';
@@ -29,15 +27,12 @@ import { ChartsModule } from 'ng2-charts';
 import { AddAssetsComponent } from './assets/add-assets/add-assets.component';
 import { EditAssetsComponent } from './assets/edit-assets/edit-assets.component';
 import { SettingComponent } from './setting/setting/setting.component';
-import { LiveDataComponent } from './live-data/live-data.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
 import { SettingInfoComponent } from './setting/setting-info/setting-info.component';
 import { GeofenceDashboardComponent } from './geofence-dashboard/geofence-dashboard.component';
 import { ProfileComponent } from './createProfile/profile/profile.component';
-import { MapComponent } from './map/map.component';
 import { MapActionsComponent } from './map-actions/map-actions.component';
-import { ReportViewComponent } from './report/report-view/report-view.component';
 import { ZoneConfigurationComponent } from './zone-configuration/zone-configuration.component';
 import { EditProfileComponent } from './createProfile/edit-profile/edit-profile.component';
 import { VehicleStatusComponent } from './vehicle-status/vehicle-status.component';
@@ -56,9 +51,7 @@ import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewi
     AdminDashboardComponent,
     ManageAssetComponent,
     GeofenceComponent,
-    ContactComponent,
     ReportComponent,
-    MapCenterComponent,
     ManageDeviceComponent,
     ManageGatewayComponent,
     ManageCoinComponent,
@@ -67,17 +60,14 @@ import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewi
     AddAssetsComponent,
     EditAssetsComponent,
     SettingComponent,
-    LiveDataComponent,
     SettingInfoComponent,
     GeofenceDashboardComponent,
     ProfileComponent,
-    MapComponent,
     MapActionsComponent,
     ZoneConfigurationComponent,
     EditProfileComponent,
     VehicleStatusComponent,
     ZoneDashboardComponent,
-    ReportViewComponent,
     SetPasswordComponent,
     AdminSettingsComponent,
     LocationReportComponent,

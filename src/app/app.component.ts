@@ -3,7 +3,6 @@ import { LoginAuthService } from './services/login-auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ContactComponent } from './contact/contact.component';
 import * as moment from 'moment';
 import { timer } from 'rxjs';
 import { GeneralService } from './services/general.service';
@@ -77,25 +76,14 @@ export class AppComponent {
     this.isTablet = this.deviceService.isTablet();
     this.isDesktopDevice = this.deviceService.isDesktop();
   }
+
   ngOnDestroy() {
     clearInterval(this.countDownTimer);
-  }
-  openDailog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = '60vh';
-    dialogConfig.width = '30vw';
-
-    const dialogRef = this.dialog.open(ContactComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   freezeSubscribe() {
     this.general.loadingFreez.subscribe((res: any) => {
       console.log("free==", res);
-
       this.statusFreeze = res.status
       this.freezeMessage = res.msg
     })
@@ -103,7 +91,6 @@ export class AppComponent {
 
   startTimer() {
     console.log("timer");
-    
     this.countDownTimer = setInterval(() => {
       var start = new Date() as any;
       var diff = this.duration - start
@@ -117,14 +104,10 @@ export class AppComponent {
       if (diff >= 0) {
         if (minutes == 0 && seconds == 2) {
           this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
-
         }
-
         if (minutes == 0 && seconds == 0) {
-
           this.general.loadingFreez.next({ status: false, msg: '' })
           clearInterval(this.countDownTimer);
-
           this.login.logout();
           return;
         }
