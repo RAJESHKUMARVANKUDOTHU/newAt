@@ -37,7 +37,7 @@ export class ManageCoinComponent implements OnInit {
     this.role = this.login.getLoginDetails().role
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
-        this.refreshCoin()
+        this.refreshCoin(this.limit, this.offset)
       }
     })
   }

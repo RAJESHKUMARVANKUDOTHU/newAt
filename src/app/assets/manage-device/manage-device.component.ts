@@ -40,7 +40,7 @@ export class ManageDeviceComponent implements OnInit {
     console.log("this.role",this.role)
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
-        this.refreshDevice()
+        this.refreshDevice(this.limit, this.offset)
       }
     })
   }
