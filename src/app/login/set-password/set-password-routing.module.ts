@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { SetPasswordComponent } from '../set-password/set-password.component';
+import { SetPasswordComponent } from '../set-password/set-password.component';
 
 const routes: Routes = [
-  // {path:'',component:SetPasswordComponent},
+  {path:'',component:SetPasswordComponent},
 
 ];
 
