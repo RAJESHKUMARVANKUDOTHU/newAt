@@ -195,10 +195,7 @@ export class ZoneReportComponent implements OnInit {
   }
 
   getTime(data) {
-    // data = Math.abs(data)
-    // let s = data / 1000
     let min = Math.floor(data / (1000 * 60))
-
     return min
   }
 

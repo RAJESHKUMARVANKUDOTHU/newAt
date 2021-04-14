@@ -1875,6 +1875,27 @@ getZonePerformance(data){
     );
   });
 }
+
+getVehicleZoneWiseReport(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/getVehicleZoneWiseReport';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
   // ----------------report download-------------------------------
 
   downloadGenericReport(data,fileName){
@@ -1972,7 +1993,24 @@ getZonePerformance(data){
     });
   }
 
+  downloadVehicleZoneWiseReport(data,fileName){
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadVehicleZoneWiseReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
 
+        resolve(true);
+      },
+        err => {
+          // console.log("err==", err)
+        })
+    });
+  }
   //---------------------manage asset download -------------------------------
 
   downloadFile(response, fileName) {

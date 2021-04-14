@@ -22,11 +22,13 @@ export class VehiclewisereportComponent implements OnInit {
   vehicleName: any = []
   deviceId: any = []
   servicedVehicleData: any = []
+  vehilceZoneData:any=[]
   dataSource: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns2 = ['i', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns3 = ['i', 'deviceId', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns4 = ['i', 'deviceName', 'totalTime'];
+  displayedColumns6 = ['i', 'deviceId', 'zoneName', 'inTime', 'outTime', 'totalTime'];
   limit: any = 10
   offset: any = 0
   currentPageLength: any = 10
@@ -183,6 +185,38 @@ export class VehiclewisereportComponent implements OnInit {
         console.log("err===", err)
       })
     }
+    if (this.vehicleReportData.type == '6') {
+      data = {
+        deviceName: this.vehicleReportData.deviceName,
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+        limit:limit,
+        offset:offset
+      }
+      console.log("data to send==", data)
+      this.api.getVehicleZoneWiseReport(data).then((res: any) => {
+        this.vehilceZoneData = []
+        console.log("res 6==", res)
+        if (res.status) {
+          this.currentPageLength = parseInt(res.totalLength)
+          this.vehilceZoneData = res.success
+          for (let i = 0; i < res.success.length; i++) {
+            res.success[i].totalTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
+
+          }
+          this.dataSource = new MatTableDataSource(this.vehilceZoneData);
+
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            // this.dataSource.paginator = this.paginator
+
+          })
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
   }
 
   download() {
@@ -240,6 +274,26 @@ export class VehiclewisereportComponent implements OnInit {
       console.log("download data to send==", data)
       fileName = "Report of vehicle name - " + this.vehicleReportData.deviceName
       this.api.downloadvehicleNameReport(data, fileName).then((res: any) => {
+        console.log("res 1==", res)
+        if (res.status) {
+          this.general.openSnackBar("Downloading!!!", '')
+
+        }
+
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
+    if (this.vehicleReportData.type == '6') {
+      data = {
+        deviceName: this.vehicleReportData.deviceName,
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone()
+      }
+      console.log("download data to send==", data)
+      fileName = "Report of vehicle name - " + this.vehicleReportData.deviceName
+      this.api.downloadVehicleZoneWiseReport(data, fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
           this.general.openSnackBar("Downloading!!!", '')

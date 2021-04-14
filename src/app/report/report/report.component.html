@@ -37,7 +37,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field *ngIf="vehicleReport.get('type').value == '3'">
+                <mat-form-field *ngIf="vehicleReport.get('type').value == '3' || vehicleReport.get('type').value == '6'">
                     <mat-label> Vehicle Name</mat-label>
                     <mat-select formControlName="deviceName">
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceName">

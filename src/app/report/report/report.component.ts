@@ -238,7 +238,7 @@ export class ReportComponent implements OnInit {
             return
           }
         }
-        if (type.value == "3") {
+        if (type.value == "3" || type.value == "6") {
           if (formGroup.get('deviceName').value != '') {
             // formGroup.get('coinId').setErrors(null)
             formGroup.get('deviceId').setErrors(null)
