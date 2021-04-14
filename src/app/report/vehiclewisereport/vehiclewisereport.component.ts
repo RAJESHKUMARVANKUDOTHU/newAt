@@ -170,8 +170,6 @@ export class VehiclewisereportComponent implements OnInit {
           this.servicedVehicleData = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totalTime = this.general.getTotTime(res.success[i].gateInTime, res.success[i].deRegTime)
-            console.log("res.success[i].totalTime==", res.success[i].totalTime);
-
           }
           this.dataSource = new MatTableDataSource(this.servicedVehicleData);
 
