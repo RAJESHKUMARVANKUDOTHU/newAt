@@ -9,7 +9,7 @@
         <hr> <br>
         <mat-card-content>
 
-            <form [formGroup]="vehicleReport" >
+            <form [formGroup]="vehicleReport">
                 <div>
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
@@ -21,12 +21,12 @@
                     <mat-select disableRipple formControlName="type">
                         <mat-option value="1">Generic report </mat-option>
                         <mat-option value="2">Device ID wise report </mat-option>
-                        <mat-option value="3">Vehicle Name wise report </mat-option>
+                        <!-- <mat-option value="3">Vehicle Name wise report </mat-option> -->
                         <mat-option value="4">Number of vehicles serviced </mat-option>
-                        <mat-option value="5">Vehicle wise report based on location </mat-option>
+                        <mat-option value="3">Vehicle wise report based on location </mat-option>
                         <mat-option value="6">Vehicle wise report based on zone </mat-option>
                         <mat-option value="7">Vehicle and JC wise report</mat-option>
-                        <mat-option value="8">Service time for vehicle</mat-option>
+                        <!-- <mat-option value="8">Service time for vehicle</mat-option> -->
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field *ngIf="vehicleReport.get('type').value == '2'">
@@ -48,8 +48,7 @@
 
                 <mat-form-field>
                     <mat-label>From date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" autocomplete="off"
-                        required>
+                    <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker1></mat-datepicker>
                     <mat-error>
@@ -59,8 +58,7 @@
 
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" autocomplete="off"
-                        required>
+                    <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker2></mat-datepicker>
                     <mat-error>
@@ -68,8 +66,7 @@
                     </mat-error>
                 </mat-form-field> <br>
             </form>
-            <button class="btn-set" mat-raised-button [disabled]="!vehicleReport.valid"
-                color="primary" (click)="onsubmitVehicleReport(vehicleReport.value)">Submit</button>
+            <button class="btn-set" mat-raised-button [disabled]="!vehicleReport.valid" color="primary" (click)="onsubmitVehicleReport(vehicleReport.value)">Submit</button>
         </mat-card-content>
     </mat-card>
     <mat-card class="text-center m-2">
@@ -82,7 +79,7 @@
         <hr> <br>
         <mat-card-content>
 
-            <form [formGroup]="locationReport" >
+            <form [formGroup]="locationReport">
                 <div>
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
@@ -114,8 +111,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>From date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker3" formControlName="fromDate" autocomplete="off"
-                        required>
+                    <input matInput [matDatepicker]="myDatepicker3" formControlName="fromDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker3></mat-datepicker>
                     <mat-error>
@@ -124,8 +120,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" autocomplete="off"
-                        required>
+                    <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker4></mat-datepicker>
                     <mat-error>
@@ -133,8 +128,7 @@
                     </mat-error>
                 </mat-form-field> <br>
             </form>
-            <button class="btn-set" mat-raised-button [disabled]="!locationReport.valid"
-            color="primary" (click)="onsubmitLocationReport(locationReport.value)">Submit</button>
+            <button class="btn-set" mat-raised-button [disabled]="!locationReport.valid" color="primary" (click)="onsubmitLocationReport(locationReport.value)">Submit</button>
         </mat-card-content>
     </mat-card>
 
@@ -149,7 +143,7 @@
         <hr> <br>
         <mat-card-content>
 
-            <form [formGroup]="zoneReport" >
+            <form [formGroup]="zoneReport">
                 <div>
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
@@ -176,8 +170,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>From date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker5" formControlName="fromDate" autocomplete="off"
-                        required>
+                    <input matInput [matDatepicker]="myDatepicker5" formControlName="fromDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker5"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker5></mat-datepicker>
                     <mat-error>
@@ -187,8 +180,7 @@
 
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker6" formControlName="toDate" autocomplete="off"
-                        required>
+                    <input matInput [matDatepicker]="myDatepicker6" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker6"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker6></mat-datepicker>
                     <mat-error>
