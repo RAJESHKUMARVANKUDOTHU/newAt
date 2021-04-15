@@ -44,8 +44,25 @@ export class VehicleStatusComponent implements OnInit {
       if (res.status) {
         this.vehicleData = res.success
         for (let i = 0; i < this.vehicleData.locations.length; i++) {
-          this.vehicleData.locations[i].totTime = this.general.getTotTime(this.vehicleData.locations[i].inTime, this.vehicleData.locations[i].outTime)
+          this.vehicleData.locations[i].totTime = this.general.getTotTime(this.vehicleData.locations[i].inTime, this.vehicleData.locations[i].outTime);
         }
+        this.zoneData.filter((obj) => {
+          let zone = this.vehicleData.zone[obj.zoneName] || null
+          console.log("zone===", zone);
+
+          if (zone) {
+            if (obj.standardTime > zone) {
+              obj.delayed = false;
+              obj.time = obj.standardTime - zone;
+            }
+            else {
+              obj.delayed = true;
+              obj.time = zone - obj.standardTime;
+            }
+          }
+        })
+        console.log("this.zoneData-===", this.zoneData);
+
         this.dataSource = new MatTableDataSource(this.vehicleData.locations);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
@@ -63,20 +80,25 @@ export class VehicleStatusComponent implements OnInit {
       console.log('zone details response==', res);
       this.zoneData = [];
       if (res.status) {
-        this.zoneData = res.success;
+        this.zoneData = res.success.map(obj => ({ ...obj, delayed: false, time: 0 }));
       }
       else { }
 
     })
   }
   getFillColor(value) {
-
-    var a = {
-      'background-color': 'green',
-      width: 'fit-content'
-
+    if (value.delayed) {
+      return {
+        'background-color': 'red',
+        width: 'fit-content'
+      }
     }
-    return a
+    else {
+      return {
+        'background-color': 'green',
+        width: 'fit-content'
+      }
+    }
   }
 
 }
