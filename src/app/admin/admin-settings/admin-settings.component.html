@@ -7,8 +7,8 @@
         </mat-card-title> 
         <mat-card-content>
             <form [formGroup]="onlineStatus">
-                <mat-form-field  class="w-50">
-                    <mat-label>Online status in seconds</mat-label>
+                <mat-form-field  class="w-75">
+                    <mat-label> in seconds</mat-label>
                     <input matInput type="number" formControlName="onlineStatus" required>
                     <mat-error>
                         Online status should be between 5-1275.
@@ -26,7 +26,8 @@
         </mat-card-title> 
         <mat-card-content>
             <form [formGroup]="offlineStatus">
-                <mat-form-field  class="w-50">
+                <mat-form-field  class="w-75">
+                    <mat-label> in seconds</mat-label>
                     <input matInput type="number" formControlName="offlineStatus">
                     <mat-error>
                         Offline status should be between 5-1275.
@@ -44,7 +45,8 @@
         </mat-card-title>
         <mat-card-content>
             <form [formGroup]="rssiForm">
-                <mat-form-field  class="w-50">
+                <mat-form-field  class="w-75">
+                    <mat-label> Set rssi value</mat-label>
                     <input matInput type="number" formControlName="rssi" required>
                     <mat-error>
                         RSSI value should be between 0-255.
@@ -65,7 +67,8 @@
         </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="txPowerForm">
-                <mat-form-field>
+                <mat-form-field class="w-75">
+                    <mat-label> Choose tx power</mat-label>
                     <mat-select formControlName="txPower" required>
                         <mat-option value="4A">4A</mat-option>
                         <mat-option value="4B">4B</mat-option>
@@ -76,7 +79,7 @@
                         Choose valid transmission power.
                     </mat-error>
                 </mat-form-field>
-            </form><br>
+            </form><br><br><br><br><br><br><br>
             <button class="btn" mat-raised-button [disabled]="!txPowerForm.valid"
                 (click)="onSubmitTxPower(txPowerForm.value)" color="primary">Submit</button>
         </mat-card-content>
@@ -97,7 +100,7 @@
                 Time range should be minimum 09 hours.
             </mat-error>
             <form [formGroup]="shiftForm">
-                <mat-form-field>
+                <mat-form-field class="w-75">
                     <mat-label>Shift Name</mat-label>
                     <mat-select formControlName="shiftName" required>
                         <mat-option value="general">General</mat-option>
@@ -107,23 +110,23 @@
                     </mat-select>
 
                 </mat-form-field><br>
-                <mat-form-field class="w-50">
+                <mat-form-field class="w-75">
                     <input type='time' matInput placeholder="From time" formControlName="startTime" required>
                     <mat-icon matPrefix>schedule</mat-icon>
                     <mat-error>
                         Please provide a valid from time
                     </mat-error>
                 </mat-form-field> <br>
-                <mat-form-field class="w-50">
+                <mat-form-field class="w-75">
                     <input type='time' matInput placeholder="To time" formControlName="endTime" required>
                     <mat-icon matPrefix>schedule</mat-icon>
                     <mat-error>
                         Please provide a valid to time
                     </mat-error>
-                </mat-form-field><br> <br> <br>
-                <div class="d-flex justify-content-around">
+                </mat-form-field><br> <br> 
+                <div class="d-flex justify-content-center">
                     <button mat-raised-button [disabled]="!shiftForm.valid" color="primary"
-                        (click)="onSubmitWorkForm(shiftForm.value)">Submit</button> &nbsp;&nbsp;&nbsp;
+                        (click)="onSubmitShiftForm(shiftForm.value)">Submit</button> &nbsp;&nbsp;&nbsp;
                     <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
                 </div>
             </form>

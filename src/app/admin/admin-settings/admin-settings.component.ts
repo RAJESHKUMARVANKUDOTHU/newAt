@@ -58,6 +58,18 @@ timeExceed:boolean=false
   this.api.getUserSettings(data).then((res:any)=>{
     console.log("user settings ===",res)
     if(res.status){
+      this.onlineStatus.patchValue({
+        onlineStatus: res.success.onlineStatus
+      })
+      this.offlineStatus.patchValue({
+        offlineStatus: res.success.offlineStatus
+      })
+      this.rssiForm.patchValue({
+        rssi: res.success.rssi
+      })
+      this.txPowerForm.patchValue({
+        txPower: res.success.txPower
+      })
       
     }
   })
@@ -65,9 +77,13 @@ timeExceed:boolean=false
 onSubmitOnlineStatus(data){
   if(this.onlineStatus.valid){
     data.userId=this.loginData.userData
-    console.log("onSubmitOfflineStatus data==",data)
+    console.log("onSubmit OnlineStatus data==",data)
     this.api.updateOnlineStatus(data).then((res:any)=>{
       console.log("res==",res)
+      if(res.status){
+        this.general.openSnackBar(res.message,'')
+        this.refreshSettings(data.userId)
+      }
     }).catch((err:any)=>{
       console.log("err==",err)
     })
@@ -76,9 +92,13 @@ onSubmitOnlineStatus(data){
 onSubmitOfflineStatus(data){
   if(this.offlineStatus.valid){
     data.userId=this.loginData.userData
-    console.log("onSubmitOfflineStatus data==",data)
+    console.log("onSubmit OfflineStatus data==",data)
     this.api.updateOfflineStatus(data).then((res:any)=>{
       console.log("res==",res)
+      if(res.status){
+        this.general.openSnackBar(res.message,'')
+        this.refreshSettings(data.userId)
+      }
     }).catch((err:any)=>{
       console.log("err==",err)
     })
@@ -88,9 +108,13 @@ onSubmitOfflineStatus(data){
 onSubmitTxPower(data){
   if(this.txPowerForm.valid){
     data.userId=this.loginData.userData
-    console.log("onSubmit ts power data==",data)
+    console.log("onSubmit tx power data==",data)
     this.api.updateTxPower(data).then((res:any)=>{
       console.log("res==",res)
+      if(res.status){
+        this.general.openSnackBar("TX power updated successfully!!!",'')
+        this.refreshSettings(data.userId)
+      }
     }).catch((err:any)=>{
       console.log("err==",err)
     })
@@ -102,15 +126,18 @@ onSubmitRssi(data){
     data.userId=this.loginData.userData
     console.log("onSubmit rssi data==",data)
     this.api.updateRssi(data).then((res:any)=>{
-      console.log("res==",res)
+      if(res.status){
+        console.log("res==",res)
+        this.general.openSnackBar(res.message,'')
+      }
     }).catch((err:any)=>{
       console.log("err==",err)
     })
   }
 }
-onSubmitWorkForm(data) {
-  var cdt1= moment(data.fromTime, 'HH:mm:ss')
-  var cdt2= moment(data.toTime, 'HH:mm:ss')
+onSubmitShiftForm(data) {
+  var cdt1= moment(data.startTime, 'HH:mm:ss')
+  var cdt2= moment(data.endTime, 'HH:mm:ss')
   var times1=moment(cdt1).format("YYYY/MM/DD HH:mm:ss")
   var times2=moment(cdt2).format("YYYY/MM/DD HH:mm:ss")
   if(times1>times2 || (data.fromTime == "00:00" &&  data.toTime == "00:00")){
@@ -158,8 +185,8 @@ onSubmitWorkForm(data) {
           if(res.status){
             this.timeExceed=false
             this.multipleShift=false
-            var msg = 'Shift time update Successfully'
-            this.general.openSnackBar(msg,'')
+        
+            this.general.openSnackBar(res.success,'')
             this.shiftForm.reset();
            }
            else{
