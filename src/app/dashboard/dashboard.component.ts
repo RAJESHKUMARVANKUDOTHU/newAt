@@ -141,10 +141,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.map) {
+    this.resetMap();
+    this.clearTimeInterval()
+  }
+
+  resetMap() {
+    if (this.map != null) {
+      this.clearMap();
+      this.clearMapImage();
       this.map.remove();
     }
-    this.clearTimeInterval()
   }
 
   clearTimeInterval() {
