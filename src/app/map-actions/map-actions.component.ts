@@ -104,6 +104,9 @@ export class MapActionsComponent implements OnInit {
       }
       this.createMarker();
     });
+    if(this.gatewayList.length == 1){
+      this.layoutSelect(this.gatewayList[0].layoutName);
+    }
     this.cd.detectChanges();
   }
 
@@ -131,7 +134,10 @@ export class MapActionsComponent implements OnInit {
     this.gateway = []
     console.log('data layout===', data);
     if (data) {
-      this.selectedLayout = data
+      this.selectedLayout = data;
+      this.selectLayoutForm.patchValue({
+        layout: this.selectedLayout
+      })
       let layout = this.gatewayList.filter(obj => {
         return obj.layoutName == data
       })

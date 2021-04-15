@@ -85,12 +85,15 @@ export class ZoneConfigurationComponent implements OnInit {
         this.clearMap();
         L.polygon(bounds).addTo(this.map);
       }
-
       this.cd.detectChanges();
     });
+    if(this.gatewayList.length == 1){
+      this.layoutSelect(this.gatewayList[0]._id);
+    }
+    this.cd.detectChanges();
   }
 
-  layoutSelect(data) {
+  layoutSelect(data, status = 1) {
     console.log('layoutchange===', data);
     this.mapDisable = false;
     let layout = this.gatewayList.filter((obj) => {
@@ -99,12 +102,24 @@ export class ZoneConfigurationComponent implements OnInit {
     console.log('layout===', layout);
 
     this.selectedLayout = data;
+    this.selectZoneForm.patchValue({
+      layout: this.selectedLayout,
+    });
     if (layout) {
-      this.api.getLayoutImage(layout[0]._id).then((res: any) => {
-        L.imageOverlay(res, this.bound).addTo(this.map);
+      if(status = 1){
+        this.getLayoutImage(layout);
+      }
+      else{
         this.getZoneDetails();
-      });
+      }
     }
+  }
+
+  getLayoutImage(data){
+    this.api.getLayoutImage(data[0]._id).then((res: any) => {
+      L.imageOverlay(res, this.bound).addTo(this.map);
+      this.getZoneDetails();
+    });
   }
 
   zoneSelect(data) {
