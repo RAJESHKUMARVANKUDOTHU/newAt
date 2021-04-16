@@ -140,7 +140,7 @@ onSubmitShiftForm(data) {
   var cdt2= moment(data.endTime, 'HH:mm:ss')
   var times1=moment(cdt1).format("YYYY/MM/DD HH:mm:ss")
   var times2=moment(cdt2).format("YYYY/MM/DD HH:mm:ss")
-  if(times1>times2 || (data.fromTime == "00:00" &&  data.toTime == "00:00")){
+  if(times1>times2 || (data.fromTime == "00:00" &&  data.endTime == "00:00")){
       times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")
   }
   var times=moment(times2,"YYYY/MM/DD HH:mm:ss").diff(moment(times1,"YYYY/MM/DD HH:mm:ss"))
@@ -157,8 +157,8 @@ onSubmitShiftForm(data) {
     var day = dateobj.getDate()
     var date = month + '/' + day + '/'  + year
 
-    var time1=date+" "+data.fromTime
-    var time2=date+" "+data.toTime
+    var time1=date+" "+data.startTime
+    var time2=date+" "+data.endTime
 
     time1=new Date(time1).toUTCString()
     time2=new Date(time2).toUTCString()
@@ -171,22 +171,23 @@ onSubmitShiftForm(data) {
     var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
     var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
 
-    data.fromTime = hh + ':' + mm
-    data.toTime = hh1 + ':' + mm1
-    // console.log("data====",data)
+    data.startTime = hh + ':' + mm
+    data.endTime = hh1 + ':' + mm1
+    
 
 
      if (this.shiftForm.valid) {
        try {
         //  console.log("time data===",data)
         data.userId=this.loginData.userData
+        console.log("data====",data)
          this.api.createdDeviceShift(data).then((res:any)=>{
           //  console.log("time insrted or updated",res)
           if(res.status){
             this.timeExceed=false
             this.multipleShift=false
         
-            this.general.openSnackBar(res.success,'')
+            this.general.openSnackBar('Shift updated successfully!!','')
             this.shiftForm.reset();
            }
            else{
@@ -209,8 +210,8 @@ onSubmitShiftForm(data) {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
-  dialogConfig.height = '60vh';
-  dialogConfig.width = '70vw';
+  dialogConfig.height = 'fit-content';
+  dialogConfig.width = 'fit-content';
   dialogConfig.data = {
     type:"shifts"
   }

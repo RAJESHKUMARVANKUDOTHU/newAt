@@ -94,10 +94,10 @@
         </mat-card-subtitle>
         <mat-card-content class="shift">
             <mat-error *ngIf="multipleShift">
-                You cannot have multiple shift, to update shift click info
+                You cannot have multiple shift, to update shift click info.
             </mat-error>
             <mat-error *ngIf="timeExceed">
-                Time range should be minimum 09 hours.
+                Time range should be minimum of 09 hours.
             </mat-error>
             <form [formGroup]="shiftForm">
                 <mat-form-field class="w-75">
@@ -124,12 +124,12 @@
                         Please provide a valid to time
                     </mat-error>
                 </mat-form-field><br> <br> 
-                <div class="d-flex justify-content-center">
-                    <button mat-raised-button [disabled]="!shiftForm.valid" color="primary"
-                        (click)="onSubmitShiftForm(shiftForm.value)">Submit</button> &nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
-                </div>
             </form>
+            <div class="d-flex justify-content-center">
+                <button mat-raised-button [disabled]="!shiftForm.valid" color="primary"
+                    (click)="onSubmitShiftForm(shiftForm.value)">Submit</button> &nbsp;&nbsp;&nbsp;
+                <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

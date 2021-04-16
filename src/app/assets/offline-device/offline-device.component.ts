@@ -31,6 +31,7 @@ export class OfflineDeviceComponent implements OnInit {
   interval : any;
   limit:any=10
   offset:any=0
+  type:any='All'
   currentPageLength1:any=10
   currentPageSize1:any=10
   currentPageLength2:any=10
@@ -44,10 +45,10 @@ export class OfflineDeviceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refreshOfflineDeviceList(this.limit,this.offset);
+    this.refreshOfflineDeviceList(this.limit,this.offset,this.type);
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
-        this.refreshOfflineDeviceList(this.limit,this.offset);
+        this.refreshOfflineDeviceList(this.limit,this.offset,this.type);
       }
     });
     this.login.loginCheckData.subscribe(res=>{
@@ -56,7 +57,7 @@ export class OfflineDeviceComponent implements OnInit {
       }
     })
     this.interval = setInterval(()=>{
-      this.refreshOfflineDeviceList(this.limit,this.offset);
+      this.refreshOfflineDeviceList(this.limit,this.offset,this.type);
     },10000)
   }
 
@@ -68,11 +69,13 @@ export class OfflineDeviceComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  refreshOfflineDeviceList(limit=10,offset=0) {
+  refreshOfflineDeviceList(limit=10,offset=0,type=this.type) {
     var data={
       limit:limit,
-      offset:offset
+      offset:offset,
+      filterType:type
     }
+    console.log("data===",data)
     this.api.getOfflineDevice(data).then((res: any) => {
 
       console.log("getOfflineDevice res====", res);
@@ -83,14 +86,22 @@ export class OfflineDeviceComponent implements OnInit {
         this.offlineDeviceData = res.success.device.offlineDevice
         this.offlineGatewayData = res.success.gateway.offlineGateway
         this.offlineCoinData = res.success.coin.offlineCoin
-        this.currentPageLength1=res.success.device.offlineDeviceCount
-        this.currentPageLength2=res.success.gateway.offlineGatewayCount
-        this.currentPageLength3=res.success.coin.offlineCoinCount
-        // for(let i=0;i<res.success.onlineDevice.length;i++){
-        //   if(res.activeDeviceList[i] != null){
-        //     this.activeDeviceData.push(res.success.onlineDevice[i])
-        //   }
-        // }
+      
+        if(type=='All'){
+          this.currentPageLength1=res.success.device.offlineDeviceCount
+          this.currentPageLength2=res.success.gateway.offlineGatewayCount
+          this.currentPageLength3=res.success.coin.offlineCoinCount
+        }
+        if(type=='Device'){
+          this.currentPageLength1=res.success.device.offlineDeviceCount
+        }
+        if(type=='Gateway'){
+          this.currentPageLength2=res.success.device.offlineGatewayCount
+        }
+        if(type=='Coin'){
+          this.currentPageLength3=res.success.device.offlineCoinCount
+        }
+     
         this.dataSource0 = new MatTableDataSource(this.offlineDeviceData);
         this.dataSource1 = new MatTableDataSource(this.offlineGatewayData);
         this.dataSource2 = new MatTableDataSource(this.offlineCoinData);
@@ -119,7 +130,7 @@ export class OfflineDeviceComponent implements OnInit {
     if (type == 'device') {
       this.fileName = "Offline Asset"
       this.api.downloadOfflineDevice(data,this.fileName).then((res: any) => {
-        console.log("online device download==", res)
+        console.log("offline device download==", res)
         if (res) {
           this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
         }
@@ -133,7 +144,7 @@ export class OfflineDeviceComponent implements OnInit {
     else if (type == 'gateway') {
       this.fileName = "Offline Gateway"
       this.api.downloadOfflineGateways(data,this.fileName).then((res: any) => {
-        console.log("Online gateway download==", res)
+        console.log("offline gateway download==", res)
         if (res) {
           this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
         }
@@ -147,7 +158,7 @@ export class OfflineDeviceComponent implements OnInit {
     else if (type == 'coin') {
       this.fileName = "Offline coins"
       this.api.downloadOfflineCoin(data,this.fileName).then((res: any) => {
-        console.log("Online coins download==", res)
+        console.log("offline coins download==", res)
         if (res) {
           this.general.loadingFreez.next({ status: false, msg: "Downloaded Successfully!!" })
         }
@@ -159,11 +170,13 @@ export class OfflineDeviceComponent implements OnInit {
       })
     }
   }
-  getUpdate(event) {
- 
+
+  getUpdate(event,type) {  
+    this.type=type
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
-    this.refreshOfflineDeviceList(this.limit, this.offset)
+    this.refreshOfflineDeviceList(this.limit, this.offset,this.type)
+    
   }
 
 }

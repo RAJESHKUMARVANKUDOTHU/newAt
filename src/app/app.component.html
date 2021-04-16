@@ -182,4 +182,11 @@
 
 <div *ngIf="(logged && !menu)||(!logged && !menu) ">
     <router-outlet></router-outlet>
+    <div *ngIf="(logged && !menu)">
+        <br>
+        <div class="timer">
+            <span>Your session expires in <b>{{time}}</b></span>
+        </div>
+    </div>
 </div>
+

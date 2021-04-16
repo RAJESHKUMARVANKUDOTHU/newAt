@@ -70,10 +70,11 @@ export class ActiveDeviceComponent implements OnInit {
   }
 
 
-  refreshActiveDeviceList(limit=10,offset=0) {
+  refreshActiveDeviceList(limit=10,offset=0,type='All') {
     var data={
       limit:limit,
-      offset:offset
+      offset:offset,
+      filterType:type
     }
     this.api.getOnlineDevice(data).then((res: any) => {
       console.log("getOnlineDevice res====", res);
@@ -84,9 +85,20 @@ export class ActiveDeviceComponent implements OnInit {
         this.activeDeviceData = res.success.device.onlineDevice
         this.activeGatewayData = res.success.gateway.onlineGateway
         this.activeCoinData = res.success.coin.onlineCoin
-        this.currentPageLength1=res.success.device.onlineDeviceCount
-        this.currentPageLength2=res.success.gateway.onlineGatewayCount
-        this.currentPageLength3=res.success.coin.onlineCoinCount
+        if(type=='All'){
+          this.currentPageLength1=res.success.device.onlineDeviceCount
+          this.currentPageLength2=res.success.gateway.onlineGatewayCount
+          this.currentPageLength3=res.success.coin.onlineCoinCount
+        }
+        if(type=='Device'){
+          this.currentPageLength1=res.success.device.onlineDeviceCount
+        }
+        if(type=='Gateway'){
+          this.currentPageLength2=res.success.device.onlineDeviceCount
+        }
+        if(type=='Coin'){
+          this.currentPageLength3=res.success.device.onlineDeviceCount
+        }
         // for(let i=0;i<res.success.onlineDevice.length;i++){
         //   if(res.activeDeviceList[i] != null){
         //     this.activeDeviceData.push(res.success.onlineDevice[i])
@@ -161,11 +173,11 @@ export class ActiveDeviceComponent implements OnInit {
       })
     }
   }
-  getUpdate(event) {
+  getUpdate(event,type) {
  
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
-    this.refreshActiveDeviceList(this.limit, this.offset)
+    this.refreshActiveDeviceList(this.limit, this.offset,type)
   }
 }
 

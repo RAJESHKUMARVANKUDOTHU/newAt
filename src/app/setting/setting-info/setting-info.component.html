@@ -3,7 +3,8 @@
 </button>
 <div *ngIf="type=='timeDelay'">
     <h1 mat-dialog-title *ngIf="deviceData?.length">Time Delay </h1>
-    <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="deviceData?.length;else nodata"
+        class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form2">
             <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
@@ -41,11 +42,21 @@
             </table>
         </form>
     </div>
+
+    <ng-template #nodata>
+        <br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 <div *ngIf="type=='find-inactive'">
     <h1 mat-dialog-title *ngIf="deviceData?.length">Find Inactivity time </h1>
-    <div mat-dialog-content *ngIf="deviceData" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="deviceData?.length;else nodata"
+        class="d-flex justify-content-around diagWrapper text-center">
 
         <form [formGroup]="form2">
             <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
@@ -100,11 +111,19 @@
             </table>
         </form>
     </div>
+    <ng-template #nodata>
+        <br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 <div *ngIf="type=='coin'">
     <h1 mat-dialog-title *ngIf="coinData?.length">Coin Inactivity time </h1>
-    <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="coinData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form1">
             <table formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form1.get('items')['controls']; let i=index;">
@@ -155,11 +174,19 @@
             </table>
         </form>
     </div>
+    <ng-template #nodata>
+        <br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 <div *ngIf="type=='max-find'">
     <h1 mat-dialog-title *ngIf="coinData?.length">Maximum Find to assign for Coin</h1>
-    <div mat-dialog-content *ngIf="coinData" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="coinData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form1">
             <table formArrayName="items" *ngIf="form1.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form1.get('items')['controls']; let i=index;">
@@ -200,11 +227,18 @@
             </table>
         </form>
     </div>
+    <ng-template #nodata><br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 <div *ngIf="type=='groupName'">
     <h1 mat-dialog-title *ngIf="groupData?.length"> Available Group Names</h1>
-    <div mat-dialog-content *ngIf="groupData" class="d-flex justify-content-around diagWrapper">
+    <div mat-dialog-content *ngIf="groupData?.length;else nodata" class="d-flex justify-content-around diagWrapper">
         <form [formGroup]="form5">
             <table formArrayName="items" *ngIf="form5.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form5.get('items')['controls']; let i=index;">
@@ -235,12 +269,18 @@
             </table>
         </form>
     </div>
-
+    <ng-template #nodata><br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 <div *ngIf="type=='zone'">
     <h1 mat-dialog-title *ngIf="zoneData?.length">Create Zone</h1>
-    <div mat-dialog-content *ngIf="zoneData" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="zoneData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form3">
             <table formArrayName="items" *ngIf="form3.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form3.get('items')['controls']; let i=index;">
@@ -276,16 +316,24 @@
                                 [disabled]="a.get('standardTime').value == 0 || a.get('zoneName').value == ''"
                                 (click)="onSubmitZoneForm(a.value)">Submit</button>
                         </td>
-                    </ng-container> 
-                </tr> 
+                    </ng-container>
+                </tr>
             </table>
         </form>
     </div>
+    <ng-template #nodata><br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 <div *ngIf="type=='coinGrp'">
     <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Group coin setting</h1>
-    <div mat-dialog-content *ngIf="coinDataTemp" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata"
+        class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="groupForm">
             <table formArrayName="items" *ngIf="groupForm.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of groupForm.get('items')['controls']; let i=index;">
@@ -338,12 +386,20 @@
             </table>
         </form>
     </div>
+    <ng-template #nodata><br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>
 
 
 <div *ngIf="type=='coin-cat'">
     <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Coin configuration</h1>
-    <div mat-dialog-content *ngIf="coinDataTemp" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata"
+        class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="zoneForm">
             <table formArrayName="items" *ngIf="zoneForm.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of zoneForm.get('items')['controls']; let i=index;">
@@ -398,11 +454,19 @@
             </table>
         </form>
     </div>
- </div>
+    <ng-template #nodata><br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
+</div>
 
 <div *ngIf="type=='serviceType'">
     <h1 mat-dialog-title *ngIf="serviceData?.length">Service Type setting</h1>
-    <div mat-dialog-content *ngIf="serviceData" class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="serviceData?.length;else nodata"
+        class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form4">
             <table formArrayName="items" *ngIf="form4.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form4.get('items')['controls']; let i=index;">
@@ -452,4 +516,11 @@
             </table>
         </form>
     </div>
+    <ng-template #nodata><br>
+        <table class="border">
+            <tr>
+                <td style="font-size: xx-large;" class="p-2">No Data</td>
+            </tr>
+        </table>
+    </ng-template>
 </div>

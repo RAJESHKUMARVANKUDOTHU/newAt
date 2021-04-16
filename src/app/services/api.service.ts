@@ -324,6 +324,66 @@ createdDeviceShift(data){
     );
   });
 }
+getUserShiftSuperAdmin(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/getUserShiftSuperAdmin';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+updateUserShiftSuperAdmin(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateUserShiftSuperAdmin';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+deleteUserShiftSuperAdmin(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/deleteUserShiftSuperAdmin';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
 // ---------------------end----------------------------
   createUsers(data) {
     const httpOptions = {
@@ -2016,6 +2076,24 @@ getVehicleZoneWiseReport(data){
       data: data,
     };
     let url = this.host + '/getAverageTimeOfBaysDownload';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
+        console.log("res==", res)
+        if (res.status == 200)
+          this.downloadFile(res, fileName)
+
+        resolve(true);
+      },
+        err => {
+          // console.log("err==", err)
+        })
+    });
+  }
+  downloadVehicleReport(data,fileName){
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/downloadVehicleReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         console.log("res==", res)
