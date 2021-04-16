@@ -213,7 +213,25 @@ export class LocationReportComponent implements OnInit {
         console.log("err===", err)
       })
     }
+    
+    if (this.locationReportData.type == '2') {
+      data = {
+        zoneId: this.locationReportData.zoneId._id,
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone()
+      }
+      fileName = "Report of Bay - " + this.locationReportData.zoneId.zoneName
+      this.api.downloadAverageTimeOfBays(data, fileName).then((res: any) => {
+        console.log("res==", res)
+        if (res.status) {
+          this.general.openSnackBar("Downloading!!!", '')
 
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
   }
 
 

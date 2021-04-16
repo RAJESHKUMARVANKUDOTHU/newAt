@@ -5,7 +5,6 @@
 export const environment = {
   apiHost:'http://65.1.240.142:3000',
   // apiHost:'http://localhost:3000',
-  ENCRYPTKEY:"KeYiSGDQdtgUbfu7LpHpGY8G4VzCczMG",
   production: false
 };
 

@@ -41,6 +41,7 @@ import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.co
 import { LocationReportComponent } from './report/location-report/location-report.component';
 import { ZoneReportComponent } from './report/zone-report/zone-report.component';
 import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewisereport.component';
+import { EditSettingShiftComponent } from './admin/edit-setting-shift/edit-setting-shift.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewi
     LocationReportComponent,
     ZoneReportComponent,
     VehiclewisereportComponent,
+    EditSettingShiftComponent,
   ],
   imports: [
     BrowserModule,
