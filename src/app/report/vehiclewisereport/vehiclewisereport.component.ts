@@ -158,8 +158,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        // limit:limit,
-        // offset:offset
+        limit:limit,
+        offset:offset
       }
       console.log("data to send==", data)
       this.api.getvehicleServicedReport(data).then((res: any) => {
@@ -175,7 +175,7 @@ export class VehiclewisereportComponent implements OnInit {
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator
+            // this.dataSource.paginator = this.paginator
 
           })
         }
@@ -272,6 +272,25 @@ export class VehiclewisereportComponent implements OnInit {
       console.log("download data to send==", data)
       fileName = "Report of vehicle name - " + this.vehicleReportData.deviceName
       this.api.downloadvehicleNameReport(data, fileName).then((res: any) => {
+        console.log("res 1==", res)
+        if (res.status) {
+          this.general.openSnackBar("Downloading!!!", '')
+
+        }
+
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
+    if (this.vehicleReportData.type == '4') {
+      data = {
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+      }
+      console.log("download data to send==", data)
+      fileName = "Report of serviced vehilce" 
+      this.api.downloadVehicleReport(data, fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
           this.general.openSnackBar("Downloading!!!", '')
