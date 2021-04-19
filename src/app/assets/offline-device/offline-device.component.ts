@@ -31,7 +31,7 @@ export class OfflineDeviceComponent implements OnInit {
   interval : any;
   limit:any=10
   offset:any=0
-  type:any='All'
+  type:any='all'
   currentPageLength1:any=10
   currentPageSize1:any=10
   currentPageLength2:any=10
@@ -45,7 +45,7 @@ export class OfflineDeviceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refreshOfflineDeviceList(this.limit,this.offset,this.type);
+    this.refreshOfflineDeviceList();
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
         this.refreshOfflineDeviceList(this.limit,this.offset,this.type);
@@ -57,7 +57,7 @@ export class OfflineDeviceComponent implements OnInit {
       }
     })
     this.interval = setInterval(()=>{
-      this.refreshOfflineDeviceList(this.limit,this.offset,this.type);
+      this.refreshOfflineDeviceList(this.limit,this.offset,this.type)
     },10000)
   }
 
@@ -69,7 +69,7 @@ export class OfflineDeviceComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  refreshOfflineDeviceList(limit=10,offset=0,type=this.type) {
+  refreshOfflineDeviceList(limit=10,offset=0,type='all') {
     var data={
       limit:limit,
       offset:offset,
@@ -87,19 +87,19 @@ export class OfflineDeviceComponent implements OnInit {
         this.offlineGatewayData = res.success.gateway.offlineGateway
         this.offlineCoinData = res.success.coin.offlineCoin
       
-        if(type=='All'){
+        if(type=='all'){
           this.currentPageLength1=res.success.device.offlineDeviceCount
           this.currentPageLength2=res.success.gateway.offlineGatewayCount
           this.currentPageLength3=res.success.coin.offlineCoinCount
         }
-        if(type=='Device'){
+        if(type=='devices'){
           this.currentPageLength1=res.success.device.offlineDeviceCount
         }
-        if(type=='Gateway'){
-          this.currentPageLength2=res.success.device.offlineGatewayCount
+        if(type=='gateway'){
+          this.currentPageLength2=res.success.gateway.offlineGatewayCount
         }
-        if(type=='Coin'){
-          this.currentPageLength3=res.success.device.offlineCoinCount
+        if(type=='coin'){
+          this.currentPageLength3=res.success.coin.offlineCoinCount
         }
      
         this.dataSource0 = new MatTableDataSource(this.offlineDeviceData);

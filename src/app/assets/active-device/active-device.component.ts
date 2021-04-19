@@ -32,6 +32,7 @@ export class ActiveDeviceComponent implements OnInit {
   interval : any;
   limit:any=10
   offset:any=0
+  type:any='all'
   currentPageLength1:any=10
   currentPageSize1:any=10
   currentPageLength2:any=10
@@ -48,7 +49,7 @@ export class ActiveDeviceComponent implements OnInit {
     this.refreshActiveDeviceList()
     this.general.deviceChanges.subscribe((res) => {
       if (res) {
-        this.refreshActiveDeviceList(this.limit,this.offset)
+        this.refreshActiveDeviceList(this.limit,this.offset,this.type)
       }
     })
     this.login.loginCheckData.subscribe(res=>{
@@ -57,7 +58,7 @@ export class ActiveDeviceComponent implements OnInit {
       }
     })
     this.interval = setInterval(()=>{
-      this.refreshActiveDeviceList(this.limit,this.offset);
+      this.refreshActiveDeviceList(this.limit,this.offset,this.type);
     },10000)
   }
 
@@ -70,7 +71,7 @@ export class ActiveDeviceComponent implements OnInit {
   }
 
 
-  refreshActiveDeviceList(limit=10,offset=0,type='All') {
+  refreshActiveDeviceList(limit=10,offset=0,type='all') {
     var data={
       limit:limit,
       offset:offset,
@@ -85,18 +86,18 @@ export class ActiveDeviceComponent implements OnInit {
         this.activeDeviceData = res.success.device.onlineDevice
         this.activeGatewayData = res.success.gateway.onlineGateway
         this.activeCoinData = res.success.coin.onlineCoin
-        if(type=='All'){
+        if(type=='all'){
           this.currentPageLength1=res.success.device.onlineDeviceCount
           this.currentPageLength2=res.success.gateway.onlineGatewayCount
           this.currentPageLength3=res.success.coin.onlineCoinCount
         }
-        if(type=='Device'){
+        if(type=='devices'){
           this.currentPageLength1=res.success.device.onlineDeviceCount
         }
-        if(type=='Gateway'){
+        if(type=='gateway'){
           this.currentPageLength2=res.success.device.onlineDeviceCount
         }
-        if(type=='Coin'){
+        if(type=='coin'){
           this.currentPageLength3=res.success.device.onlineDeviceCount
         }
         // for(let i=0;i<res.success.onlineDevice.length;i++){
@@ -174,10 +175,10 @@ export class ActiveDeviceComponent implements OnInit {
     }
   }
   getUpdate(event,type) {
- 
+    this.type=type
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
-    this.refreshActiveDeviceList(this.limit, this.offset,type)
+    this.refreshActiveDeviceList(this.limit, this.offset,this.type)
   }
 }
 

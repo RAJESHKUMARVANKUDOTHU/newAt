@@ -30,10 +30,10 @@ timeExceed:boolean=false
 
     ) {  
     this.onlineStatus=this.fb.group({
-      onlineStatus:['',[Validators.required,Validators.min(5),Validators.max(1275)]]
+      onlineStatus:['',[Validators.required,Validators.min(5),Validators.max(1275),Validators.pattern(/^\d*[05]$/)]]
     })
     this.offlineStatus=this.fb.group({
-      offlineStatus:['',[Validators.required,Validators.min(5),Validators.max(1275)]]
+      offlineStatus:['',[Validators.required,Validators.min(5),Validators.max(1275),Validators.pattern(/^\d*[05]$/)]]
     })
     this.rssiForm=this.fb.group({
       rssi:['',[Validators.required,Validators.min(0),Validators.max(255)]]
