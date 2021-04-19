@@ -43,14 +43,6 @@
         </form>
     </div>
 
-    <ng-template #nodata>
-        <br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
 </div>
 
 <div *ngIf="type=='find-inactive'">
@@ -111,14 +103,7 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata>
-        <br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
+
 </div>
 
 <div *ngIf="type=='coin'">
@@ -174,15 +159,7 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata>
-        <br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
-</div>
+  </div>
 
 <div *ngIf="type=='max-find'">
     <h1 mat-dialog-title *ngIf="coinData?.length">Maximum Find to assign for Coin</h1>
@@ -227,14 +204,7 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata><br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
-</div>
+   </div>
 
 <div *ngIf="type=='groupName'">
     <h1 mat-dialog-title *ngIf="groupData?.length"> Available Group Names</h1>
@@ -269,14 +239,7 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata><br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
-</div>
+ </div>
 
 <div *ngIf="type=='zone'">
     <h1 mat-dialog-title *ngIf="zoneData?.length">Create Zone</h1>
@@ -321,13 +284,6 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata><br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
 </div>
 
 <div *ngIf="type=='coinGrp'">
@@ -386,13 +342,7 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata><br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
+ 
 </div>
 
 
@@ -454,14 +404,7 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata><br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
-</div>
+  </div>
 
 <div *ngIf="type=='serviceType'">
     <h1 mat-dialog-title *ngIf="serviceData?.length">Service Type setting</h1>
@@ -516,11 +459,4 @@
             </table>
         </form>
     </div>
-    <ng-template #nodata><br>
-        <table class="border">
-            <tr>
-                <td style="font-size: xx-large;" class="p-2">No Data</td>
-            </tr>
-        </table>
-    </ng-template>
 </div>

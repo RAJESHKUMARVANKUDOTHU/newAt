@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit {
     private api: ApiService,
     private login: LoginAuthService,
     private router: Router,
-    private general: GeneralService) { }
+    public general: GeneralService) { }
 
   ngOnInit(): void {
     this.congestionGraph();
@@ -138,6 +138,7 @@ export class DashboardComponent implements OnInit {
         this.clearTimeInterval()
       }
     })
+    
   }
 
   ngOnDestroy() {

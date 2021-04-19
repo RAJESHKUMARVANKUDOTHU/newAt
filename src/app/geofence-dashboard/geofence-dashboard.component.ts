@@ -17,6 +17,10 @@ export class GeofenceDashboardComponent implements OnInit {
   dataSource: any = [];
   displayedColumns = ['i', 'deviceId', 'deviceName', 'coinId', 'updatedOnLoc', 'geofenceStatus'];
   geoFencestatus:boolean=false;
+  limit:any=10
+  offset:any=0
+  currentPageLength:any=10
+  currentPageSize:any=10
   interval : any;
   constructor(
     public general: GeneralService,
@@ -32,7 +36,7 @@ export class GeofenceDashboardComponent implements OnInit {
       }
     });
     this.interval = setInterval(()=>{
-      this.refreshGeofence();
+      this.refreshGeofence(this.limit,this.offset);
     },10000);
   }
 
@@ -55,10 +59,15 @@ export class GeofenceDashboardComponent implements OnInit {
     });
     
   }
-  refreshGeofence() {
-    this.api.getDeviceGeofence().then((res:any)=>{
+  refreshGeofence(limit=10,offset=0) {
+    var data={
+      limit:limit,
+      offset:offset
+    }
+    this.api.getDeviceGeofence(data).then((res:any)=>{
       console.log("getDeviceGeofence res==",res)
       if(res.status){
+        this.currentPageLength = parseInt(res.totalLength)
         this.deviceData=res.success
         // for(let i=0; i<res.success.length;i++){
         //   res.success[i].totalTime=this.general.getTotTime(res.success[i].inTime,res.success[i].outTime)
@@ -67,7 +76,7 @@ export class GeofenceDashboardComponent implements OnInit {
     
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+          // this.dataSource.paginator = this.paginator
     
         })
       }
@@ -85,5 +94,10 @@ export class GeofenceDashboardComponent implements OnInit {
       this.dataSource.filter =a.trim().toLowerCase()
     })
   }
-
+  getUpdate(event) {
+ 
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.refreshGeofence(this.limit, this.offset)
+  }
 }
