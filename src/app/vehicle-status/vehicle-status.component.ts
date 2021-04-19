@@ -51,6 +51,7 @@ export class VehicleStatusComponent implements OnInit {
           console.log("zone===", zone);
 
           if (zone) {
+            zone = zone / (1000 * 60);
             if (obj.standardTime > zone) {
               obj.delayed = false;
               obj.time = obj.standardTime - zone;
@@ -80,7 +81,7 @@ export class VehicleStatusComponent implements OnInit {
       console.log('zone details response==', res);
       this.zoneData = [];
       if (res.status) {
-        this.zoneData = res.success.map(obj => ({ ...obj, delayed: false, time: 0 }));
+        this.zoneData = res.success.map(obj => ({ ...obj, delayed: false, time: (obj.standardTime * -1) }));
       }
       else { }
 
