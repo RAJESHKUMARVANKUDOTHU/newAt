@@ -4,12 +4,18 @@
         <span><strong>{{vehicleData.vehicleName}}</strong></span>
     </div>
 
+</div> <br> <br>
+
+
+<div class="d-flex justify-content-around">
     <div>
         <span [ngStyle]="{'font-size':general.isDesktopDevice? 'xx-large':'small'}"> <span>Estimated Delivery Time
             </span>: {{getEDT(vehicleData) | date : 'medium'}}</span>
     </div>
 </div> <br> <br>
+
 <div class="d-flex justify-content-around">
+
     <div>
         <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}"><span>Service
                 Type :</span> {{vehicleData.serviceType}} </span>
