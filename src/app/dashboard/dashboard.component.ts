@@ -453,10 +453,13 @@ export class DashboardComponent implements OnInit {
     if (data) {
       this.deviceList = this.tempDeviceList.filter((obj) => {
         return (
-          obj.deviceId
+          (obj.deviceId
             .toString()
             .toLowerCase()
-            .indexOf(data.toString().toLowerCase()) > -1
+            .indexOf(data.toString().toLowerCase()) > -1) || (obj.deviceName
+              .toString()
+              .toLowerCase()
+              .indexOf(data.toString().toLowerCase()) > -1)
         );
       });
 
@@ -567,25 +570,24 @@ export class DashboardComponent implements OnInit {
     data.forEach(element => {
       let sum = 0;
       element.data.forEach((obj, index) => {
-        var thedate = moment(obj.inTime).local().diff(moment(), 'milliseconds');
-        // if (prevdate) {
-        //   sum += prevdate.diff(thedate, 'milliseconds');
-        // }
-        // prevdate = thedate;
-        sum += thedate;
+        // var thedate = moment(obj.inTime).local().diff(moment(), 'milliseconds');
+        // sum += thedate;
+        sum += obj.zoneTotalTime;
       });
       var avg = (sum / (element.data.length));
       this.zoneList.forEach(zone => {
         if (zone.zoneName == element.zoneName) {
           zone.vehicleCount = element.data.length;
-          zone.avgTime = Math.floor((avg * -1) / (60 * 1000));
-          zone.time = zone.standardTime - zone.avgTime;
-          if (zone.time > 0) {
+          // zone.avgTime = Math.floor((avg * -1) / (60 * 1000));
+          zone.avgTime = Math.floor((avg) / (60 * 1000));
+          // zone.time = zone.standardTime - zone.avgTime;
+          zone.time = zone.avgTime;
+          if (zone.time < zone.standardTime) {
             zone.isDelay = false;
           }
           else {
             zone.isDelay = true;
-            zone.time = zone.time * -1
+            // zone.time = zone.time * -1
           }
         }
       });
@@ -650,7 +652,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  
+
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {
       animationEnabled: true,
