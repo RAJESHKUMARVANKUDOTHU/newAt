@@ -630,6 +630,7 @@ export class DashboardComponent implements OnInit {
     console.log("a==", data);
     this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
+
   getVehicleServiceCount() {
     let currentDate = moment().format("YYYY-MM-DD")
     var data={
@@ -645,6 +646,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+  
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {
       animationEnabled: true,

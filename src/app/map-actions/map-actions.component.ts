@@ -13,8 +13,6 @@ import { GeneralService } from '../services/general.service';
 import { MatOption } from '@angular/material/core';
 import * as L from 'leaflet';
 import "leaflet.heat/dist/leaflet-heat.js";
-import { SELECT_PANEL_INDENT_PADDING_X } from '@angular/material/select';
-import { BoundAttribute } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-map-actions',
@@ -443,6 +441,33 @@ export class MapActionsComponent implements OnInit {
       .catch((err) => {
         console.log('err==', err);
       });
+  }
+
+  deleteCoinBound(data) {
+    console.log('submit coin===', data);
+
+    if(this.configCoinForm.valid){
+      try{
+        this.api
+        .deleteCoinBound(data)
+        .then((res: any) => {
+          console.log('delete bounds res==', res);
+          if (res.status) {
+            this.general.openSnackBar(res.success, '');
+            this.getLayout();
+            this.configCoinForm.reset()
+          } else {
+            this.general.openSnackBar( !res.success?res.message:res.success, '');
+          }
+        })
+        .catch((err) => {
+          console.log('err==', err);
+        });
+      }
+      catch(err){
+        console.log("error",err)
+      }
+    }
   }
 
   clearMap() {
