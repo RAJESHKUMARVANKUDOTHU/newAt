@@ -31,10 +31,10 @@
 <span class="d-flex text-center zone">
         <mat-card class="status-bar" *ngFor="let zone of zoneData ;let i=index" [ngStyle]="getFillColor(zone)">
             <span style="visibility:hidden">
-                {{zone.zoneName}}
+                <p>{{zone.zoneName}}</p>
             </span>
             <span>
-                <br>{{zone.time}}
+                <br><p>{{zone.time}}</p>
             </span>
 </mat-card>
 </span>
