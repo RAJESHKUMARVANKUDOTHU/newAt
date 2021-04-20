@@ -5,37 +5,40 @@
     </div>
 
     <div>
-        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'xx-large':'small'}"> <span>Estimated Delivery Time </span>: 14:00:00</span>
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'xx-large':'small'}"> <span>Estimated Delivery Time
+            </span>: {{getEDT(vehicleData) | date : 'medium'}}</span>
     </div>
 </div> <br> <br>
 <div class="d-flex justify-content-around">
     <div>
-        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}"><span>Service Type :</span> {{vehicleData.serviceType}} </span>
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}"><span>Service
+                Type :</span> {{vehicleData.serviceType}} </span>
     </div>
     <div>
-        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'0rem':'-8rem'}"><span>Delayed Time :</span> 5 min </span>
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'0rem':'-8rem'}"><span>Delayed
+                Time :</span> {{vehicleData.delayTime}} min </span>
     </div>
 </div>
 <br>
 
 <span class="d-flex text-center zone">
-        <mat-card id="card" *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;"
-            [ngClass]="first || last ? 'border-less': 'parallellogram'">
-            <span>
-                <p *ngIf="first">{{zone.zoneName}}</p>
-                <p *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</p>
-                <p *ngIf="last">{{zone.zoneName}}</p>
-            </span>
+    <mat-card id="card" *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;"
+        [ngClass]="first || last ? 'border-less': 'parallellogram'">
+        <span>
+            <p *ngIf="first">{{zone.zoneName}}</p>
+            <p *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</p>
+            <p *ngIf="last">{{zone.zoneName}}</p>
+        </span>
 </mat-card> <br>
 </span> <br>
 <span class="d-flex text-center zone">
-        <mat-card class="status-bar" *ngFor="let zone of zoneData ;let i=index" [ngStyle]="getFillColor(zone)">
-            <span style="visibility:hidden">
-                {{zone.zoneName}}
-            </span>
-            <span>
-                <br>{{zone.time}}
-            </span>
+    <mat-card class="status-bar" *ngFor="let zone of zoneData ;let i=index" [ngStyle]="getFillColor(zone)">
+        <span style="visibility:hidden">
+            {{zone.zoneName}}
+        </span>
+<span>
+            <br>{{zone.time}} min
+        </span>
 </mat-card>
 </span>
 
