@@ -138,7 +138,7 @@ export class DashboardComponent implements OnInit {
         this.clearTimeInterval()
       }
     })
-    
+
   }
 
   ngOnDestroy() {
@@ -309,25 +309,29 @@ export class DashboardComponent implements OnInit {
   GroupDevices(data) {
     console.log("group device data===", data);
     this.deviceGroupList = this.deviceList.filter(obj => {
-      if(obj.zoneId == data._id){
-        if(obj.outTime == null){
-          let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
-          obj.time = Math.ceil((diff * -1) / (60 * 1000));
-          obj.time = obj.standardDeliveryTime - obj.time;
-          if(obj.time > 0){
+      if (obj.zoneId == data._id) {
+        if (obj.outTime == null) {
+          // let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
+          // obj.time = Math.ceil((diff * -1) / (60 * 1000));
+          // obj.time = obj.standardDeliveryTime - obj.time;
+          obj.time = Math.floor(obj.totalDelay / (1000 * 60));
+          // if(obj.time > 0){
+          if (obj.time < obj.standardDeliveryTime) {
             obj.isDelay = false;
-          }else{
+          } else {
             obj.isDelay = true;
-            obj.time = obj.time * -1;
+            // obj.time = obj.time * -1;
           }
         }
-        else{
-          obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
-          if(obj.time > 0){
+        else {
+          // obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
+          obj.time = Math.floor(obj.totalDelay / (1000 * 60));
+          // if(obj.time > 0){
+          if (obj.time > obj.standardDeliveryTime) {
             obj.isDelay = true;
-          }else{
+          } else {
             obj.isDelay = false;
-            obj.time = obj.time * -1;
+            // obj.time = obj.time * -1;
           }
         }
         return obj;
@@ -449,10 +453,13 @@ export class DashboardComponent implements OnInit {
     if (data) {
       this.deviceList = this.tempDeviceList.filter((obj) => {
         return (
-          obj.deviceId
+          (obj.deviceId
             .toString()
             .toLowerCase()
-            .indexOf(data.toString().toLowerCase()) > -1
+            .indexOf(data.toString().toLowerCase()) > -1) || (obj.deviceName
+              .toString()
+              .toLowerCase()
+              .indexOf(data.toString().toLowerCase()) > -1)
         );
       });
 
@@ -517,11 +524,11 @@ export class DashboardComponent implements OnInit {
   }
 
   getDelay(data) {
-    return Math.ceil(data.delay / (60 * 1000));
+    return Math.floor(data.zoneDelay / (60 * 1000));
   }
 
   getTotalDelay(data) {
-    return Math.ceil(data.totalDelay / (60 * 1000));
+    return Math.floor(data.totalDelay / (60 * 1000));
   }
 
   getTotalST(data) {
@@ -563,25 +570,24 @@ export class DashboardComponent implements OnInit {
     data.forEach(element => {
       let sum = 0;
       element.data.forEach((obj, index) => {
-        var thedate = moment(obj.inTime).local().diff(moment(), 'milliseconds');
-        // if (prevdate) {
-        //   sum += prevdate.diff(thedate, 'milliseconds');
-        // }
-        // prevdate = thedate;
-        sum += thedate;
+        // var thedate = moment(obj.inTime).local().diff(moment(), 'milliseconds');
+        // sum += thedate;
+        sum += obj.zoneTotalTime;
       });
       var avg = (sum / (element.data.length));
       this.zoneList.forEach(zone => {
         if (zone.zoneName == element.zoneName) {
           zone.vehicleCount = element.data.length;
-          zone.avgTime = Math.ceil((avg * -1) / (60 * 1000));
-          zone.time = zone.standardTime - zone.avgTime;
-          if (zone.time > 0) {
+          // zone.avgTime = Math.floor((avg * -1) / (60 * 1000));
+          zone.avgTime = Math.floor((avg) / (60 * 1000));
+          // zone.time = zone.standardTime - zone.avgTime;
+          zone.time = zone.avgTime;
+          if (zone.time < zone.standardTime) {
             zone.isDelay = false;
           }
           else {
             zone.isDelay = true;
-            zone.time = zone.time * -1
+            // zone.time = zone.time * -1
           }
         }
       });
@@ -633,9 +639,9 @@ export class DashboardComponent implements OnInit {
 
   getVehicleServiceCount() {
     let currentDate = moment().format("YYYY-MM-DD")
-    var data={
+    var data = {
       currentDate: currentDate,
-      timeZoneOffset:this.general.getZone()
+      timeZoneOffset: this.general.getZone()
     }
     this.api.getVehicleServiceCount(data).then((res: any) => {
       console.log("res 0f vehicle service count==", res)
@@ -646,7 +652,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  
+
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {
       animationEnabled: true,
