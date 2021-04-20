@@ -57,7 +57,10 @@
                                 </mat-select>
                             </mat-form-field> <br>
                         </form>
-                        <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="updateCoinBound(configCoinForm.value)">Add</button>
+                        <div class="d-md-flex justify-content-md-around">
+                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="updateCoinBound(configCoinForm.value)">Add</button>
+                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="deleteCoinBound(configCoinForm.value)">Delete</button>
+                        </div>
                     </mat-card-content>
                 </mat-card>
             </div>
