@@ -75,6 +75,7 @@ export class GeofenceComponent implements OnInit {
       console.log("error===", err)
     })
   }
+  
   toggleAllSelectionDevice(formData) {
     if (this.allSelected.selected) {
       formData.controls.deviceId.patchValue([...this.deviceData.map(obj => obj.deviceId), 0])
