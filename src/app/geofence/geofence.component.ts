@@ -24,6 +24,10 @@ export class GeofenceComponent implements OnInit {
   deviceData: any
   dataSource: any = []
   displayedColumns = ['i', 'deviceId', 'deviceName', 'location', 'sms', 'email']
+  limit: any = 10
+  offset: any = 0
+  currentPageLength: any = 10
+  currentPageSize: any = 10
   constructor(
     private login: LoginAuthService,
     private api: ApiService,
@@ -44,7 +48,7 @@ export class GeofenceComponent implements OnInit {
   }
 
   refreshCoin() {
-    var data=''
+    var data = ''
     this.api.getCoinData(data).then((res: any) => {
       this.coinData = []
       if (res.status) {
@@ -59,7 +63,7 @@ export class GeofenceComponent implements OnInit {
   }
 
   refreshDevice() {
-    var data=''
+    var data = ''
     this.api.getDeviceData(data).then((res: any) => {
       this.deviceData = []
       console.log("find submit====", res);
@@ -102,7 +106,7 @@ export class GeofenceComponent implements OnInit {
         console.log("geofence setting res==", res);
         this.general.openSnackBar(res.message, '')
         this.geofenceForm.reset()
-        this.getGeofence();
+        this.getGeofence(this.limit, this.offset);
       }
       else {
         this.general.openSnackBar(res.message, '')
@@ -112,25 +116,31 @@ export class GeofenceComponent implements OnInit {
     })
   }
 
-  getGeofence() {
-    this.api.getGeofenceSetting().then((res: any) => {
+  getGeofence(limit = 10, offset = 0) {
+    var data = {
+      limit: limit,
+      offset: offset
+    }
+    this.api.getGeofenceSetting(data).then((res: any) => {
       this.geoFenceData = []
       if (res.status) {
+        this.currentPageLength = parseInt(res.totalLength)
+
         console.log("geofence setting res==", res)
         this.geoFenceData = res.success
         this.dataSource = new MatTableDataSource(this.geoFenceData);
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+          // this.dataSource.paginator = this.paginator
         })
       }
-      else { } 
+      else { }
 
 
     }).catch(err => {
-      console.log("error===",err);
-      
+      console.log("error===", err);
+
     })
   }
 
@@ -140,7 +150,13 @@ export class GeofenceComponent implements OnInit {
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.dataSource.filter =a.trim().toLowerCase()
+      this.dataSource.filter = a.trim().toLowerCase()
     })
+  }
+  getUpdate(event) {
+
+    this.limit = event.pageSize
+    this.offset = event.pageIndex * event.pageSize
+    this.getGeofence(this.limit, this.offset)
   }
 }
