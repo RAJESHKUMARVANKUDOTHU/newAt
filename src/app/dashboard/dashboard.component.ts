@@ -310,41 +310,51 @@ export class DashboardComponent implements OnInit {
     console.log("group device data===", data);
     this.deviceGroupList = this.deviceList.filter(obj => {
       if (obj.zoneId == data._id) {
-        if (obj.outTime == null) {
-          // let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
-          // obj.time = Math.ceil((diff * -1) / (60 * 1000));
-          // obj.time = obj.standardDeliveryTime - obj.time;
-          obj.time = Math.floor(obj.totalDelay / (1000 * 60));
-          // if(obj.time > 0){
-          if (obj.time < obj.standardDeliveryTime) {
-            obj.isDelay = false;
-          } else {
-            obj.isDelay = true;
-            // obj.time = obj.time * -1;
-          }
-        }
-        else {
-          // obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
-          obj.time = Math.floor(obj.totalDelay / (1000 * 60));
-          // if(obj.time > 0){
-          if (obj.time > obj.standardDeliveryTime) {
-            obj.isDelay = true;
-          } else {
-            obj.isDelay = false;
-            // obj.time = obj.time * -1;
-          }
-        }
-        return obj;
+        return this.getDeviceDelayOperation(obj);
       }
     });
     console.log("this.deviceGroupList==", this.deviceGroupList);
   }
 
+
+  getDeviceDelayOperation(obj) {
+    if (obj.outTime == null) {
+      // let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
+      // obj.time = Math.ceil((diff * -1) / (60 * 1000));
+      // obj.time = obj.standardDeliveryTime - obj.time;
+      obj.time = Math.floor(obj.totalDelay / (1000 * 60));
+      // if(obj.time > 0){
+      if (obj.time < obj.standardDeliveryTime) {
+        obj.isDelay = false;
+      } else {
+        obj.isDelay = true;
+        // obj.time = obj.time * -1;
+      }
+    }
+    else {
+      // obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
+      obj.time = Math.floor(obj.totalDelay / (1000 * 60));
+      // if(obj.time > 0){
+      if (obj.time > obj.standardDeliveryTime) {
+        obj.isDelay = true;
+      } else {
+        obj.isDelay = false;
+        // obj.time = obj.time * -1;
+      }
+    }
+    return obj
+  }
+
   createDevice() {
     this.clearMap();
-    let icon = L.icon({
-      iconUrl: '../../assets/marker.png',
-      iconSize: [25, 25],
+    let icon;
+    let iconRed = L.icon({
+      iconUrl: '../../assets/Car_Red1.png',
+      iconSize: [60, 60],
+    });
+    let iconBlack = L.icon({
+      iconUrl: '../../assets/Car_Black.png',
+      iconSize: [60, 60],
     });
     console.log("this.deviceList==", this.deviceList, "this.zoneList==", this.zoneList);
 
@@ -364,6 +374,13 @@ export class DashboardComponent implements OnInit {
                 this.deviceList[j].latlng[k].lng,
               ]);
             }
+            this.deviceList[j] = this.getDeviceDelayOperation(this.deviceList[j]);
+            if (this.deviceList[j].isDelay) {
+              icon = iconRed;
+            }
+            else {
+              icon = iconBlack;
+            }
             this.marker.push(
               new L.animatedMarker(latlng, { icon: icon, interval: 3000 })
                 .addTo(this.map)
@@ -371,8 +388,7 @@ export class DashboardComponent implements OnInit {
                   direction: this.getDirection(latlng),
                   permanent: false
                 })
-
-            );
+            )
             console.log("mapp==", this.map)
           }
         }
