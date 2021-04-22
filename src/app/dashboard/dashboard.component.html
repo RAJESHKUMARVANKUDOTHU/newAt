@@ -7,53 +7,34 @@
                     <table class="table table-borderless  text-center">
                         <thead>
                             <tr>
-                                <th class="pl-md-3">Vehicle for <br> Service Today</th>
-                                <th class="pl-md-5">Vehicle Under <br>Service</th>
-                                <th class="pl-md-5"> Serviced <br> Vehicle</th>
-                                <th class="pl-md-5">OverAll Efficiency <br> of the SC</th>
-                                <th class="pl-md-5"> Servicing time</th>
+                                <th class="pl-md-3">Vehicle for <br> service today</th>
+                                <th class="pl-md-5">Vehicle under <br>service</th>
+                                <th class="pl-md-5"> Serviced <br> vehicle</th>
+                                <th class="pl-md-5">OverAll efficiency <br> of the SC</th>
+                                <th class="pl-md-5">Avg. servicing time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="pl-md-3">
-                                    <circle-progress class="circle" [percent]="vehicleForServiceTodayCount"
-                                        [maxPercent]="1000" [showUnits]="false" [showBackground]="true"
-                                        [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                                        [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
-                                        [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5
-                                        [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                                        [responsive]="true"></circle-progress>
+                                    <circle-progress class="circle" [percent]="serviceCount.vehicleForServiceTodayCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false
+                                        [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                                 </td>
                                 <td class="pl-md-5">
-                                    <circle-progress class="circle" [percent]="vehicleUnderServiceCount"
-                                        [maxPercent]="1000" [showUnits]="false" [showBackground]="true"
-                                        [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                                        [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
-                                        [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5
-                                        [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                                        [responsive]="true"></circle-progress>
+                                    <circle-progress class="circle" [percent]="serviceCount.vehicleUnderServiceCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false
+                                        [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                                 </td>
                                 <td class="pl-md-5">
-                                    <circle-progress class="circle" [percent]="this.servicedVehicleCount"
-                                        [maxPercent]="1000" [showUnits]="false" [showBackground]="true"
-                                        [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                                        [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
-                                        [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5
-                                        [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                                        [responsive]="true"></circle-progress>
+                                    <circle-progress class="circle" [percent]="serviceCount.servicedVehicleCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
+                                        [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                                 </td>
                                 <td class="pl-md-5">
-                                    <circle-progress class="circle" [percent]="50" [maxPercent]="1000"
-                                        [showUnits]="true" [unitsColor]="'#ffffff'" [showBackground]="true" [backgroundColor]="'#002060'"
-                                        [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false
-                                        [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5
-                                        [animation]="true" [animationDuration]="500" [startFromZero]="true"
-                                        [responsive]="true">
+                                    <circle-progress class="circle" [percent]="serviceCount.overAllEfficiency" [maxPercent]="1000" [showUnits]="true" [unitsColor]="'#ffffff'" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false
+                                        [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true">
                                     </circle-progress>
                                 </td>
                                 <td class="pl-md-5 pt-md-5">
-                                  <span class="font-weight-bold font">00:00:00</span>
+                                    <span class="font-weight-bold font">{{serviceCount.avgServiceTime}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -78,19 +59,13 @@
                     <div class="row text-center">
                         <div class="col-md-6">
                             <h2>Vehicle for Service Today</h2>
-                            <circle-progress class="circle" [percent]="vehicleForServiceTodayCount" [maxPercent]="1000"
-                                [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'"
-                                [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
-                                [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true"
-                                [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
+                            <circle-progress class="circle" [percent]="vehicleForServiceTodayCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
+                                [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
                         <div class="col-md-6">
                             <h2>Vehicle Under <br> Service</h2>
-                            <circle-progress class="circle " [percent]="vehicleUnderServiceCount" [maxPercent]="1000"
-                                [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'"
-                                [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
-                                [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true"
-                                [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
+                            <circle-progress class="circle " [percent]="vehicleUnderServiceCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
+                                [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
 
 
@@ -98,19 +73,13 @@
                     <div class="row text-center">
                         <div class="col-md-6">
                             <h2>Serviced <br> Vehicle</h2>
-                            <circle-progress class="circle" [percent]="this.servicedVehicleCount" [maxPercent]="1000"
-                                [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'"
-                                [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
-                                [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true"
-                                [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
+                            <circle-progress class="circle" [percent]="this.servicedVehicleCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
+                                [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
                         <div class="col-md-6">
                             <h2>OverAll Efficiency of the SC</h2>
-                            <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false"
-                                [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'"
-                                [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
-                                [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500"
-                                [startFromZero]="true" [responsive]="true"></circle-progress>
+                            <circle-progress class="circle" [percent]="50" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60 [titleColor]="'#ffffff'"
+                                [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
 
                     </div>
@@ -167,8 +136,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)"
-                                    [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
                                     <td [ngClass]="a.isDelay ? 'delay' : '' ">{{a.time}} minutes</td>
@@ -182,8 +150,7 @@
                         {{zoneClickStatus.zone}}
                     </mat-card-title>
                     <mat-card-content style="overflow-x: scroll;">
-                        <table *ngIf="deviceGroupList.length"
-                            class="table bordered table-striped table-md-responsive text-center ">
+                        <table *ngIf="deviceGroupList.length" class="table bordered table-striped table-md-responsive text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Vehicle</th>
@@ -195,8 +162,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)"
-                                    class="cursor">
+                                <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)" class="cursor">
                                     <ng-container>
 
                                         <td>{{a.deviceName}}</td>

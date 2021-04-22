@@ -27,9 +27,6 @@ export class DashboardComponent implements OnInit {
   map;
   zoneList: any = [];
   zoneAction: any = [];
-  servicedVehicleCount: any = 0
-  vehicleForServiceTodayCount: any = 0
-  vehicleUnderServiceCount: any = 0
   deviceList: any = [
     {
       _id: '123456',
@@ -121,6 +118,13 @@ export class DashboardComponent implements OnInit {
     searchError: false,
     searchMessage: 'Vehicle not found',
   };
+  serviceCount : any = {
+    servicedVehicleCount : 0,
+    vehicleForServiceTodayCount : 0,
+    vehicleUnderServiceCount : 0,
+    overAllEfficiency : 0,
+    avgServiceTime : 0
+  }
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -679,7 +683,7 @@ export class DashboardComponent implements OnInit {
     console.log("a==", data);
     this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
-
+  
   getVehicleServiceCount() {
     let currentDate = moment().format("YYYY-MM-DD")
     var data = {
@@ -689,9 +693,11 @@ export class DashboardComponent implements OnInit {
     this.api.getVehicleServiceCount(data).then((res: any) => {
       console.log("res 0f vehicle service count==", res)
       if (res.status) {
-        this.servicedVehicleCount = res.success.servicedVehicleCount
-        this.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount
-        this.vehicleUnderServiceCount = res.success.vehicleUnderServiceCount
+        this.serviceCount.servicedVehicleCount = res.success.servicedVehicleCount;
+        this.serviceCount.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount;
+        this.serviceCount.vehicleUnderServiceCount = res.success.vehicleUnderServiceCount;
+        this.serviceCount.overAllEfficiency = Math.floor(res.success.overAllEfficiency);
+        this.serviceCount.avgServiceTime = Math.floor(res.success.avgTime);
       }
     })
   }
