@@ -12,6 +12,8 @@ import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
+import 'leaflet-rotatedmarker/leaflet.rotatedMarker';
+// import 'leaflet-moving-marker/index';
 import * as moment from 'moment';
 import { LoginAuthService } from '../services/login-auth.service';
 import { GeneralService } from '../services/general.service'
@@ -374,6 +376,7 @@ export class DashboardComponent implements OnInit {
                 this.deviceList[j].latlng[k].lng,
               ]);
             }
+            latlng = [{ lat: 0.0, lng: 0.0 }, { lat: 52.5163, lng: 13.3779 }]
             this.deviceList[j] = this.getDeviceDelayOperation(this.deviceList[j]);
             if (this.deviceList[j].isDelay) {
               icon = iconRed;
@@ -382,7 +385,8 @@ export class DashboardComponent implements OnInit {
               icon = iconBlack;
             }
             this.marker.push(
-              new L.animatedMarker(latlng, { icon: icon, interval: 3000 })
+              
+              new L.animatedMarker(latlng, { icon: icon,rotationAngle:this.getAngle(latlng[0].lat,latlng[1].lat,latlng[0].lng,latlng[1].lng), interval: 3000 })
                 .addTo(this.map)
                 .bindTooltip(this.getPopUpForm(this.deviceList[j]), {
                   direction: this.getDirection(latlng),
@@ -394,6 +398,29 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
+  }
+
+  // getAngle(cx, cy, ex, ey) {
+  //   var dy = ey - cy;
+  //   var dx = ex - cx;
+
+  //   var theta = Math.atan2(dy, dx); // range (-PI, PI]
+  //   console.log("dx==",dx,"dy==",dy,"theta==",theta);
+  //   theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+  //   //if (theta < 0) theta = 360 + theta; // range [0, 360)
+  //   console.log("theta ==",theta);
+
+  //   return theta;
+  // }
+
+  getAngle(cx, cy, ex, ey) {
+    let a = Math.log(Math.tan((ex / 2) + (Math.PI / 4)) / Math.tan((cx / 2) + (Math.PI / 4)));
+    let b = Math.abs(cy - ey);
+    let theta = Math.atan2(b, a)
+    theta *= 180 / Math.PI;
+    if (theta < 0) theta = 360 + theta
+    console.log("theta ==", theta);
+    return theta;
   }
 
 
