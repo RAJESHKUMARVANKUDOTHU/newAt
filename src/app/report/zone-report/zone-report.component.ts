@@ -26,7 +26,7 @@ export class ZoneReportComponent implements OnInit {
   dataSource: any = [];
   avgTime: any = [];
   sdtTime: any = [];
-  dataPoints:any=[]
+  dataPoints: any = []
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
   limit: any = 10
   offset: any = 0
@@ -131,7 +131,7 @@ export class ZoneReportComponent implements OnInit {
         console.log("res 2==", res)
         if (res.status) {
           this.zoneData = res.success
-          this.dataPoints=[]
+          this.dataPoints = []
           for (let i = 0; i < this.zoneData.length; i++) {
             this.dataPoints.push(
               {
@@ -139,7 +139,7 @@ export class ZoneReportComponent implements OnInit {
                 y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
               }
             )
-          
+
             this.zoneEfficiencyChart()
           }
         }
@@ -147,7 +147,7 @@ export class ZoneReportComponent implements OnInit {
         console.log("err===", err)
       })
     }
- 
+
   }
 
   getTime(data) {
@@ -226,8 +226,8 @@ export class ZoneReportComponent implements OnInit {
       chart.render();
     }
   }
-zoneEfficiencyChart(){
-  var chart = null
+  zoneEfficiencyChart() {
+    var chart = null
 
     chart = new CanvasJS.Chart("chartContainer1", {
       animationEnabled: true,
@@ -239,6 +239,8 @@ zoneEfficiencyChart(){
       axisY: {
         title: "Efficiency (in %)",
         gridThickness: 0,
+        includeZero: true,
+        valueFormatString: "#,##%.##",
       },
       axisX: {
         title: "Zone"
@@ -264,7 +266,8 @@ zoneEfficiencyChart(){
       axisY: {
         title: "Zone Efficiency(in %)",
         gridThickness: 0,
-        interval: 500
+        includeZero: true,
+        valueFormatString: "###%.##",
       },
       axisX: {
         title: "Zone"
@@ -273,11 +276,11 @@ zoneEfficiencyChart(){
       data: [{
         type: "column",
         dataPoints: this.dataPoints,
-        yValueFormatString: "#,##0#\" %\"",
+        yValueFormatString: "###0#\" %\"",
       }]
     });
     chart.render();
-}
+  }
   download() {
     var data = {}
     var fileName = ''
