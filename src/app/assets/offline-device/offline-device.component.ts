@@ -128,7 +128,8 @@ export class OfflineDeviceComponent implements OnInit {
       timeZoneOffset:this.general.getZone()
     }
     if (type == 'device') {
-      this.fileName = "Offline Asset"
+      this.fileName = "Offline Device"
+      console.log("data=",data)
       this.api.downloadOfflineDevice(data,this.fileName).then((res: any) => {
         console.log("offline device download==", res)
         if (res) {
@@ -143,6 +144,7 @@ export class OfflineDeviceComponent implements OnInit {
     }
     else if (type == 'gateway') {
       this.fileName = "Offline Gateway"
+      console.log("data=",data)
       this.api.downloadOfflineGateways(data,this.fileName).then((res: any) => {
         console.log("offline gateway download==", res)
         if (res) {
@@ -157,6 +159,7 @@ export class OfflineDeviceComponent implements OnInit {
     }
     else if (type == 'coin') {
       this.fileName = "Offline coins"
+      console.log("data=",data)
       this.api.downloadOfflineCoin(data,this.fileName).then((res: any) => {
         console.log("offline coins download==", res)
         if (res) {

@@ -147,7 +147,6 @@ export class LocationReportComponent implements OnInit {
       axisY: {
         title: "Average time (in minutes)",
         gridThickness: 0,
-        interval: 500
       },
       axisX: {
         title: "Bay"
@@ -173,7 +172,6 @@ export class LocationReportComponent implements OnInit {
       axisY: {
         title: "Average time (in minutes)",
         gridThickness: 0,
-        interval: 500
       },
       axisX: {
         title: "Bay"
@@ -213,7 +211,7 @@ export class LocationReportComponent implements OnInit {
         console.log("err===", err)
       })
     }
-    
+
     if (this.locationReportData.type == '2') {
       data = {
         zoneId: this.locationReportData.zoneId._id,

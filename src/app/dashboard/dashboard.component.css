@@ -57,7 +57,9 @@ mat-card-title.mat-card-title {
     background: #002060;
     color: white;
 }
-
+.font{
+    font-size: 2rem;
+}
 .nodata.ng-star-inserted {
     text-align: center;
     margin: 1rem 0 0 0;
@@ -89,7 +91,9 @@ mat-card-title.mat-card-title {
     background-color: #168616;
     color: white;
 }
-
+::ng-deep tspan.ng-star-inserted {
+    font-size: 1rem;
+}
 @media only screen and (max-width: 768px) {
     #line {
         height: 300px;

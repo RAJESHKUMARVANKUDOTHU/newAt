@@ -24,8 +24,9 @@ export class ZoneReportComponent implements OnInit {
   zoneReportData: any
   zoneData: any = []
   dataSource: any = [];
-  dataPoints: any = [];
-  dataPoints1: any = [];
+  avgTime: any = [];
+  sdtTime: any = [];
+  dataPoints: any = []
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'inTime', 'outTime', 'totTime'];
   limit: any = 10
   offset: any = 0
@@ -84,7 +85,6 @@ export class ZoneReportComponent implements OnInit {
 
     if (this.zoneReportData.type == '2') {
       data = {
-
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
@@ -95,110 +95,192 @@ export class ZoneReportComponent implements OnInit {
         this.zoneData = []
         console.log("res 2==", res)
         if (res.status) {
-
           this.zoneData = res.success
-          var chart = null
-          this.dataPoints = []
-          this.dataPoints1 = []
+          this.avgTime = []
+          this.sdtTime = []
           for (let i = 0; i < this.zoneData.length; i++) {
-
-            this.dataPoints.push(
+            this.avgTime.push(
               {
                 label: this.zoneData[i].zoneName,
                 y: this.getTime(this.zoneData[i].totalAverageTime),
-
               }
             )
-            this.dataPoints1.push(
+            this.sdtTime.push(
               {
                 label: this.zoneData[i].zoneName,
                 y: this.zoneData[i].standardTime
               }
             )
-
+            this.zonePerformanceChart()
           }
-          console.log(this.dataPoints,)
-          chart = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,
-            exportEnabled: true,
-            title: {
-              text: "Zone Performance",
-              fontSize: 25,
-            },
-            axisX: {
-              title: "Zone",
-              labelMaxWidth: 120,
-            },
-            axisY: {
-              title: "Avg. time (in minutes)",
-              titleFontColor: "#4F81BC",
-              lineColor: "#4F81BC",
-              labelFontColor: "#4F81BC",
-              tickColor: "#4F81BC",
-              gridThickness: 0,
-              includeZero: true
-            },
-            axisY2: {
-              title: "Zone Standard time (in minutes)",
-              titleFontColor: "#C0504E",
-              lineColor: "#C0504E",
-              labelFontColor: "#C0504E",
-              tickColor: "#C0504E",
-              gridThickness: 0,
-              includeZero: true
-            },
-            toolTip: {
-              shared: true
-            },
-            legend: {
-              cursor: "pointer",
-              itemclick: toggleDataSeries
-            },
-            dataPointWidth: 60,
-            data: [{
-              type: "column",
-              name: "Actual Avg. time",
-              indexLabelPlacement: "outside",
-              indexLabel: "{y}",
-              showInLegend: true,
-              yValueFormatString: "#,##0#\" min\"",
-              dataPoints: this.dataPoints
-            },
-            {
-              type: "column",
-              name: "Standard time",
-              indexLabelPlacement: "outside",
-              indexLabel: "{y}",
-              axisYType: "secondary",
-              showInLegend: true,
-              yValueFormatString: "#,##0#\" min\"",
-              dataPoints: this.dataPoints1
-            }]
-          });
-          chart.render();
-          chart.axisY2[0].set("minimum", chart.axisY[0].get("minimum"), false);
-          chart.axisY2[0].set("maximum", chart.axisY[0].get("maximum"));
-        }
-        function toggleDataSeries(e) {
-          if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-            e.dataSeries.visible = false;
-          }
-          else {
-            e.dataSeries.visible = true;
-          }
-          chart.render();
         }
       }).catch(err => {
         console.log("err===", err)
       })
     }
+    if (this.zoneReportData.type == '4') {
+      data = {
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+
+      }
+      console.log("data to send==", data)
+      this.api.zoneWiseEfficiency(data).then((res: any) => {
+        this.zoneData = []
+        console.log("res 2==", res)
+        if (res.status) {
+          this.zoneData = res.success
+          this.dataPoints = []
+          for (let i = 0; i < this.zoneData.length; i++) {
+            this.dataPoints.push(
+              {
+                label: this.zoneData[i].zoneName,
+                y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
+              }
+            )
+
+            this.zoneEfficiencyChart()
+          }
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
+
   }
 
   getTime(data) {
     let min = Math.floor(data / (1000 * 60))
     return min
   }
+  zonePerformanceChart() {
+    var chart = null
+    chart = new CanvasJS.Chart("chartContainer", {
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: "Zone Performance",
+        fontSize: 25,
+      },
+      axisX: {
+        title: "Zone",
+        labelMaxWidth: 120,
+      },
+      axisY: {
+        title: "Avg. time (in minutes)",
+        titleFontColor: "#4F81BC",
+        lineColor: "#4F81BC",
+        labelFontColor: "#4F81BC",
+        tickColor: "#4F81BC",
+        gridThickness: 0,
+        includeZero: true
+      },
+      axisY2: {
+        title: "Zone Standard time (in minutes)",
+        titleFontColor: "#C0504E",
+        lineColor: "#C0504E",
+        labelFontColor: "#C0504E",
+        tickColor: "#C0504E",
+        gridThickness: 0,
+        includeZero: true
+      },
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer",
+        itemclick: toggleDataSeries
+      },
+      dataPointWidth: 60,
+      data: [{
+        type: "column",
+        name: "Actual Avg. time",
+        indexLabelPlacement: "outside",
+        indexLabel: "{y}",
+        showInLegend: true,
+        yValueFormatString: "#,##0#\" min\"",
+        dataPoints: this.avgTime
+      },
+      {
+        type: "column",
+        name: "Standard time",
+        indexLabelPlacement: "outside",
+        indexLabel: "{y}",
+        axisYType: "secondary",
+        showInLegend: true,
+        yValueFormatString: "#,##0#\" min\"",
+        dataPoints: this.sdtTime
+      }]
+    });
+    chart.render();
+    chart.axisY2[0].set("minimum", chart.axisY[0].get("minimum"), false);
+    chart.axisY2[0].set("maximum", chart.axisY[0].get("maximum"));
+    function toggleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      }
+      else {
+        e.dataSeries.visible = true;
+      }
+      chart.render();
+    }
+  }
+  zoneEfficiencyChart() {
+    var chart = null
 
+    chart = new CanvasJS.Chart("chartContainer1", {
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: "Zone Efficiency",
+        fontColor: "#002060",
+      },
+      axisY: {
+        title: "Efficiency (in %)",
+        gridThickness: 0,
+        includeZero: true,
+        valueFormatString: "#,##%.##",
+      },
+      axisX: {
+        title: "Zone"
+      },
+      dataPointWidth: 30,
+      data: [{
+        type: "column",
+        dataPoints: this.dataPoints,
+        yValueFormatString: "#,##0#\" %\"",
+      }]
+    });
+
+    chart.render();
+    chart.destroy()
+    chart = null;
+    chart = new CanvasJS.Chart("chartContainer1", {
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: "Zone Efficiency",
+        fontColor: "#002060",
+      },
+      axisY: {
+        title: "Zone Efficiency(in %)",
+        gridThickness: 0,
+        includeZero: true,
+        valueFormatString: "###%.##",
+      },
+      axisX: {
+        title: "Zone"
+      },
+      dataPointWidth: 30,
+      data: [{
+        type: "column",
+        dataPoints: this.dataPoints,
+        yValueFormatString: "###0#\" %\"",
+      }]
+    });
+    chart.render();
+  }
   download() {
     var data = {}
     var fileName = ''

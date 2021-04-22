@@ -925,7 +925,25 @@ deleteUserShiftSuperAdmin(data){
       );
     });
   }
-
+  deleteGoefenceSetting(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body={
+      data:data
+    }
+    let url = this.host + '/deleteGeoFenceCoins';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   getDeviceGeofence(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -1968,6 +1986,27 @@ getVehicleZoneWiseReport(data){
   };
 
   let url = this.host + '/getVehicleZoneWiseReport';
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+
+zoneWiseEfficiency(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/zoneWiseEfficiency';
   let body = {
     data: data,
   };
