@@ -131,7 +131,7 @@ export class ActiveDeviceComponent implements OnInit {
       timeZoneOffset:this.general.getZone()
     }
     if (type == 'device') {
-      this.fileName = "Online Asset"
+      this.fileName = "Online Device"
 
       this.api.downloadOnlineDevice(data,this.fileName).then((res: any) => {
         console.log("online device download==", res)

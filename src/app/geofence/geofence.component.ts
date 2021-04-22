@@ -23,7 +23,7 @@ export class GeofenceComponent implements OnInit {
   coinData: any
   deviceData: any
   dataSource: any = []
-  displayedColumns = ['i', 'deviceId', 'deviceName', 'location', 'sms', 'email']
+  displayedColumns = ['i', 'deviceId', 'deviceName', 'location', 'sms', 'email','delete']
   limit: any = 10
   offset: any = 0
   currentPageLength: any = 10
@@ -122,6 +122,7 @@ export class GeofenceComponent implements OnInit {
       limit: limit,
       offset: offset
     }
+    console.log("data==",data)
     this.api.getGeofenceSetting(data).then((res: any) => {
       this.geoFenceData = []
       if (res.status) {
@@ -143,6 +144,23 @@ export class GeofenceComponent implements OnInit {
       console.log("error===", err);
 
     })
+  }
+  delete(data){
+    if(confirm("Are you sure that you want to perform this operation ?")){
+      this.api.deleteGoefenceSetting(data).then((res:any)=>{
+        console.log("delete  geofence setting res",res)
+        if(res.status){
+          this.general.openSnackBar(res.success, '')
+          this.getGeofence(this.limit,this.offset)
+        }
+        else{ }
+      }).catch(err=>{
+        console.log("err==",err)
+      })
+    }
+    else{
+      this.getGeofence(this.limit,this.offset)
+    }
   }
 
   search(a) {
