@@ -80,7 +80,7 @@ export class ZoneDashboardComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.zoneData);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
   }

@@ -334,7 +334,7 @@ export class VehiclewisereportComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
   }
