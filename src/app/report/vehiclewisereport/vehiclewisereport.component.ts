@@ -33,6 +33,7 @@ export class VehiclewisereportComponent implements OnInit {
   offset: any = 0
   currentPageLength: any = 10
   currentPageSize: any = 10
+  vehicleTotLen:any=0
   constructor(
     public dialogRef: MatDialogRef<VehiclewisereportComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -168,6 +169,7 @@ export class VehiclewisereportComponent implements OnInit {
         if (res.status) {
           this.currentPageLength = parseInt(res.totalLength)
           this.servicedVehicleData = res.success
+          this.vehicleTotLen = parseInt(res.totalLength)
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totalTime = this.general.getTotTime(res.success[i].gateInTime, res.success[i].deRegTime)
           }
@@ -334,7 +336,7 @@ export class VehiclewisereportComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
   }

@@ -80,6 +80,8 @@ export class ReportComponent implements OnInit {
       toDate: ['', Validators.required],
       zoneId: [''],
       coinId: [''],
+      dayType:[''],
+      weekDay:['']
     },
       {
         validators: this.formValidate2()
@@ -315,6 +317,8 @@ export class ReportComponent implements OnInit {
           if (formGroup.get('zoneId').value != '') {
             formGroup.get('coinId').setErrors(null)
             formGroup.get('zoneId').setErrors(null)
+            formGroup.get('dayType').setErrors(null)
+            formGroup.get('weekDay').setErrors(null)
             return
           }
           else {
@@ -325,6 +329,41 @@ export class ReportComponent implements OnInit {
             return
           }
         }
+        if (type.value == "3" || type.value == "5") {
+          if (formGroup.get('dayType').value != '') {
+            if(formGroup.get('dayType').value != 'week'){
+              formGroup.get('coinId').setErrors(null)
+              formGroup.get('zoneId').setErrors(null)
+              formGroup.get('dayType').setErrors(null)
+              formGroup.get('weekDay').setErrors(null)
+               return
+            }
+            else{
+              if(formGroup.get('weekDay').value !=''){
+                formGroup.get('coinId').setErrors(null)
+                formGroup.get('zoneId').setErrors(null)
+                formGroup.get('dayType').setErrors(null)
+                formGroup.get('weekDay').setErrors(null)
+                return
+              }
+              else{
+                formGroup.get('weekDay').setErrors(
+                  {
+                    required: true
+                  })
+              }
+              return
+            }
+          }
+          else {
+            formGroup.get('dayType').setErrors(
+              {
+                required: true
+              })
+            return
+          }
+        }
+    
       }
     }
   }

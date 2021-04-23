@@ -118,6 +118,36 @@ export class ZoneReportComponent implements OnInit {
         console.log("err===", err)
       })
     }
+    if (this.zoneReportData.type == '3') {
+      data = {
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+        type:this.zoneReportData.dayType,
+        day:this.zoneReportData.dayType == 'week' ? this.zoneReportData.weekDay:''
+      }
+      console.log("data to send==", data)
+      this.api.zoneWiseEfficiency(data).then((res: any) => {
+        this.zoneData = []
+        console.log("res 3==", res)
+        if (res.status) {
+          this.zoneData = res.success
+          this.dataPoints = []
+          for (let i = 0; i < this.zoneData.length; i++) {
+            this.dataPoints.push(
+              {
+                label: this.zoneData[i].zoneName,
+                y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
+              }
+            )
+
+            this.zoneEfficiencyChart()
+          }
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
     if (this.zoneReportData.type == '4') {
       data = {
         fromDate: from,
@@ -128,7 +158,37 @@ export class ZoneReportComponent implements OnInit {
       console.log("data to send==", data)
       this.api.zoneWiseEfficiency(data).then((res: any) => {
         this.zoneData = []
-        console.log("res 2==", res)
+        console.log("res 4==", res)
+        if (res.status) {
+          this.zoneData = res.success
+          this.dataPoints = []
+          for (let i = 0; i < this.zoneData.length; i++) {
+            this.dataPoints.push(
+              {
+                label: this.zoneData[i].zoneName,
+                y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
+              }
+            )
+
+            this.zoneEfficiencyChart()
+          }
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
+    if (this.zoneReportData.type == '5') {
+      data = {
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+        type:this.zoneReportData.dayType,
+        day:this.zoneReportData.dayType == 'week' ? this.zoneReportData.weekDay:''
+      }
+      console.log("data to send==", data)
+      this.api.zoneWiseEfficiency(data).then((res: any) => {
+        this.zoneData = []
+        console.log("res 5==", res)
         if (res.status) {
           this.zoneData = res.success
           this.dataPoints = []
@@ -311,7 +371,7 @@ export class ZoneReportComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
       this.dataSource.filter = a.trim().toLowerCase()
     })
   }

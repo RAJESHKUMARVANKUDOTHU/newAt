@@ -142,14 +142,13 @@
         </mat-card-subtitle>
         <hr> <br>
         <mat-card-content>
-
             <form [formGroup]="zoneReport">
-                <div>
+                <div *ngIf="zoneReport.get('type').value != '3' && zoneReport.get('type').value != '5'">
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
                         <mat-radio-button class="example-radio-button" [value]="14">Last two weeks</mat-radio-button>
-                    </mat-radio-group>
-                </div> <br>
+                    </mat-radio-group><br>
+                </div> 
                 <mat-form-field>
                     <mat-label>Choose Report Type</mat-label>
                     <mat-select disableRipple formControlName="type">
@@ -185,6 +184,26 @@
                     <mat-datepicker #myDatepicker6></mat-datepicker>
                     <mat-error>
                         Please provide a valid to date
+                    </mat-error>
+                </mat-form-field> <br>
+                <mat-radio-group color="primary" formControlName="dayType" class="d-flex justify-content-around"
+                *ngIf="zoneReport.get('type').value == '3' || zoneReport.get('type').value == '5'">
+                    <mat-radio-button class="example-radio-button" value="day">Day</mat-radio-button>
+                    <mat-radio-button class="example-radio-button" value="week">Week</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field *ngIf="zoneReport.get('dayType').value == 'week'"> 
+                    <mat-label>Select Day</mat-label>
+                    <mat-select formControlName="weekDay">
+                        <mat-option value='monday'>Monday</mat-option>
+                        <mat-option value='tuesday'>Tuesday</mat-option>
+                        <mat-option value='wednesday'>Wednesday</mat-option>
+                        <mat-option value='thursday'>Thursday</mat-option>
+                        <mat-option value='friday'>Friday</mat-option>
+                        <mat-option value='saturday'>Saturday</mat-option>
+                        <mat-option value='sunday'>Sunday</mat-option>                       
+                    </mat-select>
+                    <mat-error>
+                        Please provide day
                     </mat-error>
                 </mat-form-field> <br>
             </form>
