@@ -12,6 +12,8 @@ import { ApiService } from '../services/api.service';
 import { environment } from '../../environments/environment';
 import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
 import 'leaflet.animatedmarker/src/AnimatedMarker';
+import 'leaflet-rotatedmarker/leaflet.rotatedMarker';
+// import 'leaflet-moving-marker/index';
 import * as moment from 'moment';
 import { LoginAuthService } from '../services/login-auth.service';
 import { GeneralService } from '../services/general.service'
@@ -25,9 +27,6 @@ export class DashboardComponent implements OnInit {
   map;
   zoneList: any = [];
   zoneAction: any = [];
-  servicedVehicleCount: any = 0
-  vehicleForServiceTodayCount: any = 0
-  vehicleUnderServiceCount: any = 0
   deviceList: any = [
     {
       _id: '123456',
@@ -119,6 +118,13 @@ export class DashboardComponent implements OnInit {
     searchError: false,
     searchMessage: 'Vehicle not found',
   };
+  serviceCount : any = {
+    servicedVehicleCount : 0,
+    vehicleForServiceTodayCount : 0,
+    vehicleUnderServiceCount : 0,
+    overAllEfficiency : 0,
+    avgServiceTime : 0
+  }
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -310,41 +316,51 @@ export class DashboardComponent implements OnInit {
     console.log("group device data===", data);
     this.deviceGroupList = this.deviceList.filter(obj => {
       if (obj.zoneId == data._id) {
-        if (obj.outTime == null) {
-          // let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
-          // obj.time = Math.ceil((diff * -1) / (60 * 1000));
-          // obj.time = obj.standardDeliveryTime - obj.time;
-          obj.time = Math.floor(obj.totalDelay / (1000 * 60));
-          // if(obj.time > 0){
-          if (obj.time < obj.standardDeliveryTime) {
-            obj.isDelay = false;
-          } else {
-            obj.isDelay = true;
-            // obj.time = obj.time * -1;
-          }
-        }
-        else {
-          // obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
-          obj.time = Math.floor(obj.totalDelay / (1000 * 60));
-          // if(obj.time > 0){
-          if (obj.time > obj.standardDeliveryTime) {
-            obj.isDelay = true;
-          } else {
-            obj.isDelay = false;
-            // obj.time = obj.time * -1;
-          }
-        }
-        return obj;
+        return this.getDeviceDelayOperation(obj);
       }
     });
     console.log("this.deviceGroupList==", this.deviceGroupList);
   }
 
+
+  getDeviceDelayOperation(obj) {
+    if (obj.outTime == null) {
+      // let diff = moment(obj.inTime).local().diff(moment(), 'milliseconds');
+      // obj.time = Math.ceil((diff * -1) / (60 * 1000));
+      // obj.time = obj.standardDeliveryTime - obj.time;
+      obj.time = Math.floor(obj.totalDelay / (1000 * 60));
+      // if(obj.time > 0){
+      if (obj.time < obj.standardDeliveryTime) {
+        obj.isDelay = false;
+      } else {
+        obj.isDelay = true;
+        // obj.time = obj.time * -1;
+      }
+    }
+    else {
+      // obj.time = Math.ceil((obj.totalTime)/(60 * 1000)) - obj.standardDeliveryTime 
+      obj.time = Math.floor(obj.totalDelay / (1000 * 60));
+      // if(obj.time > 0){
+      if (obj.time > obj.standardDeliveryTime) {
+        obj.isDelay = true;
+      } else {
+        obj.isDelay = false;
+        // obj.time = obj.time * -1;
+      }
+    }
+    return obj
+  }
+
   createDevice() {
     this.clearMap();
-    let icon = L.icon({
-      iconUrl: '../../assets/marker.png',
-      iconSize: [25, 25],
+    let icon;
+    let iconRed = L.icon({
+      iconUrl: '../../assets/Car_Red1.png',
+      iconSize: [60, 60],
+    });
+    let iconBlack = L.icon({
+      iconUrl: '../../assets/Car_Black.png',
+      iconSize: [60, 60],
     });
     console.log("this.deviceList==", this.deviceList, "this.zoneList==", this.zoneList);
 
@@ -364,20 +380,51 @@ export class DashboardComponent implements OnInit {
                 this.deviceList[j].latlng[k].lng,
               ]);
             }
+            latlng = [{ lat: 0.0, lng: 0.0 }, { lat: 52.5163, lng: 13.3779 }]
+            this.deviceList[j] = this.getDeviceDelayOperation(this.deviceList[j]);
+            if (this.deviceList[j].isDelay) {
+              icon = iconRed;
+            }
+            else {
+              icon = iconBlack;
+            }
             this.marker.push(
-              new L.animatedMarker(latlng, { icon: icon, interval: 3000 })
+              
+              new L.animatedMarker(latlng, { icon: icon,rotationAngle:this.getAngle(latlng[0].lat,latlng[1].lat,latlng[0].lng,latlng[1].lng), interval: 3000 })
                 .addTo(this.map)
                 .bindTooltip(this.getPopUpForm(this.deviceList[j]), {
                   direction: this.getDirection(latlng),
                   permanent: false
                 })
-
-            );
+            )
             console.log("mapp==", this.map)
           }
         }
       }
     }
+  }
+
+  // getAngle(cx, cy, ex, ey) {
+  //   var dy = ey - cy;
+  //   var dx = ex - cx;
+
+  //   var theta = Math.atan2(dy, dx); // range (-PI, PI]
+  //   console.log("dx==",dx,"dy==",dy,"theta==",theta);
+  //   theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+  //   //if (theta < 0) theta = 360 + theta; // range [0, 360)
+  //   console.log("theta ==",theta);
+
+  //   return theta;
+  // }
+
+  getAngle(cx, cy, ex, ey) {
+    let a = Math.log(Math.tan((ex / 2) + (Math.PI / 4)) / Math.tan((cx / 2) + (Math.PI / 4)));
+    let b = Math.abs(cy - ey);
+    let theta = Math.atan2(b, a)
+    theta *= 180 / Math.PI;
+    if (theta < 0) theta = 360 + theta
+    console.log("theta ==", theta);
+    return theta;
   }
 
 
@@ -636,7 +683,7 @@ export class DashboardComponent implements OnInit {
     console.log("a==", data);
     this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
-
+  
   getVehicleServiceCount() {
     let currentDate = moment().format("YYYY-MM-DD")
     var data = {
@@ -646,9 +693,11 @@ export class DashboardComponent implements OnInit {
     this.api.getVehicleServiceCount(data).then((res: any) => {
       console.log("res 0f vehicle service count==", res)
       if (res.status) {
-        this.servicedVehicleCount = res.success.servicedVehicleCount
-        this.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount
-        this.vehicleUnderServiceCount = res.success.vehicleUnderServiceCount
+        this.serviceCount.servicedVehicleCount = res.success.servicedVehicleCount;
+        this.serviceCount.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount;
+        this.serviceCount.vehicleUnderServiceCount = res.success.vehicleUnderServiceCount;
+        this.serviceCount.overAllEfficiency = Math.floor(res.success.overAllEfficiency);
+        this.serviceCount.avgServiceTime = Math.floor(res.success.avgTime);
       }
     })
   }
