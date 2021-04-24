@@ -70,11 +70,17 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
         </table>
         <mat-paginator (page)="getUpdate($event,'1')" [length]="currentPageLength" [pageSize]="currentPageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
     </div>
 
 </div>
-<div id="chartContainer" style="height:300px; width: 100%;" [ngStyle]="{'display':zoneReportData.type =='2'?'block':'none'}">
+<div id="chartContainer" style="height:300px; width: 100%;"
+    [ngStyle]="{'display':zoneReportData.type =='2'?'block':'none'}">
 </div>
-<div id="chartContainer1" style="height:300px; width: 100%;" [ngStyle]="{'display':zoneReportData.type =='4'?'block':'none'}">
+<div id="chartContainer1" style="height:300px; width: 100%;"
+    [ngStyle]="{'display':zoneReportData.type =='4'?'block':'none'}">
+</div>
+<div id="line" style="height:300px; width: 100%;" [ngStyle]="{'display':zoneReportData.type =='3'?'block':'none'}">
+</div>
+<div id="line1" style="height:300px; width: 100%;" [ngStyle]="{'display':zoneReportData.type =='5'?'block':'none'}">
 </div>

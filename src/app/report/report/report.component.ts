@@ -7,7 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { VehiclewisereportComponent } from '../../report/vehiclewisereport/vehiclewisereport.component';
 import { LocationReportComponent } from '../../report/location-report/location-report.component';
 import { ZoneReportComponent } from '../../report/zone-report/zone-report.component';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -22,6 +22,9 @@ export class ReportComponent implements OnInit {
   deviceData: any = []
   coinData: any = []
   zoneData: any = []
+  dayError: boolean
+  dayError1: boolean
+  dayError2: boolean
   constructor(
     private fb: FormBuilder,
     private login: LoginAuthService,
@@ -80,8 +83,8 @@ export class ReportComponent implements OnInit {
       toDate: ['', Validators.required],
       zoneId: [''],
       coinId: [''],
-      dayType:[''],
-      weekDay:['']
+      dayType: [''],
+      weekDay: ['']
     },
       {
         validators: this.formValidate2()
@@ -164,7 +167,7 @@ export class ReportComponent implements OnInit {
 
 
   refreshCoin() {
-    var data=''
+    var data = ''
     this.api.getCoinData(data).then((res: any) => {
 
       console.log("coin submit====", res);
@@ -182,7 +185,7 @@ export class ReportComponent implements OnInit {
   }
 
   refreshDevice() {
-    var data=''
+    var data = ''
     this.api.getDeviceData(data).then((res: any) => {
 
       this.deviceData = []
@@ -257,13 +260,13 @@ export class ReportComponent implements OnInit {
           }
         }
         if (type.value == "4") {
-    
-            // formGroup.get('coinId').setErrors(null)
-            formGroup.get('deviceId').setErrors(null)
-            // formGroup.get('zoneId').setErrors(null)
-            formGroup.get('deviceName').setErrors(null)
-            return
-  
+
+          // formGroup.get('coinId').setErrors(null)
+          formGroup.get('deviceId').setErrors(null)
+          // formGroup.get('zoneId').setErrors(null)
+          formGroup.get('deviceName').setErrors(null)
+          return
+
         }
 
       }
@@ -330,32 +333,42 @@ export class ReportComponent implements OnInit {
           }
         }
         if (type.value == "3" || type.value == "5") {
-          if (formGroup.get('dayType').value != '') {
-            if(formGroup.get('dayType').value != 'week'){
+          console.log("true")
+          if (formGroup.get('dayType').value != '' && formGroup.get('dayType').value != null) {
+            console.log("true1")
+
+            if (formGroup.get('dayType').value == 'day') {
+              console.log("true2")
+
               formGroup.get('coinId').setErrors(null)
               formGroup.get('zoneId').setErrors(null)
               formGroup.get('dayType').setErrors(null)
               formGroup.get('weekDay').setErrors(null)
-               return
+              return
             }
-            else{
-              if(formGroup.get('weekDay').value !=''){
+            else if(formGroup.get('dayType').value == 'week') {
+              if (formGroup.get('weekDay').value != '') {
+                console.log("true3")
+
                 formGroup.get('coinId').setErrors(null)
                 formGroup.get('zoneId').setErrors(null)
                 formGroup.get('dayType').setErrors(null)
                 formGroup.get('weekDay').setErrors(null)
                 return
               }
-              else{
+              else {
+                console.log("true4")
                 formGroup.get('weekDay').setErrors(
                   {
                     required: true
                   })
+                  return
               }
-              return
             }
           }
           else {
+            console.log("true5")
+
             formGroup.get('dayType').setErrors(
               {
                 required: true
@@ -363,61 +376,86 @@ export class ReportComponent implements OnInit {
             return
           }
         }
-    
+
       }
     }
   }
 
   onsubmitVehicleReport(data) {
-
+    var date1 = moment(data.fromDate, 'DD-MM-YYYY');
+    var date2 = moment(data.toDate, 'DD-MM-YYYY');
+    var diff = date2.diff(date1, 'days');
     console.log("vehicle data==", data)
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = '90vh';
-    dialogConfig.width = '90vw';
-    dialogConfig.data = {
-      data: data
-    }
-    const dialogRef = this.dialog.open(VehiclewisereportComponent, dialogConfig);
+    if (diff >= 0 && diff <= 30) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.height = '90vh';
+      dialogConfig.width = '90vw';
+      dialogConfig.data = {
+        data: data
+      }
+      const dialogRef = this.dialog.open(VehiclewisereportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => { 
-      this.vehicleReport.reset()
-    })
+      dialogRef.afterClosed().subscribe(result => {
+        this.vehicleReport.reset()
+      })
+    }
+    else {
+      this.dayError = true
+    }
   }
 
   onsubmitLocationReport(data) {
-    console.log("location data==", data)
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = '90vh';
-    dialogConfig.width = '90vw';
-    dialogConfig.data = {
-      data: data
-    }
-    const dialogRef = this.dialog.open(LocationReportComponent, dialogConfig);
+    var date1 = moment(data.fromDate, 'DD-MM-YYYY');
+    var date2 = moment(data.toDate, 'DD-MM-YYYY');
+    var diff = date2.diff(date1, 'days');
+    console.log("location data==", data, diff)
+    if (diff >= 0 && diff <= 30) {
+      this.dayError1 = false
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.height = '90vh';
+      dialogConfig.width = '90vw';
+      dialogConfig.data = {
+        data: data
+      }
+      const dialogRef = this.dialog.open(LocationReportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.locationReport.reset()
-     })
+      dialogRef.afterClosed().subscribe(result => {
+        this.locationReport.reset()
+      })
+    }
+    else {
+      this.dayError1 = true
+    }
   }
 
   onsubmitZoneReport(data) {
     console.log("zone data==", data)
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = '90vh';
-    dialogConfig.width = '90vw';
-    dialogConfig.data = {
-      data: data
-    }
-    const dialogRef = this.dialog.open(ZoneReportComponent, dialogConfig);
+    var date1 = moment(data.fromDate, 'DD-MM-YYYY');
+    var date2 = moment(data.toDate, 'DD-MM-YYYY');
+    var diff = date2.diff(date1, 'days');
+    if (diff >= 0 && diff <= 30) {
+      this.dayError2=false
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.height = '90vh';
+      dialogConfig.width = '90vw';
+      dialogConfig.data = {
+        data: data
+      }
+      const dialogRef = this.dialog.open(ZoneReportComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => { 
-      this.zoneReport.reset()
-    })
+      dialogRef.afterClosed().subscribe(result => {
+        this.zoneReport.reset()
+      })
+    }
+    else {
+      this.dayError2 = true
+    }
   }
 
 }

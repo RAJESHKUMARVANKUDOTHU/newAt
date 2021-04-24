@@ -6,9 +6,11 @@
         <mat-card-subtitle>
             Enter date range and Select Report type
         </mat-card-subtitle>
-        <hr> <br>
+        <hr>
         <mat-card-content>
-
+            <mat-error *ngIf="dayError">
+                Report date range should be maximum of 30 days.
+            </mat-error> <br>
             <form [formGroup]="vehicleReport">
                 <div>
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
@@ -76,9 +78,11 @@
         <mat-card-subtitle>
             Enter date range and Select Report type
         </mat-card-subtitle>
-        <hr> <br>
+        <hr> 
         <mat-card-content>
-
+            <mat-error *ngIf="dayError1">
+                Report date range should be maximum of 30 days.
+            </mat-error> <br>
             <form [formGroup]="locationReport">
                 <div>
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
@@ -140,10 +144,13 @@
         <mat-card-subtitle>
             Enter date range and Select Report type
         </mat-card-subtitle>
-        <hr> <br>
+        <hr> 
         <mat-card-content>
+            <mat-error *ngIf="dayError2">
+                Report date range should be maximum of 30 days.
+            </mat-error> <br>
             <form [formGroup]="zoneReport">
-                <div *ngIf="zoneReport.get('type').value != '3' && zoneReport.get('type').value != '5'">
+                <div>
                     <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
                         <mat-radio-button class="example-radio-button" [value]="7">Last week </mat-radio-button>
                         <mat-radio-button class="example-radio-button" [value]="14">Last two weeks</mat-radio-button>
@@ -194,13 +201,13 @@
                 <mat-form-field *ngIf="zoneReport.get('dayType').value == 'week'"> 
                     <mat-label>Select Day</mat-label>
                     <mat-select formControlName="weekDay">
-                        <mat-option value='monday'>Monday</mat-option>
-                        <mat-option value='tuesday'>Tuesday</mat-option>
-                        <mat-option value='wednesday'>Wednesday</mat-option>
-                        <mat-option value='thursday'>Thursday</mat-option>
-                        <mat-option value='friday'>Friday</mat-option>
-                        <mat-option value='saturday'>Saturday</mat-option>
-                        <mat-option value='sunday'>Sunday</mat-option>                       
+                        <mat-option value='SUN'>Sunday</mat-option>                       
+                        <mat-option value='MON'>Monday</mat-option>
+                        <mat-option value='TUE'>Tuesday</mat-option>
+                        <mat-option value='WED'>Wednesday</mat-option>
+                        <mat-option value='THU'>Thursday</mat-option>
+                        <mat-option value='FRI'>Friday</mat-option>
+                        <mat-option value='SAT'>Saturday</mat-option>
                     </mat-select>
                     <mat-error>
                         Please provide day
