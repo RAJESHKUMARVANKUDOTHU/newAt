@@ -133,12 +133,18 @@ export class ZoneReportComponent implements OnInit {
         if (res.status) {
           this.zoneData = res.success
           this.dataPoints = []
+          var x=[]
+          var y=[]
+          let data=[]
           for (let i = 0; i < this.zoneData.length; i++) {
-            for (let j = 0; j < this.zoneData[i].data.length; j++) {
-              this.dataPoints[i]=
-             {   x:this.zoneData[i].data[j].date,
-                y:this.getTime(this.zoneData[i].data[j].zonePerformance)}
-            }
+            x=[],y=[]
+            data=this.zoneData[i].data.filter((obj,index)=>{
+              console.log("data==",obj)
+               x.push(obj.date)
+               y.push(obj.zonePerformance)
+             })
+            
+            this.dataPoints[i]=data
           }
           console.log("datapoints==",this.dataPoints)
           this.zoneWisePerformancePerDayChart()
