@@ -332,3 +332,69 @@
         [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
     </div>
 </div>
+<div *ngIf="vehicleReportData.type == '7'">
+    <div class="text-center">
+        <h1 class="color">REPORT</h1>
+        <p mat-dialog-title>
+            JC wise report
+        </p>
+        <hr>
+    </div>
+    <!-- <div class="d-flex justify-content-between">
+        <span>
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehilceZoneData?.length">
+                <span> Download</span>&nbsp;&nbsp;
+                <mat-icon>download </mat-icon>
+            </button>
+        </span>
+        <mat-form-field>
+            <input matInput placeholder="Search" autocomplete="off" matInput
+                (input)="search($event.target.value, vehilceZoneData)">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div> -->
+
+    <div>
+        <table>
+            <tr>
+                <th *ngFor="let a of jcSummaryData.head">
+                    {{a}}
+                </th>
+            </tr>
+            <tr *ngFor="let a of jcSummaryData.data; let i = index">
+                <td>
+                    {{i}}
+                </td>
+                <td>
+                    {{ a.latestUpdatedOn}}
+                </td>
+                <td>
+                    {{a.deviceName}}
+                </td>
+                <td>
+                    {{a.deviceId}}
+                </td>
+                <span *ngFor="let b of a.zoneJC">
+                    <td>
+                        {{b?.tripCount == 0 ? 0 : b.tripCount}}
+                    </td>
+                    <td>
+                        {{b?.inTime == null ? '-' : b.inTime}}
+                    </td>
+                    <td>
+                        {{b?.outTime == null ? '-' : b.outTime}}
+                    </td>
+                    <td>
+                        {{b?.standardTime == 0 ? 0 : b.standardTime}}
+                    </td>
+                    <td>
+                        {{b?.delayTime == 0 ? 0 : b.delayTime}}
+                    </td>
+                </span> abc
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+

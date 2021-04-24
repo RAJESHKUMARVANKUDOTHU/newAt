@@ -23,7 +23,7 @@ export class VehiclewisereportComponent implements OnInit {
   deviceId: any = []
   servicedVehicleData: any = []
   vehicleZoneData: any = []
-  vehicleJCData: any = []
+  jcSummaryData: any = []
   dataSource: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns2 = ['i', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
@@ -220,7 +220,37 @@ export class VehiclewisereportComponent implements OnInit {
         console.log("err===", err)
       })
     }
+    else if (this.vehicleReportData.type == '7') {
+      data = {
+        fromDate: from,
+        toDate: to,
+        timeZoneOffset: this.general.getZone(),
+      }
+      console.log("data to send==", data)
+      this.api.getJcSummaryData(data).then((res: any) => {
+        this.jcSummaryData = {}
+        if (res.status) {
+          this.jcSummaryData.data = res.success;
+          this.jcSummaryData.head = ['Sl no.', 'Date', 'Vehicle no.', 'Tag no.'];
+          res.success[0].zoneJC.forEach(obj => {
+            let suffix = {
+              tripCount : 'Trip count',
+              inTime : 'in time',
+              outTime : 'out time',
+              std : 'Standard time',
+              deviation : 'Deviation'
+            }
+            let a = [obj.zoneName+' '+suffix.tripCount, obj.zoneName+' '+suffix.inTime, obj.zoneName+' '+suffix.outTime, suffix.std, suffix.deviation]
+            this.jcSummaryData.head = this.jcSummaryData.head.concat(a);
+          });
 
+          console.log("res 7==", this.jcSummaryData)
+        }
+
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
   }
 
   download() {
