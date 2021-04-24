@@ -221,12 +221,6 @@ export class ReportComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
       if (formGroup.get('type').value != '') {
-        if (type.value == "1") {
-          // formGroup.get('coinId').setErrors(null)
-          formGroup.get('deviceId').setErrors(null)
-          // formGroup.get('zoneId').setErrors(null)
-          formGroup.get('deviceName').setErrors(null)
-        }
         if (type.value == "2") {
           if (formGroup.get('deviceId').value != '') {
             // formGroup.get('coinId').setErrors(null)
@@ -259,7 +253,7 @@ export class ReportComponent implements OnInit {
             return
           }
         }
-        if (type.value == "4") {
+        if (type.value == "4" || type.value == "5"|| type.value == "1"|| type.value == "7") {
 
           // formGroup.get('coinId').setErrors(null)
           formGroup.get('deviceId').setErrors(null)
@@ -332,6 +326,13 @@ export class ReportComponent implements OnInit {
             return
           }
         }
+        if (type.value == "2" || type.value == "4") {
+             formGroup.get('coinId').setErrors(null)
+            formGroup.get('zoneId').setErrors(null)
+            formGroup.get('dayType').setErrors(null)
+            formGroup.get('weekDay').setErrors(null)
+            return
+          }
         if (type.value == "3" || type.value == "5") {
           console.log("true")
           if (formGroup.get('dayType').value != '' && formGroup.get('dayType').value != null) {
