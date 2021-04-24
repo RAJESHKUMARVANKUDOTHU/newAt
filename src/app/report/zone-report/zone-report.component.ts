@@ -123,26 +123,25 @@ export class ZoneReportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        type:this.zoneReportData.dayType,
-        day:this.zoneReportData.dayType == 'week' ? this.zoneReportData.weekDay:''
+        type: this.zoneReportData.dayType,
+        day: this.zoneReportData.dayType == 'week' ? this.zoneReportData.weekDay : ''
       }
       console.log("data to send==", data)
-      this.api.zoneWiseEfficiency(data).then((res: any) => {
+      this.api.zoneWisePerformancePerDay(data).then((res: any) => {
         this.zoneData = []
         console.log("res 3==", res)
         if (res.status) {
           this.zoneData = res.success
           this.dataPoints = []
           for (let i = 0; i < this.zoneData.length; i++) {
-            this.dataPoints.push(
-              {
-                label: this.zoneData[i].zoneName,
-                y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
-              }
-            )
-
-            this.zoneEfficiencyChart()
+            for (let j = 0; j < this.zoneData[i].data.length; j++) {
+              this.dataPoints[i]=
+             {   x:this.zoneData[i].data[j].date,
+                y:this.getTime(this.zoneData[i].data[j].zonePerformance)}
+            }
           }
+          console.log("datapoints==",this.dataPoints)
+          this.zoneWisePerformancePerDayChart()
         }
       }).catch(err => {
         console.log("err===", err)
@@ -166,7 +165,7 @@ export class ZoneReportComponent implements OnInit {
             this.dataPoints.push(
               {
                 label: this.zoneData[i].zoneName,
-                y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
+                y: this.zoneData[i].zoneWiseEfficiency,
               }
             )
 
@@ -182,11 +181,11 @@ export class ZoneReportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        type:this.zoneReportData.dayType,
-        day:this.zoneReportData.dayType == 'week' ? this.zoneReportData.weekDay:''
+        type: this.zoneReportData.dayType,
+        day: this.zoneReportData.dayType == 'week' ? this.zoneReportData.weekDay : ''
       }
       console.log("data to send==", data)
-      this.api.zoneWiseEfficiency(data).then((res: any) => {
+      this.api.getZoneWiseEfficiencyByDay(data).then((res: any) => {
         this.zoneData = []
         console.log("res 5==", res)
         if (res.status) {
@@ -196,12 +195,12 @@ export class ZoneReportComponent implements OnInit {
             this.dataPoints.push(
               {
                 label: this.zoneData[i].zoneName,
-                y: this.getTime(this.zoneData[i].zoneWiseEfficiency),
+                y: this.zoneData[i].zoneWiseEfficiency,
               }
             )
-
-            this.zoneEfficiencyChart()
           }
+          console.log("datapoints==",this.dataPoints)
+          this.zoneWiseEfficiencyPerDayChart()
         }
       }).catch(err => {
         console.log("err===", err)
@@ -288,7 +287,7 @@ export class ZoneReportComponent implements OnInit {
   }
   zoneEfficiencyChart() {
     var chart = null
-
+    console.log("this.datapoints==", this.dataPoints)
     chart = new CanvasJS.Chart("chartContainer1", {
       animationEnabled: true,
       exportEnabled: true,
@@ -300,7 +299,7 @@ export class ZoneReportComponent implements OnInit {
         title: "Efficiency (in %)",
         gridThickness: 0,
         includeZero: true,
-        valueFormatString: "#,##%.##",
+        valueFormatString: "###%.##",
       },
       axisX: {
         title: "Zone"
@@ -340,6 +339,65 @@ export class ZoneReportComponent implements OnInit {
       }]
     });
     chart.render();
+  }
+
+
+  zoneWisePerformancePerDayChart() {
+    var chart = null
+    chart = new CanvasJS.Chart("line", {
+      title: {
+        text: "Zone Performance per day"
+      },
+
+      axisY: {
+        title: "Average time (in minutes)",
+      },
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer",
+        verticalAlign: "top",
+        horizontalAlign: "center",
+        dockInsidePlotArea: true,
+        itemclick: toogleDataSeries
+      },
+      data: [{
+        type: "line",
+        name: this.getValue(),
+        showInLegend: true,
+        markerSize: 0,
+        yValueFormatString: "$#,###k",
+        dataPoints: this.dataPoints
+      }]
+
+    });
+    chart.render();
+
+    function toogleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      } else {
+        e.dataSeries.visible = true;
+      }
+      chart.render();
+    }
+  }
+  zoneWiseEfficiencyPerDayChart() {
+
+  }
+  getValue() {
+    for (let i = 0; i < this.zoneData.length; i++) {
+      console.log("this.zoneData[i].zoneName==",this.zoneData[i].zoneName)
+      return this.zoneData[i].zoneName
+    }
+  }
+  getDatapoints() {
+    for (let i = 0; i < this.dataPoints.length; i++) {
+console.log("this.dataPoints[i]===",this.dataPoints[i]);
+
+      return this.dataPoints[i]
+    }
   }
   download() {
     var data = {}

@@ -22,18 +22,21 @@ export class VehiclewisereportComponent implements OnInit {
   vehicleName: any = []
   deviceId: any = []
   servicedVehicleData: any = []
-  vehilceZoneData:any=[]
+  vehicleZoneData: any = []
+  vehicleJCData: any = []
   dataSource: any = [];
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns2 = ['i', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns3 = ['i', 'deviceId', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns4 = ['i', 'deviceName', 'totalTime'];
   displayedColumns6 = ['i', 'deviceId', 'zoneName', 'inTime', 'outTime', 'totalTime'];
+  displayedColumns7 = [];
+
   limit: any = 10
   offset: any = 0
   currentPageLength: any = 10
   currentPageSize: any = 10
-  vehicleTotLen:any=0
+  vehicleTotLen: any = 0
   constructor(
     public dialogRef: MatDialogRef<VehiclewisereportComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -45,7 +48,7 @@ export class VehiclewisereportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(10,0, this.vehicleReportData.type)
+    this.getData(10, 0, this.vehicleReportData.type)
   }
   getData(limit, offset, type) {
     var data = {}
@@ -59,8 +62,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
 
@@ -94,8 +97,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
       this.api.deviceIdReport(data).then((res: any) => {
@@ -126,8 +129,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
 
@@ -159,8 +162,8 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
       this.api.getvehicleServicedReport(data).then((res: any) => {
@@ -191,21 +194,21 @@ export class VehiclewisereportComponent implements OnInit {
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
-        limit:limit,
-        offset:offset
+        limit: limit,
+        offset: offset
       }
       console.log("data to send==", data)
       this.api.getVehicleZoneWiseReport(data).then((res: any) => {
-        this.vehilceZoneData = []
+        this.vehicleZoneData = []
         console.log("res 6==", res)
         if (res.status) {
           this.currentPageLength = parseInt(res.totalLength)
-          this.vehilceZoneData = res.success
+          this.vehicleZoneData = res.success
           for (let i = 0; i < res.success.length; i++) {
             res.success[i].totalTime = this.general.getTotTime(res.success[i].inTime, res.success[i].outTime)
 
           }
-          this.dataSource = new MatTableDataSource(this.vehilceZoneData);
+          this.dataSource = new MatTableDataSource(this.vehicleZoneData);
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
@@ -217,6 +220,7 @@ export class VehiclewisereportComponent implements OnInit {
         console.log("err===", err)
       })
     }
+
   }
 
   download() {
@@ -291,7 +295,7 @@ export class VehiclewisereportComponent implements OnInit {
         timeZoneOffset: this.general.getZone(),
       }
       console.log("download data to send==", data)
-      fileName = "Report of serviced vehilce" 
+      fileName = "Report of serviced vehilce"
       this.api.downloadVehicleReport(data, fileName).then((res: any) => {
         console.log("res 1==", res)
         if (res.status) {
@@ -326,7 +330,7 @@ export class VehiclewisereportComponent implements OnInit {
   }
 
   getUpdate(event, type) {
- 
+
     this.limit = event.pageSize
     this.offset = event.pageIndex * event.pageSize
     this.getData(this.limit, this.offset, type)
