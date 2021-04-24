@@ -252,4 +252,9 @@ export class GeneralService {
 
     return date.getTimezoneOffset()
   }
+
+
+  getMillisecondToMinutes(milli){
+    return Math.floor(milli/(1000 * 60));
+  }
 }
