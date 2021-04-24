@@ -132,15 +132,29 @@ export class ZoneReportComponent implements OnInit {
         console.log("res 3==", res)
         if (res.status) {
           this.zoneData = res.success
-          this.dataPoints = []
+          this.dataPoints = [];
           for (let i = 0; i < this.zoneData.length; i++) {
+            let dataPointZone = [];
             for (let j = 0; j < this.zoneData[i].data.length; j++) {
-              this.dataPoints[i]=
-             {   x:this.zoneData[i].data[j].date,
-                y:this.getTime(this.zoneData[i].data[j].zonePerformance)}
+              dataPointZone.push({
+                x: new Date(this.zoneData[i].data[j].date),
+                y: this.getTime(this.zoneData[i].data[j].zonePerformance)
+              })
             }
+            this.dataPoints.push(
+              {
+                name: this.zoneData[i].zoneName,
+                type: "spline",
+                yValueFormatString: "#0.## min",
+                showInLegend: true,
+                dataPoints: dataPointZone,
+                indexLabelPlacement: "outside",
+                indexLabel: "{y}",
+
+              }
+            )
+            console.log("datapoints==", this.dataPoints)
           }
-          console.log("datapoints==",this.dataPoints)
           this.zoneWisePerformancePerDayChart()
         }
       }).catch(err => {
@@ -199,7 +213,7 @@ export class ZoneReportComponent implements OnInit {
               }
             )
           }
-          console.log("datapoints==",this.dataPoints)
+          console.log("datapoints==", this.dataPoints)
           this.zoneWiseEfficiencyPerDayChart()
         }
       }).catch(err => {
@@ -345,34 +359,66 @@ export class ZoneReportComponent implements OnInit {
   zoneWisePerformancePerDayChart() {
     var chart = null
     chart = new CanvasJS.Chart("line", {
-      title: {
+      exportEnabled:true,
+      animationEnabled: true,
+      title:{
         text: "Zone Performance per day"
       },
-
+      axisX: {
+        valueFormatString: "DD MMM,YY",
+        //labelMaxWidth: 120,
+        labelAutoFit: true , 
+        intervalType: "day",
+        interval: 1,
+                 labelAngle: 0, 
+  
+      },
       axisY: {
-        title: "Average time (in minutes)",
+        title: "Avg time(in min)",
+        suffix: "min",
+        gridThickness: 0,
+        includeZero: true
       },
-      toolTip: {
-        shared: true
-      },
-      legend: {
+      legend:{
         cursor: "pointer",
-        verticalAlign: "top",
-        horizontalAlign: "center",
-        dockInsidePlotArea: true,
+        fontSize: 16,
         itemclick: toogleDataSeries
       },
-      data: [{
-        type: "line",
-        name: this.getValue(),
-        showInLegend: true,
-        markerSize: 0,
-        yValueFormatString: "$#,###k",
-        dataPoints: this.dataPoints
-      }]
-
+      toolTip:{
+        shared: true
+      },
+      data:this.dataPoints
     });
     chart.render();
+    // chart = new CanvasJS.Chart("line", {
+    //   title: {
+    //     text: "Zone Performance per day"
+    //   },
+
+    //   axisY: {
+    //     title: "Average time (in minutes)",
+    //   },
+    //   toolTip: {
+    //     shared: true
+    //   },
+    //   legend: {
+    //     cursor: "pointer",
+    //     verticalAlign: "top",
+    //     horizontalAlign: "center",
+    //     dockInsidePlotArea: true,
+    //     itemclick: toogleDataSeries
+    //   },
+    //   data: [{
+    //     type: "line",
+    //     name: this.getValue(),
+    //     showInLegend: true,
+    //     markerSize: 0,
+    //     yValueFormatString: "$#,###k",
+    //     dataPoints: this.dataPoints
+    //   }]
+
+    // });
+    // chart.render();
 
     function toogleDataSeries(e) {
       if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -388,13 +434,13 @@ export class ZoneReportComponent implements OnInit {
   }
   getValue() {
     for (let i = 0; i < this.zoneData.length; i++) {
-      console.log("this.zoneData[i].zoneName==",this.zoneData[i].zoneName)
+      console.log("this.zoneData[i].zoneName==", this.zoneData[i].zoneName)
       return this.zoneData[i].zoneName
     }
   }
   getDatapoints() {
     for (let i = 0; i < this.dataPoints.length; i++) {
-console.log("this.dataPoints[i]===",this.dataPoints[i]);
+      console.log("this.dataPoints[i]===", this.dataPoints[i]);
 
       return this.dataPoints[i]
     }
