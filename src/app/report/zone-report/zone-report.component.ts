@@ -313,7 +313,7 @@ export class ZoneReportComponent implements OnInit {
   zoneEfficiencyChart() {
     var chart = null
     console.log("this.datapoints==", this.dataPoints)
-    chart = new CanvasJS.Chart("chartContainer1", {
+    chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       exportEnabled: true,
       title: {
@@ -324,7 +324,7 @@ export class ZoneReportComponent implements OnInit {
         title: "Efficiency (in %)",
         gridThickness: 0,
         includeZero: true,
-        valueFormatString: "#%",
+        suffix: "%",
       },
       axisX: {
         title: "Zone"
@@ -338,51 +338,26 @@ export class ZoneReportComponent implements OnInit {
     });
 
     chart.render();
-    chart.destroy()
-    chart = null;
-    chart = new CanvasJS.Chart("chartContainer1", {
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: "Zone Efficiency",
-        fontColor: "#002060",
-      },
-      axisY: {
-        title: "Zone Efficiency(in %)",
-        gridThickness: 0,
-        includeZero: true,
-        valueFormatString: "#%",
-      },
-      axisX: {
-        title: "Zone"
-      },
-      dataPointWidth: 30,
-      data: [{
-        type: "column",
-        dataPoints: this.dataPoints,
-        yValueFormatString: "###0#\" %\"",
-      }]
-    });
-    chart.render();
+
   }
 
 
   zoneWisePerformancePerDayChart() {
     var chart = null
-    chart = new CanvasJS.Chart("line", {
-      exportEnabled:true,
+    chart = new CanvasJS.Chart("chartContainer", {
+      exportEnabled: true,
       animationEnabled: true,
-      title:{
+      title: {
         text: "Zone Performance per day"
       },
       axisX: {
         valueFormatString: "DD MMM,YY",
         //labelMaxWidth: 120,
-        labelAutoFit: true , 
+        labelAutoFit: true,
         intervalType: "day",
         interval: 1,
-                 labelAngle: 0, 
-  
+        labelAngle: 0,
+
       },
       axisY: {
         title: "Avg time(in min)",
@@ -390,15 +365,15 @@ export class ZoneReportComponent implements OnInit {
         gridThickness: 0,
         includeZero: true
       },
-      legend:{
+      legend: {
         cursor: "pointer",
         fontSize: 16,
         itemclick: toogleDataSeries
       },
-      toolTip:{
+      toolTip: {
         shared: true
       },
-      data:this.dataPoints
+      data: this.dataPoints
     });
     chart.render();
 
@@ -412,7 +387,46 @@ export class ZoneReportComponent implements OnInit {
     }
   }
   zoneWiseEfficiencyPerDayChart() {
+    var chart = null
+    chart = new CanvasJS.Chart("chartContainer", {
+      exportEnabled: true,
+      animationEnabled: true,
+      title: {
+        text: "Zone Performance per day"
+      },
+      axisX: {
+        valueFormatString: "DD MMM,YY",
+        labelAutoFit: true,
+        intervalType: "day",
+        interval: 1,
+        labelAngle: 0,
+      },
+      axisY: {
+        title: "Avg time(in min)",
+        suffix: "%",
+        gridThickness: 0,
+        includeZero: true
+      },
+      legend: {
+        cursor: "pointer",
+        fontSize: 16,
+        itemclick: toogleDataSeries
+      },
+      toolTip: {
+        shared: true
+      },
+      data: this.dataPoints
+    });
+    chart.render();
 
+    function toogleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      } else {
+        e.dataSeries.visible = true;
+      }
+      chart.render();
+    }
   }
   getValue() {
     for (let i = 0; i < this.zoneData.length; i++) {
