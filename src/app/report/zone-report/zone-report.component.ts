@@ -216,7 +216,7 @@ export class ZoneReportComponent implements OnInit {
               {
                 name: this.zoneData[i].zoneName,
                 type: "spline",
-                yValueFormatString: "#0.## min",
+                yValueFormatString: "#0.## %",
                 showInLegend: true,
                 dataPoints: dataPointZone,
                 indexLabelPlacement: "outside",
@@ -392,7 +392,7 @@ export class ZoneReportComponent implements OnInit {
       exportEnabled: true,
       animationEnabled: true,
       title: {
-        text: "Zone Performance per day"
+        text: "Zone efficiency per day"
       },
       axisX: {
         valueFormatString: "DD MMM,YY",
@@ -402,7 +402,7 @@ export class ZoneReportComponent implements OnInit {
         labelAngle: 0,
       },
       axisY: {
-        title: "Avg time(in min)",
+        title: "Avg time(in %)",
         suffix: "%",
         gridThickness: 0,
         includeZero: true
