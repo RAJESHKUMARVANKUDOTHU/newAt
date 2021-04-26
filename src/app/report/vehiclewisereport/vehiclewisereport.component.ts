@@ -234,9 +234,9 @@ export class VehiclewisereportComponent implements OnInit {
           this.jcSummaryData.head = ['Sl no.', 'Date', 'Vehicle no.', 'Tag no.'];
           res.success[0].zoneJC.forEach(obj => {
             let suffix = {
-              tripCount : 'Trip count',
-              inTime : 'in time',
-              outTime : 'out time',
+              tripCount : 'trip count',
+              inTime : 'first in time',
+              outTime : 'last out time',
               std : 'Standard time',
               deviation : 'Deviation'
             }
