@@ -253,7 +253,7 @@ export class DashboardComponent implements OnInit {
       // obj.time = obj.standardDeliveryTime - obj.time;
       obj.time = Math.floor(obj.totalDelay / (1000 * 60));
       // if(obj.time > 0){
-      if (obj.time < obj.standardDeliveryTime) {
+      if (obj.time < obj?.totalStandardTime) {
         obj.isDelay = false;
       } else {
         obj.isDelay = true;

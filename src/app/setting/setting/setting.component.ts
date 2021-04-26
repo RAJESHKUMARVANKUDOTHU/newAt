@@ -460,6 +460,7 @@ export class SettingComponent implements OnInit {
   }
 
   onSubmitGroupCoinForm(data) {
+    data.groupName = this.groupData.filter(obj => obj._id == data.groupId)[0].groupName;
     data.coinId = this.general.filterArray(data.coinId)
 
     console.log("onSubmitGroupCoinForm data==", data)

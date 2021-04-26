@@ -501,12 +501,14 @@ export class SettingInfoComponent implements OnInit {
   }
 
   onSubmitGroupCoinForm(value) {
-    console.log("onSubmitGroupCoinForm data==", value)
+    value.groupName = this.groupData.filter(obj => obj._id == value.groupId)[0].groupName;
     value.coinId = this.general.filterIds(value.coinId)
+    console.log("onSubmitGroupCoinForm data==", value)
 
     var data = {
       coinId: value.coinId,
       groupId: value.groupId,
+      groupName: value.groupName,
     }
     console.log("onSubmitGroupCoinForm data==", data)
     try {
