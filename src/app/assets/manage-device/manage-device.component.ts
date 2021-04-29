@@ -162,9 +162,7 @@ export class ManageDeviceComponent implements OnInit {
         type: 'find',
         data: data
       }
-  
       const dialogRef = this.dialog.open(EditAssetsComponent, dialogConfig);
-  
       dialogRef.afterClosed().subscribe(result => {
         this.refreshDevice(this.limit, this.offset)
       });
@@ -176,7 +174,6 @@ export class ManageDeviceComponent implements OnInit {
     data.deviceObjectId = data.id
     if (confirm('Are you sure you want to delete device?')) {
       this.api.deleteDevice(data).then((res: any) => {
-
         console.log("device delete====", res);
         if (res.status) {
           this.refreshDevice(this.limit, this.offset)
@@ -188,7 +185,6 @@ export class ManageDeviceComponent implements OnInit {
           this.refreshDevice(this.limit, this.offset)
           this.general.deviceChanges.next(false)
           this.general.openSnackBar(res.success == false ? res.message : res.success, '')
-
         }
       }).catch((err: any) => {
         console.log("error===", err)
@@ -203,7 +199,6 @@ export class ManageDeviceComponent implements OnInit {
       deviceName: a.deviceName,
       deviceId: a.deviceId,
       deviceToggleStatus: a.deviceToggleStatus == true ? false : true
-
     }
     if (confirm('Are you sure you want to perform this operation?')) {
       this.api.deviceOnOff(data).then((res: any) => {
@@ -227,6 +222,7 @@ export class ManageDeviceComponent implements OnInit {
       this.refreshDevice(this.limit, this.offset)
     }
   }
+
   download() {
     this.fileName = "Registered Asset"
     var data={
@@ -245,6 +241,7 @@ export class ManageDeviceComponent implements OnInit {
       console.log("error==", err)
     })
   }
+
   getServiceDetails() {
     this.api.getServiceType().then((res: any) => {
       console.log("servoce details response==", res)

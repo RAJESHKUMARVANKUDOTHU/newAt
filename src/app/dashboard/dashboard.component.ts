@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   tempDeviceList: any = [];
   tempZoneList: any = [];
   marker: any = [];
+  congestionData:any=[]
   interval: any;
   zoneClickStatus: any = {
     status: false,
@@ -57,7 +58,7 @@ export class DashboardComponent implements OnInit {
     public general: GeneralService) { }
 
   ngOnInit(): void {
-    this.congestionGraph();
+    this.refreshCongestion();
     this.getVehicleServiceCount()
     setTimeout(() => {
       this.createMap();
@@ -394,7 +395,6 @@ export class DashboardComponent implements OnInit {
         console.log("hi 1")
         return 'top'
       }
-
       else if (lat < -100 && lng > 200) {
         console.log("hi 2")
         return 'auto'
@@ -416,8 +416,8 @@ export class DashboardComponent implements OnInit {
         return 'auto'
       }
     }
-
   }
+
   searchVehicle(data) {
     console.log('search data===', data);
     if (data) {
@@ -625,6 +625,34 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  refreshCongestion(){
+    var now = new Date()
+    var then = moment(toDate).subtract(5, "minutes").toDate()
+    var fromDate = moment(then).format("YYYY-MM-DD HH:mm:ss")
+    var toDate = moment(now).format("YYYY-MM-DD HH:mm:ss")
+    
+    var data={
+      timeZoneOffset:this.general.getZone(),
+      fromDate: fromDate,
+      toDate:toDate
+    }
+    console.log("congestion form data===",data,moment().subtract(5,'minutes').format("YY-MM-DD HH:MM:SS"))
+    this.api.getCongestion(data).then((res:any)=>{
+      console.log("congestion res===",res)
+      if(res.status){
+       for(let i=0;i<res.success.length;i++){
+        this.congestionData.push({
+          label:res.success[i].zoneName,
+          y:res.success[i].congestion
+        })
+       }
+      }
+
+    }).catch((err:any)=>{
+      console.log("err===",err)
+    })
+  }
+
   congestionGraph() {
     var chart = new CanvasJS.Chart('line', {
       animationEnabled: true,
@@ -632,21 +660,35 @@ export class DashboardComponent implements OnInit {
       title: {
         text: '',
       },
+      axisX:{
+        stripLines:[
+          {                
+            startValue:0,
+            endValue:0.2,                
+            color:"#black",
+            lineDashType: "solid",
+          }
+        ] 
+      },
+      axisY:{
+        stripLines:[
+          {                
+            startValue:-19.6,
+            endValue:-20,                
+            color:"#black",
+            lineDashType: "longDash",
+          }
+        ] ,
+        minimum:-20,
+        gridThickness:0,
+        reversed:  true,
+        interval:20
+      },
       data: [
         {
           type: 'line',
           indexLabelFontSize: 12,
-          dataPoints: [
-            { x: 0, y: 0 },
-            { x: 20, y: 470 },
-            { x: 30, y: 490 },
-            { x: 40, y: 500 },
-            { x: 50, y: 550 },
-            { x: 60, y: 600 },
-            { x: 70, y: 650 },
-
-            // { y: 520, indexLabel: "\u2191 highest",markerColor: "red", markerType: "triangle" },
-          ],
+          dataPoints: this.congestionData
         },
       ],
     });

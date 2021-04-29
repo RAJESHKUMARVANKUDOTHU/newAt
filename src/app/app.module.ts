@@ -42,6 +42,7 @@ import { LocationReportComponent } from './report/location-report/location-repor
 import { ZoneReportComponent } from './report/zone-report/zone-report.component';
 import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewisereport.component';
 import { EditSettingShiftComponent } from './admin/edit-setting-shift/edit-setting-shift.component';
+import { CongestionComponent } from './congestion/congestion.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { EditSettingShiftComponent } from './admin/edit-setting-shift/edit-setti
     ZoneReportComponent,
     VehiclewisereportComponent,
     EditSettingShiftComponent,
+    CongestionComponent,
   ],
   imports: [
     BrowserModule,

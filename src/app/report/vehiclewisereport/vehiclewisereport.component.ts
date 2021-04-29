@@ -228,10 +228,13 @@ export class VehiclewisereportComponent implements OnInit {
       }
       console.log("data to send==", data)
       this.api.getJcSummaryData(data).then((res: any) => {
+        console.log("res 7 from api==",res)
         this.jcSummaryData = {}
         if (res.status) {
           this.jcSummaryData.data = res.success;
           this.jcSummaryData.head = ['Sl no.', 'Date', 'Vehicle no.', 'Tag no.'];
+   
+        if(this.jcSummaryData.data.hasOwnProperty('zoneJC')){
           res.success[0].zoneJC.forEach(obj => {
             let suffix = {
               tripCount : 'trip count',
@@ -243,6 +246,8 @@ export class VehiclewisereportComponent implements OnInit {
             let a = [obj.zoneName+' '+suffix.tripCount, obj.zoneName+' '+suffix.inTime, obj.zoneName+' '+suffix.outTime, suffix.std, suffix.deviation]
             this.jcSummaryData.head = this.jcSummaryData.head.concat(a);
           });
+        }
+    
 
           console.log("res 7==", this.jcSummaryData)
         }

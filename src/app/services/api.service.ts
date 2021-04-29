@@ -1635,8 +1635,6 @@ deleteUserShiftSuperAdmin(data){
     return new Promise((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' }).subscribe(
         (res: any) => {
-          console.log(res)
-          // observer.next(res);
           const reader = new FileReader();
           reader.readAsDataURL(res);
           reader.onloadend = function () {
@@ -1645,7 +1643,6 @@ deleteUserShiftSuperAdmin(data){
           };
         },
         (err) => {
-          // console.log(err);
           reject(err)
         }
       );
@@ -2093,7 +2090,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadGenericReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2112,7 +2108,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadDeviceNameReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2131,7 +2126,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadDeviceIdReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2149,7 +2143,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadLocationReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2168,7 +2161,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadZoneIdReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2187,7 +2179,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadVehicleZoneWiseReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2205,7 +2196,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/getAverageTimeOfBaysDownload';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2223,7 +2213,6 @@ getZoneWiseEfficiencyByDay(data){
     let url = this.host + '/downloadVehicleReport';
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
-        console.log("res==", res)
         if (res.status == 200)
           this.downloadFile(res, fileName)
 
@@ -2422,6 +2411,28 @@ getZoneWiseEfficiencyByDay(data){
       },
         (err) => {
           // console.log('err==', err);
+        }
+      );
+    });
+  }
+  
+  // ----------------------congestion---------------------
+  getCongestion(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+  
+    let url = this.host + '/getCongestion';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
         }
       );
     });

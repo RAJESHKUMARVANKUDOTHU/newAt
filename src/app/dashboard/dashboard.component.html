@@ -112,7 +112,8 @@
                 <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
             </div>
             <div>
-                <mat-icon class="cursor" (click)="getZones()">autorenew</mat-icon>
+                <button mat-flat-button routerLink="/congestion" color="primary">Congestion</button>
+                <mat-icon class="cursor" (click)="getZones()" style="vertical-align: middle;">autorenew</mat-icon>
             </div>
         </div>
     </div>
