@@ -59,7 +59,7 @@ export class CongestionComponent implements OnInit {
     if (this.enable.refreshCongestionData) {
       this.timeInterval = setInterval(() => {
         this.refreshCongestion(this.getData())
-      }, 1000 * 60 * 5);
+      }, 1000  * 5);
     };
   }
 
@@ -110,13 +110,16 @@ export class CongestionComponent implements OnInit {
       if (this.enable.refreshCongestionData) {
         this.refreshCongestion(this.getData())
       };
-    }, 1000 * 60 * 5);
+    }, 1000 * 5);
   }
 
   destroy() {
     this.enable.refreshCongestionData = true
     this.enable.map = true
-    this.refreshCongestion(this.getData())
+    this.resetMap()
+    this.cd.detectChanges()
+    this.initiateMap()
+    // this.refreshCongestion(this.getData())
     this.initiate()
   }
 
@@ -209,6 +212,7 @@ export class CongestionComponent implements OnInit {
     this.enable.refreshCongestionData = false
     this.enable.map = true
     clearInterval(this.timeInterval)
+    this.congestionForm.reset()
     this.refreshCongestion(data)
 
   }
@@ -360,6 +364,8 @@ export class CongestionComponent implements OnInit {
         this.congestionData = []
         console.log("getCongestionPerDay==", res)
         if (res.status) {
+          clearInterval(this.timeInterval)
+          this.congestionTrendForm.reset()
           this.congestionData = res.success
           this.dataPoints = [];
           for (let i = 0; i < this.congestionData.length; i++) {
@@ -374,7 +380,7 @@ export class CongestionComponent implements OnInit {
               {
                 name: this.congestionData[i].zoneName,
                 type: "spline",
-                yValueFormatString: "#0.## %",
+                yValueFormatString: "#0.## min",
                 showInLegend: true,
                 dataPoints: dataPointZone,
                 indexLabelPlacement: "outside",
