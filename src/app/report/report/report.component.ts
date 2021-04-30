@@ -89,8 +89,7 @@ export class ReportComponent implements OnInit {
       {
         validators: this.formValidate2()
       })
-    // this.patchGenricDate()
-    // this.patchCustomDate()
+
     this.patchLocationDate()
     this.patchVehicleDate()
     this.patchZoneDate()
@@ -99,32 +98,6 @@ export class ReportComponent implements OnInit {
     this.getZoneDetails()
   }
 
-  // patchGenricDate() {
-  //   this.genericReport.get('days').valueChanges.subscribe((value) => {
-  //     var date = new Date()
-  //     date.setDate(date.getDate() - parseInt(value));
-  //     this.genericReport.controls['fromDate'].patchValue((date));
-  //   });
-  //   this.genericReport.get('days').valueChanges.subscribe(() => {
-  //     var date = new Date()
-  //     date.setDate(date.getDate());
-  //     this.genericReport.controls['toDate'].patchValue((date));
-  //   });
-  // }
-
-  // patchCustomDate() {
-
-  //   this.customReport.get('days').valueChanges.subscribe((value) => {
-  //     var date = new Date()
-  //     date.setDate(date.getDate() - parseInt(value));
-  //     this.customReport.controls['fromDate'].patchValue((date));
-  //   });
-  //   this.customReport.get('days').valueChanges.subscribe(() => {
-  //     var date = new Date()
-  //     date.setDate(date.getDate());
-  //     this.customReport.controls['toDate'].patchValue((date));
-  //   });
-  // }
   patchVehicleDate() {
 
     this.vehicleReport.get('days').valueChanges.subscribe((value) => {

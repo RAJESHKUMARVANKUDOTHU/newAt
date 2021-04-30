@@ -5,6 +5,8 @@ import { GeneralService } from '../services/general.service';
 import * as moment from 'moment';
 import * as L from 'leaflet';
 import "leaflet.heat/dist/leaflet-heat.js";
+import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
+
 @Component({
   selector: 'app-congestion',
   templateUrl: './congestion.component.html',
@@ -12,13 +14,19 @@ import "leaflet.heat/dist/leaflet-heat.js";
 })
 export class CongestionComponent implements OnInit {
   congestionForm: FormGroup
+  congestionTrendForm: FormGroup
   map: any = null
   bounds: any = []
   zones: any = []
   congestionData: any = []
   marker: any = []
-  refreshCongestionData: boolean = true
   timeInterval: any
+  enable: any = {
+    map: true,
+    dayError: false,
+    refreshCongestionData: true
+  }
+  dataPoints: any = []
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -33,14 +41,25 @@ export class CongestionComponent implements OnInit {
       fromTime: ['', Validators.required],
       toTime: ['', Validators.required]
     })
+    this.congestionTrendForm = this.fb.group({
+      days: [''],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required],
+      dayType: ['', Validators.required],
+      weekDay: ['']
+    },
+      {
+        validators: this.formValidate()
+      })
+    this.patchDate()
     setTimeout(() => {
       this.initiateMap()
     }, 1);
     this.getZones()
-    if (this.refreshCongestionData) {
+    if (this.enable.refreshCongestionData) {
       this.timeInterval = setInterval(() => {
         this.refreshCongestion(this.getData())
-      }, 6000);
+      }, 1000 * 60 * 5);
     };
   }
 
@@ -49,17 +68,55 @@ export class CongestionComponent implements OnInit {
     clearInterval(this.timeInterval)
   }
 
+  patchDate() {
+
+    this.congestionTrendForm.get('days').valueChanges.subscribe((value) => {
+      var date = new Date()
+      date.setDate(date.getDate() - parseInt(value));
+      this.congestionTrendForm.controls['fromDate'].patchValue((date));
+    });
+    this.congestionTrendForm.get('days').valueChanges.subscribe(() => {
+      var date = new Date()
+      date.setDate(date.getDate());
+      this.congestionTrendForm.controls['toDate'].patchValue((date));
+    });
+  }
+
+  formValidate() {
+    return (formGroup: FormGroup) => {
+      if (formGroup.get('dayType').value != '') {
+        if (formGroup.get('dayType').value == 'day') {
+          formGroup.get('weekDay').setErrors(null)
+          return
+        }
+        else if (formGroup.get('dayType').value == 'week') {
+          if (formGroup.get('weekDay').value != '') {
+            formGroup.get('weekDay').setErrors(null)
+            return
+          }
+          else {
+            formGroup.get('weekDay').setErrors({
+              required: true
+            })
+            return
+          }
+        }
+      }
+    }
+  }
+
   initiate() {
-    console.log("this.refreshCongestionData==", this.refreshCongestionData)
     this.timeInterval = setInterval(() => {
-      if (this.refreshCongestionData) {
+      if (this.enable.refreshCongestionData) {
         this.refreshCongestion(this.getData())
       };
-    }, 1000*60*5);
+    }, 1000 * 60 * 5);
   }
 
   destroy() {
-    this.refreshCongestionData = true
+    this.enable.refreshCongestionData = true
+    this.enable.map = true
+    this.refreshCongestion(this.getData())
     this.initiate()
   }
 
@@ -124,6 +181,7 @@ export class CongestionComponent implements OnInit {
       toDate: value.date + ' ' + value.toTime + ':00'
     }
     console.log("congestion form data===", data)
+    this.enable.map = true
     this.api.getCongestion(data).then((res: any) => {
       console.log("congestion res===", res)
       this.congestionData = []
@@ -148,10 +206,11 @@ export class CongestionComponent implements OnInit {
   onSubmit(data) {
 
     console.log("congestion form data===", data)
-    this.refreshCongestionData = false
+    this.enable.refreshCongestionData = false
+    this.enable.map = true
     clearInterval(this.timeInterval)
     this.refreshCongestion(data)
-   
+
   }
 
   clickOnZone(data) {
@@ -164,12 +223,12 @@ export class CongestionComponent implements OnInit {
       else {
         obj.zoneBounds = false
       }
-      
+
       return obj
     })
     this.createZoneBounds()
   }
-  
+
   getBound(data) {
     let arr = [];
     this.zones.filter((obj) => {
@@ -201,8 +260,8 @@ export class CongestionComponent implements OnInit {
 
   getZones() {
     this.api.getZone().then((res: any) => {
-      console.log("zones==",res);
-      
+      console.log("zones==", res);
+
       if (res.status) {
         this.zones = res.success
       }
@@ -242,7 +301,6 @@ export class CongestionComponent implements OnInit {
           )
       }
     }
-
   }
 
   clearMap() {
@@ -271,12 +329,109 @@ export class CongestionComponent implements OnInit {
       }
     }
   }
-  
+
   resetMap() {
     if (this.map != null) {
       this.clearMap();
       this.clearMapImage();
       this.map.remove();
+    }
+  }
+
+  onSubmitCongestionTrendForm(data) {
+    console.log(" onSubmitCongestionTrendForm data==", data);
+    var from = moment(data.fromDate).format("YYYY-MM-DD");
+    var to = moment(data.toDate).format("YYYY-MM-DD");
+    var date1 = moment(data.fromDate, 'DD-MM-YYYY');
+    var date2 = moment(data.toDate, 'DD-MM-YYYY');
+    var diff = date2.diff(date1, 'days');
+    this.enable.map = false
+    data = {
+      fromDate: from,
+      toDate: to,
+      timeZoneOffset: this.general.getZone(),
+      type: data.dayType,
+      day: data.dayType == 'week' ? data.weekDay : ''
+    }
+    console.log("data to send==", data)
+    if (diff >= 0 && diff <= 30) {
+      this.enable.dayError = false
+      this.api.getCongestionPerDay(data).then((res: any) => {
+        this.congestionData = []
+        console.log("getCongestionPerDay==", res)
+        if (res.status) {
+          this.congestionData = res.success
+          this.dataPoints = [];
+          for (let i = 0; i < this.congestionData.length; i++) {
+            let dataPointZone = [];
+            for (let j = 0; j < this.congestionData[i].data.length; j++) {
+              dataPointZone.push({
+                x: new Date(this.congestionData[i].data[j].date),
+                y: this.congestionData[i].data[j].congestion
+              })
+            }
+            this.dataPoints.push(
+              {
+                name: this.congestionData[i].zoneName,
+                type: "spline",
+                yValueFormatString: "#0.## %",
+                showInLegend: true,
+                dataPoints: dataPointZone,
+                indexLabelPlacement: "outside",
+                indexLabel: "{y}",
+              }
+            )
+          }
+          this.congestionPerDayChart()
+        }
+      }).catch(err => {
+        console.log("err===", err)
+      })
+    }
+    else {
+      this.enable.dayError = true
+    }
+  }
+  congestionPerDayChart() {
+    var chart = null
+    chart = new CanvasJS.Chart("chartContainer", {
+      exportEnabled: true,
+      animationEnabled: true,
+      title: {
+        text: "Congestion per day"
+      },
+      axisX: {
+        valueFormatString: "DD MMM,YY",
+        labelAutoFit: false,
+        intervalType: "day",
+        interval: 1,
+        labelAngle: 0,
+      },
+      axisY: {
+        title: "Congestion(in min)",
+        suffix: "min",
+        gridThickness: 0,
+        includeZero: true
+      },
+      legend: {
+        cursor: "pointer",
+        fontSize: 16,
+        itemclick: toogleDataSeries
+      },
+      toolTip: {
+        shared: true
+      },
+      data: this.dataPoints
+    });
+    chart.render();
+
+    function toogleDataSeries(e) {
+      if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+        e.dataSeries.visible = false;
+      } else {
+        e.dataSeries.visible = true;
+      }
+      chart.render();
     }
   }
 }

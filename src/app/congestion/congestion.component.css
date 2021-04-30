@@ -12,3 +12,25 @@
 #map {
   height: 100%;
 }
+.mat-card{
+  width: 45%;
+
+}
+mat-form-field{
+  width: 66%;
+}
+button {
+  outline: none !important;
+  border: none;
+}
+@media only screen and (max-width: 768px) {
+  mat-card.mat-card.mat-focus-indicator {
+       width: 100%;
+   
+   }
+   button.mat-focus-indicator.mat-raised-button.mat-button-base.btn {
+      position: unset;
+   
+  }
+
+}

@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   marker: any = [];
   congestionData:any=[]
   interval: any;
+  timeInterval:any;
   zoneClickStatus: any = {
     status: false,
     zone: null
@@ -63,6 +64,10 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       this.createMap();
     }, 1);
+    this.timeInterval = setInterval(() => {
+      this.refreshCongestion()
+      this.getVehicleServiceCount()
+    }, 10000);
     this.login.loginCheckData.subscribe(res => {
       if (!res.other) {
         this.clearTimeInterval()
@@ -86,6 +91,7 @@ export class DashboardComponent implements OnInit {
 
   clearTimeInterval() {
     clearInterval(this.interval);
+    clearInterval(this.timeInterval)
   }
 
   createMap() {
