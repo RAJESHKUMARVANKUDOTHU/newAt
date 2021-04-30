@@ -1,5 +1,5 @@
 <br>
-<div>
+<div class="container-fluid">
     <div class="container-fluid" *ngIf="general.isDesktopDevice">
         <mat-card>
             <div class="row">
@@ -111,9 +111,12 @@
                 </form>
                 <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
             </div>
-            <div>
+            <div class="refresh-congestion">
                 <button mat-flat-button routerLink="/congestion" color="primary">Congestion</button>
-                <mat-icon class="cursor" (click)="getZones()" style="vertical-align: middle;">autorenew</mat-icon>
+                <button mat-fab color="primary" (click)="getZones()" class="float-right">
+                    <mat-icon>autorenew</mat-icon>
+                </button>
+                <!-- <mat-icon class="cursor" (click)="getZones()" style="vertical-align: middle;">autorenew</mat-icon> -->
             </div>
         </div>
     </div>
@@ -193,3 +196,4 @@
             </div>
         </div>
     </div>
+</div>

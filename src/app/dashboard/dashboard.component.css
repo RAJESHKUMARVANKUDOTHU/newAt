@@ -49,6 +49,7 @@
     justify-content: space-between;
     margin: auto 1rem;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 mat-card-title.mat-card-title {
@@ -100,6 +101,13 @@ mat-card-title.mat-card-title {
 
 .mat-form-field-flex.ng-tns-c65-2 {
     align-items: flex-end !important;
+}
+
+.refresh-congestion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 12rem;
 }
 
 @media only screen and (max-width: 768px) {
