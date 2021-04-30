@@ -233,7 +233,6 @@ export class LocationReportComponent implements OnInit {
   }
 
 
-
   getTime(data) {
     data = Math.abs(data)
     let min = Math.floor((data / 1000 / 60) << 0)

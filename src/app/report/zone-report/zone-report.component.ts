@@ -102,7 +102,7 @@ export class ZoneReportComponent implements OnInit {
             this.avgTime.push(
               {
                 label: this.zoneData[i].zoneName,
-                y: this.getTime(this.zoneData[i].totalAverageTime),
+                y: this.zoneData[i].totalAverageTime,
               }
             )
             this.sdtTime.push(
@@ -138,7 +138,7 @@ export class ZoneReportComponent implements OnInit {
             for (let j = 0; j < this.zoneData[i].data.length; j++) {
               dataPointZone.push({
                 x: new Date(this.zoneData[i].data[j].date),
-                y: this.getTime(this.zoneData[i].data[j].zonePerformance)
+                y: this.zoneData[i].data[j].zonePerformance
               })
             }
             this.dataPoints.push(
@@ -209,7 +209,7 @@ export class ZoneReportComponent implements OnInit {
             for (let j = 0; j < this.zoneData[i].data.length; j++) {
               dataPointZone.push({
                 x: new Date(this.zoneData[i].data[j].date),
-                y: this.getTime(this.zoneData[i].data[j].zonePerformance)
+                y: this.zoneData[i].data[j].zonePerformance
               })
             }
             this.dataPoints.push(
@@ -234,10 +234,10 @@ export class ZoneReportComponent implements OnInit {
 
   }
 
-  getTime(data) {
-    let min = Math.floor(data / (1000 * 60))
-    return min
-  }
+  // getTime(data) {
+  //   let min = Math.floor(data / (1000 * 60))
+  //   return min
+  // }
   zonePerformanceChart() {
     var chart = null
     chart = new CanvasJS.Chart("chartContainer", {
