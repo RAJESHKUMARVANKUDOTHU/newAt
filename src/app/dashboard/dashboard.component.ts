@@ -645,6 +645,7 @@ export class DashboardComponent implements OnInit {
     console.log("congestion form data===",data,moment().subtract(5,'minutes').format("YY-MM-DD HH:MM:SS"))
     this.api.getCongestion(data).then((res:any)=>{
       console.log("congestion res===",res)
+      this.congestionData = [];
       if(res.status){
        for(let i=0;i<res.success.length;i++){
         this.congestionData.push({
@@ -653,7 +654,7 @@ export class DashboardComponent implements OnInit {
         })
        }
       }
-
+      this.congestionGraph();
     }).catch((err:any)=>{
       console.log("err===",err)
     })
@@ -666,19 +667,24 @@ export class DashboardComponent implements OnInit {
       title: {
         text: '',
       },
-      axisX:{
-        stripLines:[
-          {                
-            startValue:0,
-            endValue:0.2,                
-            color:"#black",
-            lineDashType: "solid",
-          }
-        ] 
+      // axisX:{
+      //   stripLines:[
+      //     {                
+      //       startValue:0,
+      //       endValue:0.2,                
+      //       color:"#black",
+      //       lineDashType: "solid",
+      //     }
+      //   ] 
+      // },
+      axisX: {
+        title: "Zone"
       },
       axisY:{
+        title: "Congestion (in min)",        
+        suffix: "min",
         stripLines:[
-          {                
+          {        
             startValue:-19.6,
             endValue:-20,                
             color:"#black",
@@ -694,7 +700,8 @@ export class DashboardComponent implements OnInit {
         {
           type: 'line',
           indexLabelFontSize: 12,
-          dataPoints: this.congestionData
+          dataPoints: this.congestionData,
+          yValueFormatString: "#,##0#\" min\"",
         },
       ],
     });
