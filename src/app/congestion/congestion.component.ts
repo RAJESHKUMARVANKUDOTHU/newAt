@@ -158,12 +158,13 @@ export class CongestionComponent implements OnInit {
     this.clearMap()
     console.log("data=", data)
     this.congestionData = this.congestionData.map((obj) => {
-      if (data._id == obj._id) {
+      if (data.zoneId == obj.zoneId) {
         obj.zoneBounds = true
       }
       else {
         obj.zoneBounds = false
       }
+      
       return obj
     })
     this.createZoneBounds()
@@ -200,6 +201,8 @@ export class CongestionComponent implements OnInit {
 
   getZones() {
     this.api.getZone().then((res: any) => {
+      console.log("zones==",res);
+      
       if (res.status) {
         this.zones = res.success
       }
