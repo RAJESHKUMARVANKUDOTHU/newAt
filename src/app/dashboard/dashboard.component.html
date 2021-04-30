@@ -145,8 +145,8 @@
                     <p class="error" *ngIf="errStatus.searchError">{{errStatus.searchMessage}}</p>
                 </div>
                 <div>
-                    <button mat-flat-button routerLink="/congestion" color="primary">Congestion</button>&nbsp;&nbsp;
-                    <button mat-mini-fab color="primary" class="cursor" (click)="getZones()">
+                    <button mat-flat-button routerLink="/congestion" color="primary" matTooltip="Click here for congestion data">Congestion</button>&nbsp;&nbsp;
+                    <button mat-mini-fab color="primary" class="cursor" (click)="getZones()" matTooltip="Refresh">
                         <mat-icon>autorenew</mat-icon>
                     </button>
                 </div>
