@@ -6,7 +6,7 @@
     <h1 class="text-center font-weight-bold">Congestion</h1>
     <div class="d-md-flex flex-wrap justify-content-around">
         <mat-card class="text-center">
-            <mat-card-title>Congestion</mat-card-title>
+            <mat-card-title>Congestion</mat-card-title> <br>
             <mat-card-content>
                 <form [formGroup]="congestionForm">
                     <mat-form-field>
@@ -34,9 +34,9 @@
                         <mat-error>
                             Please provide a valid to time
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> <br><br>
                 </form>
-                <div>
+                <div class="btn">
                     <button mat-raised-button color="primary" [disabled]="!congestionForm.valid"
                         (click)="onSubmit(congestionForm.value)">Search</button>
                 </div>
@@ -45,7 +45,7 @@
 
         <mat-card class="text-center">
             <mat-card-title>Congestion per day</mat-card-title>
-            <mat-card-subtitle>Trend of the congestion of the zones.</mat-card-subtitle> <br>
+            <mat-card-subtitle>Trend of the congestion of the zones.</mat-card-subtitle> 
             <mat-card-content>
                 <mat-error *ngIf="enable.dayError">
                     Date range should be maximum of 30 days.
@@ -97,8 +97,8 @@
                             Please provide day
                         </mat-error>
                     </mat-form-field>
-                </form>
-                <div>
+                </form> <br><br>
+                <div class="btn"> 
                     <button mat-raised-button color="primary" [disabled]="!congestionTrendForm.valid"
                         (click)="onSubmitCongestionTrendForm(congestionTrendForm.value)">Search</button>
                 </div>
