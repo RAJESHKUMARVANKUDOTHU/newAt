@@ -5,6 +5,9 @@
         <mat-card-title>
             Find Online Status
         </mat-card-title>
+        <mat-card-subtitle>
+            Enter find online status
+        </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="onlineStatus">
                 <mat-form-field class="w-75">
@@ -15,7 +18,8 @@
                     </mat-error>
                 </mat-form-field>
             </form> <br>
-            <button class="btn" mat-raised-button [disabled]="!onlineStatus.valid" (click)="onSubmitOnlineStatus(onlineStatus.value)" color="primary">Submit</button>
+            <button class="btn" mat-raised-button [disabled]="!onlineStatus.valid"
+                (click)="onSubmitOnlineStatus(onlineStatus.value)" color="primary">Submit</button>
         </mat-card-content>
     </mat-card>
 
@@ -23,6 +27,9 @@
         <mat-card-title>
             Find Offline Status
         </mat-card-title>
+        <mat-card-subtitle>
+            Enter find offline status
+        </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="offlineStatus">
                 <mat-form-field class="w-75">
@@ -33,7 +40,8 @@
                     </mat-error>
                 </mat-form-field>
             </form><br>
-            <button class="btn" mat-raised-button [disabled]="!offlineStatus.valid" (click)="onSubmitOfflineStatus(offlineStatus.value)" color="primary">Submit</button>
+            <button class="btn" mat-raised-button [disabled]="!offlineStatus.valid"
+                (click)="onSubmitOfflineStatus(offlineStatus.value)" color="primary">Submit</button>
         </mat-card-content>
     </mat-card>
 
@@ -41,6 +49,9 @@
         <mat-card-title>
             Set RSSI
         </mat-card-title>
+        <mat-card-subtitle>
+            Enter RSSI value.
+        </mat-card-subtitle>
         <mat-card-content>
             <form [formGroup]="rssiForm">
                 <mat-form-field class="w-75">
@@ -51,7 +62,8 @@
                     </mat-error>
                 </mat-form-field>
             </form><br>
-            <button class="btn" mat-raised-button [disabled]="!rssiForm.valid" (click)="onSubmitRssi(rssiForm.value)" color="primary">Submit</button>
+            <button class="btn" mat-raised-button [disabled]="!rssiForm.valid" (click)="onSubmitRssi(rssiForm.value)"
+                color="primary">Submit</button>
         </mat-card-content>
     </mat-card>
 
@@ -76,11 +88,54 @@
                         Choose valid transmission power.
                     </mat-error>
                 </mat-form-field>
-            </form><br><br><br><br><br><br><br>
-            <button class="btn" mat-raised-button [disabled]="!txPowerForm.valid" (click)="onSubmitTxPower(txPowerForm.value)" color="primary">Submit</button>
+            </form><br>
+            <button class="btn" mat-raised-button [disabled]="!txPowerForm.valid"
+                (click)="onSubmitTxPower(txPowerForm.value)" color="primary">Submit</button>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="text-center">
+        <mat-card-title>
+            Configure Merging Time
+        </mat-card-title>
+        <mat-card-subtitle>
+            Enter merging time
+        </mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="mergingTimeForm">
+                <mat-form-field class="w-75">
+                    <mat-label> in minutes</mat-label>
+                    <input matInput type="number" formControlName="mergingTime" required>
+                    <mat-error>
+                        Merging time value should be between 0-60.
+                    </mat-error>
+                </mat-form-field>
+            </form><br>
+            <button class="btn" mat-raised-button [disabled]="!mergingTimeForm.valid"
+                (click)="onSubmitMergingTime(mergingTimeForm.value)" color="primary">Submit</button>
         </mat-card-content>
     </mat-card>
 
+    <mat-card class="text-center">
+        <mat-card-title>
+            Configure Deletion Time
+        </mat-card-title>
+        <mat-card-subtitle>
+            Enter deletion time.
+        </mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="deletionTimeForm">
+                <mat-form-field class="w-75">
+                    <mat-label> in minutes</mat-label>
+                    <input matInput type="number" formControlName="deletionTime" required>
+                    <mat-error>
+                        Deletion time value should be between 0-60.
+                    </mat-error>
+                </mat-form-field>
+            </form><br>
+            <button class="btn" mat-raised-button [disabled]="!deletionTimeForm.valid"
+                (click)="onSubmitDeletionTime(deletionTimeForm.value)" color="primary">Submit</button>
+        </mat-card-content>
+    </mat-card>
     <mat-card>
         <mat-card-title>
             Define Shift Time
@@ -121,9 +176,12 @@
                 </mat-form-field><br> <br>
             </form>
             <div class="d-flex justify-content-center">
-                <button mat-raised-button [disabled]="!shiftForm.valid" color="primary" (click)="onSubmitShiftForm(shiftForm.value)">Submit</button> &nbsp;&nbsp;&nbsp;
+                <button mat-raised-button [disabled]="!shiftForm.valid" color="primary"
+                    (click)="onSubmitShiftForm(shiftForm.value)">Submit</button> &nbsp;&nbsp;&nbsp;
                 <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
             </div>
         </mat-card-content>
     </mat-card>
+
+ 
 </div>

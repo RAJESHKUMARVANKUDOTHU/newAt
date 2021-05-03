@@ -18,6 +18,8 @@ offlineStatus:FormGroup
 rssiForm:FormGroup
 txPowerForm:FormGroup
 shiftForm:FormGroup
+deletionTimeForm:FormGroup
+mergingTimeForm:FormGroup
 loginData:any
 multipleShift:boolean=false
 timeExceed:boolean=false
@@ -47,6 +49,12 @@ timeExceed:boolean=false
       startTime: ['', Validators.required],
       endTime: ['', Validators.required]
     });
+    this.mergingTimeForm=this.fb.group({
+      mergingTime :['',[Validators.required,Validators.min(0),Validators.max(60)]]
+    })
+    this.deletionTimeForm=this.fb.group({
+      deletionTime :['',[Validators.required,Validators.min(0),Validators.max(60)]]
+    })
   }
 
   ngOnInit(): void {
@@ -71,6 +79,14 @@ timeExceed:boolean=false
         txPower: res.success.txPower
       })
       
+      this.mergingTimeForm.patchValue({
+        mergingTime: res.success.mergingTime
+      })
+      
+      this.deletionTimeForm.patchValue({
+        deletionTime: res.success.deletionTime
+      })
+      
     }
   })
 }
@@ -89,6 +105,7 @@ onSubmitOnlineStatus(data){
     })
   }
 }
+
 onSubmitOfflineStatus(data){
   if(this.offlineStatus.valid){
     data.userId=this.loginData.userData
@@ -205,6 +222,36 @@ onSubmitShiftForm(data) {
     this.multipleShift=false
   }
  }
+
+ onSubmitMergingTime(data){
+  if(this.mergingTimeForm.valid){
+    data.userId=this.loginData.userData
+    console.log("onSubmit merging data==",data)
+    this.api.updateMergingTime(data).then((res:any)=>{
+      if(res.status){
+        console.log("res==",res)
+        this.general.openSnackBar(res.success,'')
+      }
+    }).catch((err:any)=>{
+      console.log("err==",err)
+    })
+  }
+}
+
+ onSubmitDeletionTime(data){
+  if(this.deletionTimeForm.valid){
+    data.userId=this.loginData.userData
+    console.log("onSubmit deletion data==",data)
+    this.api.updateDeletionTime(data).then((res:any)=>{
+      if(res.status){
+        console.log("res==",res)
+        this.general.openSnackBar(res.success,'')
+      }
+    }).catch((err:any)=>{
+      console.log("err==",err)
+    })
+  }
+}
  openDialog(): void {
 
   const dialogConfig = new MatDialogConfig();
