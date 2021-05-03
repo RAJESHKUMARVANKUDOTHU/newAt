@@ -234,7 +234,7 @@ export class VehiclewisereportComponent implements OnInit {
           this.jcSummaryData.data = res.success;
           this.jcSummaryData.head = ['Sl no.', 'Date', 'Vehicle no.', 'Tag no.'];
    
-        if(this.jcSummaryData.data.hasOwnProperty('zoneJC')){
+        if(this.jcSummaryData.data[0].hasOwnProperty('zoneJC')){
           res.success[0].zoneJC.forEach(obj => {
             let suffix = {
               tripCount : 'trip count',
