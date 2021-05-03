@@ -310,7 +310,7 @@ export class DashboardComponent implements OnInit {
                 this.deviceList[j].latlng[k].lng,
               ]);
             }
-            latlng = [{ lat: 0.0, lng: 0.0 }, { lat: 52.5163, lng: 13.3779 }]
+            // latlng = [{ lat: 0.0, lng: 0.0 }, { lat: 52.5163, lng: 13.3779 }]
             this.deviceList[j] = this.getDeviceDelayOperation(this.deviceList[j]);
             if (this.deviceList[j].isDelay) {
               icon = iconRed;
@@ -318,9 +318,10 @@ export class DashboardComponent implements OnInit {
             else {
               icon = iconBlack;
             }
+            // ,rotationAngle:this.getAngle(latlng[0].lat,latlng[1].lat,latlng[0].lng,latlng[1].lng)
             this.marker.push(
               
-              new L.animatedMarker(latlng, { icon: icon,rotationAngle:this.getAngle(latlng[0].lat,latlng[1].lat,latlng[0].lng,latlng[1].lng), interval: 3000 })
+              new L.animatedMarker(latlng, { icon: icon, interval: 3000 })
                 .addTo(this.map)
                 .bindTooltip(this.getPopUpForm(this.deviceList[j]), {
                   direction: this.getDirection(latlng),
