@@ -668,16 +668,7 @@ export class DashboardComponent implements OnInit {
       title: {
         text: '',
       },
-      // axisX:{
-      //   stripLines:[
-      //     {                
-      //       startValue:0,
-      //       endValue:0.2,                
-      //       color:"#black",
-      //       lineDashType: "solid",
-      //     }
-      //   ] 
-      // },
+ 
       axisX: {
         title: "Zone"
       },
@@ -686,7 +677,7 @@ export class DashboardComponent implements OnInit {
         suffix: "min",
         stripLines:[
           {        
-            startValue:-19.6,
+            startValue:-19.8,
             endValue:-20,                
             color:"#black",
             lineDashType: "longDash",
