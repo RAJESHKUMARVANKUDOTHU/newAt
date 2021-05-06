@@ -16,7 +16,7 @@ import { GeneralService } from '../../services/general.service';
 export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  displayedColumns: string[] = ["i", 'userName', 'updatedAt','settings'];
+  displayedColumns: string[] = ["i", 'userName','apiKey', 'updatedAt','settings'];
   dataSource: any = []
   addUserForm: FormGroup
   loginData: any
@@ -59,7 +59,6 @@ export class AdminDashboardComponent implements OnInit {
           }
           else { 
             this.general.openSnackBar(!res.success?res.message:res.success,'')
-
           }
         })
           .catch((err) => {

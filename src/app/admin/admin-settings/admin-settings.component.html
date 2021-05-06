@@ -136,6 +136,35 @@
                 (click)="onSubmitDeletionTime(deletionTimeForm.value)" color="primary">Submit</button>
         </mat-card-content>
     </mat-card>
+
+    <mat-card class="text-center">
+        <mat-card-title>
+            Update Mesh Id
+        </mat-card-title>
+        <mat-card-subtitle>
+            Enter MeshId & choose gateway.
+        </mat-card-subtitle>
+        <mat-card-content>
+            <form [formGroup]="meshForm">
+                <mat-form-field class="w-75">
+                    <mat-label> Mesh Id</mat-label>
+                    <input matInput type="number" formControlName="meshId" required>
+                    <mat-error>
+                        MeshId should be between 0-255.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-75">
+                    <mat-label>Gateway Id</mat-label>
+                    <mat-select formControlName="gatewayId" required>
+                        <mat-option *ngFor="let data of  gateway" [value]="data.gatewayId">{{data.gatewayName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form><br><br><br><br>
+            <button class="btn" mat-raised-button [disabled]="!meshForm.valid"
+                (click)="onSubmitMeshForm(meshForm.value)" color="primary">Submit</button>
+        </mat-card-content>
+    </mat-card>
+
     <mat-card>
         <mat-card-title>
             Define Shift Time
