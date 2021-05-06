@@ -425,6 +425,46 @@ updateDeletionTime(data){
     );
   });
 }
+updateMeshId(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateMeshId'
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+getSuperAdminGatewayData(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/viewGatewaySuperAdmin'
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
 // ---------------------end----------------------------
   createUsers(data) {
     const httpOptions = {
@@ -2371,6 +2411,7 @@ getZoneWiseEfficiencyByDay(data){
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
+        console.log("res==",res)
 
         resolve(true);
       },
@@ -2390,7 +2431,6 @@ getZoneWiseEfficiencyByDay(data){
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
-
         resolve(true);
       },
         (err) => {
@@ -2409,7 +2449,7 @@ getZoneWiseEfficiencyByDay(data){
     return new Promise((resolve, reject) => {
       this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res => {
         if (res.status == 200) this.downloadFile(res, fileName);
-
+        console.log("res==",res)
         resolve(true);
       },
         (err) => {
