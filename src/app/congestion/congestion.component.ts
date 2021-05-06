@@ -59,7 +59,7 @@ export class CongestionComponent implements OnInit {
     if (this.enable.refreshCongestionData) {
       this.timeInterval = setInterval(() => {
         this.refreshCongestion(this.getData())
-      }, 1000  * 5);
+      }, 1000 * 5);
     };
   }
 
@@ -251,10 +251,10 @@ export class CongestionComponent implements OnInit {
     else if (value == 0) {
       return color = 'transparent'
     }
-    else if (value >= 25) {
+    else if (value > 0 && value <= 25) {
       return color = 'yellow'
     }
-    else if (value >= 25 && value <= 50) {
+    else if (value > 25 && value <= 50) {
       return color = 'blue'
     }
     else {
