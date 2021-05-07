@@ -252,7 +252,7 @@ export class AdminSettingsComponent implements OnInit {
     if (this.deletionTimeForm.valid) {
       data.userId = this.loginData.userData
       console.log("onSubmit deletion data==", data)
-      this.api.updateMeshId(data).then((res: any) => {
+      this.api.updateDeletionTime(data).then((res: any) => {
         if (res.status) {
           console.log("res==", res)
           this.general.openSnackBar(res.success, '')
