@@ -5,6 +5,7 @@ import { GeneralService } from '../../services/general.service';
 import { LoginAuthService } from '../../services/login-auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-shift.component';
+import { AdminSettingInfoComponent } from '../admin-setting-info/admin-setting-info.component';
 import * as moment from 'moment';
 
 @Component({
@@ -277,6 +278,8 @@ export class AdminSettingsComponent implements OnInit {
       })
     }
   }
+
+  
   openDialog(): void {
 
     const dialogConfig = new MatDialogConfig();
@@ -288,6 +291,21 @@ export class AdminSettingsComponent implements OnInit {
       type: "shifts"
     }
     const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  openAdminSettingInfo(): void {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = 'fit-content';
+    dialogConfig.width = 'fit-content';
+    dialogConfig.data = {
+      data:this.loginData.userData
+    }
+    const dialogRef = this.dialog.open(AdminSettingInfoComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
     });

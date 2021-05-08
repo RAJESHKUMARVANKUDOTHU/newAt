@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
           password: value.password
         }
         console.log("data===", data)
+        localStorage.clear()
         this.api.login(data).then((res: any) => {
           console.log("login res===", res)
           this.loginData = res.success
