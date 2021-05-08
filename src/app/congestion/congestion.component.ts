@@ -41,8 +41,7 @@ export class CongestionComponent implements OnInit {
       fromTime: ['', Validators.required],
       toTime: ['', Validators.required]
     })
-    this.congestionTrendForm = this.fb.group({
-      days: [''],
+    this.congestionTrendForm = this.fb.group({ 
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required],
       dayType: ['', Validators.required],
@@ -51,7 +50,6 @@ export class CongestionComponent implements OnInit {
       {
         validators: this.formValidate()
       })
-    this.patchDate()
     setTimeout(() => {
       this.initiateMap()
     }, 1);
@@ -68,19 +66,7 @@ export class CongestionComponent implements OnInit {
     clearInterval(this.timeInterval)
   }
 
-  patchDate() {
 
-    this.congestionTrendForm.get('days').valueChanges.subscribe((value) => {
-      var date = new Date()
-      date.setDate(date.getDate() - parseInt(value));
-      this.congestionTrendForm.controls['fromDate'].patchValue((date));
-    });
-    this.congestionTrendForm.get('days').valueChanges.subscribe(() => {
-      var date = new Date()
-      date.setDate(date.getDate());
-      this.congestionTrendForm.controls['toDate'].patchValue((date));
-    });
-  }
 
   formValidate() {
     return (formGroup: FormGroup) => {
@@ -119,7 +105,6 @@ export class CongestionComponent implements OnInit {
     this.resetMap()
     this.cd.detectChanges()
     this.initiateMap()
-    // this.refreshCongestion(this.getData())
     this.initiate()
   }
 
@@ -357,7 +342,7 @@ export class CongestionComponent implements OnInit {
       type: data.dayType,
       day: data.dayType == 'week' ? data.weekDay : ''
     }
-    console.log("data to send==", data)
+    console.log("data to send==", data,diff)
     if (diff >= 0 && diff <= 30) {
       this.enable.dayError = false
       this.api.getCongestionPerDay(data).then((res: any) => {

@@ -160,8 +160,12 @@
                     </mat-select>
                 </mat-form-field>
             </form><br><br><br><br>
-            <button class="btn" mat-raised-button [disabled]="!meshForm.valid"
-                (click)="onSubmitMeshForm(meshForm.value)" color="primary">Submit</button>
+            <div class="d-flex justify-content-center">
+                <button class="btn" mat-raised-button [disabled]="!meshForm.valid"
+                (click)="onSubmitMeshForm(meshForm.value)" color="primary">Submit</button> &nbsp;&nbsp;&nbsp;
+                <button type="button" mat-raised-button (click)="openAdminSettingInfo()" color="primary">Info</button>
+            </div>
+          
         </mat-card-content>
     </mat-card>
 

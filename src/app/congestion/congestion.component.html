@@ -2,8 +2,8 @@
     <button mat-fab color="primary" (click)="destroy()" class="float-right" matTooltip="Refresh">
         <mat-icon>autorenew</mat-icon>
     </button>
-    <br>
-    <h1 class="text-center font-weight-bold">Congestion</h1>
+    <br><br>
+   
     <div class="d-md-flex flex-wrap justify-content-around">
         <mat-card class="text-center">
             <mat-card-title>Congestion</mat-card-title> <br>
@@ -46,15 +46,9 @@
             <mat-card-subtitle>Trend of the congestion of the zones.</mat-card-subtitle>
             <mat-card-content>
                 <mat-error *ngIf="enable.dayError">
-                    Date range should be maximum of 30 days.
-                </mat-error> <br>
+                    Date range should be maximum of 30 days.<br>
+                </mat-error> 
                 <form [formGroup]="congestionTrendForm">
-                    <div>
-                        <mat-radio-group color="primary" formControlName="days" class="d-flex justify-content-around">
-                            <mat-radio-button class="example-radio-button" [value]="0">Today </mat-radio-button>
-                            <mat-radio-button class="example-radio-button" [value]="7">Last week</mat-radio-button>
-                        </mat-radio-group>
-                    </div> <br>
                     <mat-form-field>
                         <mat-label>From date</mat-label>
                         <input matInput placeholder="MM/DD/YYYY" [matDatepicker]="myDatepicker1" formControlName="fromDate" autocomplete="off" required>

@@ -43,7 +43,8 @@ import { ZoneReportComponent } from './report/zone-report/zone-report.component'
 import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewisereport.component';
 import { EditSettingShiftComponent } from './admin/edit-setting-shift/edit-setting-shift.component';
 import { CongestionComponent } from './congestion/congestion.component';
-import {NgxLeafletFullscreenModule} from '@runette/ngx-leaflet-fullscreen'
+import {NgxLeafletFullscreenModule} from '@runette/ngx-leaflet-fullscreen';
+import { AdminSettingInfoComponent } from './admin/admin-setting-info/admin-setting-info.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +78,7 @@ import {NgxLeafletFullscreenModule} from '@runette/ngx-leaflet-fullscreen'
     VehiclewisereportComponent,
     EditSettingShiftComponent,
     CongestionComponent,
+    AdminSettingInfoComponent,
   ],
   imports: [
     BrowserModule,
