@@ -131,9 +131,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <!-- <mat-card *ngIf="!zoneClickStatus.status">
+                {{ zoneClickStatus.status}}
+                <mat-card>
+                    <mat-card-title *ngIf="zoneClickStatus.status">
+                        {{zoneClickStatus.zone}}
+                    </mat-card-title>
                     <mat-card-content>
-                        <table class="table bordered table-striped text-center ">
+                        <table *ngIf="!zoneClickStatus.status" class="table bordered table-striped text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Zone</th>
@@ -142,21 +146,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
                                     <td [ngClass]="a.isDelay ? 'delay' : '' ">{{a.time}} minutes</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </mat-card-content>
-                </mat-card> -->
-                <mat-card>
-                    <!-- <mat-card-title>
-                        {{zoneClickStatus.zone}}
-                    </mat-card-title> -->
-                    <mat-card-content>
-                        <table class="table bordered table-striped text-center ">
+                        <table *ngIf="deviceGroupList.length && zoneClickStatus.status" class="table bordered table-striped text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Vehicle</th>
@@ -182,11 +179,21 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- <div *ngIf="!deviceGroupList.length" class="nodata">
+                        <div *ngIf="!deviceGroupList.length && zoneClickStatus.status" class="nodata">
                             No data found
-                        </div> -->
+                        </div>
                     </mat-card-content>
                 </mat-card>
+                <!-- <mat-card *ngIf="zoneClickStatus.status">
+                    {{zoneClickStatus.status}}
+                    <mat-card-title>
+                        {{zoneClickStatus.zone}}
+                    </mat-card-title>
+                    <mat-card-content>
+ 
+                       
+                    </mat-card-content>
+                </mat-card> -->
             </div>
             <div class="col-md-6">
                 <mat-card>
@@ -197,4 +204,5 @@
             </div>
         </div>
     </div>
+    {{zoneClickStatus.status}}
 </div>
