@@ -108,7 +108,7 @@ export class ZoneReportComponent implements OnInit {
             this.sdtTime.push(
               {
                 label: this.zoneData[i].zoneName,
-                y: this.zoneData[i].standardTime
+                y: parseInt(this.zoneData[i].standardTime)
               }
             )
             this.zonePerformanceChart()
@@ -138,7 +138,7 @@ export class ZoneReportComponent implements OnInit {
             for (let j = 0; j < this.zoneData[i].data.length; j++) {
               dataPointZone.push({
                 x: new Date(this.zoneData[i].data[j].date),
-                y: this.zoneData[i].data[j].zonePerformance
+                y: parseInt(this.zoneData[i].data[j].zonePerformance)
               })
             }
             this.dataPoints.push(
@@ -178,7 +178,7 @@ export class ZoneReportComponent implements OnInit {
             this.dataPoints.push(
               {
                 label: this.zoneData[i].zoneName,
-                y: this.zoneData[i].zoneWiseEfficiency,
+                y: parseInt(this.zoneData[i].zoneWiseEfficiency),
               }
             )
 
@@ -209,7 +209,7 @@ export class ZoneReportComponent implements OnInit {
             for (let j = 0; j < this.zoneData[i].data.length; j++) {
               dataPointZone.push({
                 x: new Date(this.zoneData[i].data[j].date),
-                y: this.zoneData[i].data[j].zonePerformance
+                y: parseInt(this.zoneData[i].data[j].zonePerformance)
               })
             }
             this.dataPoints.push(
