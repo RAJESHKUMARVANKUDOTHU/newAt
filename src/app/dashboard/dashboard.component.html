@@ -67,8 +67,6 @@
                             <circle-progress class="circle " [percent]="vehicleUnderServiceCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
                                 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
-
-
                     </div> <br>
                     <div class="row text-center">
                         <div class="col-md-6">
@@ -131,7 +129,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                {{ zoneClickStatus.status}}
                 <mat-card>
                     <mat-card-title *ngIf="zoneClickStatus.status">
                         {{zoneClickStatus.zone}}
@@ -204,5 +201,4 @@
             </div>
         </div>
     </div>
-    {{zoneClickStatus.status}}
-</div>
+    ]</div>
