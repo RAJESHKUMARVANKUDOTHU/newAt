@@ -132,7 +132,7 @@ export class LocationReportComponent implements OnInit {
       this.dataPoints.push(
         {
           label: data[i].coinName,
-          y: data[i].minutes
+          y: parseInt(data[i].minutes)
         }
       )
     }

@@ -24,7 +24,7 @@ export class ManageCoinComponent implements OnInit {
   offset:any=0
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns = ['i', 'coinId', 'coinName', 'gatewayId', 'coinBattery', 'updatedOn', 'edit', 'delete'];
+  displayedColumns = ['i', 'coinId', 'coinName','zoneName', 'gatewayId', 'coinBattery', 'updatedOn', 'edit', 'delete'];
   constructor(
     public dialog: MatDialog,
     private login: LoginAuthService,
@@ -81,6 +81,7 @@ export class ManageCoinComponent implements OnInit {
               coinBattery: res.success[i].coinBattery,
               gatewayId: res.success[i].gatewayId,
               updatedOn: res.success[i].updatedOn,
+              zoneName: res.success[i].zoneId != null?res.success[i].zoneId.zoneName:'-',
               batteryRecvTime:res.success[i].batteryRecvTime,
               edit: 'edit',
               delete: 'delete_forever'

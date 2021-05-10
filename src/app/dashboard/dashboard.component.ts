@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit {
     this.api
       .getLayouts()
       .then((res: any) => {
-        console.log('get layout res===', res);
+        // console.log('get layout res===', res);
         if (res.status) {
           let data = res.success
           for (let i = 0; i < data.length; i++) {
@@ -178,7 +178,7 @@ export class DashboardComponent implements OnInit {
   // , {color: "white", weight: 1}
 
   getZones() {
-    console.log('here zones');
+    // console.log('here zones');
     this.api.getZone().then((res: any) => {
       console.log('zone details response==', res);
       this.zoneList = [];
@@ -219,7 +219,7 @@ export class DashboardComponent implements OnInit {
 
 
   zoneClick(data) {
-    console.log('zone click data===', data);
+    // console.log('zone click data===', data);
     this.clearMap();
     // this.zoneList = [];
     this.zoneClickStatus = {
@@ -238,18 +238,18 @@ export class DashboardComponent implements OnInit {
     });
     console.log('this.zoneList===', this.zoneList);
     this.createDevice();
-    this.GroupDevices(data);
+    this.GroupDevices(data._id);
   }
 
 
   GroupDevices(data) {
-    console.log("group device data===", data);
+    // console.log("group device data===", data);
     this.deviceGroupList = this.deviceList.filter(obj => {
-      if (obj.zoneId == data._id) {
+      if (obj.zoneId == data) {
         return this.getDeviceDelayOperation(obj);
       }
     });
-    console.log("this.deviceGroupList==", this.deviceGroupList);
+    // console.log("this.deviceGroupList==", this.deviceGroupList);
   }
 
 
@@ -292,7 +292,7 @@ export class DashboardComponent implements OnInit {
       iconUrl: '../../assets/Car_Black.png',
       iconSize: [60, 60],
     });
-    console.log("this.deviceList==", this.deviceList, "this.zoneList==", this.zoneList);
+    // console.log("this.deviceList==", this.deviceList, "this.zoneList==", this.zoneList);
 
     for (let i = 0; i < this.zoneList.length; i++) {
       if (this.zoneList[i].selected) {
@@ -328,7 +328,7 @@ export class DashboardComponent implements OnInit {
                   permanent: false
                 })
             )
-            console.log("mapp==", this.map)
+            // console.log("mapp==", this.map)
           }
         }
       }
@@ -354,13 +354,13 @@ export class DashboardComponent implements OnInit {
     let theta = Math.atan2(b, a)
     theta *= 180 / Math.PI;
     if (theta < 0) theta = 360 + theta
-    console.log("theta ==", theta);
+    // console.log("theta ==", theta);
     return theta;
   }
 
 
   getDirection(data) {
-    console.log("latlng==", data)
+    // console.log("latlng==", data)
     let lat = data[0][0]
     let lng = data[0][1]
 
@@ -381,15 +381,12 @@ export class DashboardComponent implements OnInit {
 
     if (lat > 0 && lng > 0) {
       if (lat > 100 && lng < 200) {
-        console.log("hi")
         return 'bottom'
       }
       else if (lat < 100 && lng < 200) {
-        console.log("hi 1")
         return 'top'
       }
       else if (lat < 100 && lng > 200) {
-        console.log("hi 2")
         return 'auto'
       }
       else {
@@ -399,11 +396,9 @@ export class DashboardComponent implements OnInit {
     }
     if (lat < 0 && lng > 0) {
       if ((lat < -100 || lat > -100) && lng < 200) {
-        console.log("hi 1")
         return 'top'
       }
       else if (lat < -100 && lng > 200) {
-        console.log("hi 2")
         return 'auto'
       }
       else {
@@ -416,7 +411,6 @@ export class DashboardComponent implements OnInit {
       }
 
       else if (lat < 100 && lng < -200) {
-        console.log("hi 1")
         return 'top'
       }
       else if (lat < 100 && lng > -200) {
@@ -448,6 +442,7 @@ export class DashboardComponent implements OnInit {
               .toLowerCase()
               .indexOf(this.deviceList[i].zoneId.toString().toLowerCase()) > -1
           ) {
+            this.GroupDevices(this.deviceList[i].zoneId);
             obj.selected = true;
             obj.highlight = true;
             return obj;
@@ -470,6 +465,7 @@ export class DashboardComponent implements OnInit {
   }
 
   clearSearchDeviceZone() {
+    this.deviceGroupList=[];
     this.deviceList = this.tempDeviceList;
     this.zoneList = this.tempZoneList;
     this.zoneList = this.zoneList.map((obj) => {
@@ -480,7 +476,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPopUpForm(data) {
-    console.log("data pop ===", data);
+    // console.log("data pop ===", data);
 
     let sdt = this.getSDT(data).format('YYYY-MM-DD hh:mm:ss a');
     let edt = this.getEDT(data).format('YYYY-MM-DD hh:mm:ss a');
@@ -569,7 +565,7 @@ export class DashboardComponent implements OnInit {
         }
       });
     });
-    console.log("data calculate zone actions===", groupByzone, "data1===", data, "this.zoneAction==", this.zoneList);
+    // console.log("data calculate zone actions===", groupByzone, "data1===", data, "this.zoneAction==", this.zoneList);
   }
 
 
@@ -591,7 +587,7 @@ export class DashboardComponent implements OnInit {
         try {
           this.map.removeLayer(this.map._layers[i]);
         } catch (e) {
-          console.log('problem with ' + e + this.map._layers[i]);
+          // console.log('problem with ' + e + this.map._layers[i]);
         }
       }
     }
@@ -603,14 +599,14 @@ export class DashboardComponent implements OnInit {
         try {
           this.map.removeLayer(this.map._layers[i]);
         } catch (e) {
-          console.log('problem with ' + e + this.map._layers[i]);
+          // console.log('problem with ' + e + this.map._layers[i]);
         }
       }
     }
   }
 
   vehicleStatus(data) {
-    console.log("a==", data);
+    // console.log("a==", data);
     this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
   
@@ -621,7 +617,7 @@ export class DashboardComponent implements OnInit {
       timeZoneOffset: this.general.getZone()
     }
     this.api.getVehicleServiceCount(data).then((res: any) => {
-      console.log("res 0f vehicle service count==", res)
+      // console.log("res 0f vehicle service count==", res)
       if (res.status) {
         this.serviceCount.servicedVehicleCount = res.success.servicedVehicleCount;
         this.serviceCount.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount;
@@ -643,9 +639,9 @@ export class DashboardComponent implements OnInit {
       fromDate: fromDate,
       toDate:toDate
     }
-    console.log("congestion form data===",data,moment().subtract(5,'minutes').format("YY-MM-DD HH:MM:SS"))
+    // console.log("congestion form data===",data,moment().subtract(5,'minutes').format("YY-MM-DD HH:MM:SS"))
     this.api.getCongestion(data).then((res:any)=>{
-      console.log("congestion res===",res)
+      // console.log("congestion res===",res)
       this.congestionData = [];
       if(res.status){
        for(let i=0;i<res.success.length;i++){

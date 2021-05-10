@@ -131,9 +131,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <mat-card *ngIf="!zoneClickStatus.status">
+                <!-- <mat-card *ngIf="!zoneClickStatus.status">
                     <mat-card-content>
-                        <table class="table bordered table-striped table-md-responsive text-center ">
+                        <table class="table bordered table-striped text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Zone</th>
@@ -150,13 +150,13 @@
                             </tbody>
                         </table>
                     </mat-card-content>
-                </mat-card>
-                <mat-card *ngIf="zoneClickStatus.status">
-                    <mat-card-title>
+                </mat-card> -->
+                <mat-card>
+                    <!-- <mat-card-title>
                         {{zoneClickStatus.zone}}
-                    </mat-card-title>
-                    <mat-card-content style="overflow-x: scroll;">
-                        <table *ngIf="deviceGroupList.length" class="table bordered table-striped table-md-responsive text-center ">
+                    </mat-card-title> -->
+                    <mat-card-content>
+                        <table class="table bordered table-striped text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Vehicle</th>
@@ -182,16 +182,16 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div *ngIf="!deviceGroupList.length" class="nodata">
+                        <!-- <div *ngIf="!deviceGroupList.length" class="nodata">
                             No data found
-                        </div>
+                        </div> -->
                     </mat-card-content>
                 </mat-card>
             </div>
             <div class="col-md-6">
                 <mat-card>
                     <mat-card-content>
-                        <div id="line"></div>
+                        <div id="line" style="height:300px; width: 100%;"></div>
                     </mat-card-content>
                 </mat-card>
             </div>
