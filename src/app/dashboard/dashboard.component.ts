@@ -449,12 +449,7 @@ export class DashboardComponent implements OnInit {
 
       for (let i = 0; i < this.deviceList.length; i++) {
         this.zoneList = this.tempZoneList.filter((obj) => {
-          console.log("indez==", obj._id
-            .toString()
-            .toLowerCase()
-            .indexOf(this.deviceList[i].zoneId.toString().toLowerCase()) > -1);
-
-          if (
+           if (
             obj._id
               .toString()
               .toLowerCase()
