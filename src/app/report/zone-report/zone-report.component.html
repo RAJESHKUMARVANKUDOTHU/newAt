@@ -15,12 +15,11 @@
         <span>
             <button mat-raised-button (click)="download()" color="primary" [disabled]="!zoneData.length">
                 <span> Download</span>&nbsp;&nbsp;
-                <mat-icon>download </mat-icon>
-            </button>
+        <mat-icon>download </mat-icon>
+        </button>
         </span>
         <mat-form-field>
-            <input matInput placeholder="Search" autocomplete="off" matInput
-                (input)="search($event.target.value, zoneData)">
+            <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, zoneData)">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
@@ -69,11 +68,13 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
         </table>
-        <mat-paginator (page)="getUpdate($event,'1')" [length]="currentPageLength" [pageSize]="currentPageSize"
-            [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+        <mat-paginator (page)="getUpdate($event,'1')" [length]="currentPageLength" [pageSize]="currentPageSize" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
     </div>
 
 </div>
-<div id="chartContainer" style="height:300px; width: 100%;"
-    [ngStyle]="{'display':(zoneReportData.type =='2'||zoneReportData.type =='3'||zoneReportData.type =='4'||zoneReportData.type =='5')?'block':'none'}">
+<div>
+    <br><br><br><br><br><br><br>
+    <div id="chartContainer" style="height:300px; width: 100%;" [ngStyle]="{'display':(zoneReportData.type =='2'||zoneReportData.type =='3'||zoneReportData.type =='4'||zoneReportData.type =='5')?'block':'none'}">
+    </div>
+
 </div>

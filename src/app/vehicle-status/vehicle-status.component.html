@@ -17,13 +17,11 @@
 <div class="d-flex justify-content-around">
 
     <div>
-        <span
-            [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}"><span>Service
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}"><span>Service
                 Type :</span> {{vehicleData.serviceType}} </span>
     </div>
     <div>
-        <span
-            [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'0rem':'-8rem'}"><span>Delayed
+        <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'0rem':'-8rem'}"><span>Delayed
                 Time :</span> {{vehicleData.delayTime}} min </span>
     </div>
 </div>
@@ -35,13 +33,13 @@
         [ngClass]="first || last ? 'border-less': 'parallellogram'">
         <span class="text-center">
             <span *ngIf="first">{{zone.zoneName}}</span>
-            <span *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</span>
-            <span *ngIf="last">{{zone.zoneName}}</span>
-            <span style="visibility:hidden;">
+<span *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</span>
+<span *ngIf="last">{{zone.zoneName}}</span>
+<span style="visibility:hidden;">
                 {{zone.time}} min
             </span>
-        </span>
-    </mat-card> <br>
+</span>
+</mat-card> <br>
 </span> <br>
 <span class="d-flex text-center zone">
     <mat-card class="status-bar" *ngFor="let zone of zoneData ;let i=index" [ngStyle]="getFillColor(zone)">
@@ -49,9 +47,9 @@
             <span style="line-height: 3;">
                 {{zone.time}} min
             </span>
-            <span style="visibility:hidden"> {{zone.zoneName}}</span>
-        </span>
-    </mat-card>
+<span style="visibility:hidden"> {{zone.zoneName}}</span>
+</span>
+</mat-card>
 </span>
 
 <br><br>
@@ -90,6 +88,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>
+<div id="line">
+
 </div>
 
 

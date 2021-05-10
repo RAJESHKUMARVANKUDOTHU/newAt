@@ -31,9 +31,9 @@ export class DashboardComponent implements OnInit {
   tempDeviceList: any = [];
   tempZoneList: any = [];
   marker: any = [];
-  congestionData:any=[]
+  congestionData: any = []
   interval: any;
-  timeInterval:any;
+  timeInterval: any;
   zoneClickStatus: any = {
     status: false,
     zone: null
@@ -43,12 +43,12 @@ export class DashboardComponent implements OnInit {
     searchError: false,
     searchMessage: 'Vehicle not found',
   };
-  serviceCount : any = {
-    servicedVehicleCount : 0,
-    vehicleForServiceTodayCount : 0,
-    vehicleUnderServiceCount : 0,
-    overAllEfficiency : 0,
-    avgServiceTime : 0
+  serviceCount: any = {
+    servicedVehicleCount: 0,
+    vehicleForServiceTodayCount: 0,
+    vehicleUnderServiceCount: 0,
+    overAllEfficiency: 0,
+    avgServiceTime: 0
   }
 
   constructor(
@@ -56,16 +56,18 @@ export class DashboardComponent implements OnInit {
     private api: ApiService,
     private login: LoginAuthService,
     private router: Router,
-    public general: GeneralService) { }
+    public general: GeneralService) {
+
+  }
 
   ngOnInit(): void {
+
     this.refreshCongestion();
     this.getVehicleServiceCount()
     setTimeout(() => {
       this.createMap();
     }, 1);
     this.timeInterval = setInterval(() => {
-      this.refreshCongestion()
       this.getVehicleServiceCount()
     }, 10000);
     this.login.loginCheckData.subscribe(res => {
@@ -88,7 +90,12 @@ export class DashboardComponent implements OnInit {
       this.map.remove();
     }
   }
-
+  initiate() {
+    this.timeInterval = setInterval(() => {
+      this.refreshCongestion()
+      this.getVehicleServiceCount()
+    }, 10000);
+  }
   clearTimeInterval() {
     clearInterval(this.interval);
     clearInterval(this.timeInterval)
@@ -153,7 +160,7 @@ export class DashboardComponent implements OnInit {
     this.zoneClickStatus = {
       status: false,
       zone: null
-    };;
+    };
     this.api.getZoneVehicleData().then((res: any) => {
       console.log('zone vehicle response==', res);
       if (res.status) {
@@ -226,6 +233,7 @@ export class DashboardComponent implements OnInit {
       status: true,
       zone: data.zoneName
     };
+
     this.zoneList = this.zoneList.map((obj) => {
       if (obj._id == data._id) {
         obj.selected = true;
@@ -246,6 +254,11 @@ export class DashboardComponent implements OnInit {
     // console.log("group device data===", data);
     this.deviceGroupList = this.deviceList.filter(obj => {
       if (obj.zoneId == data) {
+        console.log("true");
+        this.zoneClickStatus = {
+          status: true,
+          zone: obj.zoneName
+        };
         return this.getDeviceDelayOperation(obj);
       }
     });
@@ -320,7 +333,6 @@ export class DashboardComponent implements OnInit {
             }
             // ,rotationAngle:this.getAngle(latlng[0].lat,latlng[1].lat,latlng[0].lng,latlng[1].lng)
             this.marker.push(
-              
               new L.animatedMarker(latlng, { icon: icon, interval: 3000 })
                 .addTo(this.map)
                 .bindTooltip(this.getPopUpForm(this.deviceList[j]), {
@@ -422,6 +434,7 @@ export class DashboardComponent implements OnInit {
   searchVehicle(data) {
     console.log('search data===', data);
     if (data) {
+      this.clearTimeInterval()
       this.deviceList = this.tempDeviceList.filter((obj) => {
         return (
           (obj.deviceId
@@ -436,15 +449,13 @@ export class DashboardComponent implements OnInit {
 
       for (let i = 0; i < this.deviceList.length; i++) {
         this.zoneList = this.tempZoneList.filter((obj) => {
-          if (
+           if (
             obj._id
               .toString()
               .toLowerCase()
               .indexOf(this.deviceList[i].zoneId.toString().toLowerCase()) > -1
           ) {
             this.GroupDevices(this.deviceList[i].zoneId);
-            obj.selected = true;
-            obj.highlight = true;
             return obj;
           } else {
             return;
@@ -465,7 +476,12 @@ export class DashboardComponent implements OnInit {
   }
 
   clearSearchDeviceZone() {
-    this.deviceGroupList=[];
+    this.initiate();
+    this.zoneClickStatus = {
+      status: false,
+      zone: null
+    };
+    this.deviceGroupList = [];
     this.deviceList = this.tempDeviceList;
     this.zoneList = this.tempZoneList;
     this.zoneList = this.zoneList.map((obj) => {
@@ -571,7 +587,6 @@ export class DashboardComponent implements OnInit {
 
   groupByZone() {
     return this.deviceList.reduce(function (r, a) {
-
       r[a.zoneName] = r[a.zoneName] || [];
       r[a.zoneName].push(a);
       return r;
@@ -609,7 +624,7 @@ export class DashboardComponent implements OnInit {
     // console.log("a==", data);
     this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
   }
-  
+
   getVehicleServiceCount() {
     let currentDate = moment().format("YYYY-MM-DD")
     var data = {
@@ -628,32 +643,31 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  refreshCongestion(){
+  refreshCongestion() {
     var now = new Date()
     var then = moment(toDate).subtract(5, "minutes").toDate()
     var fromDate = moment(then).format("YYYY-MM-DD HH:mm:ss")
     var toDate = moment(now).format("YYYY-MM-DD HH:mm:ss")
-    
-    var data={
-      timeZoneOffset:this.general.getZone(),
+    var data = {
+      timeZoneOffset: this.general.getZone(),
       fromDate: fromDate,
-      toDate:toDate
+      toDate: toDate
     }
     // console.log("congestion form data===",data,moment().subtract(5,'minutes').format("YY-MM-DD HH:MM:SS"))
-    this.api.getCongestion(data).then((res:any)=>{
+    this.api.getCongestion(data).then((res: any) => {
       // console.log("congestion res===",res)
       this.congestionData = [];
-      if(res.status){
-       for(let i=0;i<res.success.length;i++){
-        this.congestionData.push({
-          label:res.success[i].zoneName,
-          y:res.success[i].congestion
-        })
-       }
+      if (res.status) {
+        for (let i = 0; i < res.success.length; i++) {
+          this.congestionData.push({
+            label: res.success[i].zoneName,
+            y: res.success[i].congestion
+          })
+        }
       }
       this.congestionGraph();
-    }).catch((err:any)=>{
-      console.log("err===",err)
+    }).catch((err: any) => {
+      console.log("err===", err)
     })
   }
 
@@ -664,25 +678,24 @@ export class DashboardComponent implements OnInit {
       title: {
         text: '',
       },
- 
       axisX: {
         title: "Zone"
       },
-      axisY:{
-        title: "Congestion (in min)",        
+      axisY: {
+        title: "Congestion (in min)",
         suffix: "min",
-        stripLines:[
-          {        
-            startValue:-19.8,
-            endValue:-20,                
-            color:"#black",
+        stripLines: [
+          {
+            startValue: -19.8,
+            endValue: -20,
+            color: "#black",
             lineDashType: "longDash",
           }
-        ] ,
-        minimum:-20,
-        gridThickness:0,
-        reversed:  true,
-        interval:20
+        ],
+        minimum: -20,
+        gridThickness: 0,
+        reversed: true,
+        interval: 20
       },
       data: [
         {
