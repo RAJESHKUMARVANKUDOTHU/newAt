@@ -253,7 +253,41 @@ export class GeneralService {
     return date.getTimezoneOffset()
   }
 
+  getTime(num) {
+    var day = Math.floor(num / 1440);
+    var hour = Math.floor((num - (day * 1440)) / 60);
+    var min = Math.round(num % 60);
+    console.log("day:hour:min", day, hour, min)
+    if (day == 0) {
+      if (hour > 0 && min > 0) {
+        return ((hour == 1 ? hour + ' hour' : hour + ' hours') + ' ' + (min == 1 ? min + ' min' : min + ' minutes'));
+      }
+      if (hour == 0 && min > 0) {
+        return (min == 1 ? min + ' min' : min + ' minutes');
+      }
+      if (hour > 0 && min == 0) {
+        return (hour == 1 ? hour + ' hour' : hour + ' hours');
+      }
+      if (hour == 0 && min == 0) {
+        return '0 min';
+      }
+    }
+    else if (day > 0) {
+      if (hour > 0 && min > 0) {
+        return ((day == 1 ? day + ' day' : day + ' days') + ' ' + (hour == 1 ? hour + ' hour' : hour + ' hours') + ' ' + (min == 1 ? min + ' min' : min + ' minutes'));
+      }
+      if (hour == 0 && min > 0) {
+        return ((day == 1 ? day + ' day' : day + ' days') + ' ' + (min == 1 ? min + ' min' : min + ' minutes'));
+      }
+      if (hour > 0 && min == 0) {
+        return ((day == 1 ? day + ' day' : day + ' days') + ' ' + (hour == 1 ? hour + ' hour' : hour + ' hours'));
+      }
+      if (hour == 0 && min == 0) {
+        return (day == 1 ? day + ' day' : day + ' days');
+      }
+    }
 
+  }
   getMillisecondToMinutes(milli){
     return Math.floor(milli/(1000 * 60));
   }

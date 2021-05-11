@@ -449,7 +449,7 @@ export class DashboardComponent implements OnInit {
 
       for (let i = 0; i < this.deviceList.length; i++) {
         this.zoneList = this.tempZoneList.filter((obj) => {
-           if (
+          if (
             obj._id
               .toString()
               .toLowerCase()
@@ -638,12 +638,12 @@ export class DashboardComponent implements OnInit {
         this.serviceCount.vehicleForServiceTodayCount = res.success.vehicleForServiceTodayCount;
         this.serviceCount.vehicleUnderServiceCount = res.success.vehicleUnderServiceCount;
         this.serviceCount.overAllEfficiency = Math.floor(res.success.overAllEfficiency);
-        this.serviceCount.avgServiceTime = Math.floor(res.success.avgTime);
+        this.serviceCount.avgServiceTime = this.general.getTime(res.success.avgTime);
       }
     })
   }
 
-  refreshCongestion() {
+   refreshCongestion() {
     var now = new Date()
     var then = moment(toDate).subtract(5, "minutes").toDate()
     var fromDate = moment(then).format("YYYY-MM-DD HH:mm:ss")

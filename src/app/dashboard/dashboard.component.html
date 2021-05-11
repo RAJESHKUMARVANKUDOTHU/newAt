@@ -34,7 +34,7 @@
                                     </circle-progress>
                                 </td>
                                 <td class="pl-md-5 pt-md-5">
-                                    <span class="font-weight-bold font">{{serviceCount.avgServiceTime}} min</span>
+                                    <span class="font">{{serviceCount.avgServiceTime}}</span>
                                 </td>
                             </tr>
                         </tbody>
@@ -55,7 +55,7 @@
     <div class="container-fluid" *ngIf="!general.isDesktopDevice">
         <mat-card>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9 mt-3">
                     <div class="row text-center">
                         <div class="col-md-6">
                             <h2>Vehicle for Service Today</h2>
@@ -63,14 +63,14 @@
                                 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
                         <div class="col-md-6">
-                            <h2>Vehicle Under <br> Service</h2>
+                            <h2>Vehicle Under Service</h2>
                             <circle-progress class="circle " [percent]="vehicleUnderServiceCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
                                 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
                     </div> <br>
                     <div class="row text-center">
                         <div class="col-md-6">
-                            <h2>Serviced <br> Vehicle</h2>
+                            <h2>Serviced Vehicle</h2>
                             <circle-progress class="circle" [percent]="this.servicedVehicleCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
                                 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                         </div>
@@ -82,15 +82,12 @@
 
                     </div>
                 </div>
-                <!-- <div class="col-md-4 text-center">
-                    <mat-card>
-                        <mat-card-content>Least Performing zone</mat-card-content>
-                    </mat-card>
-                    <br>
-                    <mat-card>
-                        <mat-card-content>High Congestion zone</mat-card-content>
-                    </mat-card>
-                </div> -->
+                <div class="col-md-3 text-center">
+                    <span class="pl-md-5">
+                        <h1>Avg. servicing time</h1>
+                        <span class="font">{{serviceCount.avgServiceTime}}</span>
+                    </span>
+                </div>
             </div>
         </mat-card>
     </div>
@@ -143,7 +140,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" [ngClass]='a.highlight ? "selected" : "not-selected"'>
+                                <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
                                     <td>{{a.vehicleCount}}</td>
                                     <td [ngClass]="a.isDelay ? 'delay' : '' ">{{a.time}} minutes</td>
