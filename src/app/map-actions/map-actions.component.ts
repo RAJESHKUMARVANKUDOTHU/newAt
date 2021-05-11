@@ -391,8 +391,8 @@ export class MapActionsComponent implements OnInit {
 
   createNewLayout(data) {
     console.log(this.newLayoutForm)
-    data.length = data.width;
-    data.breadth = data.height;
+    data.length = data.height;
+    data.breadth = data.width;
     data.gatewayObjectId = this.general.filterArray(data.gatewayId);
     data.fileData.filename =
       data.gatewayId[0] +

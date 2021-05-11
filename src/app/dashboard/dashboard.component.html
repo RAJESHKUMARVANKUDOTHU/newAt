@@ -131,7 +131,7 @@
                         {{zoneClickStatus.zone}}
                     </mat-card-title>
                     <mat-card-content>
-                        <table *ngIf="!zoneClickStatus.status" class="table bordered table-striped text-center ">
+                        <table *ngIf="!zoneClickStatus.status" class="table table-responsive bordered table-striped text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Zone</th>
@@ -147,7 +147,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table *ngIf="deviceGroupList.length && zoneClickStatus.status" class="table bordered table-striped text-center ">
+                        <table *ngIf="deviceGroupList.length && zoneClickStatus.status" class="table table-responsive bordered table-striped text-center ">
                             <thead class="thead-dark font-weight-bold">
                                 <tr>
                                     <th>Vehicle</th>
