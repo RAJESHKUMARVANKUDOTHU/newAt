@@ -130,15 +130,15 @@
                     <mat-card-title *ngIf="zoneClickStatus.status">
                         {{zoneClickStatus.zone}}
                     </mat-card-title>
-                    <mat-card-content>
-                        <table *ngIf="!zoneClickStatus.status" class="table table-responsive bordered table-striped text-center ">
-                            <thead class="thead-dark font-weight-bold">
-                                <tr>
-                                    <th>Zone</th>
-                                    <th>No. of Vehicles</th>
-                                    <th>Avg. Time</th>
-                                </tr>
-                            </thead>
+                    <mat-card-content class="table-responsive">
+                        <table *ngIf="!zoneClickStatus.status" class="table  bordered table-striped text-center ">
+                            <!-- <thead class="thead-dark font-weight-bold"> -->
+                            <tr class="thead-dark font-weight-bold">
+                                <th>Zone</th>
+                                <th>No. of Vehicles</th>
+                                <th>Avg. Time</th>
+                            </tr>
+                            <!-- </thead> -->
                             <tbody>
                                 <tr class="cursor" *ngFor="let a of zoneList; let i = index" (click)="zoneClick(a)" [ngClass]='a.highlight ? "selected" : "not-selected"'>
                                     <td>{{a.zoneName}}</td>
