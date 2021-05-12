@@ -13,20 +13,20 @@ import * as CanvasJS from '../../assets/canvasjs-3.2.7/canvasjs.min';
   styleUrls: ['./congestion.component.css']
 })
 export class CongestionComponent implements OnInit {
-  congestionForm: FormGroup
-  congestionTrendForm: FormGroup
-  map: any = null
-  bounds: any = []
-  zones: any = []
-  congestionData: any = []
-  marker: any = []
-  timeInterval: any
+  congestionForm: FormGroup;
+  congestionTrendForm: FormGroup;
+  map: any = null;
+  bounds: any = [];
+  zones: any = [];
+  congestionData: any = [];
+  marker: any = [];
+  timeInterval: any;
   enable: any = {
     map: true,
     dayError: false,
     refreshCongestionData: true
-  }
-  dataPoints: any = []
+  };
+  dataPoints: any = [];
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -120,8 +120,10 @@ export class CongestionComponent implements OnInit {
       maxBoundsViscosity: 1.0,
       fullscreenControl: true,
       fullscreenControlOptions: {
-        position: 'topleft'
-      }
+        title: 'Show me the fullscreen !',
+        titleCancel: 'Exit fullscreen mode',
+        position: 'topleft',
+      },
     })
     this.bounds = this.map.getBounds()
     this.map.setMaxBounds(this.bounds)
@@ -150,10 +152,10 @@ export class CongestionComponent implements OnInit {
         let layout = res.success
         for (let i = 0; i < layout.length; i++) {
           this.api.getLayoutImage(layout[i]._id).then((imgRes: any) => {
-            this.clearMapImage()
-            L.imageOverlay(imgRes, this.bounds).addTo(this.map)
-            this.map.on('load', this.refreshCongestion(this.getData()))
-          })
+            this.clearMapImage();
+            L.imageOverlay(imgRes, this.bounds).addTo(this.map);
+            this.map.on('load', this.refreshCongestion(this.getData()));
+          });
         }
       }
       else { }
@@ -293,9 +295,9 @@ export class CongestionComponent implements OnInit {
   }
 
   clearMap() {
-    for (let i in this.marker.length) {
-      this.map.removeLayer(this.marker[i]);
-    }
+    // for (let i in this.marker.length) {
+    //   this.map.removeLayer(this.marker[i]);
+    // }
     for (let i in this.map._layers) {
       if (!this.map._layers[i].hasOwnProperty('_url')) {
         try {

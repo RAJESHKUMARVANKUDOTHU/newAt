@@ -32,12 +32,10 @@
     <mat-card id="card" *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;"
         [ngClass]="first || last ? 'border-less': 'parallellogram'">
         <span class="text-center">
-            <span *ngIf="first">{{zone.zoneName}}</span>
+            <span *ngIf="first"><i>{{zone.zoneName}}</i></span>
 <span *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</span>
-<span *ngIf="last">{{zone.zoneName}}</span>
-<span style="visibility:hidden;">
-                {{zone.time}} min
-            </span>
+<span *ngIf="last"><i>{{zone.zoneName}}</i></span>
+<span style="visibility:hidden;">{{zone.time}} min</span>
 </span>
 </mat-card> <br>
 </span> <br>

@@ -1,15 +1,16 @@
-button.mat-focus-indicator.mat-raised-button.mat-button-base{
+button.mat-focus-indicator.mat-raised-button.mat-button-base {
     width: 100%;
     text-align: center;
     height: 50px;
     font-size: 15px;
     color: white;
     font-weight: bold;
-    background-color:rgb(97, 163, 194);
+    background-color: rgb(97, 163, 194);
     border: none;
     color: white;
 }
-hr{
+
+hr {
     width: 12rem;
 }
 
@@ -22,4 +23,12 @@ hr{
 
 .mat-cell {
     text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .mat-card {
+        width: fit-content !important;
+        margin-top: 1rem;
+        text-align: left;
+    }
 }

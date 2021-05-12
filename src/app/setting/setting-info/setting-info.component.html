@@ -3,8 +3,7 @@
 </button>
 <div *ngIf="type=='timeDelay'">
     <h1 mat-dialog-title *ngIf="deviceData?.length">Time Delay </h1>
-    <div mat-dialog-content *ngIf="deviceData?.length;else nodata"
-        class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="deviceData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form2">
             <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
@@ -33,9 +32,7 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                [disabled]="a.get('timeDelay').value == 0"
-                                (click)="onSubmitTimeDelay(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" [disabled]="a.get('timeDelay').value == 0" (click)="onSubmitTimeDelay(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
@@ -47,11 +44,10 @@
 
 <div *ngIf="type=='find-inactive'">
     <h1 mat-dialog-title *ngIf="deviceData?.length">Find Inactivity time </h1>
-    <div mat-dialog-content *ngIf="deviceData?.length;else nodata"
-        class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="deviceData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
 
         <form [formGroup]="form2">
-            <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
+            <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0" class="table-md-responsive">
                 <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
                     <ng-container [formGroupName]="i">
                         <td> {{i+1}}.&nbsp;&nbsp;</td>
@@ -94,9 +90,7 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                [disabled]="(a.get('inactivityAlert').value == '') || a.get('inActivityTime').value == 0"
-                                (click)="onSubmitInactivityFind(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" [disabled]="(a.get('inactivityAlert').value == '') || a.get('inActivityTime').value == 0" (click)="onSubmitInactivityFind(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
@@ -150,16 +144,14 @@
                             <mat-icon (click)="deleteInactivityCoin(a.value)" class="cursor">delete_forever</mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                [disabled]="a.get('inactivityAlert').value == ''  || a.get('inActivityTime').value == 0"
-                                (click)="onSubmitInactivityCoin(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" [disabled]="a.get('inactivityAlert').value == ''  || a.get('inActivityTime').value == 0" (click)="onSubmitInactivityCoin(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
             </table>
         </form>
     </div>
-  </div>
+</div>
 
 <div *ngIf="type=='max-find'">
     <h1 mat-dialog-title *ngIf="coinData?.length">Maximum Find to assign for Coin</h1>
@@ -195,16 +187,14 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                [disabled]="a.get('maxFindAsset').value == 0"
-                                (click)="onSubmitMaxFindForm(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" [disabled]="a.get('maxFindAsset').value == 0" (click)="onSubmitMaxFindForm(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
             </table>
         </form>
     </div>
-   </div>
+</div>
 
 <div *ngIf="type=='groupName'">
     <h1 mat-dialog-title *ngIf="groupData?.length"> Available Group Names</h1>
@@ -231,15 +221,14 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                (click)="onSubmitGroup(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" (click)="onSubmitGroup(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
             </table>
         </form>
     </div>
- </div>
+</div>
 
 <div *ngIf="type=='zone'">
     <h1 mat-dialog-title *ngIf="zoneData?.length">Create Zone</h1>
@@ -275,9 +264,7 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                [disabled]="a.get('standardTime').value == 0 || a.get('zoneName').value == ''"
-                                (click)="onSubmitZoneForm(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" [disabled]="a.get('standardTime').value == 0 || a.get('zoneName').value == ''" (click)="onSubmitZoneForm(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
@@ -288,8 +275,7 @@
 
 <div *ngIf="type=='coinGrp'">
     <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Group coin setting</h1>
-    <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata"
-        class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="groupForm">
             <table formArrayName="items" *ngIf="groupForm.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of groupForm.get('items')['controls']; let i=index;">
@@ -299,9 +285,7 @@
                             <mat-form-field>
                                 <mat-label>Coin Name</mat-label>
                                 <mat-select formControlName="coinId" [compareWith]="compareFn" multiple>
-                                    <mat-option *ngFor="let coin of coinData;let i= index"
-                                        [disabled]="coin.groupId!=null?coin.groupId._id != a.get('groupId').value:false"
-                                        [value]="coin">
+                                    <mat-option *ngFor="let coin of coinData;let i= index" [disabled]="coin.groupId!=null?coin.groupId._id != a.get('groupId').value:false" [value]="coin">
                                         {{coin.coinName}}</mat-option>
                                 </mat-select>
                                 <mat-error>
@@ -315,7 +299,7 @@
                                 <span *ngIf="!last">
                                     {{b.get('coinName').value}},
                                 </span>
-                                <span *ngIf="last">
+                            <span *ngIf="last">
                                     {{b.get('coinName').value}}.
                                 </span>
                             </span>
@@ -334,22 +318,20 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                (click)="onSubmitGroupCoinForm(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" (click)="onSubmitGroupCoinForm(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
             </table>
         </form>
     </div>
- 
+
 </div>
 
 
 <div *ngIf="type=='coin-cat'">
     <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Coin configuration</h1>
-    <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata"
-        class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="zoneForm">
             <table formArrayName="items" *ngIf="zoneForm.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of zoneForm.get('items')['controls']; let i=index;">
@@ -359,9 +341,7 @@
                             <mat-form-field>
                                 <mat-label>Coin Name</mat-label>
                                 <mat-select formControlName="coinId" [compareWith]="compareFn" multiple>
-                                    <mat-option *ngFor="let coin of coinData;let i= index"
-                                        [disabled]="coin.zoneId!=null?coin.zoneId._id != a.get('zoneId').value:false"
-                                        [value]="coin">
+                                    <mat-option *ngFor="let coin of coinData;let i= index" [disabled]="coin.zoneId!=null?coin.zoneId._id != a.get('zoneId').value:false" [value]="coin">
                                         {{coin.coinName}}</mat-option>
                                 </mat-select>
                                 <mat-error>
@@ -374,7 +354,7 @@
                                 <span *ngIf="!last">
                                     {{ b.get('coinName').value}},
                                 </span>
-                                <span *ngIf="last">
+                            <span *ngIf="last">
                                     {{ b.get('coinName').value}}.
                                 </span>
                             </span>
@@ -396,20 +376,18 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                (click)="onSumbitCoinCategory(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" (click)="onSumbitCoinCategory(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>
             </table>
         </form>
     </div>
-  </div>
+</div>
 
 <div *ngIf="type=='serviceType'">
     <h1 mat-dialog-title *ngIf="serviceData?.length">Service Type setting</h1>
-    <div mat-dialog-content *ngIf="serviceData?.length;else nodata"
-        class="d-flex justify-content-around diagWrapper text-center">
+    <div mat-dialog-content *ngIf="serviceData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="form4">
             <table formArrayName="items" *ngIf="form4.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form4.get('items')['controls']; let i=index;">
@@ -430,7 +408,7 @@
                         <td class="w-25">
                             <span *ngFor="let b of  a.get('zoneName')['controls'];let i=index;let last= last;">
                                 <span *ngIf="!last">{{b.get('zoneName').value}},</span>
-                                <span *ngIf="last">{{b.get('zoneName').value}}.</span>
+                            <span *ngIf="last">{{b.get('zoneName').value}}.</span>
                             </span>
 
                         </td>
@@ -451,8 +429,7 @@
                             </mat-icon>
                         </td>
                         <td>
-                            <button type="button" mat-raised-button color="primary"
-                                (click)="onSubmitServiceType(a.value)">Submit</button>
+                            <button type="button" mat-raised-button color="primary" (click)="onSubmitServiceType(a.value)">Submit</button>
                         </td>
                     </ng-container>
                 </tr>

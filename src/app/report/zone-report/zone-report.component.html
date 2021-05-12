@@ -8,6 +8,8 @@
         <h1 class="color">REPORT</h1>
         <p mat-dialog-title>
             Based on zone <br>Zone Name - <b> {{zoneReportData.zoneId.zoneName}} </b>
+            <br> From {{zoneReportData.fromDate | date : 'dd-MM-yyyy'}} to {{zoneReportData.toDate | date : 'dd-MM-yyyy'}}
+
         </p>
         <hr>
     </div>
@@ -72,8 +74,15 @@
     </div>
 
 </div>
-<div>
-    <br><br><br><br><br><br><br>
+<div class="text-center">
+    <h1 *ngIf="zoneReportData.type =='2'">Zone wise performance </h1>
+    <h1 *ngIf="zoneReportData.type =='3'">Zone wise performance per day</h1>
+    <h1 *ngIf="zoneReportData.type =='4'">Zone wise efficiency </h1>
+    <h1 *ngIf="zoneReportData.type =='5'">Zone wise efficiency per day </h1>
+    <h2> From {{zoneReportData.fromDate | date : 'dd-MM-yyyy'}} to {{zoneReportData.toDate | date : 'dd-MM-yyyy'}}
+    </h2>
+    <hr>
+    <br><br>
     <div id="chartContainer" style="height:300px; width: 100%;" [ngStyle]="{'display':(zoneReportData.type =='2'||zoneReportData.type =='3'||zoneReportData.type =='4'||zoneReportData.type =='5')?'block':'none'}">
     </div>
 
