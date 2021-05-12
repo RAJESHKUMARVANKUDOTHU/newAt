@@ -216,7 +216,7 @@ export class ZoneReportComponent implements OnInit {
               {
                 name: this.zoneData[i].zoneName,
                 type: "spline",
-                yValueFormatString: "#0.## %",
+                yValueFormatString: "#0.## \" %\"",
                 showInLegend: true,
                 dataPoints: dataPointZone,
                 indexLabelPlacement: "outside",
@@ -355,7 +355,7 @@ export class ZoneReportComponent implements OnInit {
         //labelMaxWidth: 120,
         labelAutoFit: true,
         intervalType: "day",
-        interval: 1,
+        // interval: 1,
         labelAngle: 0,
 
       },
@@ -398,7 +398,7 @@ export class ZoneReportComponent implements OnInit {
         valueFormatString: "DD MMM,YY",
         labelAutoFit: true,
         intervalType: "day",
-        interval: 1,
+        // interval: 1,
         labelAngle: 0,
       },
       axisY: {

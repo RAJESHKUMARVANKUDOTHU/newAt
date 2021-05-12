@@ -375,60 +375,70 @@ export class DashboardComponent implements OnInit {
     // console.log("latlng==", data)
     let lat = data[0][0]
     let lng = data[0][1]
-
-    if (lat < 0 && lng < 0) {
-      if (lat > -100 && lng > -200) {
-        return 'bottom'
-      }
-      else if (lat < -100 && lng > -200) {
-        return 'top'
-      }
-      else if (lat > -100 && lng < -200) {
-        return 'auto'
-      }
-      else {
-        return 'auto'
-      }
+    if((lat < 0 && lng < 0) || (lat < 0 && lng >0)){
+      return 'top';
+    }
+    else if((lat > 0 && lng > 0) || (lat > 0 && lng < 0)){
+      return 'bottom';
+    }
+    else {
+      return 'auto';
     }
 
-    if (lat > 0 && lng > 0) {
-      if (lat > 100 && lng < 200) {
-        return 'bottom'
-      }
-      else if (lat < 100 && lng < 200) {
-        return 'top'
-      }
-      else if (lat < 100 && lng > 200) {
-        return 'auto'
-      }
-      else {
-        return 'auto'
-      }
+    // if (lat < 0 && lng < 0) {
 
-    }
-    if (lat < 0 && lng > 0) {
-      if ((lat < -100 || lat > -100) && lng < 200) {
-        return 'top'
-      }
-      else if (lat < -100 && lng > 200) {
-        return 'auto'
-      }
-      else {
-        return 'auto'
-      }
-    }
-    if (lat > 0 && lng < 0) {
-      if (lat > 100 && lng > -200) {
-        return 'bottom'
-      }
+    //   if (lat > -100 && lng > -200) {
+    //     return 'bottom'
+    //   }
+    //   else if (lat < -100 && lng > -200) {
+    //     return 'top'
+    //   }
+    //   else if (lat > -100 && lng < -200) {
+    //     return 'auto'
+    //   }
+    //   else {
+    //     return 'auto'
+    //   }
+    // }
 
-      else if (lat < 100 && lng < -200) {
-        return 'top'
-      }
-      else if (lat < 100 && lng > -200) {
-        return 'auto'
-      }
-    }
+    // if (lat > 0 && lng > 0) {
+    //   if (lat > 100 && lng < 200) {
+    //     return 'bottom'
+    //   }
+    //   else if (lat < 100 && lng < 200) {
+    //     return 'top'
+    //   }
+    //   else if (lat < 100 && lng > 200) {
+    //     return 'auto'
+    //   }
+    //   else {
+    //     return 'auto'
+    //   }
+
+    // }
+    // if (lat < 0 && lng > 0) {
+    //   if ((lat < -100 || lat > -100) && lng < 200) {
+    //     return 'top'
+    //   }
+    //   else if (lat < -100 && lng > 200) {
+    //     return 'auto'
+    //   }
+    //   else {
+    //     return 'auto'
+    //   }
+    // }
+    // if (lat > 0 && lng < 0) {
+    //   if (lat > 100 && lng > -200) {
+    //     return 'bottom'
+    //   }
+
+    //   else if (lat < 100 && lng < -200) {
+    //     return 'top'
+    //   }
+    //   else if (lat < 100 && lng > -200) {
+    //     return 'auto'
+    //   }
+    // }
   }
 
   searchVehicle(data) {

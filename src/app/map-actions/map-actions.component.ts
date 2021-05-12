@@ -95,6 +95,8 @@ export class MapActionsComponent implements OnInit {
       let latlng = [data.latlng.lat, data.latlng.lng];
 
       let coin = this.configCoinForm.get('coinId').value;
+      console.log("coin id==",coin);
+      
       if (coin) {
         this.configCoinForm.patchValue({
           coinBounds: latlng,
@@ -160,6 +162,8 @@ export class MapActionsComponent implements OnInit {
     this.api.getLayoutImage(data[0]._id).then((res: any) => {
       // console.log("image layout==", res);
       this.layoutData = data[0];
+      console.log("this.layoutData==",this.layoutData);
+      
       this.configCoinForm.reset()
       this.updateSelected();
       this.clearMapImage();
@@ -335,11 +339,11 @@ export class MapActionsComponent implements OnInit {
   }
 
   getValidation() {
+    let coin = this.configCoinForm.get('coinId').value || 0;
     if (this.layoutData != '') {
       if (
         this.layoutData.layoutName != '' &&
-        this.layoutData.gateway[0].gatewayId != '' &&
-        this.layoutData.gateway[0].coinData.length
+        coin
       ) {
         return 'visible';
       } else {
