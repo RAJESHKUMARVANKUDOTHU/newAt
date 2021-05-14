@@ -44,7 +44,9 @@ import { VehiclewisereportComponent } from './report/vehiclewisereport/vehiclewi
 import { EditSettingShiftComponent } from './admin/edit-setting-shift/edit-setting-shift.component';
 import { CongestionComponent } from './congestion/congestion.component';
 import {NgxLeafletFullscreenModule} from '@runette/ngx-leaflet-fullscreen';
-import { AdminSettingInfoComponent } from './admin/admin-setting-info/admin-setting-info.component'
+import { AdminSettingInfoComponent } from './admin/admin-setting-info/admin-setting-info.component';
+import { HeatMapComponent } from './heat-map/heat-map.component';
+import { VehicleTrackComponent } from './vehicle-track/vehicle-track.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +81,8 @@ import { AdminSettingInfoComponent } from './admin/admin-setting-info/admin-sett
     EditSettingShiftComponent,
     CongestionComponent,
     AdminSettingInfoComponent,
+    HeatMapComponent,
+    VehicleTrackComponent,
   ],
   imports: [
     BrowserModule,

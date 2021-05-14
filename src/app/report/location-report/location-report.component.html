@@ -9,6 +9,8 @@
         <h1 class="color">REPORT</h1>
         <p mat-dialog-title>
             Based on Location <br> Location Name - <b> {{locationReportData.coinId.coinName}} </b>
+            <br> From {{locationReportData.fromDate | date : 'dd-MM-yyyy'}} to {{locationReportData.toDate | date : 'dd-MM-yyyy'}}
+
         </p>
         <hr>
     </div>
@@ -16,17 +18,16 @@
         <span>
             <button mat-raised-button (click)="download()" color="primary" [disabled]="!locationData?.length">
                 <span> Download</span>&nbsp;&nbsp;
-                <mat-icon>download </mat-icon>
-            </button>
+        <mat-icon>download </mat-icon>
+        </button>
         </span>
         <mat-form-field>
-            <input matInput placeholder="Search" autocomplete="off" matInput
-                (input)="search($event.target.value, locationData)">
+            <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, locationData)">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
+        <table mat-table [dataSource]="dataSource" matSort class="table table-md-responsive">
             <div>
                 <ng-container matColumnDef="i">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -70,8 +71,8 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
         </table>
-        <mat-paginator (page)="getUpdate($event,'1')" [length]="currentPageLength" [pageSize]="currentPageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>    </div>
+        <mat-paginator (page)="getUpdate($event,'1')" [length]="currentPageLength" [pageSize]="currentPageSize" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
 </div>
 
 <div *ngIf="locationReportData.type == '2'">
@@ -79,6 +80,8 @@
         <h1 class="color">REPORT</h1>
         <p mat-dialog-title>
             Zone Name - <b> {{locationReportData.zoneId.zoneName}} </b>
+            <br> From {{locationReportData.fromDate | date : 'dd-MM-yyyy'}} to {{locationReportData.toDate | date : 'dd-MM-yyyy'}}
+
         </p>
         <hr>
     </div>
@@ -86,17 +89,16 @@
         <span>
             <button mat-raised-button (click)="download()" color="primary" [disabled]="!bayData?.length">
                 <span> Download</span>&nbsp;&nbsp;
-                <mat-icon>download </mat-icon>
-            </button>
+        <mat-icon>download </mat-icon>
+        </button>
         </span>
         <mat-form-field>
-            <input matInput placeholder="Search" autocomplete="off" matInput
-                (input)="search($event.target.value, bayData)">
+            <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, bayData)">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
+        <table mat-table [dataSource]="dataSource" matSort class=" table table-md-responsive">
             <div>
                 <ng-container matColumnDef="i">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -122,8 +124,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
         </table>
         <mat-paginator pageSize="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButton1></mat-paginator>
-    </div> 
-</div><br><br>
-
+    </div>
+</div><br><br><br>
 <div id="chartContainer" style="height:300px; width: 100%;" [ngStyle]="{'display':locationReportData.type =='2'?'block':'none'}">
 </div>

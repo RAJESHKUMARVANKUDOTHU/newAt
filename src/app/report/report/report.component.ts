@@ -14,17 +14,17 @@ import * as moment from 'moment';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
-  genericReport: FormGroup
-  customReport: FormGroup
-  vehicleReport: FormGroup
-  zoneReport: FormGroup
-  locationReport: FormGroup
-  deviceData: any = []
-  coinData: any = []
-  zoneData: any = []
-  dayError: boolean
-  dayError1: boolean
-  dayError2: boolean
+  genericReport: FormGroup;
+  customReport: FormGroup;
+  vehicleReport: FormGroup;
+  zoneReport: FormGroup;
+  locationReport: FormGroup;
+  deviceData: any = [];
+  coinData: any = [];
+  zoneData: any = [];
+  dayError: boolean;
+  dayError1: boolean;
+  dayError2: boolean;
   constructor(
     private fb: FormBuilder,
     private login: LoginAuthService,

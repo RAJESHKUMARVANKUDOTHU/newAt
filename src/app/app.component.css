@@ -93,10 +93,11 @@ mat-toolbar {
 @media only screen and (max-width: 768px) {
     .mat-mini-fab {
         background: #002060;
+        color: white;
     }
     button.mat-menu-item,
     .mat-icon {
-        color: white !important;
+        color: black(247, 229, 229) !important;
         border: none;
     }
 }

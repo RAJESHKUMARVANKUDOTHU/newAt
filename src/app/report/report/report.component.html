@@ -60,7 +60,7 @@
 
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" autocomplete="off" required>
+                    <input matInput [matDatepicker]="myDatepicker2" [min]="vehicleReport.get('fromDate').value" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker2></mat-datepicker>
                     <mat-error>
@@ -124,7 +124,7 @@
                 </mat-form-field> <br>
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" autocomplete="off" required>
+                    <input matInput [matDatepicker]="myDatepicker4" [min]="locationReport.get('fromDate').value" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker4></mat-datepicker>
                     <mat-error>
@@ -186,7 +186,7 @@
 
                 <mat-form-field>
                     <mat-label>To date</mat-label>
-                    <input matInput [matDatepicker]="myDatepicker6" formControlName="toDate" autocomplete="off" required>
+                    <input matInput [matDatepicker]="myDatepicker6" [min]="zoneReport.get('fromDate').value" formControlName="toDate" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="myDatepicker6"></mat-datepicker-toggle>
                     <mat-datepicker #myDatepicker6></mat-datepicker>
                     <mat-error>
