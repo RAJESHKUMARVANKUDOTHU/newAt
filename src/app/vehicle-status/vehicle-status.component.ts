@@ -82,6 +82,7 @@ export class VehicleStatusComponent implements OnInit {
       console.log("err===", err)
     })
   }
+
   getZoneDetails() {
     this.api.getZone().then((res: any) => {
       console.log('zone details response==', res);
@@ -90,9 +91,11 @@ export class VehicleStatusComponent implements OnInit {
         this.zoneData = res.success.map(obj => ({ ...obj, delayed: false, time: (obj.standardTime * -1) }));
       }
       else { }
-
-    })
+    }).catch(err=>{
+      console.log("err===",err);      
+    });
   }
+
   getFillColor(value) {
     if (value.delayed) {
       return {
@@ -113,6 +116,5 @@ export class VehicleStatusComponent implements OnInit {
     let ST = data.totalStandardTime * 60 * 1000;
     let ET = ST + data.delayTime * 60 * 1000;
     return moment(data.inTime).add(ET, 'milliseconds');
-  }
-
+  } 
 }

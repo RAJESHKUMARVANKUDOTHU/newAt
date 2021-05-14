@@ -49,11 +49,11 @@ export class CongestionComponent implements OnInit {
     },
       {
         validators: this.formValidate()
-      })
-    setTimeout(() => {
-      this.initiateMap()
-    }, 1);
-    this.getZones()
+      });
+  setTimeout(()=>{
+    this.initiateMap();
+  },1);
+    this.getZones();
     if (this.enable.refreshCongestionData) {
       this.timeInterval = setInterval(() => {
         this.refreshCongestion(this.getData())
@@ -63,10 +63,8 @@ export class CongestionComponent implements OnInit {
 
   ngOnDestroy() {
     this.resetMap()
-    clearInterval(this.timeInterval)
+    clearInterval(this.timeInterval);
   }
-
-
 
   formValidate() {
     return (formGroup: FormGroup) => {
@@ -90,7 +88,7 @@ export class CongestionComponent implements OnInit {
       }
     }
   }
-
+ 
   initiate() {
     this.timeInterval = setInterval(() => {
       if (this.enable.refreshCongestionData) {
@@ -100,12 +98,12 @@ export class CongestionComponent implements OnInit {
   }
 
   destroy() {
-    this.enable.refreshCongestionData = true
-    this.enable.map = true
-    this.resetMap()
-    this.cd.detectChanges()
-    this.initiateMap()
-    this.initiate()
+    this.enable.refreshCongestionData = true;
+    this.enable.map = true;
+    this.resetMap();
+    this.cd.detectChanges();
+    this.initiateMap();
+    this.initiate();
   }
 
   initiateMap() {
@@ -125,10 +123,10 @@ export class CongestionComponent implements OnInit {
         position: 'topleft',
       },
     })
-    this.bounds = this.map.getBounds()
-    this.map.setMaxBounds(this.bounds)
+    this.bounds = this.map.getBounds();
+    this.map.setMaxBounds(this.bounds);
     this.map.dragging.disable();
-    this.getLayout()
+    this.getLayout();
 
   }
 
@@ -152,7 +150,7 @@ export class CongestionComponent implements OnInit {
         let layout = res.success
         for (let i = 0; i < layout.length; i++) {
           this.api.getLayoutImage(layout[i]._id).then((imgRes: any) => {
-            this.clearMapImage();
+            this.clearMap();
             L.imageOverlay(imgRes, this.bounds).addTo(this.map);
             this.map.on('load', this.refreshCongestion(this.getData()));
           });
@@ -163,101 +161,93 @@ export class CongestionComponent implements OnInit {
   }
 
   refreshCongestion(value) {
-    console.log("value==", value)
     value.date = value.date != '' ? moment(value.date).format('YYYY-MM-DD') : moment(Date.now()).format('YYYY-MM-DD')
     var data = {
       timeZoneOffset: this.general.getZone(),
       fromDate: value.date + ' ' + value.fromTime + ':00',
       toDate: value.date + ' ' + value.toTime + ':00'
     }
-    console.log("congestion form data===", data)
-    this.enable.map = true
+    console.log("congestion form data===", data);
+    this.enable.map = true;
     this.api.getCongestion(data).then((res: any) => {
-      console.log("congestion res===", res)
-      this.congestionData = []
+      console.log("congestion res===", res);
+      this.congestionData = [];
       if (res.status) {
         this.congestionData = res.success.map((obj) => {
-          obj.zoneBounds = true
-          obj.boundColor = this.getFillColor(obj.congestion)
-          obj.bounds = this.getBound(obj.zoneId)
-          return obj
+          obj.zoneBounds = true;
+          obj.boundColor = this.getFillColor(obj.congestion);
+          obj.bounds = this.getBound(obj.zoneId);
+          return obj;
         })
-        this.createZoneBounds()
+        this.createZoneBounds();
       }
-      else {
-
-      }
-
+      else {}
     }).catch((err: any) => {
-      console.log("err===", err)
+      console.log("err===", err);
     })
   }
 
   onSubmit(data) {
-
-    console.log("congestion form data===", data)
-    this.enable.refreshCongestionData = false
-    this.enable.map = true
-    clearInterval(this.timeInterval)
-    this.congestionForm.reset()
-    this.refreshCongestion(data)
-
+    this.destroy();
+    this.enable.refreshCongestionData = false;
+    this.enable.map = true;
+    clearInterval(this.timeInterval);
+    this.congestionForm.reset();
+    this.refreshCongestion(data);
   }
 
   clickOnZone(data) {
-    this.clearMap()
-    console.log("data=", data)
+    this.clearMap();
+    console.log("data=", data);
     this.congestionData = this.congestionData.map((obj) => {
       if (data.zoneId == obj.zoneId) {
-        obj.zoneBounds = true
+        obj.zoneBounds = true;
       }
       else {
-        obj.zoneBounds = false
+        obj.zoneBounds = false;
       }
-
-      return obj
+      return obj;
     })
-    this.createZoneBounds()
+    this.createZoneBounds();
   }
 
   getBound(data) {
     let arr = [];
     this.zones.filter((obj) => {
       if (data == obj._id) {
-        arr.push(obj.bounds)
+        arr.push(obj.bounds);
       }
     })
-    return arr
+    return arr;
   }
 
   getFillColor(value) {
-    var color = ''
+    var color = '';
     if (value < 0) {
-      return color = 'red'
+      return color = 'red';
     }
     else if (value == 0) {
-      return color = 'transparent'
+      return color = 'transparent';
     }
     else if (value > 0 && value <= 25) {
-      return color = 'yellow'
+      return color = 'yellow';
     }
     else if (value > 25 && value <= 50) {
-      return color = 'blue'
+      return color = 'blue';
     }
     else {
-      return color = 'green'
+      return color = 'green';
     }
   }
 
   getZones() {
     this.api.getZone().then((res: any) => {
       console.log("zones==", res);
-
       if (res.status) {
-        this.zones = res.success
+        this.zones = res.success;
       }
     }).catch((err: any) => {
-      console.timeLog("err==", err)
+      console.timeLog("err==", err);
     })
   }
 
@@ -276,8 +266,8 @@ export class CongestionComponent implements OnInit {
   }
 
   createZoneBounds() {
-    this.clearMap()
-    for (let i = 0; i < this.congestionData.length; i++) {
+    this.clearMap();
+       for (let i = 0; i < this.congestionData.length; i++) {
       if (this.congestionData[i].zoneBounds && this.congestionData[i].bounds[0].length) {
         new L.polygon(this.congestionData[i].bounds[0], {
           color: this.congestionData[i].boundColor == 'transparent' ? this.getRandomColor() : this.congestionData[i].boundColor,
@@ -309,27 +299,27 @@ export class CongestionComponent implements OnInit {
     }
   }
 
-  clearMapImage() {
-    for (let i in this.map._layers) {
-      if (this.map._layers[i].hasOwnProperty('_url')) {
-        try {
-          this.map.removeLayer(this.map._layers[i]);
-        } catch (e) {
-          console.log('problem with ' + e + this.map._layers[i]);
-        }
-      }
-    }
-  }
+  // clearMapImage() {
+  //   for (let i in this.map._layers) {
+  //     if (this.map._layers[i].hasOwnProperty('_url')) {
+  //       try {
+  //         this.map.removeLayer(this.map._layers[i]);
+  //       } catch (e) {
+  //         console.log('problem with ' + e + this.map._layers[i]);
+  //       }
+  //     }
+  //   }
+  // }
 
   resetMap() {
     if (this.map != null) {
       this.clearMap();
-      this.clearMapImage();
       this.map.remove();
     }
   }
 
   onSubmitCongestionTrendForm(data) {
+
     console.log(" onSubmitCongestionTrendForm data==", data);
     var from = moment(data.fromDate).format("YYYY-MM-DD");
     var to = moment(data.toDate).format("YYYY-MM-DD");
@@ -343,7 +333,7 @@ export class CongestionComponent implements OnInit {
       timeZoneOffset: this.general.getZone(),
       type: data.dayType,
       day: data.dayType == 'week' ? data.weekDay : ''
-    }
+    };
     console.log("data to send==", data,diff)
     if (diff >= 0 && diff <= 30) {
       this.enable.dayError = false
@@ -375,18 +365,19 @@ export class CongestionComponent implements OnInit {
               }
             )
           }
-          this.congestionPerDayChart()
+          this.congestionPerDayChart();
         }
       }).catch(err => {
-        console.log("err===", err)
+        console.log("err===", err);
       })
     }
     else {
-      this.enable.dayError = true
+      this.enable.dayError = true;
     }
   }
+
   congestionPerDayChart() {
-    var chart = null
+    var chart = null;
     chart = new CanvasJS.Chart("chartContainer", {
       exportEnabled: true,
       animationEnabled: true,

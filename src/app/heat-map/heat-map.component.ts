@@ -24,7 +24,9 @@ export class HeatMapComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.initiateMap();
+    setTimeout(()=>{
+      this.initiateMap();
+    },1);
     this.cd.detectChanges();
   }
   ngOnDestroy() {
@@ -166,25 +168,41 @@ export class HeatMapComponent implements OnInit {
     // },{
     //   lat:-65.33808487700023,
     //   lng: 200.2022693684611,
-    // }]
+    // },
+    // {
+    //   lat:55.5,
+    //   lng:  -0.09,
+    // },
+    // {
+    //   lat:60.5,
+    //   lng:  -10,
+    // },
+    // {
+    //   lat:51.5,
+    //   lng:  -10
+    // },
+    // {
+    //   lat:51.5,
+    //   lng:  -10,
+    // },]
     this.clearMap();
     console.log("heatmap", data)
     let arr = [];
     const conf = {
-      radius: 20,
-      max: 1.0,
+      radius: 25,
+      scaleRadius :true,
       blur: 15,
-      gradient: {
-        0.0: 'red',
-        0.5: 'red',
-        1.0: 'red'
-      },
+      // gradient: {
+      //   0.0: 'cyan',
+      //   0.5: 'magenta',
+      //   1.0: 'red'
+      // },
       minOpacity: 1,
     }
     data.filter((obj) => { 
       arr.push({
         lat:obj.latlng[0].lat,
-        lng:  obj.latlan[0].lng,
+        lng:  obj.latlng[0].lng,
         intensity: 1.0
       })
     })

@@ -24,6 +24,7 @@ import { SetPasswordComponent } from './login/set-password/set-password.componen
 import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.component';
 import { CongestionComponent } from './congestion/congestion.component';
 import { HeatMapComponent } from './heat-map/heat-map.component'
+import { VehicleTrackComponent } from './vehicle-track/vehicle-track.component';
 
 const routes: Routes = [
   // {path : '', component:LoginComponent},
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'zone-dashboard', component:ZoneDashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'congestion', component:CongestionComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'heat-map', component:HeatMapComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
+  { path: 'vehicle-track', component:VehicleTrackComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['superAdminRole']}},
