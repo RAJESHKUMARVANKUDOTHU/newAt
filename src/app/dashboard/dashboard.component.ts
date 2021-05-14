@@ -177,6 +177,7 @@ export class DashboardComponent implements OnInit {
         this.calculateZoneActions();
       } else {
         this.deviceList = [];
+        this.zoneList = [];
       }
       this.createDevice();
     });
@@ -375,10 +376,10 @@ export class DashboardComponent implements OnInit {
     // console.log("latlng==", data)
     let lat = data[0][0]
     let lng = data[0][1]
-    if((lat < 0 && lng < 0) || (lat < 0 && lng >0)){
+    if ((lat < 0 && lng < 0) || (lat < 0 && lng > 0)) {
       return 'top';
     }
-    else if((lat > 0 && lng > 0) || (lat > 0 && lng < 0)){
+    else if ((lat > 0 && lng > 0) || (lat > 0 && lng < 0)) {
       return 'bottom';
     }
     else {
@@ -566,6 +567,7 @@ export class DashboardComponent implements OnInit {
         zoneName: obj
       }
     })
+
     data.forEach(element => {
       let sum = 0;
       element.data.forEach((obj, index) => {
@@ -653,7 +655,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-   refreshCongestion() {
+  refreshCongestion() {
     var now = new Date()
     var then = moment(toDate).subtract(5, "minutes").toDate()
     var fromDate = moment(then).format("YYYY-MM-DD HH:mm:ss")
