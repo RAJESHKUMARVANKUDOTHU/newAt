@@ -44,14 +44,6 @@ export class VehicleTrackComponent implements OnInit {
       this.initiateMap();
     }, 1);
 
-    this.refreshVehicle();
-
-    if (this.refreshVehicleData) {
-      this.timeInterval = setInterval(() => {
-        this.refreshVehicle();
-      }, 1000 * 30);
-    };
-
     this.cd.detectChanges();
     this.refreshDevice();
   }
@@ -116,10 +108,23 @@ export class VehicleTrackComponent implements OnInit {
           this.api.getLayoutImage(layout[i]._id).then((imgRes: any) => {
             this.clearMapImage();
             L.imageOverlay(imgRes, this.bounds).addTo(this.map);
+            this.test();
+
+            // this.refreshVehicle();
+
+            // if (this.refreshVehicleData) {
+            //   this.timeInterval = setInterval(() => {
+            //     this.refreshVehicle();
+            //   }, 1000 * 30);
+            // };
+          }).catch(err => {
+            console.log("err==", err)
           })
         }
       }
       else { }
+    }).catch(err => {
+      console.log("err==", err)
     })
   }
 
@@ -151,16 +156,13 @@ export class VehicleTrackComponent implements OnInit {
     };
     console.log("data==", data);
 
-    this.api.getdeviceLatLngPerDay(data).then((res: any) => {
+    this.api.getdeviceLatLngPerDay(data).then(async (res: any) => {
       console.log('getdeviceLatLngPerDay response==', res);
       this.vehicleData = [];
       if (res.status) {
         this.vehicleData = res.success;
-        for (let i = 0; i < this.vehicleData.length; i++) {
-          this.addMarker(this.vehicleData[i], i);
-          // for (let j = 0; j < this.vehicleData[i].latLong.length; j++) {
-          // }
-        }
+        let vehicleDataPromise = this.vehicleData.map((obj, index) => this.addMarker(obj, index));
+        await Promise.all([vehicleDataPromise]);
       }
       else { }
     }).catch(err => {
@@ -187,99 +189,133 @@ export class VehicleTrackComponent implements OnInit {
         this.refreshVehicleData = false;
         clearInterval(this.timeInterval);
         this.vehicleData = res.success;
-        let vehicleDataPromise = this.vehicleData.map((obj,index)=>this.addMarker(obj,index));
+        let vehicleDataPromise = this.vehicleData.map((obj, index) => this.addMarker(obj, index));
         await Promise.all([vehicleDataPromise]);
-        // for (let i = 0; i < this.vehicleData.length; i++) {
-        //   this.addMarker(this.vehicleData[i], i);
-        //   // for (let j = 0; j < this.vehicleData[i].latLong.length; j++) {
-        //   // }
-        // }
       }
-      else { }
     }).catch(err => {
       console.log("err===", err);
     });
   }
 
-  ClearMarkerTimer: any;
-  
-
   async addMarker(data, i) {
-      console.log("data==", data);
-      let icon = L.icon({
-        iconUrl: '../../assets/Car_Black.png',
-        iconSize: [60, 60],
+    console.log("data==", data);
+    let icon = L.icon({
+      iconUrl: '../../assets/Car_Black.png',
+      iconSize: [50, 30],
+    });
+    let loc = L.icon({
+      iconUrl: '../../assets/loc.png',
+      iconSize: [50, 30],
+    });
+
+    let latlng = [];
+    let latlngPath = [];
+    for (let i = 0; i < data.latLong.length; i++) {
+      latlng.push([data.latLong[i].latitude, data.latLong[i].longitude])
+      latlngPath.push({ lat: data.latLong[i].latitude, lng: data.latLong[i].longitude })
+    }
+
+    let polyLine = new L.polyline(latlng, {
+      color: this.getRandomColor(),
+      weight: 3,
+      opacity: 0.5,
+      smoothFactor: 1
+    }).addTo(this.map);
+
+    let angle = this.angleFromCoordinate(latlngPath[0].lat, latlngPath[0].lng, latlngPath[1].lat, latlngPath[1].lng)
+    
+    var m = new L.marker([data.latLong[0].latitude, data.latLong[0].longitude], {
+      icon: icon,
+      // rotationAngle: (angle)// default rotation
+    }).addTo(this.map)
+      .bindTooltip(this.getPopUpForm(data), {
+        permanent: false
       });
 
-      let latlng = [];
-      for (let i = 0; i < data.latLong.length; i++) {
-        latlng.push([data.latLong[i].latitude, data.latLong[i].longitude])
-      }
+    console.log("latlng==", latlngPath, "angle===", angle);
 
-      var m = new L.marker([data.latLong[0].latitude, data.latLong[0].longitude], {
-        icon: icon,
-        rotationAngle: 45 // default rotation
-      }).addTo(this.map);
+    m.slideTo([data.latLong[0].latitude, data.latLong[0].longitude], { path: latlngPath, duration: 300 });
 
-      let polyLine = new L.polyline(latlng, {
-        color: 'blue',
-        weight: 3,
-        opacity: 0.5,
-        smoothFactor: 1
-      }).addTo(this.map);
-
-      this.ClearMarkerTimer = setInterval(() => {
-        console.log("time ");
-        this.simulate(data, m, i);
-      }, 1000);
-
-      // this.index[i] = 0;
-      this.simulate(data, m, i);
-
-      this.cd.detectChanges();
+    this.cd.detectChanges();
   }
 
 
-  index: any = 0;
+  test(){
+    let testData = [
+      {
+        lat : '53.21003615423956', 
+        lng : '-87.38192666366524'
+      },
+      {
+        lat : '-133.93716588587048',
+        lng : '105.52727366858079'
 
+      },
+      // {
+        
+      //   lat: '142',
+      //   lng:  '5.52810190302813'
+      // },
+      // {
+        
+      //   lat: '169.58751257257663',
+      //   lng:  '-82.319368017550774'
+      // },
+      // {
+        
+      //   lat: '-40.5717684476798',
+      //   lng:  '61.2861555820262'
+      // },
+      // {
+      //   lat : '-17.974681209750898',
+      //   lng: '-69.96164626570581'
+      // }
 
-  async simulate(data, m, i) {
-    let allLatLng = data.latLong;
-    let latlng = [];
-    let marker;
+    ];
+
     let icon = L.icon({
-      iconUrl: '../../assets/Car_Black.png',
-      iconSize: [60, 60],
+      iconUrl: '../../assets/Car_Black2.png',
+      iconSize: [40, 60],
+    });
+    let loc = L.icon({
+      iconUrl: '../../assets/loc.png',
+      iconSize: [50, 30],
     });
 
-    // if (this.ClearMarkerTimer[i]) {
-      console.log("this.index == allLatLng.length - 1==",this.index == allLatLng.length - 1);
-      
-      if (this.index == allLatLng.length - 1) {
-        clearInterval(this.ClearMarkerTimer[i]);
-        return;
-      }
-    // }
-
-    console.log("allLatLng===", allLatLng, "this.index==", this.index);
-
-    if (allLatLng.length - 1 >= this.index) {
-      latlng.push([allLatLng[this.index].latitude, allLatLng[this.index].longitude]);
-
-      latlng.push([allLatLng[this.index + 1].latitude, allLatLng[this.index + 1].longitude]);
-
-      if (latlng.length > 2)
-        latlng.slice(1);
+    let latlng = [];
+    let latlngPath = [];
+    for (let i = 0; i < testData.length; i++) {
+      latlng.push([testData[i].lat, testData[i].lng]);
+      latlngPath.push(testData[i]);
     }
-    this.index += 1;
 
-    let angle = await this.angleFromCoordinate(latlng[0][0], latlng[0][1], latlng[1][0], latlng[1][1]);
-    console.log("latlng=", latlng, "angle==", angle);
+    let polyLine = new L.polyline(latlng, {
+      color: this.getRandomColor(),
+      weight: 3,
+      opacity: 0.5,
+      smoothFactor: 1
+    }).addTo(this.map);
 
-    m.slideTo(latlng[1], {
-      duration: 1000,
-      rotationAngle: angle
-    });
+    let angle = this.angleFromCoordinate(latlngPath[0].lat, latlngPath[0].lng, latlngPath[1].lat, latlngPath[1].lng)
+    
+    var m = new L.marker([latlngPath[0].lat,latlngPath[0].lng], {
+      icon: icon,
+      // rotationAngle: (angle)// default rotation
+    }).addTo(this.map);
+
+    console.log("latlng==", latlngPath, "angle===", angle);
+
+    m.slideTo([latlngPath[0].lat, latlngPath[0].lng], { path: latlngPath, duration: 300 });
+
+  }
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
 
@@ -296,9 +332,32 @@ export class VehicleTrackComponent implements OnInit {
 
     brng *= 180 / Math.PI;
     brng = (brng + 360) % 360;
-    brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
+    // brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
 
     return brng;
+  }
+
+
+  getPopUpForm(data) {
+    let a = '<table class="popup">';
+    a += '<tr><td><b>Tag id</b></td><td>' + data.deviceId + '</td></tr>';
+    a += '<tr><td><b>Vehicle name</b></td><td>' + data.deviceName + '</td></tr>';
+    a += '</table>';
+    return a;
+  }
+
+  getDirection(data) {
+    let lat = data[0][0]
+    let lng = data[0][1]
+    if ((lat < 0 && lng < 0) || (lat < 0 && lng > 0)) {
+      return 'top';
+    }
+    else if ((lat > 0 && lng > 0) || (lat > 0 && lng < 0)) {
+      return 'bottom';
+    }
+    else {
+      return 'auto';
+    }
   }
 
   clearMap() {
