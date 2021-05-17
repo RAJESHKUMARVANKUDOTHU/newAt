@@ -233,7 +233,7 @@ export class VehicleTrackComponent implements OnInit {
         this.simulate(data, m, i);
       }, 1000);
 
-      // this.index[i] = 0;
+      this.index = 0;
       this.simulate(data, m, i);
 
       this.cd.detectChanges();
