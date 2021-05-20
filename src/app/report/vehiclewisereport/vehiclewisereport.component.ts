@@ -28,7 +28,7 @@ export class VehiclewisereportComponent implements OnInit {
   displayedColumns1 = ['i', 'deviceId', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns2 = ['i', 'deviceName', 'coinName', 'inTime', 'outTime', 'totTime'];
   displayedColumns3 = ['i', 'deviceId', 'coinName', 'inTime', 'outTime', 'totTime'];
-  displayedColumns4 = ['i', 'deviceName', 'totalTime'];
+  displayedColumns4 = ['i', 'deviceName', 'totTime'];
   displayedColumns6 = ['i', 'deviceId', 'zoneName', 'inTime', 'outTime', 'totalTime'];
   displayedColumns7 = [];
 
@@ -173,7 +173,9 @@ export class VehiclewisereportComponent implements OnInit {
           this.currentPageLength = parseInt(res.totalLength)
           this.servicedVehicleData = res.success
           this.vehicleTotLen = parseInt(res.totalLength)
-     
+          for (let i = 0; i < res.success.length; i++) {
+            res.success[i].totTime = this.general.getTotTime(res.success[i].gateInTime, res.success[i].deRegTime)
+          }
           this.dataSource = new MatTableDataSource(this.servicedVehicleData);
 
           setTimeout(() => {
