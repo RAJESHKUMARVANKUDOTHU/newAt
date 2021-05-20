@@ -21,6 +21,7 @@ export class AdminSettingsComponent implements OnInit {
   shiftForm: FormGroup
   deletionTimeForm: FormGroup
   mergingTimeForm: FormGroup
+  inOutmergingTimeForm: FormGroup
   meshForm: FormGroup
   loginData: any
   multipleShift: boolean = false
@@ -57,6 +58,9 @@ export class AdminSettingsComponent implements OnInit {
     })
     this.deletionTimeForm = this.fb.group({
       deletionTime: ['', [Validators.required, Validators.min(0), Validators.max(60)]]
+    })
+    this.inOutmergingTimeForm = this.fb.group({
+      inOutMergeTime : ['', [Validators.required, Validators.min(0), Validators.max(60)]]
     })
     this.meshForm = this.fb.group({
       meshId: ['', [Validators.required, Validators.min(0), Validators.max(255)]],
@@ -95,6 +99,9 @@ export class AdminSettingsComponent implements OnInit {
 
         this.deletionTimeForm.patchValue({
           deletionTime: res.success.deletionTime
+        })
+        this.inOutmergingTimeForm.patchValue({
+          inOutMergeTime: res.success.inOutMergeTime
         })
 
 
@@ -141,7 +148,7 @@ export class AdminSettingsComponent implements OnInit {
         console.log("res==", res)
         if (res.status) {
           this.general.openSnackBar("TX power updated successfully!!!", '')
-          this.refreshSettings(data.userId)
+          this.refreshSettings(data.userId);
         }
       }).catch((err: any) => {
         console.log("err==", err)
@@ -156,7 +163,8 @@ export class AdminSettingsComponent implements OnInit {
       this.api.updateRssi(data).then((res: any) => {
         if (res.status) {
           console.log("res==", res)
-          this.general.openSnackBar(res.message, '')
+          this.general.openSnackBar(res.message, '');
+          this.refreshSettings(data.userId);
         }
       }).catch((err: any) => {
         console.log("err==", err)
@@ -241,7 +249,8 @@ export class AdminSettingsComponent implements OnInit {
       this.api.updateMergingTime(data).then((res: any) => {
         if (res.status) {
           console.log("res==", res)
-          this.general.openSnackBar(res.success, '')
+          this.general.openSnackBar(res.success, '');
+          this.refreshSettings(data.userId);
         }
       }).catch((err: any) => {
         console.log("err==", err)
@@ -256,7 +265,24 @@ export class AdminSettingsComponent implements OnInit {
       this.api.updateDeletionTime(data).then((res: any) => {
         if (res.status) {
           console.log("res==", res)
-          this.general.openSnackBar(res.success, '')
+          this.general.openSnackBar(res.success, '');
+          this.refreshSettings(data.userId);
+                }
+      }).catch((err: any) => {
+        console.log("err==", err)
+      })
+    }
+  }
+
+  onSubmitInOutmergingTimeForm(data) {
+    if (this.inOutmergingTimeForm.valid) {
+      data.userId = this.loginData.userData
+      console.log("onSubmit in out merging data==", data)
+      this.api.updateInOutMergeTime(data).then((res: any) => {
+        if (res.status) {
+          console.log("res==", res)
+          this.general.openSnackBar(res.success, '');
+          this.refreshSettings(data.userId);
         }
       }).catch((err: any) => {
         console.log("err==", err)
@@ -271,7 +297,8 @@ export class AdminSettingsComponent implements OnInit {
       this.api.updateMeshId(data).then((res: any) => {
         if (res.status) {
           console.log("res==", res)
-          this.general.openSnackBar(res.success, '')
+          this.general.openSnackBar(res.success, '');
+          this.refreshSettings(data.userId);
         }
       }).catch((err: any) => {
         console.log("err==", err)

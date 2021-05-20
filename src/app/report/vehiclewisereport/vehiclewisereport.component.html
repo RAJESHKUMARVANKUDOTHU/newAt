@@ -257,7 +257,7 @@
 
                 <ng-container matColumnDef="totalTime">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Time</th>
-                    <td mat-cell *matCellDef="let find"> {{find.totalTime}} </td>
+                    <td mat-cell *matCellDef="let find"> {{find.totalTime != null || find.totalTime != '0' ? find.totalTime:'-' }} </td>
                     <!-- <td mat-footer-cell *matFooterCellDef class="text-center"> {{vehicleTotLen}} </td> -->
                 </ng-container>
             </div>
@@ -282,7 +282,7 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehilceZoneData?.length">
+            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleZoneData?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>

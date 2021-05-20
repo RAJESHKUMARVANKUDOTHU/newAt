@@ -173,9 +173,7 @@ export class VehiclewisereportComponent implements OnInit {
           this.currentPageLength = parseInt(res.totalLength)
           this.servicedVehicleData = res.success
           this.vehicleTotLen = parseInt(res.totalLength)
-          for (let i = 0; i < res.success.length; i++) {
-            res.success[i].totalTime = this.general.getTotTime(res.success[i].gateInTime, res.success[i].deRegTime)
-          }
+     
           this.dataSource = new MatTableDataSource(this.servicedVehicleData);
 
           setTimeout(() => {

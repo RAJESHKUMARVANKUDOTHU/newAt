@@ -486,6 +486,27 @@ getMeshData(data){
     );
   });
 }
+
+updateInOutMergeTime(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
+
+  let url = this.host + '/updateInOutMergeTime'
+  let body = {
+    data: data,
+  };
+  return new Promise((resolve, reject) => {
+    this.http.post(url, body, httpOptions).subscribe(
+      (res: any) => {
+        resolve(res.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
 // ---------------------end----------------------------
   createUsers(data) {
     const httpOptions = {
@@ -1065,7 +1086,25 @@ getMeshData(data){
       );
     });
   }
-
+  getGroupingData(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getGroupingData';
+    return new Promise((resolve, reject) => {
+      this.http.post(url,body,httpOptions).subscribe(
+        (res: any) => {
+          resolve(res.data);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
   // ---------------end----------------------------
 
   /* ------------- Setting ----------------------- */

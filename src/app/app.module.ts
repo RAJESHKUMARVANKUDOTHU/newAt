@@ -46,7 +46,8 @@ import { CongestionComponent } from './congestion/congestion.component';
 import {NgxLeafletFullscreenModule} from '@runette/ngx-leaflet-fullscreen';
 import { AdminSettingInfoComponent } from './admin/admin-setting-info/admin-setting-info.component';
 import { HeatMapComponent } from './heat-map/heat-map.component';
-import { VehicleTrackComponent } from './vehicle-track/vehicle-track.component'
+import { VehicleTrackComponent } from './vehicle-track/vehicle-track.component';
+import { GroupingComponent } from './grouping/grouping.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +84,7 @@ import { VehicleTrackComponent } from './vehicle-track/vehicle-track.component'
     AdminSettingInfoComponent,
     HeatMapComponent,
     VehicleTrackComponent,
+    GroupingComponent,
   ],
   imports: [
     BrowserModule,

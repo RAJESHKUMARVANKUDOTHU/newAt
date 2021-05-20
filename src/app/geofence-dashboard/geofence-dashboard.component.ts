@@ -5,6 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { ApiService } from '../services/api.service';
 import { GeneralService } from '../services/general.service';
 import { LoginAuthService } from '../services/login-auth.service';
+import { GroupingComponent } from '../grouping/grouping.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-geofence-dashboard',
   templateUrl: './geofence-dashboard.component.html',
@@ -25,7 +28,8 @@ export class GeofenceDashboardComponent implements OnInit {
   constructor(
     public general: GeneralService,
     private api: ApiService,
-    public login:LoginAuthService
+    public login:LoginAuthService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -100,4 +104,21 @@ export class GeofenceDashboardComponent implements OnInit {
     this.offset = event.pageIndex * event.pageSize
     this.refreshGeofence(this.limit, this.offset)
   }
+
+  openDailog(data) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '90vw';
+    dialogConfig.data = {
+      data: data
+    }
+    const dialogRef = this.dialog.open(GroupingComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    })
+
+}
 }
