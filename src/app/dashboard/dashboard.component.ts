@@ -300,11 +300,11 @@ export class DashboardComponent implements OnInit {
     let icon;
     let iconRed = L.icon({
       iconUrl: '../../assets/Car_Red1.png',
-      iconSize: [60, 60],
+      iconSize: [65, 78],
     });
     let iconBlack = L.icon({
       iconUrl: '../../assets/Car_Black.png',
-      iconSize: [60, 60],
+      iconSize: [60, 40],
     });
     // console.log("this.deviceList==", this.deviceList, "this.zoneList==", this.zoneList);
 
