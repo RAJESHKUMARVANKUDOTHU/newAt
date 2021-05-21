@@ -74,7 +74,7 @@ mat-form-field {
 @media only screen and (max-width: 768px) {
     .log-in {
         text-align: center;
-        width: fit-content;
+        width: 90%;
         position: absolute;
         right: 0;
         left: 0;

@@ -106,10 +106,13 @@
 
     </mat-sidenav-container>
 </div>
-<div *ngIf="(isMobile ) && (logged && menu)">
+<div *ngIf="isMobile">
     <div class="d-flex">
-        <mat-toolbar>
-            <div class="w-100 flex-grow-1">
+        <mat-toolbar class="bg-white">
+            <div class="bg-white" *ngIf="(!logged && !menu)">
+                <img src="../assets/logo.png" alt="" class="image">
+            </div>
+            <div class="w-100 flex-grow-1" *ngIf="(logged && menu)">
                 <button mat-mini-fab [matMenuTriggerFor]="belowMenu" class="menu">
                     <mat-icon>menu</mat-icon>
                 </button>
@@ -160,7 +163,7 @@
                     </button>
                 </mat-menu>
             </div>
-            <div class="flex-shrink-1">
+            <div class="flex-shrink-1" *ngIf="(logged && menu)">
                 <p>
                     <mat-icon>person</mat-icon> &nbsp;{{loginDetails.userName}}
                 </p>
