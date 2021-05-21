@@ -20,7 +20,7 @@
                         <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                     </ng-container>
                     <ng-container matColumnDef="deviceId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Find Id </th>
                         <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
                     </ng-container>
                     <ng-container matColumnDef="deviceName">
@@ -35,8 +35,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
             </table>
-            <mat-paginator (page)="getUpdate($event,'devices')" [length]="currentPageLength1" [pageSize]="currentPageSize1"
-            [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            <mat-paginator (page)="getUpdate($event,'devices')" [length]="currentPageLength1" [pageSize]="currentPageSize1" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div>
     </mat-expansion-panel>
 
@@ -75,8 +74,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
             </table>
-            <mat-paginator (page)="getUpdate($event,'gateway')" [length]="currentPageLength2" [pageSize]="currentPageSize2"
-            [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            <mat-paginator (page)="getUpdate($event,'gateway')" [length]="currentPageLength2" [pageSize]="currentPageSize2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div>
     </mat-expansion-panel>
 
@@ -133,8 +131,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
             </table>
-            <mat-paginator  (page)="getUpdate($event,'coin')" [length]="currentPageLength3" [pageSize]="currentPageSize3"
-            [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+            <mat-paginator (page)="getUpdate($event,'coin')" [length]="currentPageLength3" [pageSize]="currentPageSize3" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </div>
     </mat-expansion-panel>
 </mat-accordion>

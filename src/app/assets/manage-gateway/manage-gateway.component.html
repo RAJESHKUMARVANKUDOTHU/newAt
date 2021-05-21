@@ -27,14 +27,14 @@
             </ng-container>
             <ng-container matColumnDef="updatedOn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-                <td mat-cell *matCellDef="let gateway"> 
+                <td mat-cell *matCellDef="let gateway">
                     <span *ngIf="gateway.updatedOn != null;else date">
                         {{gateway?.updatedOn | date : 'medium'}}
                     </span>
                     <ng-template #date>
                         <span>-</span>
                     </ng-template>
-                 </td>
+                </td>
             </ng-container>
             <ng-container matColumnDef="edit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Edit </th>
@@ -44,7 +44,7 @@
             </ng-container>
             <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="role=='userRole'"> Delete </th>
-                <td mat-cell *matCellDef="let gateway" (click)="delete(gateway)" class="cursor" [hidden]="role=='userRole'">
+                <td mat-cell *matCellDef="let gateway" matTooltip="delete gateway" (click)="delete(gateway)" class="cursor" [hidden]="role=='userRole'">
                     <mat-icon>{{gateway.delete}}</mat-icon>
                 </td>
             </ng-container>
@@ -52,6 +52,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator (page)="getUpdate($event)" [length]="currentPageLength" [pageSize]="currentPageSize"
-    [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    <mat-paginator (page)="getUpdate($event)" [length]="currentPageLength" [pageSize]="currentPageSize" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
 </div>

@@ -19,11 +19,11 @@
                     </mat-error> <br>
                 </mat-form-field> <br>
                 <mat-form-field class="w-75" appearance="fill">
-                    <mat-label> Device Id</mat-label>
+                    <mat-label> Find Id</mat-label>
                     <input type="number" matInput min="1" formControlName="deviceId" autocomplete="off" disabled>
                 </mat-form-field> <br>
             </form>
-            <button mat-raised-button  (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
+            <button mat-raised-button (click)="updateFind(editFind.value)" [disabled]="!editFind.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -31,10 +31,10 @@
         <h1 mat-dialog-title class="text-center">Edit Gateway</h1>
 
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="editGateway" >
+            <form [formGroup]="editGateway">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Name</mat-label>
-                    <input type="text" matInput formControlName="gatewayName"  autocomplete="off"required>
+                    <input type="text" matInput formControlName="gatewayName" autocomplete="off" required>
                     <mat-error *ngIf="editGateway.get('gatewayName').value ==''">
                         Gateway name is required.
                     </mat-error>
@@ -45,9 +45,9 @@
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label> Gateway Id</mat-label>
                     <input type="text" matInput formControlName="gatewayId" autocomplete="off" disabled>
-                    </mat-form-field> <br>
-                </form>
-                <button mat-raised-button  (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
+                </mat-form-field> <br>
+            </form>
+            <button mat-raised-button (click)="updateGateway(editGateway.value)" [disabled]="!editGateway.valid" color="primary">Submit</button>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
         <h1 mat-dialog-title class="text-center">Edit Coin</h1>
 
         <div mat-dialog-content class="h-100 text-center">
-            <form [formGroup]="editCoin" >
+            <form [formGroup]="editCoin">
                 <mat-form-field class="w-75" appearance="fill">
                     <mat-label>Coin Name</mat-label>
                     <input type="text" matInput formControlName="coinName" autocomplete="off" required>

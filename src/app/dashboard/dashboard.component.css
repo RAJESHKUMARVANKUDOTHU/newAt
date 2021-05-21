@@ -121,4 +121,8 @@ th {
         width: 350px;
         border: 1px solid beige;
     }
+    .mat-card {
+        width: fit-content;
+        margin-top: 2rem;
+    }
 }

@@ -10,17 +10,20 @@
         <p mat-dialog-title>
             Based on Location <br> Location Name - <b> {{locationReportData.coinId.coinName}} </b>
             <br> From {{locationReportData.fromDate | date : 'dd-MM-yyyy'}} to {{locationReportData.toDate | date : 'dd-MM-yyyy'}}
-
         </p>
         <hr>
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!locationData?.length">
+            <button *ngIf="!general.isMobile"  mat-raised-button (click)="download()" color="primary" [disabled]="!locationData?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!locationData?.length">
+            <mat-icon>download </mat-icon>
+            </button>
         </span>
+
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, locationData)">
             <mat-icon matSuffix>search</mat-icon>
@@ -34,7 +37,7 @@
                     <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Find Id </th>
                     <td mat-cell *matCellDef="let location"> {{location.deviceId}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceName">
@@ -81,17 +84,20 @@
         <p mat-dialog-title>
             Zone Name - <b> {{locationReportData.zoneId.zoneName}} </b>
             <br> From {{locationReportData.fromDate | date : 'dd-MM-yyyy'}} to {{locationReportData.toDate | date : 'dd-MM-yyyy'}}
-
         </p>
         <hr>
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!bayData?.length">
+            <button *ngIf="!general.isMobile"  mat-raised-button (click)="download()" color="primary" [disabled]="!bayData?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!bayData?.length">
+            <mat-icon>download</mat-icon>
+            </button>
         </span>
+
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, bayData)">
             <mat-icon matSuffix>search</mat-icon>

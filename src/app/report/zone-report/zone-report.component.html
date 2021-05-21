@@ -15,8 +15,11 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!zoneData.length">
+            <button *ngIf="!general.isMobile" mat-raised-button (click)="download()" color="primary" [disabled]="!zoneData.length">
                 <span> Download</span>&nbsp;&nbsp;
+        <mat-icon>download </mat-icon>
+        </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!zoneData.length">
         <mat-icon>download </mat-icon>
         </button>
         </span>
@@ -33,7 +36,7 @@
                     <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Find Id </th>
                     <td mat-cell *matCellDef="let zone"> {{zone.deviceId}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceName">
@@ -79,7 +82,7 @@
     <h1 *ngIf="zoneReportData.type =='3'">Zone wise performance per day</h1>
     <h1 *ngIf="zoneReportData.type =='4'">Zone wise efficiency </h1>
     <h1 *ngIf="zoneReportData.type =='5'">Zone wise efficiency per day </h1>
-    <h2> From {{zoneReportData.fromDate | date : 'dd-MM-yyyy'}} to {{zoneReportData.toDate | date : 'dd-MM-yyyy'}}
+    <h2 *ngIf="zoneReportData.type =='2' || zoneReportData.type =='3'||zoneReportData.type =='4'||zoneReportData.type =='5'"> From {{zoneReportData.fromDate | date : 'dd-MM-yyyy'}} to {{zoneReportData.toDate | date : 'dd-MM-yyyy'}}
     </h2>
     <hr>
     <br><br>

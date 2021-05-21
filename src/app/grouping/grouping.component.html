@@ -7,13 +7,13 @@
         <h1>Grouping Data</h1>
         <hr>
     </div>
-    <mat-form-field [ngStyle]="{'margin-left':general.isDesktopDevice? '0rem':'5.5rem'}" class="float-right">
+    <mat-form-field class="search">
         <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value)">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-</div>
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort class="table-md-responsive">
+</div> <br>
+<div class="mat-elevation-z8 mt-5">
+    <table mat-table [dataSource]="dataSource" matSort>
         <div>
             <ng-container matColumnDef="i">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>

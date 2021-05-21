@@ -25,7 +25,7 @@ export class ManageDeviceComponent implements OnInit {
   offset:any=0
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns = ['i', 'deviceId', 'deviceName', 'serviceCategoryId', 'deviceToggleStatus', 'updatedOn', 'edit', 'delete']; //,'batteryStatus'
+  displayedColumns = ['i', 'deviceId', 'deviceName', 'serviceCategoryId', 'deviceToggleStatus', 'updatedOn', 'delete']; //,'batteryStatus'
   constructor(
     public dialog: MatDialog,
     private login: LoginAuthService,

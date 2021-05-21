@@ -14,10 +14,13 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleName?.length">
+            <button *ngIf="!general.isMobile" mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleName?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!vehicleName.length">
+            <mat-icon>download </mat-icon>
+            </button>
         </span>
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, vehicleName)">
@@ -33,7 +36,7 @@
                     <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Find Id </th>
                     <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceName">
@@ -81,17 +84,20 @@
         <h1 class="color">REPORT</h1>
 
         <p mat-dialog-title>
-            Based on Device Id <br> Device Id - <b>{{vehicleReportData.deviceId}}</b>
+            Based on Find Id <br> Find Id - <b>{{vehicleReportData.deviceId}}</b>
             <br> From {{vehicleReportData.fromDate | date : 'dd-MM-yyyy'}} to {{vehicleReportData.toDate | date : 'dd-MM-yyyy'}}
         </p>
         <hr>
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!deviceId?.length">
+            <button *ngIf="!general.isMobile" mat-raised-button (click)="download()" color="primary" [disabled]="!deviceId?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!deviceId.length">
+            <mat-icon>download </mat-icon>
+            </button>
         </span>
         <mat-form-field>
             <input matInput placeholder="Search location" autocomplete="off" matInput (input)="search($event.target.value, deviceId)">
@@ -157,10 +163,13 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleName?.length">
+            <button *ngIf="!general.isMobile" mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleName?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!vehicleName.length">
+            <mat-icon>download </mat-icon>
+            </button>
         </span>
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, vehicleName)">
@@ -176,7 +185,7 @@
                     <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Find Id </th>
                     <td mat-cell *matCellDef="let find"> {{find.deviceId}} </td>
                 </ng-container>
 
@@ -226,10 +235,13 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!servicedVehicleData?.length">
+            <button *ngIf="!general.isMobile" mat-raised-button (click)="download()" color="primary" [disabled]="!servicedVehicleData?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!servicedVehicleData.length">
+            <mat-icon>download </mat-icon>
+            </button>
         </span>
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, servicedVehicleData)">
@@ -282,10 +294,13 @@
     </div>
     <div class="d-flex justify-content-between">
         <span>
-            <button mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleZoneData?.length">
+            <button *ngIf="!general.isMobile" mat-raised-button (click)="download()" color="primary" [disabled]="!vehicleZoneData?.length">
                 <span> Download</span>&nbsp;&nbsp;
         <mat-icon>download </mat-icon>
         </button>
+        <button *ngIf="general.isMobile" mat-mini-fab (click)="download()" color="primary" [disabled]="!vehicleZoneData.length">
+            <mat-icon>download </mat-icon>
+            </button>
         </span>
         <mat-form-field>
             <input matInput placeholder="Search" autocomplete="off" matInput (input)="search($event.target.value, vehilceZoneData)">
@@ -300,7 +315,7 @@
                     <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deviceId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Find Id </th>
                     <td mat-cell *matCellDef="let zone"> {{zone.deviceId}} </td>
                 </ng-container>
 

@@ -102,7 +102,7 @@
             display: contents;
         }
         .cdk-overlay-pane {
-            max-width: fit-content !important;
-            width: fit-content !important;
+            max-width: 95vw !important;
+            width: 95vh !important;
         }
     }

@@ -279,12 +279,11 @@ export class ReportComponent implements OnInit {
   }
 
   formValidate2() {
-
     return (formGroup: FormGroup) => {
       const type = formGroup.get('type');
       if (formGroup.get('type').value != '') {
         if (type.value == "1") {
-          if (formGroup.get('zoneId').value != '') {
+          if (formGroup.get('zoneId').value != '' && formGroup.get('zoneId').value != null) {
             formGroup.get('coinId').setErrors(null)
             formGroup.get('zoneId').setErrors(null)
             formGroup.get('dayType').setErrors(null)
@@ -309,11 +308,7 @@ export class ReportComponent implements OnInit {
         if (type.value == "3" || type.value == "5") {
           console.log("true")
           if (formGroup.get('dayType').value != '' && formGroup.get('dayType').value != null) {
-            console.log("true1")
-
             if (formGroup.get('dayType').value == 'day') {
-              console.log("true2")
-
               formGroup.get('coinId').setErrors(null)
               formGroup.get('zoneId').setErrors(null)
               formGroup.get('dayType').setErrors(null)
@@ -322,8 +317,6 @@ export class ReportComponent implements OnInit {
             }
             else if(formGroup.get('dayType').value == 'week') {
               if (formGroup.get('weekDay').value != '') {
-                console.log("true3")
-
                 formGroup.get('coinId').setErrors(null)
                 formGroup.get('zoneId').setErrors(null)
                 formGroup.get('dayType').setErrors(null)
@@ -331,7 +324,6 @@ export class ReportComponent implements OnInit {
                 return
               }
               else {
-                console.log("true4")
                 formGroup.get('weekDay').setErrors(
                   {
                     required: true
@@ -341,8 +333,6 @@ export class ReportComponent implements OnInit {
             }
           }
           else {
-            console.log("true5")
-
             formGroup.get('dayType').setErrors(
               {
                 required: true

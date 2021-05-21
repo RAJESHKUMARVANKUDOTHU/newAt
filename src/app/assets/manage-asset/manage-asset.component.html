@@ -16,7 +16,7 @@
     </canvas>
     </div>
 
-    <div class="text-center mt-md-2">
+    <div class="text-center">
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -28,20 +28,20 @@
                 </mat-expansion-panel-header>
                 <form [formGroup]="assignAssetForm">
                     <mat-form-field>
-                        <mat-label>Device Id</mat-label>
+                        <mat-label>Find Id</mat-label>
                         <mat-select formControlName="deviceId">
                             <mat-option *ngFor="let list of getAssetList" [value]="list.deviceId" (click)="getAssetInfo(list)">
                                 {{list.deviceId}}</mat-option>
                         </mat-select>
                         <mat-error>
-                            Device ID is required
+                            Find Id is required
                         </mat-error>
                     </mat-form-field> <br>
                     <mat-form-field>
-                        <mat-label>Device Name</mat-label>
+                        <mat-label>Vehicle Name</mat-label>
                         <input type="text" matInput formControlName="deviceName" autocomplete="off" required>
                         <mat-error>
-                            Device name is required
+                            Vehicle name is required
                         </mat-error>
                     </mat-form-field> <br>
                 </form>
@@ -57,7 +57,7 @@
                 </mat-expansion-panel-header>
                 <form [formGroup]="deassignAssetForm">
                     <mat-form-field>
-                        <mat-label>Device Id</mat-label>
+                        <mat-label>Find Id</mat-label>
 
                         <mat-select formControlName="deviceId" multiple>
                             <mat-option #allSelected (click)="toggleAllSelectionDevice(deassignAssetForm)" [value]="0">All
@@ -66,7 +66,7 @@
                                 {{list.deviceId}}</mat-option>
                         </mat-select>
                         <mat-error>
-                            Device ID is required
+                            Find Id is required
                         </mat-error>
                     </mat-form-field> <br>
 

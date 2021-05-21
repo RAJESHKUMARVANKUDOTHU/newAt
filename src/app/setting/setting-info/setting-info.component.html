@@ -47,7 +47,7 @@
     <div mat-dialog-content *ngIf="deviceData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
 
         <form [formGroup]="form2">
-            <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0" class="table-md-responsive">
+            <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">
                     <ng-container [formGroupName]="i">
                         <td> {{i+1}}.&nbsp;&nbsp;</td>
@@ -277,7 +277,7 @@
     <h1 mat-dialog-title *ngIf="coinDataTemp?.length">Group coin setting</h1>
     <div mat-dialog-content *ngIf="coinDataTemp?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
         <form [formGroup]="groupForm">
-            <table formArrayName="items" *ngIf="groupForm.get('items')['controls']?.length>0">
+            <table formArrayName="items" *ngIf="groupForm.get('items')['controls']?.length>0" class="table table-borderless">
                 <tr *ngFor="let a of groupForm.get('items')['controls']; let i=index;">
                     <ng-container [formGroupName]="i">
                         <td> {{i+1}}.&nbsp;&nbsp;</td>

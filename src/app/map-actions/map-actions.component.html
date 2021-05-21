@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <br>
     <div class="d-flex justify-content-between">
         <form [formGroup]="selectLayoutForm">
             <mat-form-field>
@@ -13,13 +14,12 @@
                     Select the layout
                 </mat-error>
             </mat-form-field>&nbsp;
-            <button mat-flat-button (click)="deleteLayout()" [disabled]="!selectLayoutForm.valid">
+            <button mat-mini-fab (click)="deleteLayout()" color="primary" [disabled]="!selectLayoutForm.valid" matTooltip="delete layout">
                 <mat-icon>delete</mat-icon>
             </button>
         </form>
-        <div>
-            <button mat-flat-button color="primary" routerLink="/zone-configuration">Zone Configuration</button>
-        </div>
+        <button *ngIf="!general.isMobile" mat-raised-button color="primary" routerLink="/zone-configuration" matTooltip="zone configuration">Zone Configuration</button>
+        <button *ngIf="general.isMobile" mat-mini-fab color="primary" routerLink="/zone-configuration" matTooltip="zone configuration">Zone</button>
     </div>
 
     <div [ngClass]="getValidation()">
@@ -37,7 +37,7 @@
     <br>
     <mat-card class="text-center">
         <mat-card-title>Coin Configuration</mat-card-title> <br>
-        <div class="row d-flex">
+        <div class="row">
             <div class="col-md-4">
                 <mat-card>
                     <mat-card-content>
@@ -58,7 +58,7 @@
                             </mat-form-field> <br>
                         </form>
                         <div class="d-md-flex justify-content-md-around">
-                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="updateCoinBound(configCoinForm.value)">Add</button>
+                            <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="updateCoinBound(configCoinForm.value)">Add</button>&nbsp;
                             <button mat-raised-button color="primary" [disabled]="!configCoinForm.valid" (click)="deleteCoinBound(configCoinForm.value)">Delete</button>
                         </div>
                     </mat-card-content>
