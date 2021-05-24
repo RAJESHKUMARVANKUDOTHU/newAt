@@ -118,7 +118,7 @@
                 </button>
 
                 <mat-menu #belowMenu="matMenu" yPosition="below">
-                    <div class="bg-white">
+                    <div class="bg-white w-100">
                         <img src="../assets/logo.png" alt="" class="image">
                     </div>
                     <button mat-menu-item routerLink="/dashboard">
@@ -154,7 +154,7 @@
                         <mat-icon>settings</mat-icon>
                         <span mat-line>Settings</span>
                     </button>
-                    <mat-menu #settings="matMenu">
+                    <mat-menu #settings="matMenu" class="menu-lists">
                         <button mat-menu-item routerLink="/setting">General settings</button>
                         <button mat-menu-item routerLink="/geofence">Geofence settings</button>
                     </mat-menu>

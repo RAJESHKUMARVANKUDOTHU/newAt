@@ -21,6 +21,11 @@
         margin-top: 1rem;
     }
     
+    .table thead th {
+        vertical-align: middle;
+        border-bottom: 2px solid #dee2e6;
+    }
+    
     .mat-sort-header-container {
         display: flex;
         color: white;
@@ -92,14 +97,15 @@
     @media only screen and (max-width: 768px) {
         .mat-menu-panel {
             margin-left: -15px !important;
-            background-color: #002060;
-            color: white;
+            background-color: #002060 !important;
+            color: white !important;
             border: none;
         }
         .mat-tab-label-container,
-        .mat-tab-header,
-        .mat-tab-labels {
-            display: contents;
+        .mat-tab-header {
+            display: flex;
+            justify-content: unset;
+            background: #002060 !important;
         }
         .cdk-overlay-pane {
             max-width: 95vw !important;
@@ -116,5 +122,14 @@
             line-height: 3em;
             height: 3em;
             margin-left: 1rem;
+            color: white !important;
+        }
+        .mat-menu-item .mat-icon {
+            margin-right: 16px;
+            vertical-align: middle;
+            color: white !important;
+        }
+        button.mat-focus-indicator.mat-menu-item {
+            color: white !important;
         }
     }
