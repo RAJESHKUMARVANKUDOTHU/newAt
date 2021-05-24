@@ -45,7 +45,6 @@
 <div *ngIf="type=='find-inactive'">
     <h1 mat-dialog-title *ngIf="deviceData?.length">Find Inactivity time </h1>
     <div mat-dialog-content *ngIf="deviceData?.length;else nodata" class="d-flex justify-content-around diagWrapper text-center">
-
         <form [formGroup]="form2">
             <table formArrayName="items" *ngIf="form2.get('items')['controls']?.length>0">
                 <tr *ngFor="let a of form2.get('items')['controls']; let i=index;">

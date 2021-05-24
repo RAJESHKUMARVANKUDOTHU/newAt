@@ -105,4 +105,16 @@
             max-width: 95vw !important;
             width: 95vh !important;
         }
+        .mat-select-panel {
+            width: 15rem;
+            margin-left: 1.3rem;
+            /* padding: 0 2rem 0 1rem; */
+        }
+        .mat-select-panel .mat-optgroup-label,
+        .mat-select-panel .mat-option {
+            font-size: inherit;
+            line-height: 3em;
+            height: 3em;
+            margin-left: 1rem;
+        }
     }
