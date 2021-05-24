@@ -122,7 +122,7 @@
             line-height: 3em;
             height: 3em;
             margin-left: 1rem;
-            color: white !important;
+            /* color: white !important; */
         }
         .mat-menu-item .mat-icon {
             margin-right: 16px;
