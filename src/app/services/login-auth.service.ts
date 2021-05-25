@@ -21,7 +21,7 @@ export class LoginAuthService {
   }
 
   loginData() {
-    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):''
+    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):'';
     if (this.checkRole()) {
       // console.log("true")
       if(status.role ==  'superAdminRole'){
@@ -36,14 +36,16 @@ export class LoginAuthService {
           other : true
         }
       }
-      this.loginCheckData.next(a)
+      this.loginCheckData.next(a);
     }
     else {
-       a ={
+  
+      a ={
         menu : false,
         other : false
       }
-      this.loginCheckData.next(a)
+      this.loginCheckData.next(a);
+    
     }
   }
 
@@ -52,49 +54,50 @@ export class LoginAuthService {
       ((value: PopStateEvent) => {
 
         if (window.location.pathname == '/login' || window.location.pathname == '/admin-login'){  
-          this.logout()    
+          this.logout()    ;
         }
         else {
-          this.loginData()
+          this.loginData();
         }
 
       }),
       (ex => {
-        console.log("Error occured postate event")
+        console.log("Error occured postate event");
         console.log(ex);
       })
     )
   }
   getLoginDetails() {
-    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):''
+    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):'';
     if (this.checkRole() && this.checkRole() != null) {
-      return status
+      return status;
     }
     else {
-      return false
+      return false;
     }
   }
 
   checkRole() {
-    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):''
+    var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):'';
+    console.log("status==",status)
     if (status && status != 'undefined' || status != null) {
       if (status.role == 'adminRole' ||
         status.role == 'userRole' ||
         status.role == 'coAdminRole' ||
         status.role == 'subAdminRole' || status.role == 'superAdminRole') {
-        return true
+        return true;
       }
       else {
-        return false
+        return false;
       }
     } else {
-      return false
+      return false;;
     }
   }
   login(data) {
-    let storeData=this.general.encrypt(data)
-    localStorage.setItem('sensegiz', storeData)
-    return true
+    let storeData=this.general.encrypt(data);
+    localStorage.setItem('sensegiz', storeData);
+    return true;
   }
 
   logout() {
@@ -102,9 +105,9 @@ export class LoginAuthService {
       menu:false,
       other:false
     }
-    this.dialog.closeAll()
-    this.loginCheckData.next(a)
-    localStorage.clear()
-    this.router.navigate(['/login'])
+    this.dialog.closeAll();
+    this.loginCheckData.next(a);
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

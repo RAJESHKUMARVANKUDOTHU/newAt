@@ -51,6 +51,7 @@ export class AuthGuard implements CanActivate {
               this.login.loginCheckData.next(a)
             }
           }
+       
     
           return true;
         }

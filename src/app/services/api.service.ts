@@ -2619,4 +2619,41 @@ getZoneWiseEfficiencyByDay(data){
       );
     });
   }
+
+  getVehicleStatusData(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',"skip":"true" }),
+    };
+  
+    let url = this.host + '/getVehicleInfo';
+ 
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+  getZones(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json',"skip":"true" }),
+    };
+  
+    let url = this.host + '/getZonesInfo';
+ 
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data, httpOptions).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
 }

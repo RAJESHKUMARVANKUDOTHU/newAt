@@ -69,7 +69,7 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginData = this.login.getLoginDetails()
+    this.loginData = this.login.getLoginDetails();
     this.refreshGateway()
     this.refreshSettings(this.loginData.userData)
   }

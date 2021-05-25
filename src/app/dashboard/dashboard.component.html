@@ -150,7 +150,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table *ngIf="deviceGroupList.length && zoneClickStatus.status" class="table table-responsive bordered table-striped text-center ">
+                <table *ngIf="deviceGroupList.length && zoneClickStatus.status" class="table bordered table-striped text-center ">
                     <thead class="thead-dark font-weight-bold">
                         <tr>
                             <th>Vehicle</th>
@@ -162,7 +162,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let a of deviceGroupList; let i = index" (click)="vehicleStatus(a)" class="cursor">
+                        <tr *ngFor="let a of deviceGroupList; let i = index" [routerLink]="['/vehicle-status']" [queryParams]="{deviceId:a.deviceId,deviceName:a.deviceName,userId:id}" class="cursor">
                             <ng-container>
 
                                 <td>{{a.deviceName}}</td>

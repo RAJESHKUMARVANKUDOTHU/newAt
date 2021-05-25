@@ -7,12 +7,13 @@ import { LoginAuthService } from '../services/login-auth.service';
 import { ApiService } from '../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+
 @Component({
-  selector: 'app-vehicle-status',
-  templateUrl: './vehicle-status.component.html',
-  styleUrls: ['./vehicle-status.component.css']
+  selector: 'app-vehicle-status-track',
+  templateUrl: './vehicle-status-track.component.html',
+  styleUrls: ['./vehicle-status-track.component.css']
 })
-export class VehicleStatusComponent implements OnInit {
+export class VehicleStatusTrackComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   zoneData: any = []
@@ -30,9 +31,8 @@ export class VehicleStatusComponent implements OnInit {
   ngOnInit(): void {
     
     this.route.queryParams.subscribe(params => {
-      console.log("params===",params['deviceId'],params['deviceName']);
       this.getZoneDetails(params['userId']);
-        this.getVehicleStatus(params['deviceId'],params['deviceName'],params['userId']);
+      this.getVehicleStatus(params['deviceId'],params['deviceName'],params['userId']);
      
     })
   }
@@ -44,7 +44,7 @@ export class VehicleStatusComponent implements OnInit {
       userId:userId
     }
     console.log("data===", data)
-    this.api.getVehicleStatus(data).then((res: any) => {
+    this.api.getVehicleStatusData(data).then((res: any) => {
       console.log("res==", res)
       if (res.status) {
         this.vehicleData = res.success;
@@ -91,7 +91,7 @@ export class VehicleStatusComponent implements OnInit {
     var data={
       userId:userId
     }
-    this.api.getZone().then((res: any) => {
+    this.api.getZones(data).then((res: any) => {
       console.log('zone details response==', res);
       this.zoneData = [];
       if (res.status) {
@@ -124,4 +124,5 @@ export class VehicleStatusComponent implements OnInit {
     let ET = ST + data.delayTime * 60 * 1000;
     return moment(data.inTime).add(ET, 'milliseconds');
   } 
+
 }

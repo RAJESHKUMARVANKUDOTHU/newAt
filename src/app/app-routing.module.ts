@@ -25,6 +25,7 @@ import { AdminSettingsComponent } from './admin/admin-settings/admin-settings.co
 import { CongestionComponent } from './congestion/congestion.component';
 import { HeatMapComponent } from './heat-map/heat-map.component'
 import { VehicleTrackComponent } from './vehicle-track/vehicle-track.component';
+import { VehicleStatusTrackComponent } from './vehicle-status-track/vehicle-status-track.component';
 
 const routes: Routes = [
   // {path : '', component:LoginComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'map-actions', component:MapActionsComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'zone-configuration', component:ZoneConfigurationComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'vehicle-status', component:VehicleStatusComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
+  { path: 'vehicle-status-track', component:VehicleStatusTrackComponent},
   { path: 'zone-dashboard', component:ZoneDashboardComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'congestion', component:CongestionComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},
   { path: 'heat-map', component:HeatMapComponent, canActivate: [AuthGuard], data:{role:['adminRole','userRole', 'coAdminRole', 'subAdminRole']}},

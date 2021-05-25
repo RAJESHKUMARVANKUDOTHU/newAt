@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-around">
     <div>
         <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small'}"> <span>Estimated Delivery Time
-            </span>: {{getEDT(vehicleData) | date : 'medium'}}</span>
+                </span>: {{getEDT(vehicleData) | date : 'medium'}}</span>
     </div>
 </div> <br> <br>
 
@@ -18,11 +18,11 @@
 
     <div>
         <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'-5rem':'-4rem'}"><span>Service
-                Type :</span> {{vehicleData.serviceType}} </span>
+                    Type :</span> {{vehicleData.serviceType}} </span>
     </div>
     <div>
         <span [ngStyle]="{'font-size':general.isDesktopDevice? 'x-large':'small','margin-left':general.isDesktopDevice?'0rem':'-8rem'}"><span>Delayed
-                Time :</span> {{vehicleData.delayTime}} min </span>
+                    Time :</span> {{vehicleData.delayTime}} min </span>
     </div>
 </div>
 <br>
@@ -31,7 +31,7 @@
 <div class="d-flex text-center zone h-25 ml-2">
     <mat-card id="card" *ngFor="let zone of zoneData ; let i = index; let first = first ;let last = last;" [ngClass]="first || last ? 'border-less': 'parallellogram'">
         <span class="text-center">
-            <span *ngIf="first"><i>{{zone.zoneName}}</i></span>
+                <span *ngIf="first"><i>{{zone.zoneName}}</i></span>
         <span *ngIf="!first && !last" class="noSkew">{{zone.zoneName}}</span>
         <span *ngIf="last"><i>{{zone.zoneName}}</i></span>
         <span style="visibility:hidden;">{{zone.time}} min</span>
@@ -41,9 +41,9 @@
 <div class="d-flex text-center zone ml-2">
     <mat-card class="status-bar" *ngFor="let zone of zoneData ;let i=index" [ngStyle]="getFillColor(zone)">
         <span>
-            <span style="line-height: 3;">
-                {{zone.time}} min
-            </span>
+                <span style="line-height: 3;">
+                    {{zone.time}} min
+                </span>
         <span style="visibility:hidden"> {{zone.zoneName}}</span>
         </span>
     </mat-card>

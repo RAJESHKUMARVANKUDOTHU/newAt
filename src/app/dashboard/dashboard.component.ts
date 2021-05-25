@@ -50,7 +50,8 @@ export class DashboardComponent implements OnInit {
     vehicleUnderServiceCount: 0,
     overAllEfficiency: 0,
     avgServiceTime: 0
-  }
+  };
+  id:any;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -64,7 +65,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loginDetails = this.login.getLoginDetails();
     console.log("this.loginDetails",this.loginDetails);
-
+    this.id= this.loginDetails._id;
     this.refreshCongestion();
     this.getVehicleServiceCount()
     setTimeout(() => {
@@ -635,10 +636,10 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  vehicleStatus(data) {
-    // console.log("a==", data);
-    this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) }, skipLocationChange: true });
-  }
+  // vehicleStatus(data) {
+  //   // console.log("a==", data);
+  //   this.router.navigate(['/vehicle-status'], { queryParams: { record: JSON.stringify(data) } });
+  // }
 
   getVehicleServiceCount() {
     let currentDate = moment().format("YYYY-MM-DD")

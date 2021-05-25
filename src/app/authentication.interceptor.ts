@@ -34,7 +34,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       (take(1),
         catchError((error: any) => {
-          console.log("erooorr=", error)
           if (error.status === 403 || error.status === 401) {
             if (window.location.pathname != '/login' && window.location.pathname != '/admin-login') {
               this.general.loadingFreez.next({ status: true, msg: 'Your session has logged out..! please try again later' })
@@ -62,8 +61,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     this.token = this.general.getToken();
-
-    if (this.token && this.token != null) {
+    console.log("request.headers.get('skip') ===",request.headers.get('skip') )
+    if (this.token && this.token != null && request.headers.get('skip')==null ) {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${this.token}` },
       });
@@ -75,6 +74,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
             request.body.data = this.general.encrypt(body.data);
           }
         } else {
+          
           return request;
         }
       }
