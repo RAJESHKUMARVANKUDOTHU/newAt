@@ -17,11 +17,12 @@ export class VehicleStatusComponent implements OnInit {
   zoneData: any = []
   dataSource: any = [];
   displayedColumns = ['coinName', 'inTime', 'outTime', 'totTime'];
-  vehicleData: any = []
+  vehicleData: any = [];
+  loginDetails : any;
   constructor(
     private api: ApiService,
     public general: GeneralService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {

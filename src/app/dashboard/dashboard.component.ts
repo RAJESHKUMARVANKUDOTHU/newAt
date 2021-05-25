@@ -25,6 +25,7 @@ import { GeneralService } from '../services/general.service'
 export class DashboardComponent implements OnInit {
   date: any = new Date();
   map;
+  loginDetails : any;
   zoneList: any = [];
   zoneAction: any = [];
   deviceList: any = [];
@@ -61,6 +62,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loginDetails = this.login.getLoginDetails();
+    console.log("this.loginDetails",this.loginDetails);
 
     this.refreshCongestion();
     this.getVehicleServiceCount()
