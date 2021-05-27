@@ -61,7 +61,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     this.token = this.general.getToken();
-    console.log("request.headers.get('skip') ===",request.headers.get('skip') )
     if (this.token && this.token != null && request.headers.get('skip')==null ) {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${this.token}` },

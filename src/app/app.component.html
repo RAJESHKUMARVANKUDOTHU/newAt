@@ -1,7 +1,7 @@
 <div class="statusFreeze flexWrap" *ngIf="statusFreeze">
     <mat-spinner mode="indeterminate"></mat-spinner><span [innerHTML]="freezeMessage"></span>
 </div>
-<div *ngIf="isDesktopDevice || isTablet">
+<div *ngIf="isDesktopDevice">
     <mat-toolbar *ngIf="logged">
         <span *ngIf="loginDetails.role == 'superAdminRole'">
             <img src="../assets/logo.png" alt="" class="image">
@@ -106,7 +106,7 @@
 
     </mat-sidenav-container>
 </div>
-<div *ngIf="isMobile">
+<div *ngIf="isMobile  || isTablet">
     <div class="d-flex">
         <mat-toolbar class="bg-white">
             <div class="bg-white" *ngIf="(!logged && !menu)">

@@ -113,7 +113,7 @@
         }
         .mat-select-panel {
             width: 15rem;
-            margin-left: 1.3rem;
+            /* margin-left: 1.3rem; */
             /* padding: 0 2rem 0 1rem; */
         }
         .mat-select-panel .mat-optgroup-label,

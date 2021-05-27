@@ -25,6 +25,7 @@
                                     [radius]=60 [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                             </td>
                             <td class="pl-md-5">
+                                <span *ngIf="general.isTablet"><br></span>
                                 <circle-progress class="circle" [percent]="serviceCount.servicedVehicleCount" [maxPercent]="1000" [showUnits]="false" [showBackground]="true" [backgroundColor]="'#002060'" [outerStrokeColor]="'#ffffff'" [outerStrokeWidth]=6 [showInnerStroke]=false [radius]=60
                                     [titleColor]="'#ffffff'" [showSubtitle]=false [backgroundPadding]=5 [animation]="true" [animationDuration]="500" [startFromZero]="true" [responsive]="true"></circle-progress>
                             </td>
@@ -128,7 +129,7 @@
 </mat-card> <br>
 <!-- <div class="container-fluid"> -->
 <div class="row container-fluid">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <mat-card>
             <mat-card-title *ngIf="zoneClickStatus.status">
                 {{zoneClickStatus.zone}}
@@ -192,7 +193,7 @@
                     </mat-card-content>
                 </mat-card> -->
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <mat-card class="w-100">
             <mat-card-content>
                 <div id="line" style="height:300px; width: 100%;"></div>

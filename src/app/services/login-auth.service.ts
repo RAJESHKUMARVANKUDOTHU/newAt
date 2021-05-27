@@ -79,7 +79,6 @@ export class LoginAuthService {
 
   checkRole() {
     var status = localStorage.getItem('sensegiz')?this.general.decrypt(localStorage.getItem('sensegiz')):'';
-    console.log("status==",status)
     if (status && status != 'undefined' || status != null) {
       if (status.role == 'adminRole' ||
         status.role == 'userRole' ||

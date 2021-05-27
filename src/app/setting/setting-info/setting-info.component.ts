@@ -14,20 +14,20 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./setting-info.component.css'],
 })
 export class SettingInfoComponent implements OnInit {
-  type: any
-  coinData: any = []
-  coinDataTemp: any = []
-  deviceData: any = []
-  zoneData: any = []
-  groupData: any = []
-  serviceData: any = []
-  form1: any
-  form2: any
-  form3: any
-  form4: any
-  form5: any
-  groupForm: any
-  zoneForm: any
+  type: any;
+  coinData: any = [];
+  coinDataTemp: any = [];
+  deviceData: any = [];
+  zoneData: any = [];
+  groupData: any = [];
+  serviceData: any = [];
+  form1: any;
+  form2: any;
+  form3: any;
+  form4: any;
+  form5: any;
+  groupForm: any;
+  zoneForm: any;
   constructor(
     public dialogRef: MatDialogRef<SettingInfoComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -66,36 +66,36 @@ export class SettingInfoComponent implements OnInit {
 
   loadData() {
     if (this.type == 'timeDelay' || this.type == 'find-inactive') {
-      this.refreshDevice()
+      this.refreshDevice();
     }
     else if (this.type == 'coin' || this.type == 'max-find') {
-      this.refreshCoin()
+      this.refreshCoin();
     }
     else if (this.type == 'coin-cat') {
-      this.refreshCoin()
-      this.getZoneDetails()
+      this.refreshCoin();
+      this.getZoneDetails();
     }
     else if (this.type == 'groupName' || this.type == 'coinGrp') {
-      this.refreshCoin()
-      this.getGroups()
+      this.refreshCoin();
+      this.getGroups();
     }
     else if (this.type == 'serviceType') {
-      this.getServiceDetails()
-      this.getZoneDetails()
+      this.getServiceDetails();
+      this.getZoneDetails();
     }
     else {
-      this.getZoneDetails()
+      this.getZoneDetails();
     }
   }
 
   refreshCoin() {
-    this.coinData = []
-    this.coinDataTemp = []
-    var data=''
+    this.coinData = [];
+    this.coinDataTemp = [];
+    var data='';
     this.api.getCoinData(data).then((res: any) => {
       console.log("coin submit====", res);
       if (res.status) {
-        this.coinData = res.success
+        this.coinData = res.success;
         if (this.type == 'coinGrp') {
           const control = <FormArray>this.groupForm.controls.items;
           control.controls = [];
@@ -200,7 +200,7 @@ export class SettingInfoComponent implements OnInit {
         else { }
       }).catch((err: any) => {
         console.log("error===", err)
-      })
+      });
   }
 
   getZoneDetails() {
@@ -214,10 +214,9 @@ export class SettingInfoComponent implements OnInit {
         for (let i = 0; i < this.zoneData.length; i++) {
           control.push(this.fb.group(
             {
-              standardTime: [this.zoneData[i].standardTime],
+              standardTime: [this.zoneData[i].standardTime,Validators.min(0)],
               zoneName: [this.zoneData[i].zoneName, Validators.pattern('^[a-zA-Z0-9_]+(?: [a-zA-Z0-9_]+)*$')],
               _id: [this.zoneData[i]._id]
-
             }
           ));
         }
@@ -267,7 +266,6 @@ export class SettingInfoComponent implements OnInit {
             }
           ));
         }
-
       }
       else { }
     })
@@ -290,7 +288,6 @@ export class SettingInfoComponent implements OnInit {
           }
           else {
             this.general.openSnackBar(res.success == false ? res.message : res.success, '')
-
           }
         }).catch((err) => {
           console.log("err=", err)
@@ -320,20 +317,16 @@ export class SettingInfoComponent implements OnInit {
           console.log("inactivity find res===", res)
           if (res.status) {
             this.refreshDevice()
-            this.general.openSnackBar(res.success, '')
+            this.general.openSnackBar(res.success, '');
           }
           else {
-            this.general.openSnackBar(res.success == false ? res.message : res.success, '')
-
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '');
           }
-
         }).catch((err) => {
           console.log("err=", err)
         })
       }
       else { }
-
-
     }
     catch (error) {
       console.log("error==", error)
@@ -465,6 +458,33 @@ export class SettingInfoComponent implements OnInit {
     }
     catch (error) {
       console.log("error==", error)
+    }
+  }
+  onSubmitZoneSTDForm(data) {
+    data.zoneId=[data._id]
+    console.log("onSubmitZoneForm data==", data)
+    // data.zoneName = data.zoneName.trim()
+    try {
+      if (this.form3.valid) {
+        this.api.updateZoneInfo(data).then((res: any) => {
+
+          console.log("zone setting res===", res)
+          if (res.status) {
+            this.getZoneDetails();
+            this.general.openSnackBar(res.success, '');
+          }
+          else {
+            this.general.openSnackBar(res.success == false ? res.message : res.success, '');
+            this.getZoneDetails();
+          }
+        }).catch((err) => {
+          console.log("err=", err);
+        })
+      }
+      else { }
+    }
+    catch (error) {
+      console.log("error==", error);
     }
   }
 

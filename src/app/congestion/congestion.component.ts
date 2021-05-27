@@ -57,12 +57,12 @@ export class CongestionComponent implements OnInit {
     if (this.enable.refreshCongestionData) {
       this.timeInterval = setInterval(() => {
         this.refreshCongestion(this.getData())
-      }, 1000 * 5);
+      }, 1000 *60* 5);
     };
   }
 
   ngOnDestroy() {
-    this.resetMap()
+    this.resetMap();
     clearInterval(this.timeInterval);
   }
 
@@ -94,7 +94,7 @@ export class CongestionComponent implements OnInit {
       if (this.enable.refreshCongestionData) {
         this.refreshCongestion(this.getData())
       };
-    }, 1000 * 5);
+    }, 1000 * 60 * 5);
   }
 
   destroy() {
