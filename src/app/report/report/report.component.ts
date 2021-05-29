@@ -90,12 +90,13 @@ export class ReportComponent implements OnInit {
         validators: this.formValidate2()
       })
 
-    this.patchLocationDate()
-    this.patchVehicleDate()
-    this.patchZoneDate()
-    this.refreshCoin()
-    this.refreshDevice()
-    this.getZoneDetails()
+    this.patchLocationDate();
+    this.patchVehicleDate();
+    this.patchZoneDate();
+ 
+    // this.refreshCoin()
+    // this.refreshDevice()
+    this.getZoneDetails();
   }
 
   patchVehicleDate() {
@@ -421,5 +422,39 @@ export class ReportComponent implements OnInit {
       this.dayError2 = true
     }
   }
+
+  vehicleNames(event){
+    var data={
+      hint: event.target.value.toString(),
+    }
+    this.api.vehicleAutoPopulate(data).then((res:any)=>{
+        console.log("res===",res);
+        if(res.status){
+          this.deviceData=res.success;
+        }
+    })
+  }
+  coinNames(event){
+    var data={
+      hint: event.target.value.toString(),
+    }
+    this.api.coinAutoPopulate(data).then((res:any)=>{
+        console.log("res===",res);
+        if(res.status){
+          this.coinData=res.success;
+        }
+    })
+  }
+  // zoneNames(event){
+  //   var data={
+  //     hint: event.target.value.toString(),
+  //   }
+  //   this.api.zoneAutoPopulate(data).then((res:any)=>{
+  //       console.log("res===",res);
+  //       if(res.status){
+  //         this.zoneData=res.success;
+  //       }
+  //   })
+  // }
 
 }

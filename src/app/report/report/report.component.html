@@ -41,11 +41,18 @@
                 </mat-form-field>
                 <mat-form-field *ngIf="vehicleReport.get('type').value == '3' || vehicleReport.get('type').value == '6'">
                     <mat-label> Vehicle Name</mat-label>
-                    <mat-select formControlName="deviceName">
+                    <!-- <mat-select formControlName="deviceName">
                         <mat-option *ngFor="let find of deviceData" [value]="find.deviceName">
                             {{find.deviceName}}
                         </mat-option>
-                    </mat-select>
+                    </mat-select> -->
+                    <input type='text' matInput formControlName="deviceName" [matAutocomplete]="auto" (keyup)="vehicleNames($event)" required>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let find of deviceData" [value]="find.deviceName">
+                            {{find.deviceName}}
+                        </mat-option>
+                    </mat-autocomplete>
+
                 </mat-form-field> <br>
 
                 <mat-form-field>
@@ -99,11 +106,17 @@
                 </mat-form-field>
                 <mat-form-field *ngIf="locationReport.get('type').value == '1'">
                     <mat-label> Location Name</mat-label>
-                    <mat-select formControlName="coinId">
+                    <!-- <mat-select formControlName="coinId">
                         <mat-option *ngFor="let coin of coinData" [value]="coin">
                             {{coin.coinName}}
                         </mat-option>
-                    </mat-select>
+                    </mat-select> -->
+                    <input type='text' matInput placeholder="Vehicle Name" formControlName="coinId" [matAutocomplete]="auto" (keyup)="coinNames($event)" required>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let coin of coinData" [value]="coin">
+                            {{coin.coinName}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field *ngIf="locationReport.get('type').value == '2'">
                     <mat-label> Zone Name</mat-label>
@@ -112,6 +125,12 @@
                             {{zone.zoneName}}
                         </mat-option>
                     </mat-select>
+                    <!-- <input type='text' matInput placeholder="Vehicle Name" formControlName="zoneId" [matAutocomplete]="auto" (keyup)="zoneNames($event)" required>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone">
+                            {{zone.zoneName}}
+                        </mat-option>
+                    </mat-autocomplete> -->
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>From date</mat-label>
@@ -173,6 +192,12 @@
                             {{zone.zoneName}}
                         </mat-option>
                     </mat-select>
+                    <!-- <input type='text' matInput placeholder="Vehicle Name" formControlName="zoneId" [matAutocomplete]="auto" (keyup)="zoneNames($event)" required>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone">
+                            {{zone.zoneName}}
+                        </mat-option>
+                    </mat-autocomplete> -->
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>From date</mat-label>
