@@ -373,7 +373,7 @@ export class ReportComponent implements OnInit {
 
   onsubmitLocationReport(data) {
 
-    data.coin = this.coinData.filter((obj)=>{
+    data.coinId = this.coinData.filter((obj)=>{
       if(data.coinId == obj.coinName){
           return obj;
       }

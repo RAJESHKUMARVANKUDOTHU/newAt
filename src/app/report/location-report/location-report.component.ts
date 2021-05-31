@@ -58,7 +58,7 @@ export class LocationReportComponent implements OnInit {
     this.locationReportData.type = type
     if (this.locationReportData.type == '1') {
       data = {
-        coinId: this.locationReportData.coin[0].coinId,
+        coinId: this.locationReportData.coinId[0].coinId,
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone(),
@@ -195,7 +195,7 @@ export class LocationReportComponent implements OnInit {
 
     if (this.locationReportData.type == '1') {
       data = {
-        coinId: this.locationReportData.coin[0].coinId,
+        coinId: this.locationReportData.coinId[0].coinId,
         fromDate: from,
         toDate: to,
         timeZoneOffset: this.general.getZone()
