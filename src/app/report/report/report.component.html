@@ -111,7 +111,7 @@
                             {{coin.coinName}}
                         </mat-option>
                     </mat-select> -->
-                    <input type='text' matInput placeholder="Vehicle Name" formControlName="coinId" [matAutocomplete]="auto" (keyup)="coinNames($event)" required>
+                    <input type='text' matInput formControlName="coinId" [matAutocomplete]="auto" (keyup)="coinNames($event)" required>
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let coin of coinData" [value]="coin">
                             {{coin.coinName}}
