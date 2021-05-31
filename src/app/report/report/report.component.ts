@@ -372,6 +372,13 @@ export class ReportComponent implements OnInit {
   }
 
   onsubmitLocationReport(data) {
+
+    data.coin = this.coinData.filter((obj)=>{
+      if(data.coinId == obj.coinName){
+          return obj;
+      }
+    })
+    console.log("datataaa==",data)
     var date1 = moment(data.fromDate, 'DD-MM-YYYY');
     var date2 = moment(data.toDate, 'DD-MM-YYYY');
     var diff = date2.diff(date1, 'days');
@@ -427,6 +434,7 @@ export class ReportComponent implements OnInit {
     var data={
       hint: event.target.value.toString(),
     }
+    this.deviceData=[];
     this.api.vehicleAutoPopulate(data).then((res:any)=>{
         console.log("res===",res);
         if(res.status){
@@ -438,6 +446,7 @@ export class ReportComponent implements OnInit {
     var data={
       hint: event.target.value.toString(),
     }
+    this.coinData=[];
     this.api.coinAutoPopulate(data).then((res:any)=>{
         console.log("res===",res);
         if(res.status){

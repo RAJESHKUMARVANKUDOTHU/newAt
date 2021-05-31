@@ -8,7 +8,7 @@
     <div class="text-center">
         <h1 class="color">REPORT</h1>
         <p mat-dialog-title>
-            Based on Location <br> Location Name - <b> {{locationReportData.coinId.coinName}} </b>
+            Based on Location <br> Location Name - <b> {{locationReportData.coin[0].coinName}} </b>
             <br> From {{locationReportData.fromDate | date : 'dd-MM-yyyy'}} to {{locationReportData.toDate | date : 'dd-MM-yyyy'}}
         </p>
         <hr>
