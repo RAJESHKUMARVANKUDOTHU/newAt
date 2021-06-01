@@ -93,7 +93,7 @@ export class ReportComponent implements OnInit {
     this.patchLocationDate();
     this.patchVehicleDate();
     this.patchZoneDate();
- 
+
     // this.refreshCoin()
     // this.refreshDevice()
     this.getZoneDetails();
